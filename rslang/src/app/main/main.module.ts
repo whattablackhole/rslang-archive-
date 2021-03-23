@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MainRoutingModule } from './main-routing.module';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
+  declarations: [MainPageComponent],
+  imports: [CommonModule, MainRoutingModule],
 })
 export class MainModule {}
