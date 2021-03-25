@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WordsDataService } from './words-data.service';
+import { WordsDataService } from './words-mockdata.service';
 
 describe('WordsDataService', () => {
   let service: WordsDataService;
