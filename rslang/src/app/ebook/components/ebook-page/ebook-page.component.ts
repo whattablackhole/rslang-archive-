@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./ebook-page.component.scss'],
 })
 export class EbookPageComponent {
-  constructor() {}
 }

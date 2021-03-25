@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./savannah-page.component.scss'],
 })
 export class SavannahPageComponent {
-  constructor() {}
 }

@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./sprint-page.component.scss'],
 })
 export class SprintPageComponent {
-  constructor() {}
 }

@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./statistics-page.component.scss'],
 })
 export class StatisticsPageComponent {
-  constructor() {}
 }
