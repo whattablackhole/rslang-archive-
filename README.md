@@ -38,6 +38,7 @@
 
 1. One fixture - one file.For example, you can&#39;t hold two interfaces in a single file, so there should be only one export.
 2. Before making pull requests, you should get rid of dead code, such as comments, console.logs, debugs etc.
+3. Remove extra spaces, empty constructors and functions.
 
 ##
 # **Work with Git**
@@ -83,4 +84,7 @@ Click on the name of the task (highlighted in blue), the task card will open on 
 Move the task to the In Progress column.
 
 After merging of the feature, your issue automatically will move to the Done column.
+
+
+![Screenshot from 2021-03-25 11-28-25](https://user-images.githubusercontent.com/59873638/112443045-89e6a080-8d5d-11eb-93a7-c1f5be1a2108.png)
 
