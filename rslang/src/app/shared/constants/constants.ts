@@ -1,4 +1,5 @@
-export const WORDS_API_URL = 'https://raw.githubusercontent.com/Anntol/LearnWords/master/';
+export const WORDS_API_URL =
+  'https://raw.githubusercontent.com/Anntol/LearnWords/master/';
 export const WORDS_DATA = [
   {
     id: '5e9f5ee35eb9e72bc21af4a1',
@@ -9,13 +10,16 @@ export const WORDS_DATA = [
     audio: 'files/01_0001.mp3',
     audioMeaning: 'files/01_0001_meaning.mp3',
     audioExample: 'files/01_0001_example.mp3',
-    textMeaning: 'To <i>agree</i> is to have the same opinion or belief as another person.',
+    textMeaning:
+      'To <i>agree</i> is to have the same opinion or belief as another person.',
     textExample: 'The students <b>agree</b> they have too much homework.',
     transcription: '[əgríː]',
-    textExampleTranslate: 'Студенты согласны, что у них слишком много домашней работы',
-    textMeaningTranslate: 'Согласиться - значит иметь то же мнение или убеждение, что и другой человек',
+    textExampleTranslate:
+      'Студенты согласны, что у них слишком много домашней работы',
+    textMeaningTranslate:
+      'Согласиться - значит иметь то же мнение или убеждение, что и другой человек',
     wordTranslate: 'согласна',
-    wordsPerExampleSentence: 8
+    wordsPerExampleSentence: 8,
   },
   {
     id: '5e9f5ee35eb9e72bc21af4a0',
@@ -26,13 +30,17 @@ export const WORDS_DATA = [
     audio: 'files/01_0002.mp3',
     audioMeaning: 'files/01_0002_meaning.mp3',
     audioExample: 'files/01_0002_example.mp3',
-    textMeaning: '<i>Alcohol</i> is a type of drink that can make people drunk.',
-    textExample: 'A person should not drive a car after he or she has been drinking <b>alcohol</b>.',
+    textMeaning:
+      '<i>Alcohol</i> is a type of drink that can make people drunk.',
+    textExample:
+      'A person should not drive a car after he or she has been drinking <b>alcohol</b>.',
     transcription: '[ǽlkəhɔ̀ːl]',
-    textExampleTranslate: 'Человек не должен водить машину после того, как он выпил алкоголь',
-    textMeaningTranslate: 'Алкоголь - это тип напитка, который может сделать людей пьяными',
+    textExampleTranslate:
+      'Человек не должен водить машину после того, как он выпил алкоголь',
+    textMeaningTranslate:
+      'Алкоголь - это тип напитка, который может сделать людей пьяными',
     wordTranslate: 'алкоголь',
-    wordsPerExampleSentence: 15
+    wordsPerExampleSentence: 15,
   },
   {
     id: '5e9f5ee35eb9e72bc21af4a2',
@@ -47,9 +55,10 @@ export const WORDS_DATA = [
     textExample: 'There is a small <b>boat</b> on the lake.',
     transcription: '[bout]',
     textExampleTranslate: 'На озере есть маленькая лодка',
-    textMeaningTranslate: 'Лодка - это транспортное средство, которое движется по воде',
+    textMeaningTranslate:
+      'Лодка - это транспортное средство, которое движется по воде',
     wordTranslate: 'лодка',
-    wordsPerExampleSentence: 8
+    wordsPerExampleSentence: 8,
   },
   {
     id: '5e9f5ee35eb9e72bc21af4a3',
@@ -66,7 +75,7 @@ export const WORDS_DATA = [
     textExampleTranslate: 'Они прибыли в школу в 7 часов утра',
     textMeaningTranslate: 'Приехать значит попасть куда-то',
     wordTranslate: 'прибыть',
-    wordsPerExampleSentence: 7
+    wordsPerExampleSentence: 7,
   },
   {
     id: '5e9f5ee35eb9e72bc21af4a4',
@@ -83,7 +92,7 @@ export const WORDS_DATA = [
     textExampleTranslate: 'У тебя день рождения в августе?',
     textMeaningTranslate: 'Август - восьмой месяц года',
     wordTranslate: 'август',
-    wordsPerExampleSentence: 5
+    wordsPerExampleSentence: 5,
   },
   {
     id: '5e9f5ee35eb9e72bc21af4ca',
@@ -97,10 +106,11 @@ export const WORDS_DATA = [
     textMeaning: 'A <i>chart</i> is a list of information.',
     textExample: 'We used a <b>chart</b> to see how we had improved.',
     transcription: '[tʃɑːrt]',
-    textExampleTranslate: 'Мы использовали график, чтобы увидеть, как мы улучшили',
+    textExampleTranslate:
+      'Мы использовали график, чтобы увидеть, как мы улучшили',
     textMeaningTranslate: 'Диаграмма - это список информации',
     wordTranslate: 'диаграмма',
-    wordsPerExampleSentence: 10
+    wordsPerExampleSentence: 10,
   },
   {
     id: '5e9f5ee35eb9e72bc21af4cb',
@@ -117,7 +127,7 @@ export const WORDS_DATA = [
     textExampleTranslate: 'Небо было наполнено белыми облаками',
     textMeaningTranslate: 'Облако - это группа капель воды в небе',
     wordTranslate: 'облако',
-    wordsPerExampleSentence: 7
+    wordsPerExampleSentence: 7,
   },
   {
     id: '5e9f5ee35eb9e72bc21af713',
@@ -134,7 +144,7 @@ export const WORDS_DATA = [
     textExampleTranslate: 'Ландшафт страны очень зеленый',
     textMeaningTranslate: 'Пейзаж - это то, как выглядит участок земли',
     wordTranslate: 'пейзаж',
-    wordsPerExampleSentence: 8
+    wordsPerExampleSentence: 8,
   },
   {
     id: '5e9f5ee35eb9e72bc21af714',
@@ -151,7 +161,7 @@ export const WORDS_DATA = [
     textExampleTranslate: 'Человек пытался поднять коробку',
     textMeaningTranslate: 'Поднять что-то значит поднять это выше',
     wordTranslate: 'лифт',
-    wordsPerExampleSentence: 7
+    wordsPerExampleSentence: 7,
   },
   {
     id: '5e9f5ee35eb9e72bc21af72c',
@@ -162,12 +172,15 @@ export const WORDS_DATA = [
     audio: 'files/03_0651.mp3',
     audioMeaning: 'files/03_0651_meaning.mp3',
     audioExample: 'files/03_0651_example.mp3',
-    textMeaning: '<i>Laughter</i> is the sound produced by laughing about something funny.',
+    textMeaning:
+      '<i>Laughter</i> is the sound produced by laughing about something funny.',
     textExample: 'Susan’s joke made her classmates burst into <b>laughter</b>.',
     transcription: '[lǽftəːr]',
-    textExampleTranslate: 'Шутка Сьюзен заставила ее одноклассников разразиться смехом',
-    textMeaningTranslate: 'Смех - это звук, издаваемый смехом над чем-то смешным',
+    textExampleTranslate:
+      'Шутка Сьюзен заставила ее одноклассников разразиться смехом',
+    textMeaningTranslate:
+      'Смех - это звук, издаваемый смехом над чем-то смешным',
     wordTranslate: 'смех',
-    wordsPerExampleSentence: 8
-  }
-]
+    wordsPerExampleSentence: 8,
+  },
+];
