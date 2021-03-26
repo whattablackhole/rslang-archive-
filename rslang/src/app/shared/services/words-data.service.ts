@@ -6,6 +6,8 @@ import { WORDS_API_URL, WORDS_DATA } from '../constants/constants';
 
 @Injectable()
 export class WordsDataService extends BaseDataService<Word[]> {
+  path = '/words';
+
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }
