@@ -4,7 +4,7 @@ import { BaseDataService } from './base-data.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class WordDataService extends BaseDataService<Word[]> {
+export class WordsDataService extends BaseDataService<Word[]> {
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }
