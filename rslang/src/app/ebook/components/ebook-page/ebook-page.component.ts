@@ -13,9 +13,7 @@ import { Word } from '../../../shared/models/word.model';
 export class EbookPageComponent implements OnInit, OnDestroy {
   collectionWord!: Word;
   wordSubscription!: Subscription;
-  params: HttpParams = new HttpParams()
-    .set('group', String(1))
-    .set('page', String(10));
+
   constructor(private getWordDataService: GetWordDataService) {}
 
   ngOnInit(): void {
