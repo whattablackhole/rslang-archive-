@@ -1,0 +1,57 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="dotMenu" aria-label="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #dotMenu="matMenu" xPosition="before">
+    <button mat-menu-item [routerLink]="['main']" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
+      <span>Главная</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="ebook">
+      <mat-icon>book</mat-icon>
+      <span>Учебник</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="games">
+      <mat-icon>games</mat-icon>
+      <span>Мини-игры</span>
+    </button>
+    <button
+      mat-menu-item
+      [routerLink]="['statistics']"
+      routerLinkActive="active"
+    >
+      <mat-icon>graphic_eq</mat-icon>
+      <span> Статистика</span>
+    </button>
+    <button mat-menu-item [routerLink]="['auth']" routerLinkActive="active">
+      <mat-icon>account_circle</mat-icon>
+      <span>Войти</span>
+    </button>
+  </mat-menu>
+  <mat-menu #ebook="matMenu" xPosition="before">
+    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">
+      Коллекции
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="ebookVocabulary">Словарь</button>
+    <button mat-menu-item>Настройки</button>
+  </mat-menu>
+  <mat-menu #games="matMenu" xPosition="before">
+    <button mat-menu-item>Саванна</button>
+    <button mat-menu-item>Аудиовызов</button>
+    <button mat-menu-item>Сприн</button>
+    <button mat-menu-item>Своя игра</button>
+  </mat-menu>
+  <mat-menu #ebookCollection="matMenu" xPosition="before">
+    <button mat-menu-item>Коллекция 1</button>
+    <button mat-menu-item>Коллекция 2</button>
+    <button mat-menu-item>Коллекция 3</button>
+    <button mat-menu-item>Коллекция 4</button>
+    <button mat-menu-item>Коллекция 5</button>
+    <button mat-menu-item>Коллекция 6</button>
+  </mat-menu>
+  <mat-menu #ebookVocabulary="matMenu" xPosition="before">
+    <button mat-menu-item>Изучаемые слова</button>
+    <button mat-menu-item>Сложные слова</button>
+    <button mat-menu-item>Удаленные слова</button>
+  </mat-menu>
+</div>
