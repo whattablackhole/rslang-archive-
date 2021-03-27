@@ -1,1 +1,0 @@
-export const NUMBER_RETRIES_OF_REQUESTS = 3;
