@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
-import { GetWordDataService } from '../../../shared/services/word.service';
+import { WordsDataService } from '../../../shared/services/words-data.service';
 import { Word } from '../../../shared/models/word.model';
 
 @Component({
@@ -11,17 +10,13 @@ import { Word } from '../../../shared/models/word.model';
   styleUrls: ['./ebook-page.component.scss'],
 })
 export class EbookPageComponent implements OnInit, OnDestroy {
-  collectionWord!: Word;
+  collectionWord!: Word[];
   wordSubscription!: Subscription;
 
-  constructor(private getWordDataService: GetWordDataService) {}
+  constructor(private wordsDataService: WordsDataService) {}
 
   ngOnInit(): void {
-    this.wordSubscription = this.getWordDataService.wordsData$.subscribe(
-      (events: Word) => {
-        this.collectionWord = events;
-      }
-    );
+    this.collectionWord = this.wordsDataService.GetWords();
     console.log(this.collectionWord);
   }
 
