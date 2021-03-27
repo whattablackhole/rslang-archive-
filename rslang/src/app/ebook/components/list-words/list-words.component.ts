@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Word } from '../../../shared/models/word.model';
 
 @Component({
   selector: 'app-list-words',
   templateUrl: './list-words.component.html',
   styleUrls: ['./list-words.component.scss'],
 })
-export class ListWordsComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class ListWordsComponent {
+  @Input() wordsList!: Word[];
 }

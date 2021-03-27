@@ -11,9 +11,11 @@ import { Collection } from '../../models/collection.models';
   templateUrl: './ebook-home.component.html',
   styleUrls: ['./ebook-home.component.scss'],
 })
-export class EbookHomeComponent implements OnInit, OnDestroy {
+export class EbookHomeComponent implements OnInit {
   collections: Collection[] = CONFIG_EBOOK.collections;
   collectionWord!: Word[];
+
+  group = 0;
   wordSubscription!: Subscription;
 
   constructor(private wordsDataService: WordsDataService) {}
@@ -21,9 +23,5 @@ export class EbookHomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.collectionWord = this.wordsDataService.GetWords();
     console.log(this.collections);
-  }
-
-  ngOnDestroy(): void {
-    this.wordSubscription.unsubscribe();
   }
 }
