@@ -2,14 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { WordsDataService } from '../../../shared/services/words-data.service';
+import { CONFIG_EBOOK } from '../../settings/constants/configEbook';
 import { Word } from '../../../shared/models/word.model';
+import { Collection } from '../../models/collection.models';
 
 @Component({
-  selector: 'app-ebook-page',
-  templateUrl: './ebook-page.component.html',
-  styleUrls: ['./ebook-page.component.scss'],
+  selector: 'app-ebook-home',
+  templateUrl: './ebook-home.component.html',
+  styleUrls: ['./ebook-home.component.scss'],
 })
-export class EbookPageComponent implements OnInit, OnDestroy {
+export class EbookHomeComponent implements OnInit, OnDestroy {
+  collections: Collection[] = CONFIG_EBOOK.collections;
   collectionWord!: Word[];
   wordSubscription!: Subscription;
 
@@ -17,7 +20,7 @@ export class EbookPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.collectionWord = this.wordsDataService.GetWords();
-    console.log(this.collectionWord);
+    console.log(this.collections);
   }
 
   ngOnDestroy(): void {

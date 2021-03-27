@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EbookPageComponent } from './ebook-page.component';
+import { EbookPageComponent } from './ebook-home.component';
 
 describe('EbookPageComponent', () => {
   let component: EbookPageComponent;
