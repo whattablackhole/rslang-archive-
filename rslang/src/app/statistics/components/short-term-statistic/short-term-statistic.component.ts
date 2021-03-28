@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GameStatistic, Statistic } from '../../models/statistic.model';
+import { Statistic } from '../../models/statistic.model';
+import { GameStatistic } from '../../models/game-statistic.model';
 import { GamesAggregationService } from '../../services/games-aggregation.service';
 
 @Component({

@@ -4,6 +4,7 @@ import { StatisticsPageComponent } from './components/statistics-page/statistics
 import { StatisticsRoutingModule } from './statistics-routing.module';
 import { ShortTermStatisticComponent } from './components/short-term-statistic/short-term-statistic.component';
 import { LongTermStatisticComponent } from './components/long-term-statistic/long-term-statistic.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,6 @@ import { LongTermStatisticComponent } from './components/long-term-statistic/lon
     ShortTermStatisticComponent,
     LongTermStatisticComponent,
   ],
-  imports: [CommonModule, StatisticsRoutingModule],
+  imports: [CommonModule, StatisticsRoutingModule, MaterialModule],
 })
 export class StatisticsModule {}
