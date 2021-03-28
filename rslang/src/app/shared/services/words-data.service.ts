@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-sequences */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { Injectable } from '@angular/core';
 
 import { WORDS_DATA, WORDS_API_URL } from '../constants/constants';
@@ -8,7 +11,7 @@ import { Word } from '../models/word.model';
   providedIn: 'root',
 })
 export class WordsDataService {
-  public GetWords() {
+  public GetWords(): Word[] {
     const apiWords: Word[] = [];
     WORDS_DATA.forEach((word) => {
       (word.image = WORDS_API_URL + word.image),

@@ -13,10 +13,6 @@ export class Collections {
   @Input() collections!: CollectionWords[];
   @Output() group: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor() {
-    console.log(this.collections);
-  }
-
   setGroupSelected(collection: CollectionWords): void {
     this.group.emit(collection.id);
   }
