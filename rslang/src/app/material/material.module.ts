@@ -5,6 +5,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
   declarations: [],
   imports: [CommonModule, MatTabsModule],
-  exports: [CommonModule],
+  exports: [CommonModule, MatTabsModule],
 })
 export class MaterialModule {}
