@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter,
+} from '@angular/core';
 
 import { CollectionWords } from '../../models/collection-words.model';
 
@@ -7,7 +9,7 @@ import { CollectionWords } from '../../models/collection-words.model';
   templateUrl: './collections.component.html',
   styleUrls: ['./collections.component.scss'],
 })
-export class CollectionsComponent {
+export class Collections {
   @Input() collections!: CollectionWords[];
   @Output() group: EventEmitter<number> = new EventEmitter<number>();
 

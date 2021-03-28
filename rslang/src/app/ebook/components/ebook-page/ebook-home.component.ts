@@ -10,7 +10,7 @@ import { CollectionWords } from '../../models/collection-words.model';
   templateUrl: './ebook-home.component.html',
   styleUrls: ['./ebook-home.component.scss'],
 })
-export class EbookHomeComponent implements OnInit {
+export class EbookHome implements OnInit {
   collections: CollectionWords[] = CONFIG_EBOOK.collections;
   collectionWords!: Word[];
 

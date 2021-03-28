@@ -4,7 +4,8 @@
       <div
         class="collections-container--item"
         *ngFor="let collection of collections"
-        (click)="setGroupSelected(collection)">
+        (click)="setGroupSelected(collection)"
+      >
         <h2>{{ collection.name }}</h2>
         <span>{{ collection.progress }}</span>
       </div>

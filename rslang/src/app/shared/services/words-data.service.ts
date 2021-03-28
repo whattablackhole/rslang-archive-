@@ -10,11 +10,11 @@ import { Word } from '../models/word.model';
 export class WordsDataService {
   public GetWords() {
     const apiWords: Word[] = [];
-    WORDS_DATA.forEach(function (word) {
+    WORDS_DATA.forEach((word) => {
       (word.image = WORDS_API_URL + word.image),
-        (word.audio = WORDS_API_URL + word.audio),
-        (word.audioMeaning = WORDS_API_URL + word.audioMeaning),
-        (word.audioExample = WORDS_API_URL + word.audioExample);
+      (word.audio = WORDS_API_URL + word.audio),
+      (word.audioMeaning = WORDS_API_URL + word.audioMeaning),
+      (word.audioExample = WORDS_API_URL + word.audioExample);
 
       apiWords.push(word);
     });
