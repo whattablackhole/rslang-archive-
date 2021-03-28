@@ -11,12 +11,12 @@ import { WordsCollection } from '../../models/words-collection.model';
   styleUrls: ['./ebook-home.component.scss'],
 })
 export class EbookHome implements OnInit {
-  collections: WordsCollection[] = CONFIG_EBOOK.collections;
-  collectionWords!: Word[];
+  wordsCollections: WordsCollection[] = CONFIG_EBOOK.collections;
+  words!: Word[];
 
   constructor(private wordsDataService: WordsDataService) {}
 
   ngOnInit(): void {
-    this.collectionWords = this.wordsDataService.GetWords();
+    this.words = this.wordsDataService.GetWords();
   }
 }

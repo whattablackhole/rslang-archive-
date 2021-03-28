@@ -10,7 +10,7 @@ import { WordsCollection } from '../../models/words-collection.model';
   styleUrls: ['./words-collections.component.scss'],
 })
 export class WordsCollections {
-  @Input() collections!: WordsCollection[];
+  @Input() wordsCollections!: WordsCollection[];
   @Output() group: EventEmitter<number> = new EventEmitter<number>();
 
   setGroupSelected(collection: WordsCollection): void {
