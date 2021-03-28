@@ -1,0 +1,12 @@
+<div>
+  <div>
+    <p>date: {{statistic.date}}</p>
+    <p>words: {{statistic.learnedWords.length}}</p>
+    <div *ngFor="let game of games">
+      <p>game name: {{game.name}}</p>
+      <p>game winrate: {{game.winrate}}</p>
+      <p>game streak: {{game.streak}}</p>
+    </div>
+  </div>
+</div>
+

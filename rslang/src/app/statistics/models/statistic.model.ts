@@ -4,7 +4,7 @@ export interface Statistic {
   learnedWords: Array<WordStatistic>;
 }
 
-interface GameStatistic {
+export interface GameStatistic {
   name: string;
   winrate: number;
   streak: number;

@@ -1,1 +1,9 @@
-<p>statistics-page works!</p>
+<div class="statistic-page">
+  <h1>Statistic</h1>
+  <h2>Short-term statistic</h2>
+  <app-short-term-statistic
+    *ngFor="let statistic of statisticsList"
+    [statistic]="statistic"
+  ></app-short-term-statistic>
+  <app-long-term-statistic></app-long-term-statistic>
+</div>
