@@ -5,11 +5,11 @@ import {
 import { WordsCollection } from '../../models/words-collection.model';
 
 @Component({
-  selector: 'app-collections',
-  templateUrl: './collections.component.html',
-  styleUrls: ['./collections.component.scss'],
+  selector: 'app-words-collections',
+  templateUrl: './words-collections.component.html',
+  styleUrls: ['./words-collections.component.scss'],
 })
-export class Collections {
+export class WordsCollections {
   @Input() collections!: WordsCollection[];
   @Output() group: EventEmitter<number> = new EventEmitter<number>();
 

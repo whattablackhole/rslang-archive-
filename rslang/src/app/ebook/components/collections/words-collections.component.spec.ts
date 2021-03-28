@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Collections } from './collections.component';
+import { WordsCollections } from './words-collections.component';
 
 describe('Collections', () => {
-  let component: Collections;
-  let fixture: ComponentFixture<Collections>;
+  let component: WordsCollections;
+  let fixture: ComponentFixture<WordsCollections>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Collections],
+      declarations: [WordsCollections],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Collections);
+    fixture = TestBed.createComponent(WordsCollections);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

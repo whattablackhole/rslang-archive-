@@ -4,7 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { EbookRoutingModule } from './ebook-routing.module';
 import { EbookHome } from './components/ebook-page/ebook-home.component';
-import { Collections } from './components/collections/collections.component';
+import { Collections } from './components/collections/words-collections.component';
 
 @NgModule({
   declarations: [EbookHome, Collections],
