@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Collection } from '../../models/collection.models';
+import { CollectionWords } from '../../models/collection-words.model';
 
 @Component({
   selector: 'app-collections',
@@ -8,14 +8,14 @@ import { Collection } from '../../models/collection.models';
   styleUrls: ['./collections.component.scss'],
 })
 export class CollectionsComponent {
-  @Input() collections!: Collection[];
+  @Input() collections!: CollectionWords[];
   @Output() group: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {
     console.log(this.collections);
   }
 
-  setGroupSelected(collection: Collection): void {
+  setGroupSelected(collection: CollectionWords): void {
     this.group.emit(collection.id);
   }
 }

@@ -1,5 +1,5 @@
 <section class="collections">
-  <ng-container *ngIf="collections.length > 0; else isEmptyBlock">
+  <ng-container *ngIf="collections.length">
     <div class="collections-container">
       <div
         class="collections-container--item"
@@ -10,14 +10,4 @@
       </div>
     </div>
   </ng-container>
-  <ng-template #isEmptyBlock>
-    <div  class="collections-container--empty">
-      <h2>No collection added</h2>
-      <span>
-        <a [routerLink]="['/home']">
-          Click here
-        </a>, to explore other features of the app
-      </span>
-    </div>
-  </ng-template>
 </section>
