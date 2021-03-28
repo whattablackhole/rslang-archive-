@@ -9,10 +9,11 @@ export abstract class BaseActionService {
 
   sendAction(
     method: HttpAction,
+    getPath: Function,
     callbackObject?: callbackObject,
     options?: HttpOptions
   ): void {
-    this.httpClient.request(method, this.getPath(), options).subscribe(
+    this.httpClient.request(method, getPath(), options).subscribe(
       (value: Object) => {
         if (callbackObject && callbackObject.onSuccess) {
           callbackObject.onSuccess(value);
