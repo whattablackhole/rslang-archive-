@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './settings-dialog.component.html',
   styleUrls: ['./settings-dialog.component.scss'],
 })
-export class SettingsDialogComponent {}
+export class SettingsDialog {}

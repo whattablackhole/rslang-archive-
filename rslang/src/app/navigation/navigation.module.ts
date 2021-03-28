@@ -1,25 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NavMenu } from './nav-menu/nav-menu.component';
 import { MaterialModule } from '../material/material.module';
-import { SettingsComponent } from './settings/settings.component';
-import { DotMenuComponent } from './dot-menu/dot-menu.component';
-import { SettingsDialogComponent } from '../navigation/settings-dialog/settings-dialog.component';
+import { Settings } from './settings/settings.component';
+import { DotMenu } from './dot-menu/dot-menu.component';
+import { SettingsDialog } from '../navigation/settings-dialog/settings-dialog.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    NavMenuComponent,
-    SettingsComponent,
-    DotMenuComponent,
-    SettingsDialogComponent,
-  ],
+  declarations: [NavMenu, Settings, DotMenu, SettingsDialog],
   imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [
-    NavMenuComponent,
-    SettingsComponent,
-    DotMenuComponent,
-    SettingsDialogComponent,
-  ],
+  exports: [NavMenu, Settings, DotMenu, SettingsDialog],
 })
 export class NavigationModule {}
