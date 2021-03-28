@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://afternoon-falls-25894.herokuapp.com';
+export const BASE_URL = 'https://rslang-team4-whattablackhole.herokuapp.com';

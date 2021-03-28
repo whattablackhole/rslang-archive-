@@ -1,5 +1,5 @@
 export interface callbackObject {
-  onSuccess: Function;
-  onError: Function;
+  onSuccess?: Function;
+  onError?: Function;
   onComplete?: Function;
 }

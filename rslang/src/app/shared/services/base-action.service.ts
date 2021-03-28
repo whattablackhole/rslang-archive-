@@ -2,34 +2,32 @@ import { HttpOptions } from '../models/http-options.model';
 import { callbackObject } from '../models/callback-object.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpAction } from '../types/http-action.type';
-import { BASE_URL } from '../constants/base-url';
 
 export abstract class BaseActionService {
-  abstract path: string;
-  abstract callbackObject: callbackObject;
+  abstract getPath: Function;
   constructor(private httpClient: HttpClient) {}
 
-  postData(
+  sendAction(
     method: HttpAction,
     callbackObject?: callbackObject,
     options?: HttpOptions
   ): void {
-    let callback: callbackObject;
-    if (callbackObject) {
-      callback = callbackObject;
-    } else {
-      callback = this.callbackObject;
-    }
-    this.httpClient.request(method, BASE_URL + this.path, options).subscribe(
+    this.httpClient.request(method, this.getPath(), options).subscribe(
       (value: Object) => {
-        callback.onSuccess(value);
+        if (callbackObject && callbackObject.onSuccess) {
+          callbackObject.onSuccess(value);
+        }
       },
       (err: HttpErrorResponse) => {
-        callback.onError(err);
+        if (callbackObject && callbackObject.onError) {
+          callbackObject.onError(err);
+        } else {
+          throw new Error(err.name);
+        }
       },
       () => {
-        if (callback.onComplete) {
-          callback.onComplete();
+        if (callbackObject && callbackObject.onComplete) {
+          callbackObject.onComplete();
         }
       }
     );

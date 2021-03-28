@@ -5,12 +5,9 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class WordDataService extends BaseDataService<Word> {
-  path: string;
+  getPath = (id: string) => `/words/${id}`;
 
   constructor(httpClient: HttpClient) {
     super(httpClient);
-  }
-  setId(id: string): void {
-    this.path = `/words/${id}`;
   }
 }
