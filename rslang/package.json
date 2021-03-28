@@ -8,9 +8,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "postinstall": "husky install",
     "stylelint": "npx stylelint src/**/*.scss",
     "prettier": "prettier --write src/**/* --ignore-unknown"
   },
+  
   "private": true,
   "dependencies": {
     "@angular-devkit/architect": "^0.1102.6",
