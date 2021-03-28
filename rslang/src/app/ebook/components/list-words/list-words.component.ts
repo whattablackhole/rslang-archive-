@@ -7,6 +7,6 @@ import { Word } from '../../../shared/models/word.model';
   templateUrl: './list-words.component.html',
   styleUrls: ['./list-words.component.scss'],
 })
-export class ListWordsComponent {
-  @Input() wordsList!: Word[];
+export class ListWords {
+  @Input() words!: Word[];
 }

@@ -8,6 +8,5 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
   declarations: [NotFoundPageComponent],
   imports: [CommonModule, HttpClientModule],
   exports: [CommonModule],
-  providers: [],
 })
 export class SharedModule {}

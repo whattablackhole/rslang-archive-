@@ -1,0 +1,14 @@
+<section class="collections">
+  <ng-container>
+    <div class="collections-container">
+      <div
+        class="collections-container--item"
+        *ngFor="let collection of wordsCollections"
+        (click)="setGroupSelected(collection)"
+      >
+        <h2>{{ collection.name }}</h2>
+        <span>{{ collection.progress }}</span>
+      </div>
+    </div>
+  </ng-container>
+</section>
