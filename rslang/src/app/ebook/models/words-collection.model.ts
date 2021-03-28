@@ -1,4 +1,4 @@
-export interface CollectionWords {
+export interface WordsCollection {
   id: number;
   name: string;
   pages: number;

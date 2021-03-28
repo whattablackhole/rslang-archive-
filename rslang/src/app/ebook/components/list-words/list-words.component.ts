@@ -8,5 +8,5 @@ import { Word } from '../../../shared/models/word.model';
   styleUrls: ['./list-words.component.scss'],
 })
 export class ListWords {
-  @Input() wordsList!: Word[];
+  @Input() words!: Word[];
 }

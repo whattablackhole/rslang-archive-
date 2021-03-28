@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { WordsDataService } from '../../../shared/services/words-data.service';
 import { CONFIG_EBOOK } from '../../settings/constants/config-ebook';
 import { Word } from '../../../shared/models/word.model';
-import { CollectionWords } from '../../models/collection-words.model';
+import { WordsCollection } from '../../models/words-collection.model';
 
 @Component({
   selector: 'app-ebook-home',
@@ -11,7 +11,7 @@ import { CollectionWords } from '../../models/collection-words.model';
   styleUrls: ['./ebook-home.component.scss'],
 })
 export class EbookHome implements OnInit {
-  collections: CollectionWords[] = CONFIG_EBOOK.collections;
+  collections: WordsCollection[] = CONFIG_EBOOK.collections;
   collectionWords!: Word[];
 
   constructor(private wordsDataService: WordsDataService) {}

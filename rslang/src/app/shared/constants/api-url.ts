@@ -1,4 +1,4 @@
-const BASE_URL = 'https://afternoon-falls-25894.herokuapp.com';
+const BASE_URL = 'https://rslang-team4-whattablackhole.netlify.app';
 
 export const GLOBAL_DATA = {
   WORDS: `${BASE_URL}/words?`,
