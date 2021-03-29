@@ -1,24 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EbookHome } from './ebook-home.component';
+import { WordsList } from './words-list.component';
 
-describe('EbookPageComponent', () => {
-  let component: EbookHome;
-  let fixture: ComponentFixture<EbookHome>;
+describe('ListWords', () => {
+  let component: WordsList;
+  let fixture: ComponentFixture<WordsList>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EbookHome],
+      declarations: [WordsList],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EbookHome);
+    fixture = TestBed.createComponent(WordsList);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

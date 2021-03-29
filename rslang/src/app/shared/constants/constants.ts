@@ -1,5 +1,4 @@
-export const WORDS_API_URL =
-  'https://raw.githubusercontent.com/Anntol/LearnWords/master/';
+export const WORDS_API_URL = 'https://raw.githubusercontent.com/Anntol/LearnWords/master/';
 export const WORDS_DATA = [
   {
     id: '5e9f5ee35eb9e72bc21af4a1',

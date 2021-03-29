@@ -26,8 +26,8 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain(
-      'rslang app is running!'
+    expect(compiled.querySelector('div').textContent).toContain(
+      'app component works!!!'
     );
   });
 });

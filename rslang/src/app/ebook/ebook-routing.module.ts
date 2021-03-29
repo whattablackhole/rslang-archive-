@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EbookPage } from './components/ebook-page/ebook-page.component';
+import { EbookHome } from './components/ebook-page/ebook-home.component';
+import { WordsCollections } from './components/collections/words-collections.component';
+import { WordsList } from './components/list-words/words-list.component';
 
-const routes: Routes = [{ path: '', component: EbookPage }];
+const routes: Routes = [
+  { path: '', component: EbookHome },
+  { path: 'page', component: WordsCollections },
+  { path: 'id', component: WordsList },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
