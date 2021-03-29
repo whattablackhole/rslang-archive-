@@ -107,7 +107,8 @@
             "lintFilePatterns": [
               "src/**/*.ts",
               "src/**/*.html"
-            ]
+            ],
+            "eslintConfig": ".eslintrc.json"
           }
         },
         "e2e": {

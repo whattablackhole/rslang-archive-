@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { EbookPageComponent } from './components/ebook-page/ebook-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
+
 import { EbookRoutingModule } from './ebook-routing.module';
+import { EbookHome } from './components/ebook-page/ebook-home.component';
+import { WordsCollections } from './components/collections/words-collections.component';
 
 @NgModule({
-  declarations: [EbookPageComponent],
-  imports: [CommonModule, EbookRoutingModule],
+  declarations: [EbookHome, WordsCollections],
+  imports: [SharedModule, EbookRoutingModule, HttpClientModule],
 })
 export class EbookModule {}
