@@ -5,17 +5,14 @@ import { HttpClient } from '@angular/common/http';
 export abstract class BaseDataService<T> {
   data$: Observable<T>;
   private subject = new Subject<T>();
-  path?: string;
 
   constructor(private httpClient: HttpClient) {
     this.data$ = this.subject.asObservable();
   }
 
   getData(path: string, options?: HttpOptions): void {
-    this.httpClient
-      .get<T>(this.path ? this.path : path, options)
-      .subscribe((data: T) => {
-        this.subject.next(data);
-      });
+    this.httpClient.get<T>(path, options).subscribe((data: T) => {
+      this.subject.next(data);
+    });
   }
 }

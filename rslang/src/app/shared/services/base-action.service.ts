@@ -4,7 +4,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpAction } from '../types/http-action.type';
 
 export abstract class BaseActionService {
-  path?: string;
   constructor(private httpClient: HttpClient) {}
 
   sendAction(
@@ -13,26 +12,24 @@ export abstract class BaseActionService {
     callbackObject?: callbackObject,
     options?: HttpOptions
   ): void {
-    this.httpClient
-      .request(method, this.path ? this.path : path, options)
-      .subscribe(
-        (value: Object) => {
-          if (callbackObject && callbackObject.onSuccess) {
-            callbackObject.onSuccess(value);
-          }
-        },
-        (err: HttpErrorResponse) => {
-          if (callbackObject && callbackObject.onError) {
-            callbackObject.onError(err);
-          } else {
-            throw new Error(err.name);
-          }
-        },
-        () => {
-          if (callbackObject && callbackObject.onComplete) {
-            callbackObject.onComplete();
-          }
+    this.httpClient.request(method, path, options).subscribe(
+      (value: Object) => {
+        if (callbackObject && callbackObject.onSuccess) {
+          callbackObject.onSuccess(value);
         }
-      );
+      },
+      (err: HttpErrorResponse) => {
+        if (callbackObject && callbackObject.onError) {
+          callbackObject.onError(err);
+        } else {
+          throw new Error(err.name);
+        }
+      },
+      () => {
+        if (callbackObject && callbackObject.onComplete) {
+          callbackObject.onComplete();
+        }
+      }
+    );
   }
 }
