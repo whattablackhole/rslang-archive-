@@ -11,7 +11,6 @@
     "stylelint": "npx stylelint src/**/*.scss",
     "prettier": "prettier --write src/**/* --ignore-unknown"
   },
-
   "private": true,
   "dependencies": {
     "@angular-devkit/architect": "^0.1102.6",

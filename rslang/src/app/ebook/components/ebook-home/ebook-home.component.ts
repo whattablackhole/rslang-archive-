@@ -17,6 +17,5 @@ export class EbookHome implements OnInit {
 
   ngOnInit(): void {
     this.words = this.wordsDataService.GetWords();
-    console.log(this.words);
   }
 }

@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs';
-import { HttpOptions } from '../models/http-options.model';
 import { HttpClient } from '@angular/common/http';
+import { HttpOptions } from '../models/http-options.model';
 
 export abstract class BaseDataService<T> {
   data$: Observable<T>;

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { NavMenu } from './nav-menu/nav-menu.component';
 import { MaterialModule } from '../material/material.module';
 import { Settings } from './settings/settings.component';
 import { DotMenu } from './dot-menu/dot-menu.component';
-import { SettingsDialog } from '../navigation/settings-dialog/settings-dialog.component';
-import { RouterModule } from '@angular/router';
+import { SettingsDialog } from './settings-dialog/settings-dialog.component';
 
 @NgModule({
   declarations: [NavMenu, Settings, DotMenu, SettingsDialog],

@@ -21,27 +21,9 @@
   <div>
     <button mat-button [matMenuTriggerFor]="games">Игры</button>
     <mat-menu #games="matMenu">
-      <button
-        mat-menu-item
-        [routerLink]="['games/savannah']"
-        routerLinkActive="active"
-      >
-        Саванна
-      </button>
-      <button
-        mat-menu-item
-        [routerLink]="['games/audiocall']"
-        routerLinkActive="active"
-      >
-        Аудиовызов
-      </button>
-      <button
-        mat-menu-item
-        [routerLink]="['games/sprint']"
-        routerLinkActive="active"
-      >
-        Спринт
-      </button>
+      <button mat-menu-item [routerLink]="['games/savannah']" routerLinkActive="active">Саванна</button>
+      <button mat-menu-item [routerLink]="['games/audiocall']" routerLinkActive="active">Аудиовызов</button>
+      <button mat-menu-item [routerLink]="['games/sprint']" routerLinkActive="active">Спринт</button>
       <button mat-menu-item>Найти пару</button>
     </mat-menu>
   </div>
