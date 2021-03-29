@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EbookPageComponent } from './ebook-page.component';
+import { EbookPage } from './ebook-page.component';
 
-describe('EbookPageComponent', () => {
-  let component: EbookPageComponent;
-  let fixture: ComponentFixture<EbookPageComponent>;
+describe('EbookPage', () => {
+  let component: EbookPage;
+  let fixture: ComponentFixture<EbookPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EbookPageComponent],
+      declarations: [EbookPage],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EbookPageComponent);
+    fixture = TestBed.createComponent(EbookPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
