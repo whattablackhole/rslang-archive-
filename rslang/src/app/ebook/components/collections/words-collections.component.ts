@@ -13,7 +13,7 @@ export class WordsCollections {
   @Input() wordsCollections!: WordsCollection[];
   @Output() getGroup: EventEmitter<number> = new EventEmitter<number>();
 
-  setSelectedGroup(collection: WordsCollection): void {
+  changeSelectedGroup(collection: WordsCollection): void {
     this.getGroup.emit(collection.id);
   }
 }
