@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainPage } from './main-page.component';
+import { DotMenu } from './dot-menu.component';
 
-describe('MainPage', () => {
-  let component: MainPage;
-  let fixture: ComponentFixture<MainPage>;
+describe('DotMenu', () => {
+  let component: DotMenu;
+  let fixture: ComponentFixture<DotMenu>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MainPage],
+      declarations: [DotMenu],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MainPage);
+    fixture = TestBed.createComponent(DotMenu);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

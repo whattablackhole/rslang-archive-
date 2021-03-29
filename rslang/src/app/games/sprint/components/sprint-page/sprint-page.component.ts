@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './sprint-page.component.html',
   styleUrls: ['./sprint-page.component.scss'],
 })
-export class SprintPageComponent {
-}
+export class SprintPage {}

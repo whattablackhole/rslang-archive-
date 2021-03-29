@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundPageComponent } from './shared/components/not-found-page/not-found-page.component';
+import { NotFoundPage } from './shared/components/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -46,7 +46,7 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: '**', component: NotFoundPageComponent },
+  { path: '**', component: NotFoundPage },
 ];
 
 @NgModule({
