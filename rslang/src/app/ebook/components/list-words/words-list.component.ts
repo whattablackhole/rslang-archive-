@@ -3,10 +3,10 @@ import { Component, Input } from '@angular/core';
 import { Word } from '../../../shared/models/word.model';
 
 @Component({
-  selector: 'app-list-words',
-  templateUrl: './list-words.component.html',
-  styleUrls: ['./list-words.component.scss'],
+  selector: 'app-words-list',
+  templateUrl: './words-list.component.html',
+  styleUrls: ['./words-list.component.scss'],
 })
-export class ListWords {
+export class WordsList {
   @Input() words!: Word[];
 }
