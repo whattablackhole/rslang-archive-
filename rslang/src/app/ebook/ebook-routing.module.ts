@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EbookHome } from './components/ebook-page/ebook-home.component';
+import { EbookHome } from './components/ebook-home/ebook-home.component';
 import { WordsCollections } from './components/collections/words-collections.component';
 import { WordsList } from './components/list-words/words-list.component';
 

@@ -5,15 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { WORDS_API_URL, WORDS_DATA } from '../constants/constants';
 import { BASE_URL } from '../constants/base-url';
 
-@Injectable({
-  providedIn: 'root',
-})
-
+@Injectable()
 export class WordsDataService extends BaseDataService<Word[]> {
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }
-  
+
   public GetWords(): Word[] {
     const apiWords: Word[] = [];
     WORDS_DATA.forEach((wordData) => {
