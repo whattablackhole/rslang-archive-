@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthPage } from './components/auth-page/auth-page.component';
 import { AuthRoutingModule } from './auth-routing.module';
-
+import { FooterModule } from '../footer/footer.module';
 @NgModule({
   declarations: [AuthPage],
-  imports: [CommonModule, AuthRoutingModule],
+  imports: [CommonModule, AuthRoutingModule, FooterModule],
 })
 export class AuthModule {}
