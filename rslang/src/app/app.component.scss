@@ -4,13 +4,11 @@ nav {
   display: flex;
   width: 600px;
   justify-content: space-between;
-
   a {
     padding: 0 15px;
     text-decoration: none;
     color: black;
   }
-
   a.active {
     color: grey;
   }
