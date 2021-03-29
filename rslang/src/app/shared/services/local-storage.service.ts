@@ -2,20 +2,18 @@ import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { AbstractStorageService } from './abstract-storage.service';
-import { ChangesStorage } from '../models/change-storage.model';
+import { StorageChanges } from '../models/change-storage.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocalStorageService extends AbstractStorageService {
+export class LocalStorageService {
   private readonly storage: Storage;
-  changes$ = new Subject<ChangesStorage>();
+  changes$ = new Subject<StorageChanges>();
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Record<string, unknown> = {},
   ) {
-    super();
     if (isPlatformBrowser(this.platformId) && this.isLocalStorageSupported) {
       this.storage = window.localStorage;
     }
