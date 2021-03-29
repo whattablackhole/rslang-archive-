@@ -7,8 +7,6 @@ import { BASE_URL } from '../constants/base-url';
 
 @Injectable()
 export class WordsDataService extends BaseDataService<Word[]> {
-  getPath = () => `${BASE_URL}/words`;
-
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }

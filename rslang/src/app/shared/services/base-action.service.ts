@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpAction } from '../types/http-action.type';
 
 export abstract class BaseActionService {
-  abstract getPath: Function;
+  path?: string;
   constructor(private httpClient: HttpClient) {}
 
   sendAction(

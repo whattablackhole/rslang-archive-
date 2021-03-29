@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 export abstract class BaseDataService<T> {
   data$: Observable<T>;
   private subject = new Subject<T>();
-  abstract getPath: Function;
+  path?: string;
 
   constructor(private httpClient: HttpClient) {
     this.data$ = this.subject.asObservable();
