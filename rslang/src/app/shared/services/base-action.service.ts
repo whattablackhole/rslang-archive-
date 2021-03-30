@@ -8,7 +8,8 @@ export abstract class BaseActionService {
 
   sendAction(method: HttpAction, path: string, callbackObject?: CallbackObject, options?: HttpOptions): void {
     this.httpClient.request(method, path, options).subscribe(
-      (value: unknown) => {
+      // eslint-disable-next-line
+      (value: Object) => {
         if (callbackObject && callbackObject.onSuccess) {
           callbackObject.onSuccess(value);
         }

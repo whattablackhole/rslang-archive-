@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
 export interface CallbackObject {
-  onSuccess?: (result: unknown) => void;
+  // eslint-disable-next-line
+  onSuccess?: (result: Object) => void;
   onError?: (err: HttpErrorResponse) => void;
   onComplete?: () => void;
 }
