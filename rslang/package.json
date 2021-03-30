@@ -7,9 +7,23 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
     "stylelint": "npx stylelint src/**/*.scss",
     "prettier": "prettier --write src/**/* --ignore-unknown"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --relative"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,json,html,scss}": [
+      "prettier --write"
+    ],
+    "*.ts": [
+      "npm run lint:fix"
+    ]
   },
   "private": true,
   "dependencies": {
