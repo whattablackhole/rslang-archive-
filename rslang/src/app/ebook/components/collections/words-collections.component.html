@@ -4,7 +4,7 @@
       <div
         class="collections-container--item"
         *ngFor="let collection of wordsCollections"
-        (click)="setGroupSelected(collection)"
+        (click)="changeSelectedGroup(collection)"
       >
         <h2>{{ collection.name }}</h2>
         <span>{{ collection.progress }}</span>

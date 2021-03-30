@@ -1,0 +1,32 @@
+<mat-toolbar>
+  <div>
+    <button mat-button [matMenuTriggerFor]="ebook">Учебник</button>
+    <mat-menu #ebook="matMenu">
+      <button mat-menu-item>Коллекция 1</button>
+      <button mat-menu-item>Коллекция 2</button>
+      <button mat-menu-item>Коллекция 3</button>
+      <button mat-menu-item>Коллекция 4</button>
+      <button mat-menu-item>Коллекция 5</button>
+      <button mat-menu-item>Коллекция 6</button>
+    </mat-menu>
+  </div>
+  <div>
+    <button mat-button [matMenuTriggerFor]="vocabulary">Словарь</button>
+    <mat-menu #vocabulary="matMenu">
+      <button mat-menu-item>Изучаемые слова</button>
+      <button mat-menu-item>Сложные слова</button>
+      <button mat-menu-item>Удаленные слова</button>
+    </mat-menu>
+  </div>
+  <div>
+    <button mat-button [matMenuTriggerFor]="games">Игры</button>
+    <mat-menu #games="matMenu">
+      <button mat-menu-item [routerLink]="['games/savannah']" routerLinkActive="active">Саванна</button>
+      <button mat-menu-item [routerLink]="['games/audiocall']" routerLinkActive="active">Аудиовызов</button>
+      <button mat-menu-item [routerLink]="['games/sprint']" routerLinkActive="active">Спринт</button>
+      <button mat-menu-item>Найти пару</button>
+    </mat-menu>
+  </div>
+  <app-settings></app-settings>
+  <app-dot-menu></app-dot-menu>
+</mat-toolbar>

@@ -11,9 +11,9 @@ import { WordsCollection } from '../../models/words-collection.model';
 })
 export class WordsCollections {
   @Input() wordsCollections!: WordsCollection[];
-  @Output() group: EventEmitter<number> = new EventEmitter<number>();
+  @Output() groupIdChanged: EventEmitter<number> = new EventEmitter<number>();
 
-  setGroupSelected(collection: WordsCollection): void {
-    this.group.emit(collection.id);
+  changeSelectedGroup(collection: WordsCollection): void {
+    this.groupIdChanged.emit(collection.id);
   }
 }

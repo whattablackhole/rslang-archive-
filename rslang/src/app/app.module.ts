@@ -3,17 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material/material.module';
-import { AppComponent } from './app.component';
-
+import { App } from './app.component';
+import { NavigationModule } from './navigation/navigation.module';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NoopAnimationsModule,
-    MaterialModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+  declarations: [App],
+  imports: [BrowserModule, AppRoutingModule, NoopAnimationsModule, MaterialModule, NavigationModule, SharedModule],
+  bootstrap: [App],
 })
 export class AppModule {}

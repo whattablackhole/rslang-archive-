@@ -1,29 +1,18 @@
-import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpOptions } from '../models/http-options.model';
 
-import { GLOBAL_DATA } from '../constants/api-url';
-import { Options } from '../models/optionss.model';
-
-@Injectable({
-  providedIn: 'root',
-})
 export abstract class BaseDataService<T> {
-  // data$: Observable<T>;
-  // private dataSubject = new Subject<T>();
+  data$: Observable<T>;
+  private subject = new Subject<T>();
 
   constructor(private httpClient: HttpClient) {
-    // this.data$ = this.dataSubject.asObservable();
+    this.data$ = this.subject.asObservable();
   }
 
-  getData(request: string, options?: Options): Observable<T> {
-    const params = new HttpParams()
-      .set('group', String(options.group))
-      .set('page', String(options.page));
-
-    return this.httpClient.get<T>(GLOBAL_DATA.WORDS, { params: params });
-    // .subscribe((data: T) => {
-    //   this.dataSubject.next(data);
-    // });
+  getData(path: string, options?: HttpOptions): void {
+    this.httpClient.get<T>(path, options).subscribe((data: T) => {
+      this.subject.next(data);
+    });
   }
 }

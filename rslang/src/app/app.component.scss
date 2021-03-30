@@ -1,23 +1,6 @@
-nav {
-  margin: 0 auto;
-  padding: 15px 0;
+:host {
   display: flex;
-  width: 600px;
+  flex-direction: column;
   justify-content: space-between;
-<<<<<<< HEAD
-=======
-
->>>>>>> ebook-list
-  a {
-    padding: 0 15px;
-    text-decoration: none;
-    color: black;
-  }
-<<<<<<< HEAD
-=======
-
->>>>>>> ebook-list
-  a.active {
-    color: grey;
-  }
+  min-height: 100%;
 }

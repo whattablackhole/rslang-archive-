@@ -1,24 +1,24 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListWords } from './list-words.component';
+import { NavMenu } from './nav-menu.component';
 
-describe('ListWords', () => {
-  let component: ListWords;
-  let fixture: ComponentFixture<ListWords>;
+describe('NavMenu', () => {
+  let component: NavMenu;
+  let fixture: ComponentFixture<NavMenu>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ListWords],
+      declarations: [NavMenu],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListWords);
+    fixture = TestBed.createComponent(NavMenu);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeDefined();
+    expect(component).toBeTruthy();
   });
 });

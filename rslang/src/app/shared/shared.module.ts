@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
-
+import { NotFoundPage } from './components/not-found-page/not-found-page.component';
+import { Footer } from './components/footer/footer.component';
 @NgModule({
-  declarations: [NotFoundPageComponent],
+  declarations: [NotFoundPage, Footer],
   imports: [CommonModule, HttpClientModule],
-  exports: [CommonModule],
+  exports: [CommonModule, Footer],
 })
 export class SharedModule {}
