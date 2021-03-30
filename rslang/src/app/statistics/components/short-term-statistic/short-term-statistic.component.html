@@ -1,12 +1,20 @@
 <div>
   <div>
-    <p>date: {{statistic.date}}</p>
-    <p>words: {{statistic.learnedWords.length}}</p>
+    <p>date: {{ statistic.date }}</p>
+    <p>words: {{ statistic.learnedWords.length }}</p>
     <div *ngFor="let game of games">
-      <p>game name: {{game.name}}</p>
-      <p>game winrate: {{game.winrate}}</p>
-      <p>game streak: {{game.streak}}</p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Winrate</th>
+          <th>Streak</th>
+        </tr>
+        <tr>
+          <td>{{ game.name }}</td>
+          <td>{{ game.winrate }}</td>
+          <td>{{ game.streak }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
-

@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './audiocall-page.component.html',
   styleUrls: ['./audiocall-page.component.scss'],
 })
-export class AudiocallPageComponent {
-}
+export class AudiocallPageComponent {}

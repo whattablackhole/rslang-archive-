@@ -1,5 +1,5 @@
-import { GameStatistic } from './game-statistic.model';
 import { WordStatistic } from './word-statistic.model';
+import { GameStatistic } from './game-statistic.model';
 
 export interface Statistic {
   date: Date;
