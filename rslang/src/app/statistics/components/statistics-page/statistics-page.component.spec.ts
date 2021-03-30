@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatisticsPageComponent } from './statistics-page.component';
+import { StatisticsPage } from './statistics-page.component';
 
-describe('StatisticsPageComponent', () => {
-  let component: StatisticsPageComponent;
-  let fixture: ComponentFixture<StatisticsPageComponent>;
+describe('StatisticsPage', () => {
+  let component: StatisticsPage;
+  let fixture: ComponentFixture<StatisticsPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StatisticsPageComponent],
+      declarations: [StatisticsPage],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StatisticsPageComponent);
+    fixture = TestBed.createComponent(StatisticsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

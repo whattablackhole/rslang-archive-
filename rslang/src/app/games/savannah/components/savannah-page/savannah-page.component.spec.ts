@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SavannahPageComponent } from './savannah-page.component';
+import { SavannahPage } from './savannah-page.component';
 
-describe('SavannahPageComponent', () => {
-  let component: SavannahPageComponent;
-  let fixture: ComponentFixture<SavannahPageComponent>;
+describe('SavannahPage', () => {
+  let component: SavannahPage;
+  let fixture: ComponentFixture<SavannahPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SavannahPageComponent],
+      declarations: [SavannahPage],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SavannahPageComponent);
+    fixture = TestBed.createComponent(SavannahPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AudiocallPageComponent } from './audiocall-page.component';
+import { AudiocallPage } from './audiocall-page.component';
 
-describe('AudiocallPageComponent', () => {
-  let component: AudiocallPageComponent;
-  let fixture: ComponentFixture<AudiocallPageComponent>;
+describe('AudiocallPage', () => {
+  let component: AudiocallPage;
+  let fixture: ComponentFixture<AudiocallPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AudiocallPageComponent],
+      declarations: [AudiocallPage],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AudiocallPageComponent);
+    fixture = TestBed.createComponent(AudiocallPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
