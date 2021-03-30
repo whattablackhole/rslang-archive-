@@ -15,11 +15,7 @@
       <mat-icon>games</mat-icon>
       <span>Мини-игры</span>
     </button>
-    <button
-      mat-menu-item
-      [routerLink]="['statistics']"
-      routerLinkActive="active"
-    >
+    <button mat-menu-item [routerLink]="['statistics']" routerLinkActive="active">
       <mat-icon>graphic_eq</mat-icon>
       <span>Статистика</span>
     </button>
@@ -29,9 +25,7 @@
     </button>
   </mat-menu>
   <mat-menu #ebook="matMenu" xPosition="before">
-    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">
-      Коллекции
-    </button>
+    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">Коллекции</button>
     <button mat-menu-item [matMenuTriggerFor]="ebookVocabulary">Словарь</button>
     <button mat-menu-item>Настройки</button>
   </mat-menu>
