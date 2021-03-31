@@ -1,0 +1,17 @@
+<section class="ebook-settings">
+  <h1>Settings</h1>
+  <form>
+    <div *ngIf="isUserAuthenticated">
+      <label for="fname">Name</label>
+      <input type="text" id="fname" name="firstname" placeholder="UserName" />
+    </div>
+    <div *ngFor="let itembtn of buttonOptions">
+      <input type="checkbox" [(ngModel)]="itembtn.checked" name="buttonOptions" />{{ itembtn.label }}
+    </div>
+    <h2>Info about word</h2>
+    <div *ngFor="let itemword of wordOptions">
+      <input type="checkbox" [(ngModel)]="itemword.checked" name="wordOptions" />{{ itemword.label }}
+    </div>
+    <input type="submit" value="Save settings" class="btn" />
+  </form>
+</section>

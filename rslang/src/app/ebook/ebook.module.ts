@@ -4,9 +4,10 @@ import { EbookRoutingModule } from './ebook-routing.module';
 
 import { EbookHome } from './pages/ebook-home/ebook-home.component';
 import { WordsCollections } from './components/words-collections/words-collections.component';
+import { EbookSettings } from './components/ebook-settings/ebook-settings.component';
 
 @NgModule({
-  declarations: [EbookHome, WordsCollections],
+  declarations: [EbookHome, WordsCollections, EbookSettings],
   imports: [SharedModule, EbookRoutingModule],
   exports: [WordsCollections],
 })
