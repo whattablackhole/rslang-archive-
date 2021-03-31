@@ -6,12 +6,12 @@ export const EBOOK_SETTINGS = {
   buttonOptions: [
     {
       value: 'isDifficult',
-      label: 'Difficult word',
+      label: 'Show "difficult word" button',
       checked: true,
     },
     {
       value: 'isRemote',
-      label: 'Delete word',
+      label: 'Show "delete word" button',
       checked: true,
 
     },
@@ -20,7 +20,7 @@ export const EBOOK_SETTINGS = {
     {
       value: 'translationOfWord',
       label: 'Show translation word',
-      checked: true,
+      checked: false,
     },
     {
       value: 'translationOfExample',

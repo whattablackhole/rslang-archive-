@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
 <app-ebook-settings
-  [buttonOptions]="userBookSettings.buttonOptions"
-  [wordOptions]="userBookSettings.wordOptions"
+  [userBookSettings]="userBookSettings"
+  (bookSettingsChanged)="changeSelectedBookSetting($event)"
 ></app-ebook-settings>
 <app-words-collections [wordsCollections]="wordsCollections"></app-words-collections>
 <router-outlet id="nav-practice"></router-outlet>

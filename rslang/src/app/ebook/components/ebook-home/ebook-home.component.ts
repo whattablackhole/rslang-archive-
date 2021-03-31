@@ -25,4 +25,9 @@ export class EbookHome implements OnInit {
   ngOnInit(): void {
     this.words = this.wordsDataService.GetWords();
   }
+
+  changeSelectedBookSetting(bookSettingsChanged: UserBookSettings): void {
+    this.localStorageService
+      .setItem('bookSettings', JSON.stringify(bookSettingsChanged));
+  }
 }

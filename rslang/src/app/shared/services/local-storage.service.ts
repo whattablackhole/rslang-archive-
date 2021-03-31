@@ -14,7 +14,7 @@ export class LocalStorageService {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Record<string, unknown> = {},
   ) {
-    if (isPlatformBrowser(this.platformId) && this.isLocalStorageSupported) {
+    if (isPlatformBrowser(this.platformId) && !this.isLocalStorageSupported) {
       this.storage = window.localStorage;
     }
   }
