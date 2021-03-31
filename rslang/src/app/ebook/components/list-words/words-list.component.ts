@@ -1,5 +1,5 @@
 import {
-  Component, Input, OnDestroy, OnInit,
+  Component, Input,
 } from '@angular/core';
 
 import { Word } from '../../../shared/models/word.model';
