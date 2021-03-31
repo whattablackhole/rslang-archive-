@@ -1,15 +1,28 @@
+@import "src/variables";
+
+:host {
+  color: $main_dark_color;
+  font-size: 1rem;
+}
+
+.main {
+  padding: 2rem 6rem;
+}
+
 nav {
   margin: 0 auto;
   padding: 15px 0;
   display: flex;
   width: 600px;
   justify-content: space-between;
+
   a {
     padding: 0 15px;
     text-decoration: none;
-    color: black;
+    color: $main_dark_color;
   }
+
   a.active {
-    color: grey;
+    color: $main_gray_color;
   }
 }

@@ -1,0 +1,178 @@
+@import "src/variables";
+
+.main-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+
+  &__promo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__titles {
+      &__sub-title {
+        font-size: .9rem;
+        font-weight: 500;
+        color: $accent_color;
+        // color: $light_blue_color;
+      }
+
+      &__title {
+        font-size: 2rem;
+        font-weight: 700;
+        // color: $primary_indigo_color;
+        color: $main_blue;
+      }
+
+      &__description {
+        font-size: 1rem;
+        color: $main_gray_color;
+      }
+    }
+  }
+
+  &__button {
+    margin-top: 1.5rem;
+    width: 40%;
+    background-color: $main_blue;
+  }
+
+  &__pic {
+    max-width: 600px;
+
+    img {
+      width: 100%;
+      opacity: .9;
+    }
+  }
+}
+
+.main-page__video {
+  width: 60%;
+  margin-bottom: 6rem;
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  &__element {
+    width: 100%;
+    height: 50vh;
+    border-radius: 1rem;
+  }
+}
+
+
+
+.main__our_team {
+  &__wrapper {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(255, 254, 254, 0.993), rgba(255, 255, 255, 0.2)), url(../../../../assets/images/our_team_bg.jpg) no-repeat center center;
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    color: $blue_color;
+  }
+
+  &__people {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    .group_1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+
+      .medium {
+        right: 80px;
+      }
+    }
+
+    .group_2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+
+      .first {
+        right: 80px;
+        top: -60px
+      }
+
+      .second {
+        left: 120px;
+        bottom: 120px
+      }
+
+      .third {
+        left: 80px;
+      }
+
+      .fourth {
+        left: 80px;
+        bottom: 90px
+      }
+
+      .group_3 {
+        display: flex;
+        justify-content: space-around;
+        gap: 80px;
+      }
+    }
+
+    &__card {
+      width: 150px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: .1rem;
+      border-radius: 50%;
+    }
+
+    &__photo {
+      width: 40px;
+      height: 40px;
+      margin: 16px 0;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &__name {
+      color: $main_blue;
+      font-size: 1rem;
+    }
+
+    &__position {
+      color: $accent_color;
+    }
+
+    &__github {
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
