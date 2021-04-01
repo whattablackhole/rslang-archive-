@@ -9,7 +9,7 @@
   &__wrapper {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 4rem;
   }
@@ -24,13 +24,11 @@
         font-size: .9rem;
         font-weight: 500;
         color: $accent_color;
-        // color: $light_blue_color;
       }
 
       &__title {
         font-size: 2rem;
         font-weight: 700;
-        // color: $primary_indigo_color;
         color: $main_blue;
       }
 
@@ -55,6 +53,57 @@
       opacity: .9;
     }
   }
+
+  &__advantages {
+    height: 100vh;
+
+    &__title {
+      font-size: 1.4rem;
+      color: $main_blue;
+      margin-bottom: 4rem;
+      font-weight: 500;
+    }
+
+    &__items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    &__item {
+      width: 330px;
+
+      &__title {
+        color: $main_blue;
+        font-size: 1.2rem;
+        font-size: 400;
+        text-align: center;
+      }
+
+      &__icon {
+        width: 300px;
+        height: 100px;
+        display: flex;
+        justify-content: stretch;
+        margin-bottom: 2rem;
+
+
+        img {
+          width: 100%;
+          opacity: .8;
+        }
+      }
+
+      &__description {
+        &-text {
+          color: $main_gray_color;
+          font-size: 0.9rem;
+          text-align: center;
+        }
+      }
+
+    }
+  }
 }
 
 .main-page__video {
@@ -71,108 +120,5 @@
     width: 100%;
     height: 50vh;
     border-radius: 1rem;
-  }
-}
-
-
-
-.main__our_team {
-  &__wrapper {
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(rgba(255, 254, 254, 0.993), rgba(255, 255, 255, 0.2)), url(../../../../assets/images/our_team_bg.jpg) no-repeat center center;
-  }
-
-  &__title {
-    font-size: 1.4rem;
-    color: $blue_color;
-  }
-
-  &__people {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
-    .group_1 {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-
-      .medium {
-        right: 80px;
-      }
-    }
-
-    .group_2 {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      gap: 30px;
-
-      .first {
-        right: 80px;
-        top: -60px
-      }
-
-      .second {
-        left: 120px;
-        bottom: 120px
-      }
-
-      .third {
-        left: 80px;
-      }
-
-      .fourth {
-        left: 80px;
-        bottom: 90px
-      }
-
-      .group_3 {
-        display: flex;
-        justify-content: space-around;
-        gap: 80px;
-      }
-    }
-
-    &__card {
-      width: 150px;
-      height: 150px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: .1rem;
-      border-radius: 50%;
-    }
-
-    &__photo {
-      width: 40px;
-      height: 40px;
-      margin: 16px 0;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    &__name {
-      color: $main_blue;
-      font-size: 1rem;
-    }
-
-    &__position {
-      color: $accent_color;
-    }
-
-    &__github {
-      img {
-        width: 20px;
-        height: 20px;
-      }
-    }
   }
 }
