@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EbookPageComponent } from './ebook-page.component';
+import { NavMenu } from './nav-menu.component';
 
-describe('EbookPageComponent', () => {
-  let component: EbookPageComponent;
-  let fixture: ComponentFixture<EbookPageComponent>;
+describe('NavMenu', () => {
+  let component: NavMenu;
+  let fixture: ComponentFixture<NavMenu>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EbookPageComponent],
+      declarations: [NavMenu],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EbookPageComponent);
+    fixture = TestBed.createComponent(NavMenu);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -8,21 +8,3 @@
 .main {
   padding: 2rem 6rem;
 }
-
-nav {
-  margin: 0 auto;
-  padding: 15px 0;
-  display: flex;
-  width: 600px;
-  justify-content: space-between;
-
-  a {
-    padding: 0 15px;
-    text-decoration: none;
-    color: $main_dark_color;
-  }
-
-  a.active {
-    color: $main_gray_color;
-  }
-}

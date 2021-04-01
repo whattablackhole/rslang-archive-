@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './savannah-page.component.html',
   styleUrls: ['./savannah-page.component.scss'],
 })
-export class SavannahPageComponent {
-}
+export class SavannahPage {}
