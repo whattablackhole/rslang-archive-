@@ -16,4 +16,8 @@ export class WordsCollections {
   changeSelectedGroup(collection: WordsCollection): void {
     this.groupIdChanged.emit(collection.id);
   }
+
+  getProgress(item: number): string {
+    return `${(100 * (this.wordsCollections[item].progress / this.wordsCollections[item].words)).toFixed(0)}%`;
+  }
 }

@@ -3,7 +3,7 @@
   <form #settingsForm="ngForm">
     <div *ngIf="isUserAuthenticated">
       <label for="fname">Name</label>
-      <input type="text" id="fname" name="firstname" placeholder="UserName" required/>
+      <input type="text" id="fname" name="firstname" placeholder="UserName" required />
     </div>
     <div *ngFor="let itembtn of userBookSettings.buttonOptions">
       <input type="checkbox" name="buttonOptions" [(ngModel)]="itembtn.checked" />{{ itembtn.label }}
@@ -13,11 +13,6 @@
       <input type="checkbox" name="wordOptions" [(ngModel)]="itemword.checked" />{{ itemword.label }}
     </div>
     <!-- <input type="submit" value="Save settings" [disabled]="settingsForm.invalid"  class="btn" /> -->
-    <button
-      [disabled]="settingsForm.invalid"
-      class="btn"
-      (ngSubmit)="onSubmit()">
-      Save settings
-    </button>
+    <button [disabled]="settingsForm.invalid" class="btn" (ngSubmit)="onSubmit()">Save settings</button>
   </form>
 </section>
