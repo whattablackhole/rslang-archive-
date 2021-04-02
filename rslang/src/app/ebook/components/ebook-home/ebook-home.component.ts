@@ -32,7 +32,6 @@ export class EbookHome implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.words = this.wordsDataService.GetWords();
-    console.log(this.localStorageService.changes$);
     this.ebookSettingsSubscription = this.ebookSettingsChanges$
       .subscribe(
         (events: StorageChanges) => {

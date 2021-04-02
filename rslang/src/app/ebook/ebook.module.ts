@@ -8,7 +8,7 @@ import { EbookSettings } from './components/ebook-settings/ebook-settings.compon
 import { EbookSettingsInitService } from './services/ebook-settings-init.service';
 
 export function initializeEbookSettings(ebookSettingsInitService: EbookSettingsInitService) {
-  return (): Promise<unknown> => ebookSettingsInitService.Init();
+  return (): void => ebookSettingsInitService.init();
 }
 
 @NgModule({
@@ -16,6 +16,7 @@ export function initializeEbookSettings(ebookSettingsInitService: EbookSettingsI
   imports: [SharedModule, EbookRoutingModule],
   exports: [WordsCollections],
   providers: [
+    EbookSettingsInitService,
     {
       provide: APP_INITIALIZER, useFactory: initializeEbookSettings, deps: [EbookSettingsInitService], multi: true,
     },
