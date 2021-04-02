@@ -1,4 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component, OnDestroy, OnInit,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { WordsDataService } from '../../../shared/services/words-data.service';
@@ -8,6 +10,8 @@ import { Word } from '../../../shared/models/word.model';
 import { WordsCollection } from '../../models/words-collection.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../shared/models/change-storage.model';
+import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
+import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
 
 @Component({
   selector: 'app-ebook-home',
@@ -28,11 +32,11 @@ export class EbookHome implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.words = this.wordsDataService.GetWords();
-
+    console.log(this.localStorageService.changes$);
     this.ebookSettingsSubscription = this.ebookSettingsChanges$
       .subscribe(
         (events: StorageChanges) => {
-          if (events.type === 'set' && events.key === 'bookSettings') {
+          if (events.type === LocalStorageType.set && events.key === LocalStorageKey.ebookSettings) {
             this.userBookSettings = JSON.parse(events.value as string) as UserBookSettings;
           }
         },
