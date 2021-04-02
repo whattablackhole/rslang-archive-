@@ -3,11 +3,13 @@
     <div class="collections-container">
       <div
         class="collections-container--item"
-        *ngFor="let collection of wordsCollections"
+        *ngFor="let collection of wordsCollections; index as item"
         (click)="changeSelectedGroup(collection)"
       >
-        <h2>{{ collection.name }}</h2>
-        <span>{{ collection.progress }}</span>
+        <div id="progressBar" [style.width]="getProgress(item)"></div>
+        <h2 class="title">{{ collection.name }}</h2>
+        <span class="progress">{{ collection.progress }}</span>
+        <img class="picture" [src]="collection.img" alt="{{ collection.name }}" />
       </div>
     </div>
   </ng-container>
