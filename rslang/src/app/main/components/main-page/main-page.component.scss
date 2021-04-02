@@ -11,7 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
   }
 
   &__promo {
@@ -55,7 +55,7 @@
   }
 
   &__advantages {
-    height: 100vh;
+    margin-bottom: 6rem;
 
     &__title {
       font-size: 1.4rem;
@@ -68,10 +68,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
+      justify-content: center;
     }
 
     &__item {
-      width: 330px;
 
       &__title {
         color: $main_blue;
@@ -87,7 +87,6 @@
         justify-content: stretch;
         margin-bottom: 2rem;
 
-
         img {
           width: 100%;
           opacity: .8;
@@ -101,7 +100,6 @@
           text-align: center;
         }
       }
-
     }
   }
 }
