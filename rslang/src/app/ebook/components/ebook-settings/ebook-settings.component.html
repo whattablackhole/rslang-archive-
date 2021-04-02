@@ -1,9 +1,9 @@
 <section class="ebook-settings">
   <h1>Settings</h1>
-  <form #settingsForm="ngForm" (ngSubmit)="onSubmit(settingsForm)">
+  <form #settingsForm="ngForm">
     <div *ngIf="isUserAuthenticated">
       <label for="fname">Name</label>
-      <input type="text" id="fname" name="firstname" placeholder="UserName" />
+      <input type="text" id="fname" name="firstname" placeholder="UserName" required/>
     </div>
     <div *ngFor="let itembtn of userBookSettings.buttonOptions">
       <input type="checkbox" name="buttonOptions" [(ngModel)]="itembtn.checked" />{{ itembtn.label }}
@@ -12,6 +12,12 @@
     <div *ngFor="let itemword of userBookSettings.wordOptions">
       <input type="checkbox" name="wordOptions" [(ngModel)]="itemword.checked" />{{ itemword.label }}
     </div>
-    <input type="submit" value="Save settings" class="btn" />
+    <!-- <input type="submit" value="Save settings" [disabled]="settingsForm.invalid"  class="btn" /> -->
+    <button
+      [disabled]="settingsForm.invalid"
+      class="btn"
+      (ngSubmit)="onSubmit()">
+      Save settings
+    </button>
   </form>
 </section>
