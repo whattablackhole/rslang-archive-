@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { WordsCollection } from '../../models/words-collection.model';
 
@@ -13,11 +14,16 @@ export class WordsCollections {
   @Input() wordsCollections!: WordsCollection[];
   @Output() groupIdChanged: EventEmitter<number> = new EventEmitter<number>();
 
+  constructor(private router: Router) {}
+
   changeSelectedGroup(collection: WordsCollection): void {
     this.groupIdChanged.emit(collection.id);
+    const path = `ebbok/${collection.path || ''}`;
+    // eslint-disable-next-line no-void
+    void this.router.navigate([path, collection.id + 1]);
   }
 
-  getProgress(item: number): string {
-    return `${(100 * (this.wordsCollections[item].progress / this.wordsCollections[item].words)).toFixed(0)}%`;
+  getProgress(i: number): string {
+    return `${(100 * (this.wordsCollections[i].progress / this.wordsCollections[i].words)).toFixed(0)}%`;
   }
 }
