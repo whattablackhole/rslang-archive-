@@ -1,2 +1,20 @@
-<p>auth-page works!</p>
+<section class="auth-page">
+  <div class="auth-page__wrapper">
+    <form #authForm="ngForm" (submit)="onSubmit(authForm)">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="userName" name="username" placeholder="Username" required ngModel />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" required email ngModel />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required ngModel />
+      </div>
+      <button type="submit" [disabled]="authForm.invalid">Sign Up</button>
+    </form>
+  </div>
+</section>
 <app-footer></app-footer>
