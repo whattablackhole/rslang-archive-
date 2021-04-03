@@ -8,7 +8,7 @@ import { Contributer } from './../../shared/models/contributor.model';
 export class Team {
   contributors: Contributer[] = [
     {
-      name: 'Rudolph',
+      name: 'Rudolf Hrytsenyak',
       position: 'team leader',
       contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
       Dolor risus sed cras enim aliquam pulvinar dui augue.

@@ -1,12 +1,15 @@
-import { MaterialModule } from './../material/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
-import { MainPage } from './components/main-page/main-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { Main } from './components/main/main';
 import { Team } from './team/team';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
-  declarations: [MainPage, Team],
-  imports: [CommonModule, MainRoutingModule, SharedModule, MaterialModule],
+  declarations: [Main, Team],
+  imports: [CommonModule, MainRoutingModule, SharedModule, MatIconModule, MatButtonModule, MatCardModule],
+  exports: [CommonModule, SharedModule, MatIconModule, MatButtonModule, MatCardModule],
 })
 export class MainModule {}

@@ -17,15 +17,11 @@ const routes: Routes = [
     children: [
       {
         path: 'audiocall',
-        loadChildren: () => import('./games/audiocall/audiocall.module').then(
-          (m) => m.AudiocallModule,
-        ),
+        loadChildren: () => import('./games/audiocall/audiocall.module').then((m) => m.AudiocallModule),
       },
       {
         path: 'savannah',
-        loadChildren: () => import('./games/savannah/savannah.module').then(
-          (m) => m.SavannahModule,
-        ),
+        loadChildren: () => import('./games/savannah/savannah.module').then((m) => m.SavannahModule),
       },
       {
         path: 'sprint',
