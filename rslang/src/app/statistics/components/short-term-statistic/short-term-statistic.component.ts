@@ -8,7 +8,7 @@ import { GamesAggregationService } from '../../services/games-aggregation.servic
   templateUrl: './short-term-statistic.component.html',
   styleUrls: ['./short-term-statistic.component.scss'],
 })
-export class ShortTermStatisticComponent implements OnInit {
+export class ShortTermStatistic implements OnInit {
   @Input() statistic: Statistic;
   games: Array<GameStatistic>;
   constructor(private gamesAggregationService: GamesAggregationService) {}

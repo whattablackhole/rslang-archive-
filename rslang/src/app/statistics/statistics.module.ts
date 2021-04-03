@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatTabsModule } from '@angular/material/tabs';
 import { StatisticsPage } from './components/statistics-page/statistics-page.component';
 import { StatisticsRoutingModule } from './statistics-routing.module';
+import { LongTermStatistic } from './components/long-term-statistic/long-term-statistic.component';
+import { ShortTermStatistic } from './components/short-term-statistic/short-term-statistic.component';
 
 @NgModule({
-  declarations: [StatisticsPage],
-  imports: [CommonModule, StatisticsRoutingModule],
+  declarations: [StatisticsPage, LongTermStatistic, ShortTermStatistic],
+  imports: [CommonModule, StatisticsRoutingModule, MatTabsModule],
 })
 export class StatisticsModule {}

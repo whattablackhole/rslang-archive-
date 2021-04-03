@@ -6,7 +6,7 @@ export const STATISTIC_DATA: Statistic[] = [
     games: [
       {
         name: 'savannah',
-        winrate: 80,
+        winrate: 80, // количество правильных ответов
         streak: 10,
       },
       {
@@ -38,18 +38,12 @@ export const STATISTIC_DATA: Statistic[] = [
     learnedWords: [
       {
         id: '5e9f5ee35eb9e72bc21af4a1',
-        group: 0,
-        page: 0,
       },
       {
         id: '5e9f5ee35eb9e72bc21af4a0',
-        group: 0,
-        page: 0,
       },
       {
         id: '5e9f5ee35eb9e72bc21af4cb',
-        group: 0,
-        page: 2,
       },
     ],
   },
@@ -90,18 +84,12 @@ export const STATISTIC_DATA: Statistic[] = [
     learnedWords: [
       {
         id: '5e9f5ee35eb9e72bc21af4a1',
-        group: 0,
-        page: 0,
       },
       {
         id: '5e9f5ee35eb9e72bc21af4a0',
-        group: 0,
-        page: 0,
       },
       {
         id: '5e9f5ee35eb9e72bc21af4cb',
-        group: 0,
-        page: 2,
       },
     ],
   },
