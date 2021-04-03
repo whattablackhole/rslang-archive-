@@ -5,9 +5,10 @@ import { StatisticsPage } from './components/statistics-page/statistics-page.com
 import { StatisticsRoutingModule } from './statistics-routing.module';
 import { LongTermStatistic } from './components/long-term-statistic/long-term-statistic.component';
 import { ShortTermStatistic } from './components/short-term-statistic/short-term-statistic.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [StatisticsPage, LongTermStatistic, ShortTermStatistic],
-  imports: [CommonModule, StatisticsRoutingModule, MatTabsModule],
+  imports: [CommonModule, StatisticsRoutingModule, MatTabsModule, SharedModule],
 })
 export class StatisticsModule {}

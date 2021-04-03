@@ -2,10 +2,11 @@
   <h1>Statistic</h1>
   <h2>Short-term statistic</h2>
   <mat-tab-group mat-align-tabs="center">
-    <mat-tab *ngFor="let statistic of statisticsList; let index = index" [label]="statistic.date.toDateString()">
+    <mat-tab *ngFor="let statistic of statisticsList; let index = index" [label]="statistic.date.toLocaleDateString()">
       <app-short-term-statistic [statistic]="statistic"></app-short-term-statistic>
     </mat-tab>
   </mat-tab-group>
   <h2>Long-term statistic</h2>
   <app-long-term-statistic></app-long-term-statistic>
 </div>
+<app-footer></app-footer>

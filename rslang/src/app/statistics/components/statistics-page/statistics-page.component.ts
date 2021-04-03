@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Statistic } from '../../models/statistic.model';
 import { STATISTIC_DATA } from '../../constants/constants';
+import { StatisticCalculationService } from '../../services/statistic-calculation.service';
+import { Statistic } from '../../models/statistic.model';
 
 @Component({
   selector: 'app-statistics-page',
@@ -9,8 +10,9 @@ import { STATISTIC_DATA } from '../../constants/constants';
 })
 export class StatisticsPage implements OnInit {
   statisticsList: Statistic[];
+  constructor(private statisticCalculation: StatisticCalculationService) {}
 
   ngOnInit(): void {
-    this.statisticsList = STATISTIC_DATA;
+    this.statisticsList = this.statisticCalculation.groupByDate(STATISTIC_DATA);
   }
 }
