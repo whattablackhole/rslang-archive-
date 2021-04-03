@@ -1,12 +1,12 @@
-import { Word } from '../models/word.model';
 import { Injectable } from '@angular/core';
-import { BaseDataService } from './base-data.service';
 import { HttpClient } from '@angular/common/http';
+import { Word } from '../models/word.model';
+import { BaseDataService } from './base-data.service';
 import { WORDS_API_URL, WORDS_DATA } from '../constants/constants';
-import { BASE_URL } from '../constants/base-url';
 
 @Injectable()
 export class WordsDataService extends BaseDataService<Word[]> {
+  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
   constructor(httpClient: HttpClient) {
     super(httpClient);
   }
