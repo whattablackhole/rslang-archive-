@@ -1,0 +1,101 @@
+$bgColor:#020438;
+$boxColor:#020438;
+$waterFColor:#4D6DE3;
+$waterBColor:#C7EEFF;
+
+
+.game__result-title {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #3c4043;
+  text-align: center;
+}
+
+.game__result-acc {
+  margin-top: 50px;
+  font-size: 20px;
+  color: #3c4043;
+  text-align: center;
+}
+
+.game__result {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: space-around;
+}
+
+.game__result-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+
+.box {
+  height: 280px;
+  width: 280px;
+  position: relative;
+  margin: 40px;
+  background: $boxColor;
+  border-radius: 100%;
+  overflow: hidden;
+
+  .percent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 64px;
+  }
+
+  .water {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    transform: translate(0, 100%);
+    background: $waterFColor;
+    transition: all .3s;
+
+    &_wave {
+      width: 200%;
+      position: absolute;
+      bottom: 100%;
+
+      &_back {
+        right: 0;
+        fill: $waterBColor;
+        animation: wave-back 1.4s infinite linear;
+      }
+
+      &_front {
+        left: 0;
+        fill: $waterFColor;
+        margin-bottom: -1px;
+        animation: wave-front .7s infinite linear;
+      }
+    }
+  }
+}
+
+@keyframes wave-front {
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes wave-back {
+  100% {
+    transform: translate(50%, 0);
+  }
+}

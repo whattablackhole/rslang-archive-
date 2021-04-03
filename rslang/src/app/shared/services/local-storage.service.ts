@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+// import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -11,12 +11,11 @@ export class LocalStorageService {
   private readonly storage: Storage;
   changes$ = new Subject<StorageChanges>();
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Record<string, unknown> = {},
-  ) {
-    if (isPlatformBrowser(this.platformId) && this.isLocalStorageSupported) {
-      this.storage = window.localStorage;
-    }
+  constructor(@Inject(PLATFORM_ID) private platformId: Record<string, unknown> = {}) {
+    this.storage = window.localStorage;
+
+    // if (isPlatformBrowser(this.platformId) && this.isLocalStorageSupported) {
+    // }
   }
 
   get length(): number {

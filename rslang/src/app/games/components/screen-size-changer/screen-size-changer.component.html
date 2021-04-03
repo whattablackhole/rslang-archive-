@@ -1,0 +1,6 @@
+<div class="game__screen-changer">
+  <button *ngIf="!isScreenFull" mat-icon-button (click)="onOpenFullscreen()"><mat-icon>open_with</mat-icon></button>
+  <button *ngIf="isScreenFull" mat-icon-button (click)="onCloseFullscreen()">
+    <mat-icon>highlight_off</mat-icon>
+  </button>
+</div>

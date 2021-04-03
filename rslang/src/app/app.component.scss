@@ -1,6 +1,13 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100%;
+// :host {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   min-height: 100%;
+// }
+
+.spinner {
+  display: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

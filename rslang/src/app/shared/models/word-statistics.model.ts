@@ -1,6 +1,4 @@
-import { Word } from '../../shared/models/word.model';
-// eslint-disable-next-line
-import { StudyProgress } from './study-progress.model';
+import { Word } from './word.model';
 
 export interface WordWithStatistics extends Word {
   isDifficult: boolean;

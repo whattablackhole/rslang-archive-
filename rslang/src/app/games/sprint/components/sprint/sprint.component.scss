@@ -1,0 +1,203 @@
+.game__menu {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.game {
+  position: relative;
+  background: url('/assets/games/sprint/532-min.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  max-height: 1000px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.game__img-lvl-two {
+  position: absolute;
+  width: 60px;
+  height: 120px;
+  background: url("/assets/games/sprint/wing.png") rgba(0, 0, 0, 0);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 10px 0 0 10px;
+}
+
+.game__img-lvl-three {
+  position: absolute;
+  right: 0;
+  width: 60px;
+  height: 120px;
+  background: url("/assets/games/sprint/w-reverse.png") rgba(0, 0, 0, 0);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-top: 5px;
+  margin: 10px 0 0 10px;
+}
+
+.game__img-lvl-four {
+  position: absolute;
+  top: -100px;
+  width: 60px;
+  height: 120px;
+  background: url("/assets/games/sprint/tobi.png") rgba(0, 0, 0, 0);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-top: 5px;
+  margin: 10px 0 0 10px;
+}
+
+.game__content {
+  border: 2px solid white;
+  border-radius: 0.5rem;
+  font-size: 50px;
+  color: red;
+  position: absolute;
+  max-width: 500px;
+  width: 100%;
+  height: 500px;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: gameOpac 5s;
+}
+
+
+
+.game__play-button {
+  width: 100px;
+  align-self: center;
+  justify-self: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.unhidden {
+  display: block;
+}
+
+.game__score-circles {
+  display: flex;
+  margin: 5px;
+}
+
+.game__score-circle {
+  background-color: grey;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.game__score-circle_filled {
+  background: url('/assets/games/sprint/correct.webp');
+  background-color: #fd3359;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.game__score {
+  border-radius: 0.5rem 0.5rem 0 0;
+  background-color: #369A7E;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.game__roof {
+  height: 50px;
+  width: 100%;
+}
+
+.game__roof_lvl-one {
+  background: -webkit-gradient(radial, 50% 0, 1, 50% 0, 40, from(#369A7E), color-stop(0.49, #369A7E), color-stop(0.51, springgreen), to(springgreen));
+  -webkit-background-size: 29px 100%;
+}
+
+.game__roof_lvl-two {
+  background: -webkit-gradient(radial, 50% 0, 1, 50% 0, 40, from(#32386d), color-stop(0.49, #32386d), color-stop(0.51, springgreen), to(springgreen));
+  -webkit-background-size: 29px 100%;
+}
+
+.game__roof_lvl-three {
+  background: -webkit-gradient(radial, 50% 0, 1, 50% 0, 40, from(lightcoral), color-stop(0.49, lightcoral), color-stop(0.51, springgreen), to(springgreen));
+  -webkit-background-size: 29px 100%;
+}
+
+.game__roof_lvl-four {
+  background: -webkit-gradient(radial, 50% 0, 1, 50% 0, 40, from(gold), color-stop(0.49, gold), color-stop(0.51, springgreen), to(springgreen));
+  -webkit-background-size: 29px 100%;
+}
+
+.game__score_lvl-one {
+  background-color: #369A7E;
+}
+
+.game__score_lvl-two {
+  background-color: #32386d;
+}
+
+.game__score_lvl-three {
+  background-color: lightcoral;
+}
+
+.game__score_lvl-four {
+  background-color: gold;
+}
+
+.game__word-name {
+  text-align: center;
+  align-self: center;
+  color: #3c4043;
+  margin-bottom: 15px;
+}
+
+.game__word {
+  align-self: center;
+  margin-top: 20px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.game__word-translate {
+  margin: 10px 0 10px 0;
+  text-align: center;
+  align-self: center;
+  color: #3c4043;
+}
+
+.game__buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+@keyframes gameOpac {
+  0% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
