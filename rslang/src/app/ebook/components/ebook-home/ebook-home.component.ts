@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { WordsDataService } from '../../../shared/services/words-data.service';
-import { CONFIG_EBOOK } from '../../settings/constants/config-ebook';
+import { CONFIG_EBOOK } from '../../constants/config-ebook';
 import { Word } from '../../../shared/models/word.model';
 import { WordsCollection } from '../../models/words-collection.model';
 @Component({
