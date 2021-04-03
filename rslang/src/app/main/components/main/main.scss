@@ -1,17 +1,21 @@
 @import "src/variables";
 
 .main {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 
   &__wrapper {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 6rem;
+    width: 100%;
+    margin-bottom: $margin_after_section;
+
+    @media screen and (max-width: 988px) {
+      margin-top: 4rem;
+    }
   }
 
   &__promo {
@@ -24,24 +28,45 @@
         font-size: .9rem;
         font-weight: 500;
         color: $accent_color;
+
+        @media screen and (max-width: 780px) {
+          font-size: .7rem;
+          font-weight: 400;
+        }
       }
 
       &__title {
         font-size: 2rem;
         font-weight: 700;
         color: $main_blue;
+
+        @media screen and (max-width: 780px) {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
       }
 
       &__description {
-        font-size: 1rem;
+        font-size: .9rem;
         color: $main_gray_color;
       }
     }
   }
 
+  &__pic {
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    @media screen and (max-width: 988px) {
+      display: none;
+    }
+  }
+
   &__button {
-    margin-top: 1.5rem;
     width: 40%;
+    margin-top: 1.5rem;
     background-color: $main_blue;
   }
 
@@ -53,70 +78,86 @@
       opacity: .9;
     }
   }
+}
 
-  &__advantages {
-    margin-bottom: 6rem;
+.main__advantages {
+  margin-bottom: $margin_after_section;
+
+  &__title {
+    margin-bottom: $margin_after_title;
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-align: center;
+    color: $main_blue;
+  }
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+
+    @media screen and (max-width: 840px) {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: scroll;
+      overflow-y: hidden;
+    }
+  }
+
+  &__item {
 
     &__title {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
+      font-size: 400;
+      text-align: center;
       color: $main_blue;
-      margin-bottom: 4rem;
-      font-weight: 500;
     }
 
-    &__items {
+    &__icon {
+      margin-bottom: 2rem;
       display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
+      justify-content: stretch;
+      width: 300px;
+      height: 100px;
+
+      img {
+        width: 100%;
+        opacity: .8;
+      }
     }
 
-    &__item {
-
-      &__title {
-        color: $main_blue;
-        font-size: 1.2rem;
-        font-size: 400;
+    &__description {
+      &-text {
+        font-size: 0.9rem;
         text-align: center;
-      }
-
-      &__icon {
-        width: 300px;
-        height: 100px;
-        display: flex;
-        justify-content: stretch;
-        margin-bottom: 2rem;
-
-        img {
-          width: 100%;
-          opacity: .8;
-        }
-      }
-
-      &__description {
-        &-text {
-          color: $main_gray_color;
-          font-size: 0.9rem;
-          text-align: center;
-        }
+        color: $main_gray_color;
       }
     }
   }
 }
 
 .main__video {
-  width: 60%;
-  margin-bottom: 6rem;
+  position: relative;
+  width: 100%;
+  margin-bottom: $margin_after_section;
 
-  &__title {
-    font-size: 1.4rem;
-    font-weight: 500;
-    text-align: center;
+  &__wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+
+    &__item {
+      padding-top: 56.25%;
+    }
   }
 
   &__element {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 50vh;
-    border-radius: 1rem;
+    height: 100%;
   }
+
+
 }
