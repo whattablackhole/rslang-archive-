@@ -11,10 +11,21 @@
           <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput name="password" type="password" placeholder="Password" ngModel #passwordInput="ngModel" required />
+          <input
+            matInput
+            name="password"
+            type="password"
+            placeholder="Password"
+            ngModel
+            #passwordInput="ngModel"
+            required
+          />
           <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
         </mat-form-field>
         <button type="submit" [disabled]="authForm.invalid">Sign Up</button>
+        <div class="auth-link">
+          <a [routerLink]="['/auth']">Log In</a>
+        </div>
       </form>
     </mat-card>
   </div>

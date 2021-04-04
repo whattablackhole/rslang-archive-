@@ -5,12 +5,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from '../shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
-import { AuthPage } from './components/auth-page/auth-page.component';
 import { AuthActionService } from './services/auth-action.service';
+import { Login } from './components/login/login.component';
+import { Register } from './components/register/register.component';
 
 @NgModule({
-  declarations: [AuthPage],
-  imports: [CommonModule, AuthRoutingModule, SharedModule, MatCardModule, MatFormFieldModule, MatInputModule],
+  declarations: [Login, Register],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    SharedModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   providers: [AuthActionService],
 })
 export class AuthModule {}

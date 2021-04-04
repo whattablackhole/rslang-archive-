@@ -1,0 +1,27 @@
+<section class="auth-page">
+  <div class="auth-page__wrapper">
+    <mat-card>
+      <form #loginForm="ngForm" (submit)="onSubmit(loginForm)">
+        <mat-form-field>
+          <input matInput name="email" type="email" placeholder="Email" ngModel #emailInput="ngModel" required email />
+          <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            name="password"
+            type="password"
+            placeholder="Password"
+            ngModel
+            #passwordInput="ngModel"
+            required
+          />
+          <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+        </mat-form-field>
+        <button type="submit" [disabled]="loginForm.invalid">Log In</button>
+        <a class="auth-link" [routerLink]="['./register']">Sign Up</a>
+      </form>
+    </mat-card>
+  </div>
+</section>
+<app-footer></app-footer>
