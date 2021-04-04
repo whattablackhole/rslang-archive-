@@ -1,38 +1,37 @@
-$bgColor:#020438;
-$boxColor:#020438;
-$waterFColor:#4D6DE3;
-$waterBColor:#C7EEFF;
+$bgColor: #020438;
+$boxColor: #020438;
+$waterFColor: #4d6de3;
+$waterBColor: #c7eeff;
 
-
-.game__result-title {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #3c4043;
-  text-align: center;
-}
-
-.game__result-acc {
-  margin-top: 50px;
-  font-size: 20px;
-  color: #3c4043;
-  text-align: center;
-}
-
-.game__result {
+.result {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-content: space-around;
   justify-content: space-around;
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 50px;
+  }
+
+  &__acc {
+    margin-top: 50px;
+    font-size: 20px;
+    color: #3c4043;
+    text-align: center;
+  }
+
+  &__title {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #3c4043;
+    text-align: center;
+  }
 }
 
-.game__result-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 50px;
-}
-
-.box {
+.animation-box {
   height: 280px;
   width: 280px;
   position: relative;
@@ -41,7 +40,7 @@ $waterBColor:#C7EEFF;
   border-radius: 100%;
   overflow: hidden;
 
-  .percent {
+  .animation-box__percent {
     position: absolute;
     left: 0;
     top: 0;
@@ -56,7 +55,7 @@ $waterBColor:#C7EEFF;
     font-size: 64px;
   }
 
-  .water {
+  .animation-box__water {
     position: absolute;
     left: 0;
     top: 0;
@@ -65,9 +64,9 @@ $waterBColor:#C7EEFF;
     height: 100%;
     transform: translate(0, 100%);
     background: $waterFColor;
-    transition: all .3s;
+    transition: all 0.3s;
 
-    &_wave {
+    &-wave {
       width: 200%;
       position: absolute;
       bottom: 100%;
@@ -82,7 +81,7 @@ $waterBColor:#C7EEFF;
         left: 0;
         fill: $waterFColor;
         margin-bottom: -1px;
-        animation: wave-front .7s infinite linear;
+        animation: wave-front 0.7s infinite linear;
       }
     }
   }

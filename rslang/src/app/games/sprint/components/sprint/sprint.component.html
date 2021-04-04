@@ -24,9 +24,9 @@
     (@coloredBorder.done)="onBorderDone()"
     class="game__content"
   >
-    <div *ngIf="gameLevel > 1" class="game__img-lvl-two"></div>
-    <div *ngIf="gameLevel > 2" class="game__img-lvl-three"></div>
-    <div *ngIf="gameLevel > 3" class="game__img-lvl-four"></div>
+    <div *ngIf="gameLevel > 1" class="game__img-lvl game__img-lvl_two"></div>
+    <div *ngIf="gameLevel > 2" class="game__img-lvl game__img-lvl_three"></div>
+    <div *ngIf="gameLevel > 3" class="game__img-lvl game__img-lvl_four"></div>
     <div
       class="game__score"
       [ngClass]="{

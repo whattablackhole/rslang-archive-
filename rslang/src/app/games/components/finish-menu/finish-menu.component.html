@@ -21,24 +21,24 @@
     ></path>
   </symbol>
 </svg>
-<div class="game__result">
-  <div class="game__result-title">Твой результат {{ result }} очков</div>
-  <div class="game__result-acc">Твоя аккуратность:</div>
-  <div class="box">
-    <div class="percent">
-      <div class="percentNum" id="count" #cnt>{{ percent }}</div>
-      <div class="percentB">%</div>
+<div class="result">
+  <div class="result__title">Твой результат {{ result }} очков</div>
+  <div class="result__acc">Твоя аккуратность:</div>
+  <div class="animation-box">
+    <div class="animation-box__percent">
+      <div class="animation-box__percent-num" id="count" #cnt>{{ percent }}</div>
+      <div class="animation-box__percent-sym">%</div>
     </div>
-    <div id="water" class="water" #water>
-      <svg viewBox="0 0 560 20" class="water_wave water_wave_back">
+    <div id="water" class="animation-box__water" #water>
+      <svg viewBox="0 0 560 20" class="animation-box__water-wave animation-box__water-wave_back">
         <use xlink:href="#wave"></use>
       </svg>
-      <svg viewBox="0 0 560 20" class="water_wave water_wave_front">
+      <svg viewBox="0 0 560 20" class="animation-box__water-wave animation-box__water-wave_front">
         <use xlink:href="#wave"></use>
       </svg>
     </div>
   </div>
-  <div class="game__result-buttons">
+  <div class="result__buttons">
     <button mat-stroked-button color="warn">К учебнику</button>
     <button mat-stroked-button color="warn">В меню</button>
   </div>
