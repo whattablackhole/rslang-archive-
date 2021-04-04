@@ -8,16 +8,16 @@ import { UserBookSettings } from '../models/user-book-settings.model';
 @Injectable({
   providedIn: 'root',
 })
-export class EbookSettingsInitService {
+export class EbookSettingsService {
   constructor(private localStorageService: LocalStorageService) { }
   ebookSettingsData: UserBookSettings;
 
-  init(): void {
-    const data = this.localStorageService.getItem(LocalStorageKey.ebookSettings);
-    if (data === null) {
+  firstLoadAndSet(): void {
+    const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings as string);
+    if (!data) {
       this.ebookSettingsData = EBOOK_SETTINGS;
       this.localStorageService
-        .setItem(LocalStorageKey.ebookSettings, JSON.stringify(this.ebookSettingsData));
+        .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.ebookSettingsData));
     }
   }
 }
