@@ -1,6 +1,6 @@
 export enum LocalStorageKey {
-  ebookSettings = 'ebookSettings',
-  wordsdUser = 'wordsdUser',
-  gameResults = 'gameResults',
-  authorizationData = 'authorizationData',
+  EbookSettings = 'ebookSettings',
+  WordsdUser = 'wordsdUser',
+  GameResults = 'gameResults',
+  AuthorizationData = 'authorizationData',
 }

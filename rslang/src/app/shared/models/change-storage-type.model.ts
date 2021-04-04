@@ -1,4 +1,4 @@
 export enum LocalStorageType {
-  set = 'set',
-  remove = 'remove',
+  Set = 'set',
+  Remove = 'remove',
 }

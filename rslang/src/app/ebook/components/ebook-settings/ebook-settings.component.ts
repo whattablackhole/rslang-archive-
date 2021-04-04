@@ -1,7 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
 
 import { UserBookSettings } from '../../models/user-book-settings.model';
 
@@ -11,7 +10,7 @@ import { UserBookSettings } from '../../models/user-book-settings.model';
   styleUrls: ['./ebook-settings.component.scss'],
 })
 export class EbookSettings {
-  isUserAuthenticated = true;
+  isUserAuthenticated = false;
   @Input() userBookSettings: UserBookSettings;
   @Output() bookSettingsChanged: EventEmitter<UserBookSettings> = new EventEmitter<UserBookSettings>();
 

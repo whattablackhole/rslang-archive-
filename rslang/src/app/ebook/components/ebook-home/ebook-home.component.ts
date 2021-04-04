@@ -1,10 +1,16 @@
 import {
-  Component, OnDestroy, OnInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
+import { EbookSettingsService } from '../../services/ebook-settings.service';
 import { CONFIG_EBOOK } from '../../constants/config-ebook';
 import { Word } from '../../../shared/models/word.model';
 import { WordsCollection } from '../../models/words-collection.model';
@@ -17,25 +23,31 @@ import { LocalStorageType } from '../../../shared/models/change-storage-type.mod
   selector: 'app-ebook-home',
   templateUrl: './ebook-home.component.html',
   providers: [WordsDataService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EbookHome implements OnInit, OnDestroy {
   wordsCollections: WordsCollection[] = CONFIG_EBOOK.collections;
   words!: Word[];
   userBookSettings: UserBookSettings;
+  @Input() bookSettingsChanged: UserBookSettings;
   ebookSettingsSubscription = new Subscription();
   ebookSettingsChanges$ = this.localStorageService.changes$;
 
   constructor(
+    private ebookSettingsService: EbookSettingsService,
     private wordsDataService: WordsDataService,
+    private cdr: ChangeDetectorRef,
     private localStorageService: LocalStorageService,
   ) {}
 
   ngOnInit(): void {
-    this.words = this.wordsDataService.GetWords();
+    this.ebookSettingsService.firstLoadAndSet();
+    const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
+    this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
     this.ebookSettingsSubscription = this.ebookSettingsChanges$
       .subscribe(
         (events: StorageChanges) => {
-          if (events.type === LocalStorageType.set && events.key === LocalStorageKey.ebookSettings) {
+          if (events.type === LocalStorageType.Set && events.key === LocalStorageKey.EbookSettings as string) {
             this.userBookSettings = JSON.parse(events.value as string) as UserBookSettings;
           }
         },
@@ -43,8 +55,10 @@ export class EbookHome implements OnInit, OnDestroy {
   }
 
   changeSelectedBookSetting(bookSettingsChanged: UserBookSettings): void {
+    this.userBookSettings = bookSettingsChanged;
     this.localStorageService
-      .setItem('bookSettings', JSON.stringify(bookSettingsChanged));
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {

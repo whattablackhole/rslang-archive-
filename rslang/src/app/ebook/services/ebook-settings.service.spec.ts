@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EbookSettingsInitService } from './ebook-settings-init.service';
+import { EbookSettingsService } from './ebook-settings.service';
 
 describe('EbookSettingsInitService', () => {
-  let service: EbookSettingsInitService;
+  let service: EbookSettingsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EbookSettingsInitService);
+    service = TestBed.inject(EbookSettingsService);
   });
 
   it('should be created', () => {
