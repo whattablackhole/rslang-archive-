@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LongTermStatisticComponent } from './long-term-statistic.component';
+import { LongTermStatistic } from './long-term-statistic.component';
 
 describe('LongTermStatisticComponent', () => {
-  let component: LongTermStatisticComponent;
-  let fixture: ComponentFixture<LongTermStatisticComponent>;
+  let component: LongTermStatistic;
+  let fixture: ComponentFixture<LongTermStatistic>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LongTermStatisticComponent],
+      declarations: [LongTermStatistic],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LongTermStatisticComponent);
+    fixture = TestBed.createComponent(LongTermStatistic);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShortTermStatisticComponent } from './short-term-statistic.component';
+import { ShortTermStatistic } from './short-term-statistic.component';
 
 describe('ShortTermStatisticComponent', () => {
-  let component: ShortTermStatisticComponent;
-  let fixture: ComponentFixture<ShortTermStatisticComponent>;
+  let component: ShortTermStatistic;
+  let fixture: ComponentFixture<ShortTermStatistic>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ShortTermStatisticComponent],
+      declarations: [ShortTermStatistic],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShortTermStatisticComponent);
+    fixture = TestBed.createComponent(ShortTermStatistic);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
