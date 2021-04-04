@@ -1,18 +1,31 @@
 <section class="ebook-settings">
-  <h1>Settings</h1>
   <form #settingsForm="ngForm">
     <div *ngIf="isUserAuthenticated">
-      <label for="fname">Name</label>
-      <input type="text" id="fname" name="firstname" placeholder="UserName" required />
+      <input type="text" id="username" placeholder="Name" />
+      <label class="subtitle" for="username">User name</label>
     </div>
+    <p class="subtitle">Buttons</p>
     <div *ngFor="let itembtn of userBookSettings.buttonOptions">
-      <input type="checkbox" name="buttonOptions" [(ngModel)]="itembtn.checked" />{{ itembtn.label }}
+      <input type="checkbox" id="itembtn.value" name="itembtn.value" [(ngModel)]="itembtn.checked" />
+      <label for="itembtn.value">
+        {{ itembtn.label }}
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 10 10 L 90 90"></path>
+          <path d="M 90 10 L 10 90"></path>
+        </svg>
+      </label>
     </div>
-    <h2>Info about word</h2>
+    <p class="subtitle">Info about word</p>
     <div *ngFor="let itemword of userBookSettings.wordOptions">
-      <input type="checkbox" name="wordOptions" [(ngModel)]="itemword.checked" />{{ itemword.label }}
+      <input type="checkbox" id="itemword.value" name="itemword.value" [(ngModel)]="itemword.checked" />
+      <label for="itemword.value">
+        {{ itemword.label }}
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 10 10 L 90 90"></path>
+          <path d="M 90 10 L 10 90"></path>
+        </svg>
+      </label>
     </div>
-    <!-- <input type="submit" value="Save settings" [disabled]="settingsForm.invalid"  class="btn" /> -->
-    <button [disabled]="settingsForm.invalid" class="btn" (ngSubmit)="onSubmit()">Save settings</button>
+    <button class="btn" [disabled]="settingsForm.invalid" (click)="onSubmit()">Save settings</button>
   </form>
 </section>

@@ -20,11 +20,16 @@ export const EBOOK_SETTINGS = {
     {
       value: 'translationOfWord',
       label: 'Show translation word',
+      checked: true,
+    },
+    {
+      value: 'examplesOfUse',
+      label: 'Show examples of use',
       checked: false,
     },
     {
-      value: 'translationOfExample',
-      label: 'Show translation example',
+      value: 'translationOfExamples',
+      label: 'Show translation examples',
       checked: true,
     },
   ],
