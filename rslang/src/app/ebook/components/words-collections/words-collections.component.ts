@@ -18,7 +18,7 @@ export class WordsCollections {
 
   changeSelectedGroup(collection: WordsCollection): void {
     this.groupIdChanged.emit(collection.id);
-    const path = `ebbok/${collection.path || ''}`;
+    const path = `ebook/${collection.path || ''}`;
     // eslint-disable-next-line no-void
     void this.router.navigate([path, collection.id + 1]);
   }

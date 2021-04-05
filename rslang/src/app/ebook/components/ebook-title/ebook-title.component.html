@@ -1,0 +1,10 @@
+<div class="ebook-title">
+    <button (click)="pagination.first()" [disabled]="pagination.isFirst"><<</button>
+    <button (click)="pagination.prev()" [disabled]="pagination.isFirst"><</button>
+
+    <input appPagination #pagination="appPagination" [totalPages]="5" (pageChange)="onPageChange($event)" />
+    <span> / {{ pagination.totalPages }}</span>
+
+    <button (click)="pagination.next()" [disabled]="pagination.isLast">></button>
+    <button (click)="pagination.last()" [disabled]="pagination.isLast">>></button>
+</div>
