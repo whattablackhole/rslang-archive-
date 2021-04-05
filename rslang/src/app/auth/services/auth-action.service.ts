@@ -21,8 +21,15 @@ export class AuthActionService extends BaseActionService {
     super(httpClient);
   }
 
-  createUser(newUser: CreateUser): void {
-    this.sendAction('POST', `${BASE_URL}/users`, undefined, { body: newUser });
+  createUser(newUser: CreateUser, router = this.router): void {
+    const action: CallbackObject = {
+      onSuccess() {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        router.navigate(['/auth']); // TODO catch error
+      },
+      // TODO catch error
+    };
+    this.sendAction('POST', `${BASE_URL}/users`, action, { body: newUser });
   }
 
   signinUser(user: SigninRequest, router = this.router, storage = this.storage): void {
