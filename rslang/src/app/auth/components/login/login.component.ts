@@ -11,6 +11,6 @@ export class Login {
   constructor(private authActionService: AuthActionService) {}
 
   onSubmit(form: NgForm): void {
-    this.authActionService.createUser(form.value); // TODO
+    this.authActionService.signinUser(form.value);
   }
 }
