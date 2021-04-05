@@ -9,6 +9,7 @@ import { StorageChanges } from '../models/change-storage.model';
 })
 export class LocalStorageService {
   private readonly storage: Storage;
+  private prefix = 'rslang4_';
   changes$ = new Subject<StorageChanges>();
 
   constructor(
@@ -28,7 +29,7 @@ export class LocalStorageService {
   }
 
   getItem(key: string): string | null {
-    return this.storage.getItem(key);
+    return this.storage.getItem(this.prefix + key);
   }
 
   key(index: number): string | null {
@@ -36,7 +37,7 @@ export class LocalStorageService {
   }
 
   removeItem(key: string): void {
-    this.storage.removeItem(key);
+    this.storage.removeItem(this.prefix + key);
     this.changes$.next({
       type: 'remove',
       key,
@@ -44,7 +45,7 @@ export class LocalStorageService {
   }
 
   setItem(key: string, value: string): void {
-    this.storage.setItem(key, value);
+    this.storage.setItem(this.prefix + key, value);
     this.changes$.next({
       type: 'set',
       key,
