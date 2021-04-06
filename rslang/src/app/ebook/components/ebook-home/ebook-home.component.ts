@@ -41,17 +41,17 @@ export class EbookHome implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.ebookSettingsService.firstLoadAndSet();
+    this.ebookSettingsService.firstLoad();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
-    this.ebookSettingsSubscription = this.ebookSettingsChanges$
-      .subscribe(
-        (events: StorageChanges) => {
-          if (events.type === LocalStorageType.Set && events.key === LocalStorageKey.EbookSettings as string) {
-            this.userBookSettings = JSON.parse(events.value as string) as UserBookSettings;
-          }
-        },
-      );
+    // this.ebookSettingsSubscription = this.ebookSettingsChanges$
+    //   .subscribe(
+    //     (events: StorageChanges) => {
+    //       if (events.type === LocalStorageType.Set && events.key === LocalStorageKey.EbookSettings as string) {
+    //         this.userBookSettings = JSON.parse(events.value as string) as UserBookSettings;
+    //       }
+    //     },
+    //   );
   }
 
   changeSelectedBookSetting(bookSettingsChanged: UserBookSettings): void {
