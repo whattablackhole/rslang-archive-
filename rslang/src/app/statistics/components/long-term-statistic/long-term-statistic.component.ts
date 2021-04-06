@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartType } from 'chart.js';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Statistic } from '../../models/statistic.model';
 
@@ -8,20 +8,16 @@ import { Statistic } from '../../models/statistic.model';
   templateUrl: './long-term-statistic.component.html',
   styleUrls: ['./long-term-statistic.component.scss'],
 })
-export class LongTermStatistic implements OnInit{
+export class LongTermStatistic implements OnInit {
   @Input() statistics: Statistic[];
 
   public dates: string[];
   public words : (number | undefined)[];
   public lineChartData: ChartDataSets[];
   public lineChartLabels: Label[];
-  // @ts-ignore
-  public lineChartOptions;
+  public lineChartOptions: ChartOptions;
   public lineChartColors: Color[];
-  // @ts-ignore
-  public lineChartLegend;
-  // @ts-ignore
-  public lineChartPlugins;
+  public lineChartLegend: boolean;
   public lineChartType: ChartType;
 
   ngOnInit(): void {
@@ -40,7 +36,6 @@ export class LongTermStatistic implements OnInit{
     ];
 
     this.lineChartLegend = true;
-    this.lineChartPlugins = [];
     this.lineChartType = 'line';
   }
 }

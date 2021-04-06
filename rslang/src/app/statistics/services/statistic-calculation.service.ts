@@ -3,14 +3,12 @@ import { GameSession } from '../models/game-session.model';
 import { Statistic } from '../models/statistic.model';
 import { GameStatistic } from '../models/game-statistic.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class StatisticCalculationService {
   transformToGameStatistic(gamesSession: GameSession): GameStatistic {
     return {
       name: gamesSession.name,
-      winrate: this.getWinrate(gamesSession),
+      winrate: this.getWinRate(gamesSession),
       rightWords: this.getRightWords(gamesSession),
       streak: gamesSession.streak,
     };
@@ -18,13 +16,13 @@ export class StatisticCalculationService {
 
   groupByDate(gamesSessions: GameSession[]): Statistic[] {
     const statistics: Statistic[] = [];
-    const dates = new Set(gamesSessions.map((game) => game.date.toLocaleDateString()));
+    const dates = new Set(gamesSessions.map((game) => (this.getStringDate(game.date))));
     dates.forEach((date) => {
       const gameGroupByDate = gamesSessions.filter(
-        (game) => game.date.toLocaleDateString() === date,
+        (game) => (this.getStringDate(game.date) === date),
       );
       statistics.push({
-        date: gameGroupByDate[0].date,
+        date: this.getDate(gameGroupByDate[0].date),
         gameStatistics: gameGroupByDate.map((item) => this.transformToGameStatistic(item)),
         learnedWords: this.getLearnedWords(gameGroupByDate),
       });
@@ -32,7 +30,19 @@ export class StatisticCalculationService {
     return statistics;
   }
 
-  getWinrate(gamesSession: GameSession): number {
+  getStringDate(gameDate: string | Date) : string {
+    return typeof gameDate === 'string'
+      ? new Date(gameDate).toLocaleDateString()
+      : gameDate.toLocaleDateString();
+  }
+
+  getDate(gameDate: string | Date) : Date {
+    return typeof gameDate === 'string'
+      ? new Date(gameDate)
+      : gameDate;
+  }
+
+  getWinRate(gamesSession: GameSession): number {
     const allWords = gamesSession.correct_words.length + gamesSession.incorrect_words.length;
     return (gamesSession.correct_words.length / allWords) * 100;
   }

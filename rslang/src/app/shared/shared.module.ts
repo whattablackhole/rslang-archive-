@@ -31,7 +31,7 @@ import { Footer } from './components/footer/footer.component';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    Footer
+    Footer,
   ],
 })
 export class SharedModule {}

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameStatistic } from '../models/game-statistic.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class GamesAggregationService {
   aggregation(games: Array<GameStatistic>): Array<GameStatistic> {
     const aggregatedGames: Array<GameStatistic> = [];

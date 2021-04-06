@@ -1,6 +1,6 @@
 export interface GameSession {
   game_id?: string;
-  date: Date;
+  date: Date | string;
   name: string;
   correct_words: Array<WordId>;
   incorrect_words: Array<WordId>;
