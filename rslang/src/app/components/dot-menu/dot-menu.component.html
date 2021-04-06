@@ -5,29 +5,29 @@
   <mat-menu #dotMenu="matMenu" xPosition="before">
     <button mat-menu-item [routerLink]="['main']" routerLinkActive="active">
       <mat-icon>home</mat-icon>
-      <span>Главная</span>
+      <span>home</span>
     </button>
     <button mat-menu-item [matMenuTriggerFor]="ebook">
       <mat-icon>book</mat-icon>
-      <span>Учебник</span>
+      <span>ebook</span>
     </button>
     <button mat-menu-item [matMenuTriggerFor]="games">
       <mat-icon>games</mat-icon>
-      <span>Мини-игры</span>
+      <span>games</span>
     </button>
     <button mat-menu-item [routerLink]="['statistics']" routerLinkActive="active">
       <mat-icon>graphic_eq</mat-icon>
-      <span>Статистика</span>
+      <span>statistics</span>
     </button>
     <button mat-menu-item [routerLink]="['auth']" routerLinkActive="active">
       <mat-icon>account_circle</mat-icon>
-      <span>Войти</span>
+      <span>Sign In</span>
     </button>
   </mat-menu>
   <mat-menu #ebook="matMenu" xPosition="before">
-    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">Коллекции</button>
-    <button mat-menu-item [matMenuTriggerFor]="ebookVocabulary">Словарь</button>
-    <button mat-menu-item>Настройки</button>
+    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">collections</button>
+    <button mat-menu-item [matMenuTriggerFor]="ebookVocabulary">dictionary</button>
+    <button mat-menu-item>Settings</button>
   </mat-menu>
   <mat-menu #games="matMenu" xPosition="before">
     <button mat-menu-item>Саванна</button>
