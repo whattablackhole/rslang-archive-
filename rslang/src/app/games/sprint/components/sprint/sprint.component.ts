@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, style, animate, transition, keyframes, animation } from '@angular/animations';
+import {
+  trigger, style, animate, transition, keyframes, animation,
+} from '@angular/animations';
 import { Word } from 'src/app/shared/models/word.model';
 import { Router, RoutesRecognized } from '@angular/router';
 import { Observable } from 'rxjs';
