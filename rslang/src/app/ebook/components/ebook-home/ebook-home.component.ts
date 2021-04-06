@@ -30,7 +30,7 @@ export class EbookHome implements OnInit, OnDestroy {
   words!: Word[];
   userBookSettings: UserBookSettings;
   @Input() bookSettingsChanged: UserBookSettings;
-  ebookSettingsSubscription = new Subscription();
+  ebookSettingsSubscription: Subscription;
   ebookSettingsChanges$ = this.localStorageService.changes$;
 
   constructor(
@@ -41,7 +41,7 @@ export class EbookHome implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.ebookSettingsService.firstLoadAndSet();
+    this.ebookSettingsService.firstLoad();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
     this.ebookSettingsSubscription = this.ebookSettingsChanges$

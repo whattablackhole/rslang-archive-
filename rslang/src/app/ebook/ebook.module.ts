@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { EbookRoutingModule } from './ebook-routing.module';
 
+import { EbookSettingsService } from './services/ebook-settings.service';
 import { EbookHome } from './components/ebook-home/ebook-home.component';
 import { WordsCollections } from './components/words-collections/words-collections.component';
 import { EbookSettings } from './components/ebook-settings/ebook-settings.component';
@@ -12,6 +13,7 @@ import { WordsList } from './components/words-list/words-list.component';
 @NgModule({
   declarations: [EbookHome, WordsCollections, EbookSettings, EbookTitle, PaginationDirective, WordsList],
   imports: [SharedModule, EbookRoutingModule],
-  exports: [PaginationDirective],
+  exports: [WordsCollections],
+  providers: [EbookSettingsService],
 })
 export class EbookModule {}
