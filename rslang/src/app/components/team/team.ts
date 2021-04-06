@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Contributer } from './../../shared/models/contributor.model';
+import { Contributer } from '../../shared/models/contributor.model';
 @Component({
   selector: 'app-team',
   templateUrl: './team.html',
