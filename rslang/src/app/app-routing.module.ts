@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { NotFoundPage } from './shared/components/not-found-page/not-found-page.component';
+import { MainPage } from './components/main-page/main-page.component';
+import { NavMenu } from './components/nav-menu/nav-menu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
   {
-    path: 'main',
-    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
+    path: 'home',
+    component: MainPage,
   },
   {
     path: 'ebook',
@@ -23,6 +26,11 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: '',
+    component: NavMenu,
+    outlet: 'nav-menu',
   },
   { path: '**', component: NotFoundPage },
 ];

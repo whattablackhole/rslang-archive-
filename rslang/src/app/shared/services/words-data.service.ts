@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Word } from '../models/word.model';
-import { BaseDataService } from './base-data.service';
+import { BaseDataService } from '../../core/services/base-data.service';
 import { WORDS_API_URL, WORDS_DATA } from '../constants/constants';
 
 @Injectable()

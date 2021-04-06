@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition, keyframes, animation } from '@angular/animations';
 import { Word } from 'src/app/shared/models/word.model';
 import { Router, RoutesRecognized } from '@angular/router';
@@ -287,7 +287,7 @@ export class Sprint implements OnInit {
           this.getFullWords(group, this.gameCoreService.decreasePageNumber(page), id);
         }
       }
-    }, 3000);
+    }, 2000);
   }
 
   generateRandomWords(sortedWords: WordWithStatistics[]): WordWithStatistics[] {

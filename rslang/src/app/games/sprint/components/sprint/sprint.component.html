@@ -2,8 +2,8 @@
   <app-screen-size-changer></app-screen-size-changer>
   <div *ngIf="!isGameStarted">
     <div class="game__menu" *ngIf="!isGameFinished">
-      <h2 class="game__title">Игра Спринт</h2>
-      <h3 class="game__subtitle">В этой игре необходимо используя свои скиллы выбрать подходящий вариант ответа</h3>
+      <h2 class="game__title">Sprint</h2>
+      <h3 class="game__subtitle">In this game you need to use your skills to choose the appropriate answer</h3>
       <div>
         <mat-spinner *ngIf="!randomSortedWords"></mat-spinner>
         <button
@@ -60,8 +60,8 @@
       <div class="game__word-translate">{{ word.wordTranslate }}</div>
     </div>
     <div class="game__buttons">
-      <button mat-raised-button (click)="onAnswer(true)">ВЕРНО</button>
-      <button mat-raised-button (click)="onAnswer(false)">НЕВЕРНО</button>
+      <button mat-raised-button (click)="onAnswer(true)">Correct</button>
+      <button mat-raised-button (click)="onAnswer(false)">Incorrect</button>
     </div>
   </div>
 </div>

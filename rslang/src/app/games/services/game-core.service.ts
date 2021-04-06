@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameResults } from 'src/app/shared/models/game-results.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
-import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Injectable()
 export class GameCoreService {

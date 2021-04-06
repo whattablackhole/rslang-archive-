@@ -22,8 +22,8 @@
   </symbol>
 </svg>
 <div class="result">
-  <div class="result__title">Твой результат {{ result }} очков</div>
-  <div class="result__acc">Твоя аккуратность:</div>
+  <div class="result__title">Your result is {{ result }} points</div>
+  <div class="result__acc">Accuracy:</div>
   <div class="animation-box">
     <div class="animation-box__percent">
       <div class="animation-box__percent-num" id="count">{{ percent }}</div>
@@ -39,9 +39,7 @@
     </div>
   </div>
   <div class="result__buttons">
-    <button mat-stroked-button color="warn">К учебнику</button>
-    <button mat-stroked-button color="warn">В меню</button>
+    <button mat-stroked-button color="warn" routerLink="/ebook">To ebook</button>
+    <button mat-stroked-button color="warn" routerLink="/statistics">Show global stats</button>
   </div>
 </div>
-
-<!-- <button mat-raised-button (click)="runAnimation()">Finish</button> -->
