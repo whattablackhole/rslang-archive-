@@ -8,9 +8,8 @@ import {
   styleUrls: ['./finish-menu.component.scss'],
 })
 export class FinishMenu implements OnInit {
-  @ViewChild('cnt', { static: false }) public cnt: ElementRef;
   @ViewChild('water', { static: false }) public water: ElementRef;
-  @Input() gameCorrectPercent: number;
+  @Input() correctGamePercent: number;
   @Input() result: number;
   percent = 0;
   interval: number;
@@ -19,12 +18,12 @@ export class FinishMenu implements OnInit {
     this.runAnimation();
   }
 
-  runAnimation(): void {
+  private runAnimation(): void {
     this.interval = window.setInterval(() => {
-      this.percent += 1;
+      this.percent = this.correctGamePercent ? this.percent + 1 : 0;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       this.water.nativeElement.style.transform = `translate(0, ${100 - this.percent}%)`;
-      if (this.percent === this.gameCorrectPercent) {
+      if (this.percent === this.correctGamePercent || this.correctGamePercent === 0) {
         window.clearInterval(this.interval);
       }
     }, 60);

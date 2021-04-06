@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SprintPage } from './sprint-page.component';
+import { Savannah } from './savannah.component';
 
-describe('SprintPage', () => {
-  let component: SprintPage;
-  let fixture: ComponentFixture<SprintPage>;
+describe('Savannah', () => {
+  let component: Savannah;
+  let fixture: ComponentFixture<Savannah>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SprintPage],
+      declarations: [Savannah],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SprintPage);
+    fixture = TestBed.createComponent(Savannah);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

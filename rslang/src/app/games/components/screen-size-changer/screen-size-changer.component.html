@@ -1,6 +1,3 @@
-<div>
-  <button *ngIf="!isScreenFull" mat-icon-button (click)="onOpenFullscreen()"><mat-icon>open_with</mat-icon></button>
-  <button *ngIf="isScreenFull" mat-icon-button (click)="onCloseFullscreen()">
-    <mat-icon>highlight_off</mat-icon>
-  </button>
-</div>
+<button mat-icon-button (click)="onChangeScreenSize()">
+  <mat-icon>{{ screenSizeIcon }}</mat-icon>
+</button>

@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SavannahModule } from './savannah/savannah.module';
-
+import { GameRoutingModule } from './game-routing.module';
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
-  exports: [SavannahModule],
+  imports: [CommonModule, GameRoutingModule],
 })
 export class GamesModule {}

@@ -3,16 +3,15 @@ import { GameResults } from 'src/app/shared/models/game-results.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
-@Injectable({
-  providedIn: 'root',
-})
+
+@Injectable()
 export class GameCoreService {
   constructor(private localStorageService: LocalStorageService) {}
 
   addWordsToLocalStorage(words: WordWithStatistics[]): void {
     const pagesArray: Array<{ page: number; words: WordWithStatistics[] }> = [];
     words.forEach((item: WordWithStatistics) => {
-      if (pagesArray.length === 0) {
+      if (!pagesArray.length) {
         pagesArray.push({ page: item.page, words: [item] });
       } else {
         pagesArray.forEach((pageItem, index) => {
@@ -43,12 +42,10 @@ export class GameCoreService {
   }
 
   addToSortedWords(sortedWords: WordWithStatistics[], unSortedwords: WordWithStatistics[]): WordWithStatistics[] {
-    const filteredWords = unSortedwords.filter(() => (word: WordWithStatistics) => {
-      if (word.isRemove === true || word.knowledgeDegree >= 3) {
-        return false;
-      }
-      return true;
-    });
+    const filteredWords = unSortedwords.filter(() => (word: WordWithStatistics) =>
+      // eslint-disable-next-line implicit-arrow-linebreak
+      word.isRemove || word.knowledgeDegree >= 3,
+    ); // eslint-disable-line function-paren-newline
     filteredWords.forEach((filterdWord: WordWithStatistics) => {
       // eslint-disable-next-line no-param-reassign
       sortedWords = sortedWords.map((sortedWord: WordWithStatistics) => {

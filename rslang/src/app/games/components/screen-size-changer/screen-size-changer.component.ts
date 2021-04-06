@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ScreenSizeIcon } from '../../types/screen-size-icon.type';
 
 @Component({
   selector: 'app-screen-size-changer',
@@ -6,19 +7,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./screen-size-changer.component.scss'],
 })
 export class ScreenSizeChanger {
+  screenSizeIcon: ScreenSizeIcon = 'open_with';
   screen: HTMLElement = document.documentElement;
-  isScreenFull: boolean;
-  onOpenFullscreen = (): void => {
-    if (this.screen.requestFullscreen) {
-      this.isScreenFull = true;
-      void this.screen.requestFullscreen(); // eslint-disable-line no-void
-    }
-  };
 
-  onCloseFullscreen = (): void => {
-    if (document.exitFullscreen) {
-      this.isScreenFull = false;
-      void document.exitFullscreen(); // eslint-disable-line no-void
+  isScreenFull: boolean;
+
+  onChangeScreenSize(): void {
+    if (this.isScreenFull) {
+      document
+        .exitFullscreen()
+        .then(() => {
+          this.screenSizeIcon = 'open_with';
+          this.isScreenFull = false;
+        })
+        .catch(() => {
+          this.screenSizeIcon = 'highlight_off';
+          this.isScreenFull = true;
+        });
+    } else {
+      this.screen
+        .requestFullscreen()
+        .then(() => {
+          this.screenSizeIcon = 'highlight_off';
+          this.isScreenFull = true;
+        })
+        .catch(() => {
+          this.screenSizeIcon = 'open_with';
+          this.isScreenFull = false;
+        });
     }
-  };
+  }
 }

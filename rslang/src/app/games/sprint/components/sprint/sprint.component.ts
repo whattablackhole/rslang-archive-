@@ -1,9 +1,5 @@
-import {
-  Component, OnInit, HostBinding, ElementRef,
-} from '@angular/core';
-import {
-  trigger, style, animate, transition, keyframes, animation,
-} from '@angular/animations';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { trigger, style, animate, transition, keyframes, animation } from '@angular/animations';
 import { Word } from 'src/app/shared/models/word.model';
 import { Router, RoutesRecognized } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -55,7 +51,6 @@ import { HiddenTextAnimationState } from '../../types/hidden-text.type';
   ],
 })
 export class Sprint implements OnInit {
-  @HostBinding('circles') circles: ElementRef;
   words: Observable<Word[]>;
   randomSortedWords: WordWithStatistics[];
   wordsFromLocalStorage: WordWithStatistics[] | string | null;
@@ -68,13 +63,14 @@ export class Sprint implements OnInit {
   borderColorAnimationState: BorderColorAnimationState;
   hiddenTextAnimationState: HiddenTextAnimationState;
 
-  currectWordIndex = 0;
+  currentWordIndex = 0;
   biggestStreak = 0;
-  currectStreak = 0;
+  currentStreak = 0;
   scorePointsLimit = 20;
   scorePoints = 0;
   gameLevel = 1;
-  gameCorrectPercent = 0;
+  correctGamePercent = 0;
+  wordsLimit = 20;
 
   isGameStarted = false;
   isGameFinished = false;
@@ -141,20 +137,21 @@ export class Sprint implements OnInit {
       ...elem,
       isRemove: false,
       isDifficult: false,
+      toStudy: {},
       knowledgeDegree: 0,
     }));
   }
 
   onStartGame(): void {
-    this.gameCorrectPercent = 0;
+    this.correctGamePercent = 0;
     this.scorePoints = 0;
     this.isGameStarted = true;
     this.isGameFinished = false;
     this.gameLevel = 1;
     this.scorePointsLimit = 20;
-    this.currectStreak = 0;
+    this.currentStreak = 0;
     this.biggestStreak = 0;
-    this.currectWordIndex = 0;
+    this.currentWordIndex = 0;
     this.hiddenTextAnimationState = 'off';
     this.generateNextWord();
   }
@@ -170,33 +167,28 @@ export class Sprint implements OnInit {
   generateCorrectPercent(): void {
     const correctNumber: number = this.gameResultWords.correct_words.length;
     const incorrectNumber: number = this.gameResultWords.incorrect_words.length;
-    this.gameCorrectPercent = Math.floor((correctNumber * 100) / (incorrectNumber + correctNumber));
+    this.correctGamePercent = Math.floor((correctNumber * 100) / (incorrectNumber + correctNumber));
   }
 
   checkIfGameFinished(): void {
-    if (this.currectWordIndex > 19) {
+    if (this.currentWordIndex > this.randomSortedWords.length - 1) {
       this.finishGame();
     }
   }
 
   generateNextWord(): void {
-    this.word = this.randomSortedWords[this.currectWordIndex];
-    this.currectWordIndex += 1;
+    this.word = this.randomSortedWords[this.currentWordIndex];
+    this.currentWordIndex += 1;
   }
 
   findCorrectWord(): WordWithStatistics | undefined {
-    return this.sortedWords.find((item) => {
-      if (item.id === this.word.id) {
-        return true;
-      }
-      return false;
-    });
+    return this.sortedWords.find((item) => item.id === this.word.id);
   }
 
   changeScorePointLimit(answer: boolean): void {
-    if (answer === true) {
+    if (answer) {
       if (this.scorePointsLimit < 100) {
-        switch (this.currectStreak) {
+        switch (this.currentStreak) {
           case 1:
           case 2:
           case 3:
@@ -241,11 +233,11 @@ export class Sprint implements OnInit {
   }
 
   calculateStreak(answer: boolean): void {
-    if (answer === true) {
-      this.currectStreak += 1;
+    if (answer) {
+      this.currentStreak += 1;
     } else {
-      this.biggestStreak = Math.max(this.currectStreak, this.biggestStreak);
-      this.currectStreak = 0;
+      this.biggestStreak = Math.max(this.currentStreak, this.biggestStreak);
+      this.currentStreak = 0;
     }
   }
 
@@ -280,19 +272,17 @@ export class Sprint implements OnInit {
 
   changeWordsKnowledgeDegree(id: string, result: boolean): void {
     const index = this.sortedWords.findIndex((item) => item.id === id);
-    if (result === true) {
+    if (result) {
       this.sortedWords[index].knowledgeDegree += 1;
-    } else if (result === false) {
-      if (this.sortedWords[index].knowledgeDegree > 0) {
-        this.sortedWords[index].knowledgeDegree -= 1;
-      }
+    } else if (this.sortedWords[index].knowledgeDegree > 0) {
+      this.sortedWords[index].knowledgeDegree -= 1;
     }
   }
 
   getFullWords(group: string, page: string, id?: string): void {
     this.getWords(group, page);
     setTimeout(() => {
-      if (this.sortedWords.length < 20) {
+      if (this.sortedWords.length < this.wordsLimit) {
         if (parseInt(page, 10) > 0) {
           this.getFullWords(group, this.gameCoreService.decreasePageNumber(page), id);
         }
@@ -320,8 +310,8 @@ export class Sprint implements OnInit {
       if (Array.isArray(this.wordsFromLocalStorage)) {
         this.sortedWords = this.gameCoreService.addToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
       }
-      if (this.sortedWords.length > 20) {
-        this.sortedWords = this.sortedWords.slice(0, 20);
+      if (this.sortedWords.length > this.wordsLimit) {
+        this.sortedWords = this.sortedWords.slice(0, this.wordsLimit);
       }
       this.randomSortedWords = this.generateRandomWords(this.sortedWords);
     });

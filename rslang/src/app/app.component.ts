@@ -14,11 +14,11 @@ export class App {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.moduleLoading = true;
-      } else if (event instanceof NavigationEnd) {
-        this.moduleLoading = false;
-      } else if (event instanceof NavigationCancel) {
-        this.moduleLoading = false;
-      } else if (event instanceof NavigationError) {
+      } else if (
+        event instanceof NavigationEnd || // eslint-disable-line operator-linebreak
+        event instanceof NavigationCancel || // eslint-disable-line operator-linebreak
+        event instanceof NavigationError
+      ) {
         this.moduleLoading = false;
       }
     });
