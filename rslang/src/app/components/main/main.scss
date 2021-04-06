@@ -1,5 +1,20 @@
 @import "src/variables";
 
+@mixin main-title {
+  margin-bottom: $margin_after_title;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  color: $main_blue;
+}
+
+@mixin card-title {
+  font-size: 1.2rem;
+  font-size: 400;
+  text-align: center;
+  color: $main_blue;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -84,11 +99,7 @@
   margin-bottom: $margin_after_section;
 
   &__title {
-    margin-bottom: $margin_after_title;
-    font-size: 1.4rem;
-    font-weight: 500;
-    text-align: center;
-    color: $main_blue;
+    @include main-title;
   }
 
   &__items {
@@ -108,10 +119,7 @@
   &__item {
 
     &__title {
-      font-size: 1.2rem;
-      font-size: 400;
-      text-align: center;
-      color: $main_blue;
+      @include card-title;
     }
 
     &__icon {
@@ -160,4 +168,59 @@
   }
 
 
+}
+
+.main__games {
+  margin-bottom: $margin_after_section;
+
+  &__title {
+    @include main-title;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  &__item {
+    width: 16rem;
+    min-height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 2rem;
+    background: $blue_color;
+    box-shadow: 1px 4px 8px 0px rgba(34, 60, 80, 0.2);
+
+    &:nth-child(2n) {
+      background: $bg_color;
+    }
+
+    &__title {
+      @include card-title;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    &__description-text {
+      color: #fff;
+    }
+  }
+}
+
+.main__team {
+  margin-bottom: $margin_after_section;
+}
+
+.main__our__team__title {
+  @include main-title;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: $accent_color;
 }
