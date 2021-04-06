@@ -19,9 +19,13 @@
       <mat-icon>graphic_eq</mat-icon>
       <span>Статистика</span>
     </button>
-    <button mat-menu-item [routerLink]="['auth']" routerLinkActive="active">
+    <button mat-menu-item [routerLink]="['auth']" routerLinkActive="active" *ngIf="!this.isUserAuthenticated">
       <mat-icon>account_circle</mat-icon>
       <span>Войти</span>
+    </button>
+    <button mat-menu-item [routerLink]="" *ngIf="this.isUserAuthenticated" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>Выйти</span>
     </button>
   </mat-menu>
   <mat-menu #ebook="matMenu" xPosition="before">

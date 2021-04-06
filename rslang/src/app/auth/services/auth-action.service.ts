@@ -10,37 +10,31 @@ import { BASE_URL } from '../../shared/constants/base-url';
 import { CreateUser } from '../models/create-user.model';
 import { SigninRequest } from '../models/signin-request.model';
 import { SigninResponse } from '../models/signin-response.model';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthActionService extends BaseActionService {
   constructor(
     httpClient: HttpClient,
-    private router: Router,
-    private storage: LocalStorageService,
+    private authService: AuthService,
   ) {
     super(httpClient);
   }
 
-  createUser(newUser: CreateUser, router = this.router): void {
+  createUser(newUser: CreateUser, authService = this.authService): void {
     const action: CallbackObject = {
       onSuccess() {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.navigate(['/auth']); // TODO catch error
+        authService.redirectToUrl('/auth');
       },
       // TODO catch error
     };
     this.sendAction('POST', `${BASE_URL}/users`, action, { body: newUser });
   }
 
-  signinUser(user: SigninRequest, router = this.router, storage = this.storage): void {
+  signinUser(user: SigninRequest, authService = this.authService): void {
     const action: CallbackObject = {
       onSuccess(result) {
-        const signinData = result as SigninResponse;
-        storage.setItem('userId', signinData.userId);
-        storage.setItem('token', signinData.token);
-        storage.setItem('refreshToken', signinData.refreshToken);
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.navigate(['/']); // TODO catch error
+        authService.loginUser(result as SigninResponse);
       },
       // TODO catch error
     };

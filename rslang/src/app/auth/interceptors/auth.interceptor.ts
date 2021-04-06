@@ -7,15 +7,15 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private storage: LocalStorageService) {}
+  constructor(private authService: AuthService) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authToken = this.storage.getItem('token');
+    const authToken = this.authService.getJwtToken();
     if (!authToken) {
       return next.handle(req);
     }
