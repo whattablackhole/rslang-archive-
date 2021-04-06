@@ -38,6 +38,7 @@ export class AuthActionService extends BaseActionService {
         const signinData = result as SigninResponse;
         storage.setItem('userId', signinData.userId);
         storage.setItem('token', signinData.token);
+        storage.setItem('refreshToken', signinData.refreshToken);
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.navigate(['/']); // TODO catch error
       },
