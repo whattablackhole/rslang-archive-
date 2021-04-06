@@ -19,7 +19,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

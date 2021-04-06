@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 import { CallbackObject } from '../../shared/models/callback-object.model';
-import { BaseActionService } from '../../shared/services/base-action.service';
-import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { BaseActionService } from '../../core/services/base-action.service';
 import { BASE_URL } from '../../shared/constants/base-url';
 
 import { CreateUser } from '../models/create-user.model';

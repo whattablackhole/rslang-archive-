@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
-import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 import { SigninResponse } from '../models/signin-response.model';
 
 @Injectable({

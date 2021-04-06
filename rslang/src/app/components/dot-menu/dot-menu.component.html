@@ -21,11 +21,11 @@
     </button>
     <button mat-menu-item [routerLink]="['auth']" routerLinkActive="active" *ngIf="!this.isUserAuthenticated">
       <mat-icon>account_circle</mat-icon>
-      <span>Sign In</span>
+      <span>sign in</span>
     </button>
     <button mat-menu-item [routerLink]="" *ngIf="this.isUserAuthenticated" (click)="onLogout()">
       <mat-icon>logout</mat-icon>
-      <span>Выйти</span>
+      <span>sign out</span>
     </button>
   </mat-menu>
   <mat-menu #ebook="matMenu" xPosition="before">
