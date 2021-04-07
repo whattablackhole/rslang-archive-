@@ -1,0 +1,22 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  background-color: white;
+
+  .main-menu {
+    font-size: 20px;
+  }
+
+  .account-icon {
+    height: 25px;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70px;
+  }
+}

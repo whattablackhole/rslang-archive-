@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpOptions } from '../models/http-options.model';
-import { CallbackObject } from '../models/callback-object.model';
-import { HttpAction } from '../types/http-action.type';
+import { CallbackObject } from '../../shared/models/callback-object.model';
+import { HttpAction } from '../../shared/types/http-action.type';
 
 export abstract class BaseActionService {
   constructor(private httpClient: HttpClient) {}
