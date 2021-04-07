@@ -1,22 +1,18 @@
 <section class="auth-page">
   <div class="auth-page__wrapper">
     <mat-card>
-      <form #loginForm="ngForm" (submit)="onSubmit(loginForm)">
+      <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
         <mat-form-field>
-          <input matInput name="email" type="email" placeholder="Email" ngModel #emailInput="ngModel" required email />
-          <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+          <input matInput id="email" type="email" placeholder="Email" formControlName="email" required />
+          <div *ngIf="emailInput && emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+            <mat-error>Please enter a valid email.</mat-error>
+          </div>
         </mat-form-field>
         <mat-form-field>
-          <input
-            matInput
-            name="password"
-            type="password"
-            placeholder="Password"
-            ngModel
-            #passwordInput="ngModel"
-            required
-          />
-          <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+          <input matInput name="password" type="password" placeholder="Password" formControlName="password" required />
+          <div *ngIf="passwordInput && passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+            <mat-error>Please enter a valid password.</mat-error>
+          </div>
         </mat-form-field>
         <button type="submit" [disabled]="loginForm.invalid">Log In</button>
         <a class="auth-link" [routerLink]="['./register']">Sign Up</a>

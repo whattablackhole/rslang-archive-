@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthActionService } from '../../services/auth-action.service';
 
 @Component({
@@ -8,9 +13,23 @@ import { AuthActionService } from '../../services/auth-action.service';
   styleUrls: ['../auth.scss'],
 })
 export class Login {
-  constructor(private authActionService: AuthActionService) {}
+  loginForm: FormGroup;
+  constructor(private readonly fb: FormBuilder, private authActionService: AuthActionService) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
 
-  onSubmit(form: NgForm): void {
-    this.authActionService.signinUser(form.value);
+  get emailInput(): AbstractControl | null {
+    return this.loginForm.get('email');
+  }
+
+  get passwordInput(): AbstractControl | null {
+    return this.loginForm.get('password');
+  }
+
+  submitForm(): void {
+    this.authActionService.signinUser(this.loginForm.getRawValue());
   }
 }

@@ -1,26 +1,24 @@
 <section class="auth-page">
   <div class="auth-page__wrapper">
     <mat-card>
-      <form #authForm="ngForm" (submit)="onSubmit(authForm)">
+      <form [formGroup]="authForm" (ngSubmit)="submitForm()">
         <mat-form-field>
-          <input matInput name="name" type="text" placeholder="Name" ngModel #nameInput="ngModel" required />
-          <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
+          <input matInput name="name" type="text" placeholder="Name" formControlName="name" required />
+          <div *ngIf="nameInput && nameInput.invalid && (nameInput.dirty || nameInput.touched)">
+            <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
+          </div>
         </mat-form-field>
         <mat-form-field>
-          <input matInput name="email" type="email" placeholder="Email" ngModel #emailInput="ngModel" required email />
-          <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+          <input matInput id="email" type="email" placeholder="Email" formControlName="email" required />
+          <div *ngIf="emailInput && emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+            <mat-error>Please enter a valid email.</mat-error>
+          </div>
         </mat-form-field>
         <mat-form-field>
-          <input
-            matInput
-            name="password"
-            type="password"
-            placeholder="Password"
-            ngModel
-            #passwordInput="ngModel"
-            required
-          />
-          <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
+          <input matInput name="password" type="password" placeholder="Password" formControlName="password" required />
+          <div *ngIf="passwordInput && passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+            <mat-error>Please enter a valid password.</mat-error>
+          </div>
         </mat-form-field>
         <button type="submit" [disabled]="authForm.invalid">Sign Up</button>
         <div class="auth-link">
