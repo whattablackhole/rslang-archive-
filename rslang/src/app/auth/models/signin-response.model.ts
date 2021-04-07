@@ -3,4 +3,5 @@ export interface SigninResponse {
   token: string;
   refreshToken: string;
   userId: string;
+  name: string;
 }

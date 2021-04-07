@@ -10,6 +10,7 @@ import { SigninResponse } from '../models/signin-response.model';
 })
 export class AuthService {
   private readonly USER_ID = 'UserId';
+  private readonly USER_NAME = 'UserName';
   private readonly JWT_TOKEN = 'Token';
   private readonly REFRESH_TOKEN = 'RefreshToken';
 
@@ -30,7 +31,7 @@ export class AuthService {
   }
 
   loginUser(data: SigninResponse): void {
-    this.saveAuthData(data.userId, data.token, data.refreshToken);
+    this.saveAuthData(data.userId, data.name, data.token, data.refreshToken);
     this.changeAuthStatus(true);
     this.redirectToUrl('/');
   }
@@ -57,19 +58,25 @@ export class AuthService {
     return this.storage.getItem(this.USER_ID);
   }
 
+  getUserName(): string | null {
+    return this.storage.getItem(this.USER_NAME);
+  }
+
   redirectToUrl(url: string): void {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     this.router.navigate([url]); // TODO catch error
   }
 
-  private saveAuthData(userId: string, token: string, refreshToken: string): void {
+  private saveAuthData(userId: string, name: string, token: string, refreshToken: string): void {
     this.storage.setItem(this.USER_ID, userId);
+    this.storage.setItem(this.USER_NAME, name);
     this.storage.setItem(this.JWT_TOKEN, token);
     this.storage.setItem(this.REFRESH_TOKEN, refreshToken);
   }
 
   private clearAuthData(): void {
     this.storage.removeItem(this.USER_ID);
+    this.storage.removeItem(this.USER_NAME);
     this.storage.removeItem(this.JWT_TOKEN);
     this.storage.removeItem(this.REFRESH_TOKEN);
   }
