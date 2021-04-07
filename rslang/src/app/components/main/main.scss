@@ -215,14 +215,13 @@
 
 .main__team {
   margin-bottom: $margin_after_section;
-}
 
-.main__our__team__title {
-  @include main-title;
-  margin-bottom: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: $accent_color;
+  &__panel-description {
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $accent_color;
+  }
 }
 
 .main__team {
