@@ -14,7 +14,7 @@ import { Footer } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [NotFoundPage, Footer],
-    imports: [
+  imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
@@ -34,7 +34,7 @@ import { Footer } from './components/footer/footer.component';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    Footer
+    Footer,
   ],
 })
 export class SharedModule {}

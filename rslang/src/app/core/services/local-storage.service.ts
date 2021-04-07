@@ -35,10 +35,6 @@ export class LocalStorageService {
     return this.storage.key(index);
   }
 
-  isKey(key: string): boolean {
-    return !!(this.storage[key] || '');
-  }
-
   removeItem(key: string): void {
     this.storage.removeItem(key);
     this.changes$.next({
