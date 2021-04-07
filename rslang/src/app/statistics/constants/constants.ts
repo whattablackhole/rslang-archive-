@@ -2,6 +2,7 @@ import { GameSession } from '../models/game-session.model';
 
 export const STATISTIC_DATA: GameSession[] = [
   {
+    game_id: '5e9f5ee35eb9e72bc2',
     date: new Date('03.28.2021'),
     name: 'savannah',
     streak: 10,
@@ -39,6 +40,7 @@ export const STATISTIC_DATA: GameSession[] = [
   },
 
   {
+    game_id: '5e9f5ee35eb9e72bc233545',
     date: new Date('03.30.2021'),
     name: 'savannah',
     streak: 5,
@@ -76,6 +78,7 @@ export const STATISTIC_DATA: GameSession[] = [
   },
 
   {
+    game_id: '5e9f5ee35eb9e72bc23354sdvsdv5',
     date: new Date('03.30.2021'),
     name: 'savannah',
     streak: 5,
@@ -112,6 +115,7 @@ export const STATISTIC_DATA: GameSession[] = [
     ],
   },
   {
+    game_id: '5e9f5ee35eb9e7dsdv45',
     date: new Date('03.30.2021'),
     name: 'sprint',
     streak: 6,
@@ -157,6 +161,7 @@ export const STATISTIC_DATA: GameSession[] = [
     ],
   },
   {
+    game_id: '5e9f5ee35eb9e72bc23sdasc45',
     date: new Date('04.01.2021'),
     name: 'sprint',
     streak: 10,
@@ -202,6 +207,7 @@ export const STATISTIC_DATA: GameSession[] = [
     ],
   },
   {
+    game_id: '5e9f5ee35eb9eascascl5',
     date: new Date('04.03.2021'),
     name: 'audiocall',
     streak: 5,

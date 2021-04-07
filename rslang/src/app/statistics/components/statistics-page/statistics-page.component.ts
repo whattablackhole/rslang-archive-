@@ -25,10 +25,10 @@ export class StatisticsPage implements OnInit {
   statisticsList: Statistic[];
   gameSessions: GameSession[];
   constructor(private statisticCalculation: StatisticCalculationService,
-    private gsProvider: GSProviderService) {}
+    private gsProvider: GSProviderService, private local: LocalStorageService) {}
 
   ngOnInit(): void {
-    localStorage.setItem('GameSession', JSON.stringify(STATISTIC_DATA));
+    this.local.setItem('GameSession', JSON.stringify(STATISTIC_DATA));
     this.gsProvider.getGameSessions().subscribe((gameSessions) => {
       this.gameSessions = gameSessions;
     });

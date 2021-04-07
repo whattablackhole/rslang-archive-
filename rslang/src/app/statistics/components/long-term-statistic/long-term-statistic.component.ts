@@ -11,8 +11,9 @@ import { Statistic } from '../../models/statistic.model';
 export class LongTermStatistic implements OnInit {
   @Input() statistics: Statistic[];
 
-  public dates: string[];
-  public words : (number | undefined)[];
+  private dates: string[];
+  private words : (number | undefined)[];
+  private accWords : (number | undefined)[];
   public lineChartData: ChartDataSets[];
   public lineChartLabels: Label[];
   public lineChartOptions: ChartOptions;
@@ -23,7 +24,13 @@ export class LongTermStatistic implements OnInit {
   ngOnInit(): void {
     this.dates = this.statistics.map((item) => item.date.toLocaleDateString());
     this.words = this.statistics.map((item) => item.learnedWords);
-    this.lineChartData = [{ data: this.words, label: 'Learned Words' }];
+    let accumulator = 0;
+    this.accWords = this.words.map((item) => {
+      accumulator += item || 0;
+      return accumulator;
+    });
+    this.lineChartData = [{ data: this.words, label: 'Learned Words' },
+      { data: this.accWords, label: 'Summ Words' }];
     this.lineChartLabels = this.dates;
     this.lineChartOptions = {
       responsive: true,
@@ -34,7 +41,6 @@ export class LongTermStatistic implements OnInit {
         backgroundColor: 'rgba(255,255,0,0.28)',
       },
     ];
-
     this.lineChartLegend = true;
     this.lineChartType = 'line';
   }

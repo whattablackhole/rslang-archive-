@@ -1,5 +1,5 @@
 export interface GameSession {
-  game_id?: string;
+  game_id: string;
   date: Date | string;
   name: string;
   correct_words: Array<WordId>;
