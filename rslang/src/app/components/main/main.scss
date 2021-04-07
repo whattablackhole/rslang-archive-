@@ -224,3 +224,19 @@
   font-weight: 500;
   color: $accent_color;
 }
+
+.main__team {
+  display: none;
+
+  @media screen and (max-width: 780px) {
+    display: block;
+  }
+}
+
+.show__team {
+  display: none;
+
+  @media screen and (min-width: 780px) {
+    display: block;
+  }
+}
