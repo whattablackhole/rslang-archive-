@@ -9,13 +9,13 @@ import { AuthService } from '../../auth/services/auth.service';
 export class DotMenu implements OnInit, OnDestroy {
   isUserAuthenticated = false;
 
-  private authStatusSubscriber!: Subscription;
+  private authStatusSubscription!: Subscription;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.isUserAuthenticated = this.authService.getIsUserAuthenticated();
-    this.authStatusSubscriber = this.authService
+    this.authStatusSubscription = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.isUserAuthenticated = isAuthenticated;
@@ -23,7 +23,7 @@ export class DotMenu implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.authStatusSubscriber.unsubscribe();
+    this.authStatusSubscription.unsubscribe();
   }
 
   onLogout(): void {
