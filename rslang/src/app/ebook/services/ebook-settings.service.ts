@@ -19,7 +19,7 @@ export class EbookSettingsService {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
   ) { this.globalSettings = this.settingsService.data$; }
 
   load(): void {
