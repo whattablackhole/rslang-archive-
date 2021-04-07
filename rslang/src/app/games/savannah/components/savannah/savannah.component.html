@@ -1,1 +1,27 @@
 <p>savannah works!</p>
+<div class="savannah__container" *ngIf='!isGameEnd'>
+  <div class="savannah__control-panel">
+    <div class="savannah__health">
+      <mat-icon aria-hidden="true" class="" *ngFor="let live of lives">favorite</mat-icon>
+    </div>
+    <div class="savannah__close">
+      <mat-icon aria-hidden="false" aria-label="Example favourite icon" class="">close</mat-icon>
+    </div>
+  </div>
+  <div class="savannah__body">
+    <div [@fallingDown] = "fallingDownAnimationState" class="savannah__question">
+      {{ currentQuestion.word }}
+    </div>
+    <div class="savannah__answers">
+      <button mat-raised-button *ngFor="let answer of currentAnswers; index as i" class="savannah__answer" (click)="checkAnswer(answer)" >{{i + 1}} {{answer.wordTranslate}}</button>
+    </div>
+  </div>
+  <div class="savannah__control-panel">
+    <div class="savannah_fullscreen">
+      <mat-icon aria-hidden="false" aria-label="Example favourite icon" class="">all_out</mat-icon>
+    </div>
+  </div>
+</div>
+<div *ngIf="isGameEnd">
+  <p>{{ biggestStreak }}</p>
+</div>

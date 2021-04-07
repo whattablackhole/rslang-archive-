@@ -1,0 +1,27 @@
+.savannah__container {
+  margin: 0 auto;
+  max-width: 1200px;
+  .savannah__control-panel {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .savannah__body {
+    position: relative;
+    padding: 20% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .savannah__answer {
+    margin: 0 15px;
+  }
+}
+
+.savannah__question {
+  position: absolute;
+  left: 50%;
+}
+
