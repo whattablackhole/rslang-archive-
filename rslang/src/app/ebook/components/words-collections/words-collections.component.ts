@@ -16,10 +16,9 @@ export class WordsCollections {
 
   constructor(private router: Router) {}
 
-  changeSelectedGroup(collection: WordsCollection): void {
+  changeSelectedGroup(collection: WordsCollection) {
     this.groupIdChanged.emit(collection.id);
     const path = `ebook/${collection.path || ''}`;
-    // eslint-disable-next-line no-void
     void this.router.navigate([path, collection.id + 1]);
   }
 

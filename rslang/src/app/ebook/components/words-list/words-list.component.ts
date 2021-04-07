@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { WordsDataService } from '../../../shared/services/words-data.service';
 
@@ -7,11 +7,6 @@ import { WordsDataService } from '../../../shared/services/words-data.service';
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.scss'],
 })
-export class WordsList implements OnInit{
-  
+export class WordsList {
   constructor(private wordsDataService: WordsDataService) {}
-
-  ngOnInit() {
-
-  }
 }

@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 export class EbookTitle {
   title = 'ebook';
 
-  onPageChange(pageNo: number) {
+  onPageChange(pageNo: number): void {
     console.log('Current page: ', pageNo);
   }
 }
