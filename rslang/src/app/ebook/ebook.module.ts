@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { EbookRoutingModule } from './ebook-routing.module';
 
@@ -13,7 +13,7 @@ import { SettingsService } from './services/settings.service';
 import { WordsDataService } from '../shared/services/words-data.service';
 
 @NgModule({
-  declarations: [EbookHome, WordsCollections, EbookSettings, EbookTitle, PaginationDirective, WordsList],
+  declarations: [EbookHome, WordsCollections, EbookSettings, EbookTitle, WordsList, PaginationDirective],
   imports: [SharedModule, EbookRoutingModule],
   exports: [WordsCollections],
   providers: [EbookSettingsService, SettingsService, WordsDataService],
