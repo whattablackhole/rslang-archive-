@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  trigger, style, animate, transition, keyframes, animation,
-} from '@angular/animations';
+import { trigger, style, animate, transition, keyframes, animation } from '@angular/animations';
 import { Word } from 'src/app/shared/models/word.model';
 import { Router, RoutesRecognized } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -113,8 +111,8 @@ export class Sprint implements OnInit {
       this.group = '1';
       this.page = '1';
     }
-    this.getFullWords(this.group, this.page);
     this.generateWordsForGame();
+    this.getFullWords(this.group, this.page);
   }
 
   onBorderDone(): void {
