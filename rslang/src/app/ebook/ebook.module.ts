@@ -7,13 +7,13 @@ import { EbookHome } from './components/ebook-home/ebook-home.component';
 import { WordsCollections } from './components/words-collections/words-collections.component';
 import { EbookSettings } from './components/ebook-settings/ebook-settings.component';
 import { PaginationDirective } from './directives/pagination.directive';
-import { EbookTitle } from './components/ebook-title/ebook-title.component';
+import { EbookHeader } from './components/ebook-header/ebook-header.component';
 import { WordsList } from './components/words-list/words-list.component';
 import { SettingsService } from './services/settings.service';
 import { WordsDataService } from '../shared/services/words-data.service';
 
 @NgModule({
-  declarations: [EbookHome, WordsCollections, EbookSettings, EbookTitle, WordsList, PaginationDirective],
+  declarations: [EbookHome, WordsCollections, EbookSettings, EbookHeader, WordsList, PaginationDirective],
   imports: [SharedModule, EbookRoutingModule],
   exports: [WordsCollections],
   providers: [EbookSettingsService, SettingsService, WordsDataService],

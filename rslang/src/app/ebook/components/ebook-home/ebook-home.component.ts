@@ -58,6 +58,20 @@ export class EbookHome implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
+  changeSelectedBookPage(pageChanged: number): void {
+    this.userBookSettings.currentState.page = pageChanged;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    this.cdr.detectChanges();
+  }
+
+  changeSelectedGroupId(groupIdChanged: number): void {
+    this.userBookSettings.currentState.group = groupIdChanged;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    this.cdr.detectChanges();
+  }
+
   ngOnDestroy(): void {
     this.ebookSettingsSubscription.unsubscribe();
   }

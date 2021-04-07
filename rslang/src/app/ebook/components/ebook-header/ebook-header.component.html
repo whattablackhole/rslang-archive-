@@ -1,0 +1,61 @@
+<section class="ebook-header">
+  <div class="ebook-header__title">
+    <h1>{{ title }}</h1>
+  </div>
+  <div class="ebook-header__pagination">
+    <button (click)="pagination.first()" [disabled]="pagination.isFirst"><<</button>
+    <button (click)="pagination.prev()" [disabled]="pagination.isFirst"><</button>
+
+    <input appPagination #pagination="appPagination" [totalPages]="totalPages" (pageChange)="onPageChange($event)" />
+    <span class="total-pages"> / {{ pagination.totalPages }}</span>
+
+    <button (click)="pagination.next()" [disabled]="pagination.isLast">></button>
+    <button (click)="pagination.last()" [disabled]="pagination.isLast">>></button>
+  </div>
+  <svg viewbox="0 0 200 200">
+    <defs>
+      <filter id="blurFilter" y="-5" height="40">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" y="-5" />
+      </filter>
+    </defs>
+    <circle
+      r="40"
+      cx="50"
+      cy="50"
+      fill="none"
+      stroke-width="12"
+      stroke="#ccc"
+      stroke-dasharray="502,4 502,4"
+      stroke-linecap="round"
+    ></circle>
+    <circle
+      r="40"
+      cx="50"
+      cy="50"
+      fill="none"
+      stroke-width="12"
+      stroke="#F3F5F6"
+      stroke-dashoffset="-42"
+      stroke-dasharray="141.6 502.4"
+      stroke-linecap="round"
+    ></circle>
+    <circle
+      r="40"
+      cx="50"
+      cy="50"
+      fill="none"
+      stroke-width="12"
+      stroke="orangered"
+      stroke-dashoffset="-45"
+      stroke-dasharray="135.6 502.4"
+      stroke-linecap="round"
+    ></circle>
+    <text x="50" y="58" font-family="Arial" font-size="26" text-anchor="middle" fill="#444">3</text>
+
+    <g>
+      <circle r="22" cx="70" cy="80" fill="#F3F5F6" stroke-width="0" stroke="#F3F5F6"></circle>
+      <circle r="18" cx="70" cy="80" fill="orangered" stroke-width="0" stroke="orangered"></circle>
+      <text x="70" y="87" font-family="Arial" font-size="18" text-anchor="middle" fill="#fff">%</text>
+    </g>
+  </svg>
+</section>
