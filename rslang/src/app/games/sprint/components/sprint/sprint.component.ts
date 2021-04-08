@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, style, animate, transition, keyframes, animation } from '@angular/animations';
+import {
+  trigger, style, animate, transition, keyframes, animation,
+} from '@angular/animations';
 import { Word } from 'src/app/shared/models/word.model';
+import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Router, RoutesRecognized } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, pairwise } from 'rxjs/operators';
-import { BASE_URL } from '../../../../shared/constants/base-url';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserAggregatedWordsService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -13,12 +15,13 @@ import { Statistics } from '../../../../shared/models/statistics.model';
 import { GameResults } from '../../../../shared/models/game-results.model';
 import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
+import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
   styleUrls: ['./sprint.component.scss'],
-  providers: [WordsDataService, UserAggregatedWordsService],
+  providers: [WordsDataService, UserAggregatedWordsService, GameStorageWordsService],
   animations: [
     trigger('coloredBorder', [
       transition(
@@ -70,7 +73,14 @@ export class Sprint implements OnInit {
   scorePoints = 0;
   gameLevel = 1;
   correctGamePercent = 0;
-  wordsLimit = 20;
+
+  gameWordsState: GameWordsState = {
+    isWordsLast: false,
+    isNoWords: false,
+    wordsLimit: 20,
+    wordsLength: 0,
+    minAmout: 5,
+  };
 
   isGameStarted = false;
   isGameFinished = false;
@@ -80,25 +90,22 @@ export class Sprint implements OnInit {
 
   constructor(
     private wordsDataService: WordsDataService,
-    private userAggregatedWordsService: UserAggregatedWordsService,
     private gameCoreService: GameCoreService,
     private router: Router,
+    private gameStorageWordsService: GameStorageWordsService,
   ) {
     this.words = this.wordsDataService.data$;
     this.sortedWords = [];
     this.gameResultWords = { correct_words: [], incorrect_words: [] };
     this.router.events
       .pipe(
-        // eslint-disable-next-line
         filter((events: any) => events instanceof RoutesRecognized),
         pairwise(),
       )
       .subscribe((events: RoutesRecognized[]) => {
         if (events[0].url.startsWith('/ebook')) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          this.page = events[0].state.root.queryParams.page;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          this.group = events[0].state.root.queryParams.group;
+          this.page = events[0].state.root.queryParams.page as string;
+          this.group = events[0].state.root.queryParams.group as string;
         } else {
           this.page = '1';
           this.group = '1';
@@ -111,35 +118,16 @@ export class Sprint implements OnInit {
       this.group = '1';
       this.page = '1';
     }
-    this.generateWordsForGame();
-    this.getFullWords(this.group, this.page);
+    this.gameStorageWordsService.getWords(this.group, this.page);
+    this.gameStorageWordsService.createWords(this.group, this.page, this.gameWordsState);
+    this.gameStorageWordsService.sortedWords$.subscribe((sortedWords: WordWithStatistics[]) => {
+      this.sortedWords = sortedWords;
+      this.randomSortedWords = this.generateRandomWords(this.sortedWords);
+    });
   }
 
   onBorderDone(): void {
     this.borderColorAnimationState = 'none';
-  }
-
-  getPath = (group: string, page: string): string => `${BASE_URL}/words?group=${group}&page=${page}`;
-
-  getUserPath = (group: string, page: string, id: string): string => `${BASE_URL}/users/${id}/aggregatedWords`;
-
-  getAggregatedWords(group: string, page: string, id: string): void {
-    this.userAggregatedWordsService.getData(this.getUserPath(group, page, id));
-  }
-
-  getWords(group: string, page: string): void {
-    this.wordsDataService.getData(this.getPath(group, page));
-    this.wordsFromLocalStorage = this.gameCoreService.getLocalStorageWords(group, page);
-  }
-
-  toAggregatedWords(words: Word[]): WordWithStatistics[] {
-    return words.map((elem) => ({
-      ...elem,
-      isRemove: false,
-      isDifficult: false,
-      toStudy: {},
-      knowledgeDegree: 0,
-    }));
   }
 
   onStartGame(): void {
@@ -158,8 +146,8 @@ export class Sprint implements OnInit {
 
   finishGame(): void {
     this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak);
+    this.gameCoreService.addStatsToLocalStorage(this.statistics);
     this.generateCorrectPercent();
-    this.gameCoreService.addWordsToLocalStorage(this.sortedWords);
     this.isGameStarted = false;
     this.isGameFinished = true;
   }
@@ -279,17 +267,6 @@ export class Sprint implements OnInit {
     }
   }
 
-  getFullWords(group: string, page: string, id?: string): void {
-    this.getWords(group, page);
-    setTimeout(() => {
-      if (this.sortedWords.length < this.wordsLimit) {
-        if (parseInt(page, 10) > 0) {
-          this.getFullWords(group, this.gameCoreService.decreasePageNumber(page), id);
-        }
-      }
-    }, 2000);
-  }
-
   generateRandomWords(sortedWords: WordWithStatistics[]): WordWithStatistics[] {
     let randomSortedWords: WordWithStatistics[] = [];
     sortedWords.forEach((val) => randomSortedWords.push({ ...val }));
@@ -302,18 +279,5 @@ export class Sprint implements OnInit {
       return item;
     });
     return randomSortedWords;
-  }
-
-  generateWordsForGame(): void {
-    this.words.subscribe((words: Word[]) => {
-      this.sortedWords = [...this.sortedWords, ...this.toAggregatedWords(words)];
-      if (Array.isArray(this.wordsFromLocalStorage)) {
-        this.sortedWords = this.gameCoreService.addToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
-      }
-      if (this.sortedWords.length > this.wordsLimit) {
-        this.sortedWords = this.sortedWords.slice(0, this.wordsLimit);
-      }
-      this.randomSortedWords = this.generateRandomWords(this.sortedWords);
-    });
   }
 }

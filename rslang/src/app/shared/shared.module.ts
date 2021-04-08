@@ -13,9 +13,10 @@ import { Footer } from './components/footer/footer.component';
 import { FinishMenu } from './components/finish-menu/finish-menu.component';
 import { ScreenSizeChanger } from './components/screen-size-changer/screen-size-changer.component';
 import { StartAnimation } from './components/start-animation/start-animation.component';
+import { RandomizePipe } from './pipes/randomize.pipe';
 
 @NgModule({
-  declarations: [NotFoundPage, Footer, FinishMenu, ScreenSizeChanger, StartAnimation],
+  declarations: [NotFoundPage, Footer, FinishMenu, ScreenSizeChanger, StartAnimation, RandomizePipe],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -38,6 +39,7 @@ import { StartAnimation } from './components/start-animation/start-animation.com
     FinishMenu,
     ScreenSizeChanger,
     StartAnimation,
+    RandomizePipe,
   ],
 })
 export class SharedModule {}

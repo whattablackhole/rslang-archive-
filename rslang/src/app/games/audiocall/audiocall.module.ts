@@ -5,9 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Audiocall } from './components/audiocall/audiocall.component';
 import { AudiocallRoutingModule } from './audiocall-routing.module';
-import { RandomizePipe } from './pipes/randomize.pipe';
+
 @NgModule({
-  declarations: [Audiocall, RandomizePipe],
+  declarations: [Audiocall],
   imports: [CommonModule, AudiocallRoutingModule, MatButtonModule, MatProgressSpinnerModule, SharedModule],
 })
 export class AudiocallModule {}

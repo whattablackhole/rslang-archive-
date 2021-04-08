@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, Input, ViewChild,
+} from '@angular/core';
 import { GameResults } from '../../models/game-results.model';
 import { WordWithStatistics } from '../../models/word-statistics.model';
 import { GameCoreService } from '../../../games/services/game-core.service';
