@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { SettingsService } from './settings.service';
@@ -12,7 +11,6 @@ import { USER_MOCK_DATA } from '../constants/user-mock-data';
 
 @Injectable()
 export class EbookSettingsService {
-  globalSettings: Observable<GlobalSettings>;
   ebookSettings: UserBookSettings;
   isUserAuthenticated = false;
   userId: string;
@@ -20,13 +18,13 @@ export class EbookSettingsService {
   constructor(
     private localStorageService: LocalStorageService,
     private settingsService: SettingsService,
-  ) { this.globalSettings = this.settingsService.data$; }
+  ) { }
 
   load(): void {
     if (this.isUserAuthenticated) {
       this.userId = USER_MOCK_DATA.userId;
       this.settingsService.getData(API_URL.USER_SETTINGS(this.userId));
-      this.globalSettings.subscribe((data: GlobalSettings) => {
+      this.settingsService.data$.subscribe((data: GlobalSettings) => {
         this.ebookSettings = data.optionals;
       });
       this.localStorageService

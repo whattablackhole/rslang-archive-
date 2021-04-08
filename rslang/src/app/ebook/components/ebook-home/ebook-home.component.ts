@@ -29,7 +29,6 @@ export class EbookHome implements OnInit, OnDestroy {
   userBookSettings: UserBookSettings;
   @Input() bookSettingsChanged: UserBookSettings;
   ebookSettingsSubscription: Subscription;
-  ebookSettingsChanges$ = this.localStorageService.changes$;
 
   constructor(
     private ebookSettingsService: EbookSettingsService,
@@ -41,7 +40,7 @@ export class EbookHome implements OnInit, OnDestroy {
     this.ebookSettingsService.load();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
-    this.ebookSettingsSubscription = this.ebookSettingsChanges$
+    this.ebookSettingsSubscription = this.localStorageService.changes$
       .subscribe(
         (events: StorageChanges) => {
           if (events.type === LocalStorageType.Set && events.key === LocalStorageKey.EbookSettings as string) {
