@@ -18,7 +18,11 @@
       </div>
     </div>
     <div class="game__menu-finished" *ngIf="isGameFinished">
-      <app-finish-menu [result]="scorePoints" [correctGamePercent]="correctGamePercent"></app-finish-menu>
+      <app-finish-menu
+        [result]="scorePoints"
+        [correctGamePercent]="correctGamePercent"
+        [gameResultWords]="gameResultWords"
+      ></app-finish-menu>
     </div>
   </div>
   <div

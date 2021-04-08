@@ -10,9 +10,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
 import { Footer } from './components/footer/footer.component';
+import { FinishMenu } from './components/finish-menu/finish-menu.component';
+import { ScreenSizeChanger } from './components/screen-size-changer/screen-size-changer.component';
+import { StartAnimation } from './components/start-animation/start-animation.component';
+import { RandomizePipe } from './pipes/randomize.pipe';
 
 @NgModule({
-  declarations: [NotFoundPage, Footer],
+  declarations: [NotFoundPage, Footer, FinishMenu, ScreenSizeChanger, StartAnimation, RandomizePipe],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -32,6 +36,10 @@ import { Footer } from './components/footer/footer.component';
     MatButtonModule,
     MatDialogModule,
     Footer,
+    FinishMenu,
+    ScreenSizeChanger,
+    StartAnimation,
+    RandomizePipe,
   ],
 })
 export class SharedModule {}

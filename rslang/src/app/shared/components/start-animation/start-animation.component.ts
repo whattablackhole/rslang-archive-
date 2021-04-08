@@ -1,9 +1,10 @@
+import { Component, Input } from '@angular/core';
 import {
   animate, animation, keyframes, style, transition, trigger, AnimationEvent,
 } from '@angular/animations';
-import { Component, Input } from '@angular/core';
-import { GameCoreService } from '../../services/game-core.service';
-import { HiddenTextAnimationState } from '../../sprint/types/hidden-text.type';
+import { GameCoreService } from '../../../games/services/game-core.service';
+import { HiddenTextAnimationState } from '../../../games/sprint/types/hidden-text.type';
+
 @Component({
   selector: 'app-start-animation',
   templateUrl: './start-animation.component.html',

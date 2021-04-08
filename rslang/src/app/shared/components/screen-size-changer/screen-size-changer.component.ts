@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ScreenSizeIcon } from '../../types/screen-size-icon.type';
+import { ScreenSizeIcon } from '../../../games/types/screen-size-icon.type';
 
 @Component({
   selector: 'app-screen-size-changer',
