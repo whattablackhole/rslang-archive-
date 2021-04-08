@@ -12,10 +12,11 @@ import { AuthActionService } from '../../services/auth-action.service';
 export class Register {
   authForm: FormGroup;
   constructor(private readonly fb: FormBuilder, private authActionService: AuthActionService) {
+    const pwdPattern = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[-+_@$!%*?&#.,;:]).{8,}$');
     this.authForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(pwdPattern)]],
     });
   }
 

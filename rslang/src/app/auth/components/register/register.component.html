@@ -5,7 +5,8 @@
         <mat-form-field>
           <input matInput name="name" type="text" placeholder="Name" formControlName="name" required />
           <div *ngIf="nameInput && nameInput.invalid && (nameInput.dirty || nameInput.touched)">
-            <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
+            <mat-error *ngIf="nameInput.hasError('required')">Please enter a valid name.</mat-error>
+            <mat-error *ngIf="nameInput.hasError('maxlength')">Name should be less than 200 characters.</mat-error>
           </div>
         </mat-form-field>
         <mat-form-field>
@@ -17,7 +18,9 @@
         <mat-form-field>
           <input matInput name="password" type="password" placeholder="Password" formControlName="password" required />
           <div *ngIf="passwordInput && passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
-            <mat-error>Please enter a valid password.</mat-error>
+            <mat-error *ngIf="passwordInput.hasError('required')">Please enter a valid password.</mat-error>
+            <mat-error *ngIf="passwordInput.hasError('pattern')">Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+              letter, 1 number and 1 special character.</mat-error>
           </div>
         </mat-form-field>
         <button type="submit" [disabled]="authForm.invalid">Sign Up</button>
