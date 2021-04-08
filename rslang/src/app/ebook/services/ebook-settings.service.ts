@@ -31,10 +31,9 @@ export class EbookSettingsService {
         .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.ebookSettings));
     }
 
-    if (Object.prototype.hasOwnProperty.call(localStorage, LocalStorageKey.EbookSettings)) {
-      return;
+    if (!localStorage(LocalStorageKey.EbookSettings)) {
+      this.setDefaultSettings(localStorage.hasOwnProperty(LocalStorageKey.EbookSettings));
     }
-    this.setDefaultSettings(Object.prototype.hasOwnProperty.call(localStorage, LocalStorageKey.EbookSettings));
   }
 
   private setDefaultSettings(data: boolean): void {
