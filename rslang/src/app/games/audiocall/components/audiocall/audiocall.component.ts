@@ -107,7 +107,7 @@ export class Audiocall implements OnInit {
   }
 
   onAnswerEndEvent(event: AnimationEvent): void {
-    if (event.toState === null) {
+    if (!event.toState) {
       this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
     }
     if (event.toState === 'right') {
@@ -158,7 +158,7 @@ export class Audiocall implements OnInit {
   finishGame(): void {
     this.generateCorrectPercent();
     this.isGameFinished = true;
-    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak);
+    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, 'AudioCall');
     this.gameCoreService.addStatsToLocalStorage(this.statistics);
     // if (!'userService') {   Feature Auth Code
     //   console.log(1);

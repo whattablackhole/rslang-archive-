@@ -145,7 +145,7 @@ export class Sprint implements OnInit {
   }
 
   finishGame(): void {
-    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak);
+    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, 'Sprint');
     this.gameCoreService.addStatsToLocalStorage(this.statistics);
     this.generateCorrectPercent();
     this.isGameStarted = false;

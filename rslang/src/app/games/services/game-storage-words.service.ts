@@ -15,7 +15,6 @@ export class GameStorageWordsService {
   sortedWords: WordWithStatistics[];
 
   constructor(private gameCoreService: GameCoreService, private wordsService: WordsDataService) {
-    this.sortedWords = [];
     this.words$ = this.wordsService.data$;
     this.sortedWordsSubject = new Subject<WordWithStatistics[]>();
     this.sortedWords$ = this.sortedWordsSubject.asObservable();
@@ -39,7 +38,11 @@ export class GameStorageWordsService {
 
   createWords(group: string, page: string, gameWordsState: GameWordsState): void {
     this.words$.subscribe((words: Word[]) => {
-      this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toAggregatedWords(words)];
+      if (!this.sortedWords) {
+        this.sortedWords = this.gameCoreService.toAggregatedWords(words);
+      } else {
+        this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toAggregatedWords(words)];
+      }
       if (Array.isArray(this.wordsFromLocalStorage)) {
         this.sortedWords = this.gameCoreService.addToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
       }

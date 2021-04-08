@@ -4,8 +4,8 @@ import { GameResults } from 'src/app/shared/models/game-results.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
+import { GameName } from '../../shared/types/game-name.type';
 import { LocalStorageService } from '../../core/services/local-storage.service';
-
 @Injectable()
 export class GameCoreService {
   constructor(private localStorageService: LocalStorageService) {}
@@ -91,11 +91,11 @@ export class GameCoreService {
     });
   }
 
-  generateStats(gameResults: GameResults, gameStreak: number): Statistics {
+  generateStats(gameResults: GameResults, gameStreak: number, name: GameName): Statistics {
     const statistics: Statistics = {
       correct_words: gameResults.correct_words,
       incorrect_words: gameResults.incorrect_words,
-      game_name: 'Sprint',
+      game_name: name,
       streak: gameStreak,
       date: new Date(Date.now()),
     };
