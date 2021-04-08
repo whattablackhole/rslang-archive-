@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { animate, animation, keyframes, style, transition, trigger, AnimationEvent } from '@angular/animations';
+import {
+  animate, animation, keyframes, style, transition, trigger, AnimationEvent,
+} from '@angular/animations';
 import { GameCoreService } from '../../../games/services/game-core.service';
 import { HiddenTextAnimationState } from '../../../games/sprint/types/hidden-text.type';
 

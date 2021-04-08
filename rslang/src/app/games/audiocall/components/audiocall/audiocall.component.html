@@ -1,8 +1,20 @@
 <div class="game">
   <app-screen-size-changer></app-screen-size-changer>
-  <mat-spinner *ngIf="!(wordsLength === wordsLimit) && !isGameFinished" class="spinner"></mat-spinner>
+  <h1 class="game__no-words-title" *ngIf="gameWordsState.isNoWords">Not enough words for game</h1>
+  <mat-spinner
+    *ngIf="
+      !(gameWordsState.wordsLength === gameWordsState.wordsLimit) &&
+      !isGameFinished &&
+      !gameWordsState.isNoWords &&
+      !gameWordsState.isWordsLast
+    "
+    class="spinner"
+  ></mat-spinner>
   <div
-    *ngIf="wordsLength === wordsLimit && !isGameFinished"
+    *ngIf="
+      (gameWordsState.wordsLength === gameWordsState.wordsLimit && !isGameFinished) ||
+      (gameWordsState.isWordsLast && !isGameFinished)
+    "
     class="game__front-block"
     [@blockPosition]="blockPosition"
     (@blockPosition.done)="onAnswerEndEvent($event)"
@@ -14,7 +26,7 @@
       <button
         mat-button
         class="unselectable game__words-item"
-        *ngFor="let item of sortedWords | randomize: currentIndex:currentIndex + 5"
+        *ngFor="let item of sortedWords | randomize: currentIndex:currentIndex + this.gameWordsState.minAmout"
         (click)="onAnswer(item)"
         [disabled]="isAnswered"
         [ngClass]="{
@@ -23,7 +35,7 @@
           'game__words-item_choosed': item.word === choosedWordName
         }"
       >
-        {{ item.word }}
+        {{ item.wordTranslate }}
       </button>
     </div>
     <button mat-button class="game__button" (click)="onFinishAnswer()">

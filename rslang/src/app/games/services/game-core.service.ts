@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
+import { BASE_URL } from 'src/app/shared/constants/base-url';
 import { GameResults } from 'src/app/shared/models/game-results.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
+import { Word } from 'src/app/shared/models/word.model';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Injectable()
 export class GameCoreService {
   constructor(private localStorageService: LocalStorageService) {}
+
+  getWordsPath = (group: string, page: string): string => `${BASE_URL}/words?group=${group}&page=${page}`;
+
+  getUserWordsPath = (group: string, page: string, id = ''): string => `${BASE_URL}/users/${id}/aggregatedWords`;
 
   addWordsToLocalStorage(words: WordWithStatistics[]): void {
     const pagesArray: Array<{ page: number; words: WordWithStatistics[] }> = [];
@@ -29,11 +35,26 @@ export class GameCoreService {
     });
   }
 
-  getLocalStorageWords(group: string, page: string): WordWithStatistics[] | string | null {
-    let result: string | null = this.localStorageService.getItem(`${group}-${page}`);
+  addStatsToLocalStorage(stats: Statistics): void {
+    let result: Statistics | string | null = this.localStorageService.getItem('statistics');
     if (result) {
       try {
-        result = JSON.parse(result); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+        result = JSON.parse(result) as Statistics;
+      } catch {
+        result = null;
+      }
+    }
+    if (Array.isArray(result)) {
+      result.push(stats);
+      this.localStorageService.setItem('statistics', JSON.stringify(stats));
+    }
+  }
+
+  getLocalStorageWords(group: string, page: string): WordWithStatistics[] | string | null {
+    let result: WordWithStatistics[] | string | null = this.localStorageService.getItem(`${group}-${page}`);
+    if (result) {
+      try {
+        result = JSON.parse(result) as WordWithStatistics[];
       } catch {
         result = null;
       }
@@ -42,20 +63,17 @@ export class GameCoreService {
   }
 
   addToSortedWords(sortedWords: WordWithStatistics[], unSortedwords: WordWithStatistics[]): WordWithStatistics[] {
-    const filteredWords = unSortedwords.filter(() => (word: WordWithStatistics) =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      word.isRemove || word.knowledgeDegree >= 3,
-    ); // eslint-disable-line function-paren-newline
+    const filteredWords = unSortedwords.filter((word: WordWithStatistics) => word.isRemove || word.knowledgeDegree > 2);
+    let newSortedWords = sortedWords;
     filteredWords.forEach((filterdWord: WordWithStatistics) => {
-      // eslint-disable-next-line no-param-reassign
-      sortedWords = sortedWords.map((sortedWord: WordWithStatistics) => {
+      newSortedWords = sortedWords.map((sortedWord: WordWithStatistics) => {
         if (sortedWord.id === filterdWord.id) {
           return filterdWord;
         }
         return sortedWord;
       });
     });
-    return sortedWords;
+    return newSortedWords;
   }
 
   decreasePageNumber(page: string): string {
@@ -68,7 +86,9 @@ export class GameCoreService {
     const audio = new Audio();
     audio.src = url;
     audio.load();
-    audio.play(); // eslint-disable-line
+    audio.play().catch((err: Error) => {
+      console.error(err);
+    });
   }
 
   generateStats(gameResults: GameResults, gameStreak: number): Statistics {
@@ -80,5 +100,15 @@ export class GameCoreService {
       date: new Date(Date.now()),
     };
     return statistics;
+  }
+
+  toAggregatedWords(words: Word[]): WordWithStatistics[] {
+    return words.map((elem) => ({
+      ...elem,
+      isRemove: false,
+      isDifficult: false,
+      toStudy: {},
+      knowledgeDegree: 0,
+    }));
   }
 }
