@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
+  FormBuilder, FormControl, FormGroup, Validators,
 } from '@angular/forms';
 import { AuthActionService } from '../../services/auth-action.service';
 
@@ -14,19 +11,18 @@ import { AuthActionService } from '../../services/auth-action.service';
 })
 export class Login {
   loginForm: FormGroup;
+
+  emailInput: FormControl;
+  passwordInput: FormControl;
+
   constructor(private readonly fb: FormBuilder, private authActionService: AuthActionService) {
+    this.emailInput = new FormControl('', [Validators.required, Validators.email]);
+    this.passwordInput = new FormControl('', [Validators.required]);
+
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      email: this.emailInput,
+      password: this.passwordInput,
     });
-  }
-
-  get emailInput(): AbstractControl | null {
-    return this.loginForm.get('email');
-  }
-
-  get passwordInput(): AbstractControl | null {
-    return this.loginForm.get('password');
   }
 
   submitForm(): void {
