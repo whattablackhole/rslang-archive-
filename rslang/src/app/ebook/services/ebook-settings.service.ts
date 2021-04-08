@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { LocalStorageService } from '../../core/services/local-storage.service';
-import { SettingsService } from './settings.service';
+import { SettingsDataService } from './settings-data.service';
 import { UserBookSettings } from '../models/user-book-settings.model';
 import { GlobalSettings } from '../models/global-settings.model';
 import { LocalStorageKey } from '../../shared/models/local-storage-keys.model';
@@ -19,13 +19,13 @@ export class EbookSettingsService {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private settingsService: SettingsService,
-  ) { this.globalSettings = this.settingsService.data$; }
+    private settingsDataService: SettingsDataService,
+  ) { this.globalSettings = this.settingsDataService.data$; }
 
   load(): void {
     if (this.isUserAuthenticated) {
       this.userId = USER_MOCK_DATA.userId;
-      this.settingsService.getData(API_URL.USER_SETTINGS(this.userId));
+      this.settingsDataService.getData(API_URL.USER_SETTINGS(this.userId));
       this.globalSettings.subscribe((data: GlobalSettings) => {
         this.ebookSettings = data.optionals;
       });

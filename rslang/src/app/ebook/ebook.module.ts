@@ -9,13 +9,13 @@ import { EbookSettings } from './components/ebook-settings/ebook-settings.compon
 import { PaginationDirective } from './directives/pagination.directive';
 import { EbookHeader } from './components/ebook-header/ebook-header.component';
 import { WordsList } from './components/words-list/words-list.component';
-import { SettingsService } from './services/settings.service';
+import { SettingsDataService } from './services/settings-data.service';
 import { WordsDataService } from '../shared/services/words-data.service';
 
 @NgModule({
   declarations: [EbookHome, WordsCollections, EbookSettings, EbookHeader, WordsList, PaginationDirective],
   imports: [SharedModule, EbookRoutingModule],
   exports: [WordsCollections],
-  providers: [EbookSettingsService, SettingsService, WordsDataService],
+  providers: [EbookSettingsService, SettingsDataService, WordsDataService],
 })
 export class EbookModule {}
