@@ -271,12 +271,12 @@ export class Sprint implements OnInit {
     let randomSortedWords: WordWithStatistics[] = [];
     sortedWords.forEach((val) => randomSortedWords.push({ ...val }));
     randomSortedWords = randomSortedWords.map((item) => {
+      const newItem = item;
       if (Math.random() > 0.5) {
         return item;
       }
-      // eslint-disable-next-line
-      item.wordTranslate = randomSortedWords[Math.floor(Math.random() * randomSortedWords.length)].wordTranslate;
-      return item;
+      newItem.wordTranslate = (randomSortedWords[Math.floor(Math.random() * randomSortedWords.length)].wordTranslate);
+      return newItem;
     });
     return randomSortedWords;
   }
