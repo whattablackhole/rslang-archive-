@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-ebook-header',
@@ -8,8 +8,9 @@ import { Component, Input } from '@angular/core';
 export class EbookHeader {
   totalPages = 30;
   title = 'ebook';
+  @Output() pageNoChanged: EventEmitter<number> = new EventEmitter<number>();
 
-  onPageChange(pageNo: number): number {
-    return pageNo;
+  onPageChange(pageNo: number): void {
+    this.pageNoChanged.emit(pageNo);
   }
 }

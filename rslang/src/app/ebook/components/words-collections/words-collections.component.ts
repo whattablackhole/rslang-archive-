@@ -16,7 +16,7 @@ import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model
 })
 export class WordsCollections {
   wordsCollections: WordsCollection[] = CONFIG_EBOOK.collections;
-  
+
   constructor(private router: Router) {}
 
   changeSelectedGroup(collection: WordsCollection) {
