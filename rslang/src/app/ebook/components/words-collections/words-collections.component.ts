@@ -4,6 +4,10 @@ import {
 import { Router } from '@angular/router';
 
 import { WordsCollection } from '../../models/words-collection.model';
+import { CONFIG_EBOOK } from '../../constants/config-ebook';
+import { UserBookSettings } from '../../models/user-book-settings.model';
+import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 
 @Component({
   selector: 'app-words-collections',
@@ -11,13 +15,11 @@ import { WordsCollection } from '../../models/words-collection.model';
   styleUrls: ['./words-collections.component.scss'],
 })
 export class WordsCollections {
-  @Input() wordsCollections!: WordsCollection[];
-  @Output() groupIdChanged: EventEmitter<number> = new EventEmitter<number>();
-
+  wordsCollections: WordsCollection[] = CONFIG_EBOOK.collections;
+  
   constructor(private router: Router) {}
 
   changeSelectedGroup(collection: WordsCollection) {
-    this.groupIdChanged.emit(collection.id);
     const path = `ebook/${collection.path || ''}`;
     void this.router.navigate([path, collection.id + 1]);
   }
