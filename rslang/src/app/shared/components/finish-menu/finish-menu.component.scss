@@ -1,0 +1,197 @@
+$bgColor: #020438;
+$boxColor: #020438;
+$waterFColor: #4d6de3;
+$waterBColor: #c7eeff;
+
+#correct-number {
+  background-color: greenyellow;
+  color: white;
+  font-weight: 500;
+  border-radius: 50%;
+  padding: 10px 15px;
+
+}
+
+#incorrect-number {
+  background-color: red;
+  color: white;
+  font-weight: 500;
+  border-radius: 50%;
+  padding: 10px 15px;
+}
+
+.result {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  justify-content: center;
+
+  &__word-eng {
+    margin: 5px;
+  }
+
+  &__word-rus {
+    margin: 5px;
+  }
+
+  &__buttons {
+    flex: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+
+    button {
+      padding: 0 20px;
+    }
+
+    :first-child {
+      margin-right: 20px;
+    }
+  }
+
+
+
+  &__acc {
+    display: flex;
+    flex-direction: column;
+
+    &-text {
+      margin-top: 50px;
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      background-color: #3f51b5;
+      border-radius: 15px;
+    }
+
+    &-title {
+      margin-top: 20px;
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      background-color: #3f51b5;
+      border-radius: 15px;
+    }
+  }
+
+  &__words {
+    flex: 50%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    max-height: 350px;
+    margin-top: 40px;
+    max-width: 250px;
+    width: 100%;
+    overflow-y: scroll;
+
+    &-item {
+      display: flex;
+      align-items: center;
+    }
+
+    &-correct {
+      display: flex;
+      align-self: center;
+      flex-direction: column;
+
+      &-title {
+        margin: 0 5px;
+      }
+
+      &-header {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &-incorrect {
+      display: flex;
+      align-self: center;
+      flex-direction: column;
+
+      &-header {
+        display: flex;
+        align-items: center;
+      }
+
+      &-title {
+        margin: 0 5px;
+      }
+
+    }
+  }
+}
+
+
+
+.animation-box {
+  height: 280px;
+  width: 280px;
+  position: relative;
+  margin: 40px;
+  background: $boxColor;
+  border-radius: 100%;
+  overflow: hidden;
+  align-self: center;
+
+  .animation-box__percent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 64px;
+  }
+
+  .animation-box__water {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    transform: translate(0, 100%);
+    background: $waterFColor;
+    transition: all 0.3s;
+
+    &-wave {
+      width: 200%;
+      position: absolute;
+      bottom: 100%;
+
+      &_back {
+        right: 0;
+        fill: $waterBColor;
+        animation: wave-back 1.4s infinite linear;
+      }
+
+      &_front {
+        left: 0;
+        fill: $waterFColor;
+        margin-bottom: -1px;
+        animation: wave-front 0.7s infinite linear;
+      }
+    }
+  }
+}
+
+@keyframes wave-front {
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes wave-back {
+  100% {
+    transform: translate(50%, 0);
+  }
+}

@@ -1,1 +1,36 @@
-<p>audiocall works!</p>
+<div class="game">
+  <app-screen-size-changer></app-screen-size-changer>
+  <mat-spinner *ngIf="!(wordsLength === wordsLimit) && !isGameFinished" class="spinner"></mat-spinner>
+  <div
+    *ngIf="wordsLength === wordsLimit && !isGameFinished"
+    class="game__front-block"
+    [@blockPosition]="blockPosition"
+    (@blockPosition.done)="onAnswerEndEvent($event)"
+  >
+    <div class="game__sound game__sound_wrapper" (click)="onPlaySound()">
+      <div class="game__sound-icon"></div>
+    </div>
+    <div class="game__words">
+      <button
+        mat-button
+        class="unselectable game__words-item"
+        *ngFor="let item of sortedWords | randomize: currentIndex:currentIndex + 5"
+        (click)="onAnswer(item)"
+        [disabled]="isAnswered"
+        [ngClass]="{
+          'game__words-item_correct': item.word === correctWordName,
+          'game__words-item_incorrect': item.word === incorrectWordName,
+          'game__words-item_choosed': item.word === choosedWordName
+        }"
+      >
+        {{ item.word }}
+      </button>
+    </div>
+    <button mat-button class="game__button" (click)="onFinishAnswer()">
+      {{ answerButtonText }} <mat-icon [ngClass]="{ hidden: !isAnswered }">arrow_forward</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="isGameFinished">
+    <app-finish-menu [gameResultWords]="gameResultWords" [correctGamePercent]="correctGamePercent"></app-finish-menu>
+  </div>
+</div>
