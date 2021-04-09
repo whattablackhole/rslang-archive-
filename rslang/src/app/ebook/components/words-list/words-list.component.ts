@@ -21,10 +21,9 @@ import { LocalStorageService } from '../../../core/services/local-storage.servic
 export class WordsList implements OnInit {
   private subscriptions: Subscription[] = [];
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
-  ebookSettingsChanges$ = this.localStorageService.changes$;
 
   userBookSettings: UserBookSettings;
-  words: Observable<Word[]>;
+  words: Word[];
   @Output() pageNoChanged: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
@@ -36,7 +35,7 @@ export class WordsList implements OnInit {
   ngOnInit(): void {
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
-    this.subscription = this.ebookSettingsChanges$
+    this.subscription = this.localStorageService.changes$
       .subscribe(
         (events: StorageChanges) => {
           if (events.type === LocalStorageType.Set && events.key === LocalStorageKey.EbookSettings as string) {
@@ -59,6 +58,7 @@ export class WordsList implements OnInit {
   }
 
   getWordsList(currentState: CurrentStateBook): void {
-    this.ebookDataService.getWords(currentState);
+    this.words = this.ebookDataService.getWords(currentState);
+    console.log(this.words);
   }
 }

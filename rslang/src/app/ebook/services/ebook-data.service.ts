@@ -10,19 +10,19 @@ import { API_URL } from '../../shared/constants/api-url';
 
 @Injectable()
 export class EbookDataService {
-  words: Observable<Word[]>;
+  words: Word[];
   constructor(
     private localStorageService: LocalStorageService,
     private wordsDataService: WordsDataService,
-  ) { this.words = this.wordsDataService.data$; }
-
-  getWords(option: CurrentStateBook): void {
+  ) { }
+  getWords(option: CurrentStateBook): Word[] {
     const params: HttpParams = new HttpParams()
       .set('group', String(option.group - 1))
       .set('page', String(option.page - 1));
     this.wordsDataService.getData(API_URL.WORDS, { params });
-    this.words.subscribe((words: Word[]) => {
-      console.log(words);
+    this.wordsDataService.data$.subscribe((words: Word[]) => {
+      this.words = words;
     });
+    return this.words;
   }
 }
