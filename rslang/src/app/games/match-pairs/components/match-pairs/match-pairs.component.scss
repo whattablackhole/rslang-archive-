@@ -1,0 +1,62 @@
+
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px;
+  // height: 100%;
+  // background:
+  //   linear-gradient(to bottom right, #024959 5%, transparent),
+  //   radial-gradient(circle at 100% 0%, rgba(255,255,255,.2) 10%, transparent 20%) center center / 45px 45px,
+  //   linear-gradient(to bottom right, #79C7D1, #ED675B);
+}
+
+// .flex-row {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-flow: row nowrap;
+//   align-content: center;
+// }
+
+// .flex-column {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-flow: column wrap;
+//   align-content: center;
+// }
+
+.word-card {
+  // flex: 2 0 0;
+  min-width: 100px;
+  max-width: 240px;
+  // height: 60px;
+  padding: 20px;
+  overflow-wrap: break-word;
+  // line-height: 60px;
+  margin: 10px;
+  border-radius: 12px;
+  background-color: darken(#79C7D1,10%);;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 10px 10px 20px -18px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+  user-select: none;
+  transition: all .5s ease-in-out;
+}
+
+.word-card:hover {
+  transform: scale(1.05);
+  opacity: .8;
+}
+
+p  {
+  font-size: large;
+  color: white;
+}
+
+.translation {
+  background-color: lighten(#ED675B,0.5%);;
+}
