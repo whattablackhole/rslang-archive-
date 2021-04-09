@@ -40,11 +40,9 @@ import { WordDataService } from '../../../../shared/services/word-data.service';
 })
 export class Audiocall implements OnInit {
   sortedWords: WordWithStatistics[];
-  words: Observable<Word[]>;
-  userWords: Observable<WordWithStatistics[]>;
   wordsFromLocalStorage: WordWithStatistics[] | null | string;
 
-  gameResultWords: GameResults;
+  gameResultWords: GameResults = { correct_words: [], incorrect_words: [] };
   statistics: Statistics;
 
   gameWordsState: GameWordsState = {
@@ -74,14 +72,8 @@ export class Audiocall implements OnInit {
 
   constructor(
     private gameCoreService: GameCoreService,
-    private wordsDataService: WordsDataService,
-    private userAggregatedWordsService: UserAggregatedWordsService,
     private gameStorageWordsService: GameStorageWordsService,
-  ) {
-    this.words = this.wordsDataService.data$;
-    this.userWords = this.userAggregatedWordsService.data$;
-    this.gameResultWords = { correct_words: [], incorrect_words: [] };
-  }
+  ) {}
 
   ngOnInit(): void {
     this.gameStorageWordsService.getWords(this.group, this.page);

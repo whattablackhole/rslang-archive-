@@ -54,13 +54,11 @@ import { GameStorageWordsService } from '../../../services/game-storage-words.se
   ],
 })
 export class Sprint implements OnInit {
-  words: Observable<Word[]>;
   randomSortedWords: WordWithStatistics[];
-  wordsFromLocalStorage: WordWithStatistics[] | string | null;
   sortedWords: WordWithStatistics[];
   word: WordWithStatistics;
 
-  gameResultWords: GameResults;
+  gameResultWords: GameResults = { correct_words: [], incorrect_words: [] };
   statistics: Statistics;
 
   borderColorAnimationState: BorderColorAnimationState;
@@ -89,14 +87,10 @@ export class Sprint implements OnInit {
   page: string;
 
   constructor(
-    private wordsDataService: WordsDataService,
     private gameCoreService: GameCoreService,
     private router: Router,
     private gameStorageWordsService: GameStorageWordsService,
   ) {
-    this.words = this.wordsDataService.data$;
-    this.sortedWords = [];
-    this.gameResultWords = { correct_words: [], incorrect_words: [] };
     this.router.events
       .pipe(
         filter((events: any) => events instanceof RoutesRecognized),
