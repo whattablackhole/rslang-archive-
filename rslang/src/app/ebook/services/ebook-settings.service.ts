@@ -30,15 +30,15 @@ export class EbookSettingsService {
       this.localStorageService
         .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.ebookSettings));
     }
-
-    if (!localStorage.hasOwnProperty(LocalStorageKey.EbookSettings)) {
+    const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
+    if (!data) {
       this.setDefaultSettings();
     }
   }
 
   private setDefaultSettings(): void {
-      const defaultSettings = EBOOK_SETTINGS;
-      this.localStorageService
-        .setItem(LocalStorageKey.EbookSettings, JSON.stringify(defaultSettings));
+    const defaultSettings = EBOOK_SETTINGS;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(defaultSettings));
   }
 }
