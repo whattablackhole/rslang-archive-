@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
 import { Footer } from './components/footer/footer.component';
@@ -26,6 +27,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     Footer,
     FinishMenu,
     ScreenSizeChanger,
