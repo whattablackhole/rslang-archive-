@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from '../shared/shared.module';
 import { EbookRoutingModule } from './ebook-routing.module';
 
@@ -16,7 +17,7 @@ import { WordsList } from './components/words-list/words-list.component';
 
 @NgModule({
   declarations: [EbookHome, WordsCollections, EbookSettings, EbookHeader, WordsList, PaginationDirective],
-  imports: [SharedModule, EbookRoutingModule],
+  imports: [SharedModule, EbookRoutingModule, MatInputModule],
   exports: [WordsCollections],
   providers: [EbookSettingsService, EbookDataService, SettingsDataService, WordsDataService],
 })

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { SettingsDataService } from './settings-data.service';
@@ -12,38 +11,34 @@ import { USER_MOCK_DATA } from '../constants/user-mock-data';
 
 @Injectable()
 export class EbookSettingsService {
-  globalSettings: Observable<GlobalSettings>;
   ebookSettings: UserBookSettings;
   isUserAuthenticated = false;
   userId: string;
 
   constructor(
     private localStorageService: LocalStorageService,
-    private settingsDataService: SettingsDataService,
-  ) { this.globalSettings = this.settingsDataService.data$; }
+    private settingsService: SettingsDataService,
+  ) { }
 
   load(): void {
     if (this.isUserAuthenticated) {
       this.userId = USER_MOCK_DATA.userId;
-      this.settingsDataService.getData(API_URL.USER_SETTINGS(this.userId));
-      this.globalSettings.subscribe((data: GlobalSettings) => {
+      this.settingsService.getData(API_URL.USER_SETTINGS(this.userId));
+      this.settingsService.data$.subscribe((data: GlobalSettings) => {
         this.ebookSettings = data.optionals;
       });
       this.localStorageService
         .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.ebookSettings));
     }
 
-    if (Object.prototype.hasOwnProperty.call(localStorage, LocalStorageKey.EbookSettings)) {
-      return;
+    if (!localStorage.hasOwnProperty(LocalStorageKey.EbookSettings)) {
+      this.setDefaultSettings();
     }
-    this.setDefaultSettings(Object.prototype.hasOwnProperty.call(localStorage, LocalStorageKey.EbookSettings));
   }
 
-  private setDefaultSettings(data: boolean): void {
-    if (!data) {
+  private setDefaultSettings(): void {
       const defaultSettings = EBOOK_SETTINGS;
       this.localStorageService
         .setItem(LocalStorageKey.EbookSettings, JSON.stringify(defaultSettings));
-    }
   }
 }

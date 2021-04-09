@@ -1,8 +1,9 @@
 <section class="ebook-settings">
   <form #settingsForm="ngForm">
     <div *ngIf="isUserAuthenticated">
-      <input type="text" id="username" placeholder="Name" />
-      <label class="subtitle" for="username">User name</label>
+      <mat-form-field class="example-full-width">
+        <input matInput id="username" value="User name" />
+      </mat-form-field>
     </div>
     <p class="subtitle">Buttons</p>
     <div *ngFor="let itembtn of userBookSettings.buttonOptions">

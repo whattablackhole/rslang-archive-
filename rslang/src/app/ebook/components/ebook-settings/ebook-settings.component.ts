@@ -10,7 +10,7 @@ import { UserBookSettings } from '../../models/user-book-settings.model';
   styleUrls: ['./ebook-settings.component.scss'],
 })
 export class EbookSettings {
-  isUserAuthenticated = false;
+  isUserAuthenticated = true;
   @Input() userBookSettings: UserBookSettings;
   @Output() bookSettingsChanged: EventEmitter<UserBookSettings> = new EventEmitter<UserBookSettings>();
 
