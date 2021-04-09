@@ -31,16 +31,14 @@ export class EbookSettingsService {
         .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.ebookSettings));
     }
 
-    if (!localStorage(LocalStorageKey.EbookSettings)) {
-      this.setDefaultSettings(localStorage.hasOwnProperty(LocalStorageKey.EbookSettings));
+    if (!localStorage.hasOwnProperty(LocalStorageKey.EbookSettings)) {
+      this.setDefaultSettings();
     }
   }
 
-  private setDefaultSettings(data: boolean): void {
-    if (!data) {
+  private setDefaultSettings(): void {
       const defaultSettings = EBOOK_SETTINGS;
       this.localStorageService
         .setItem(LocalStorageKey.EbookSettings, JSON.stringify(defaultSettings));
-    }
   }
 }
