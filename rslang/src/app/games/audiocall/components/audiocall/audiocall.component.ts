@@ -6,8 +6,6 @@ import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model'
 import { GameResults } from 'src/app/shared/models/game-results.model';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
-import { Word } from 'src/app/shared/models/word.model';
-import { Observable } from 'rxjs';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';

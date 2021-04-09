@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {
   trigger, style, animate, transition, keyframes, animation,
 } from '@angular/animations';
-import { Word } from 'src/app/shared/models/word.model';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Router, RoutesRecognized } from '@angular/router';
-import { Observable } from 'rxjs';
 import { filter, pairwise } from 'rxjs/operators';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserAggregatedWordsService } from '../../../../shared/services/user-words-data.service';
