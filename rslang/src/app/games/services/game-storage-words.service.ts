@@ -13,6 +13,8 @@ export class GameStorageWordsService {
   sortedWords$: Observable<WordWithStatistics[]>;
   sortedWordsSubject: Subject<WordWithStatistics[]>;
   sortedWords: WordWithStatistics[];
+  page: string;
+  group: string;
 
   constructor(private gameCoreService: GameCoreService, private wordsService: WordsDataService) {
     this.words$ = this.wordsService.data$;
@@ -20,23 +22,26 @@ export class GameStorageWordsService {
     this.sortedWords$ = this.sortedWordsSubject.asObservable();
   }
 
-  updateWordState(group: string, page: string, gameWordsState: GameWordsState): void {
+  getFullWords(gameWordsState: GameWordsState): void {
     const wordsState: GameWordsState = gameWordsState;
     if (this.sortedWords.length < wordsState.wordsLimit) {
-      if (parseInt(page, 10) > 0) {
-        this.getWords(group, this.gameCoreService.decreasePageNumber(page));
+      if (parseInt(this.page, 10) > 0) {
+        this.page = this.gameCoreService.decreasePageNumber(this.page);
+        this.getWords(this.group, this.page);
       } else if (this.sortedWords.length < wordsState.minAmout) {
         wordsState.isNoWords = true;
       } else {
         wordsState.isWordsLast = true;
-        wordsState.wordsLength = this.sortedWords.length;
       }
-    } else {
-      wordsState.wordsLength = this.sortedWords.length;
     }
   }
 
   createWords(group: string, page: string, gameWordsState: GameWordsState): void {
+    this.page = page;
+    this.group = group;
+
+    const wordsState: GameWordsState = gameWordsState;
+
     this.words$.subscribe((words: Word[]) => {
       if (!this.sortedWords) {
         this.sortedWords = this.gameCoreService.toAggregatedWords(words);
@@ -46,11 +51,13 @@ export class GameStorageWordsService {
       if (Array.isArray(this.wordsFromLocalStorage)) {
         this.sortedWords = this.gameCoreService.addToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
       }
-      this.updateWordState(page, group, gameWordsState);
-      if (this.sortedWords.length >= gameWordsState.wordsLimit) {
-        this.sortedWords = this.sortedWords.slice(0, gameWordsState.wordsLimit);
+      this.getFullWords(wordsState);
+      if (this.sortedWords.length >= wordsState.wordsLimit) {
+        this.sortedWords = this.sortedWords.slice(0, wordsState.wordsLimit);
+        wordsState.wordsLength = this.sortedWords.length;
         this.sortedWordsSubject.next(this.sortedWords);
-      } else if (gameWordsState.isWordsLast) {
+      } else if (wordsState.isWordsLast) {
+        wordsState.wordsLength = this.sortedWords.length;
         this.sortedWordsSubject.next(this.sortedWords);
       }
     });

@@ -63,17 +63,16 @@ export class GameCoreService {
   }
 
   addToSortedWords(sortedWords: WordWithStatistics[], unSortedwords: WordWithStatistics[]): WordWithStatistics[] {
-    const filteredWords = unSortedwords.filter((word: WordWithStatistics) => word.isRemove || word.knowledgeDegree > 2);
-    let newSortedWords = sortedWords;
-    filteredWords.forEach((filterdWord: WordWithStatistics) => {
-      newSortedWords = sortedWords.map((sortedWord: WordWithStatistics) => {
+    let sorted = sortedWords;
+    unSortedwords.forEach((filterdWord: WordWithStatistics) => {
+      sorted = sorted.map((sortedWord: WordWithStatistics) => {
         if (sortedWord.id === filterdWord.id) {
           return filterdWord;
         }
         return sortedWord;
       });
     });
-    return newSortedWords;
+    return sorted.filter((word: WordWithStatistics) => !word.isRemove && word.knowledgeDegree < 3);
   }
 
   decreasePageNumber(page: string): string {
