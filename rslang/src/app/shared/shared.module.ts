@@ -11,9 +11,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
 import { Footer } from './components/footer/footer.component';
+import { Error } from './components/error/error.component';
 
 @NgModule({
-  declarations: [NotFoundPage, Footer],
+  declarations: [NotFoundPage, Footer, Error],
   imports: [
     CommonModule,
     RouterModule,

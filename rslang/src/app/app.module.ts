@@ -12,6 +12,7 @@ import { Logo } from './components/logo/logo.component';
 import { Team } from './components/team/team';
 import { Main } from './components/main/main';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [App, NavMenu, DotMenu, Logo, Team, Main],
@@ -25,6 +26,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [App],
 })
