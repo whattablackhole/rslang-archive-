@@ -14,7 +14,6 @@ import { PaginationDirective } from './directives/pagination.directive';
 import { EbookHeader } from './components/ebook-header/ebook-header.component';
 import { WordsList } from './components/words-list/words-list.component';
 
-
 @NgModule({
   declarations: [EbookHome, WordsCollections, EbookSettings, EbookHeader, WordsList, PaginationDirective],
   imports: [SharedModule, EbookRoutingModule, MatInputModule],

@@ -8,7 +8,7 @@ import { Word } from '../../../shared/models/word.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
-import { LocalStorageType } from '../../../shared/models/change-storage-type.model'
+import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
 import { CurrentStateBook } from '../../models/current-state-book.model';
 import { EbookDataService } from '../../services/ebook-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
@@ -54,7 +54,7 @@ export class WordsList implements OnInit {
     this.userBookSettings.currentState.page = pageNoChanged;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
-    const currentState = this.userBookSettings.currentState;
+    const { currentState } = this.userBookSettings;
     this.getWordsList(currentState);
   }
 

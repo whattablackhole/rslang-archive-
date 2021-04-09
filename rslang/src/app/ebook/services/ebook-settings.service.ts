@@ -37,8 +37,8 @@ export class EbookSettingsService {
   }
 
   private setDefaultSettings(): void {
-      const defaultSettings = EBOOK_SETTINGS;
-      this.localStorageService
-        .setItem(LocalStorageKey.EbookSettings, JSON.stringify(defaultSettings));
+    const defaultSettings = EBOOK_SETTINGS;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(defaultSettings));
   }
 }

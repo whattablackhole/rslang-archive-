@@ -9,7 +9,8 @@ import { WordsCollections } from './components/words-collections/words-collectio
 
 const routes: Routes = [
   {
-    path: '', component: EbookHome,
+    path: '',
+    component: EbookHome,
     children: [
       { path: 'group', component: WordsCollections },
       { path: 'group/:id', component: WordsList },
