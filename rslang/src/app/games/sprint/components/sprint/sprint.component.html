@@ -8,7 +8,10 @@
         <mat-spinner *ngIf="!randomSortedWords"></mat-spinner>
         <button
           class="game__play-button"
-          *ngIf="randomSortedWords"
+          *ngIf="
+            (gameWordsState.wordsLength === gameWordsState.wordsLimit && !isGameFinished) ||
+            (gameWordsState.isWordsLast && !isGameFinished)
+          "
           mat-raised-button
           color="primary"
           (click)="onStartGame()"
