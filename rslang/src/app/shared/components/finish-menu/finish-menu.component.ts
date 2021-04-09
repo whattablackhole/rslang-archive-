@@ -4,6 +4,7 @@ import {
 import { GameResults } from '../../models/game-results.model';
 import { WordWithStatistics } from '../../models/word-statistics.model';
 import { GameCoreService } from '../../../games/services/game-core.service';
+import { WORDS_API_URL } from '../../constants/constants';
 
 @Component({
   selector: 'app-finish-menu',
@@ -26,7 +27,7 @@ export class FinishMenu implements AfterViewInit {
   }
 
   onPlay(item: WordWithStatistics): void {
-    this.gameCoreService.playAudio(`assets/${item.audio}`);
+    this.gameCoreService.playAudio(`${WORDS_API_URL}/${item.audio}`);
   }
 
   private runAnimation(): void {

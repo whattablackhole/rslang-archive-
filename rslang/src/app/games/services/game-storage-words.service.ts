@@ -9,7 +9,7 @@ import { GameWordsState } from '../interfaces/game-words-state.model';
 @Injectable()
 export class GameStorageWordsService {
   words$: Observable<Word[]>;
-  wordsFromLocalStorage: WordWithStatistics[];
+  wordsFromLocalStorage: string | null | WordWithStatistics[];
   sortedWords$: Observable<WordWithStatistics[]>;
   sortedWordsSubject: Subject<WordWithStatistics[]>;
   sortedWords: WordWithStatistics[];
@@ -58,6 +58,6 @@ export class GameStorageWordsService {
 
   getWords(group: string, page: string): void {
     this.wordsService.getData(this.gameCoreService.getWordsPath(group, page));
-    this.gameCoreService.getLocalStorageWords(group, page);
+    this.wordsFromLocalStorage = this.gameCoreService.getLocalStorageWords(group, page);
   }
 }

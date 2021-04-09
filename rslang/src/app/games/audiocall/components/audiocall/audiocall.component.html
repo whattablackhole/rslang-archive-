@@ -26,7 +26,7 @@
       <button
         mat-button
         class="unselectable game__words-item"
-        *ngFor="let item of sortedWords | randomize: currentIndex:currentIndex + this.gameWordsState.minAmout"
+        *ngFor="let item of sortedWords | randomize: currentIndex:currentIndex + gameWordsState.minAmout"
         (click)="onAnswer(item)"
         [disabled]="isAnswered"
         [ngClass]="{

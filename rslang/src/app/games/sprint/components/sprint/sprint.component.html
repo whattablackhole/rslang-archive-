@@ -64,8 +64,12 @@
       <div class="game__word-translate">{{ word.wordTranslate }}</div>
     </div>
     <div class="game__buttons">
-      <button mat-raised-button (click)="onAnswer(true)">Correct</button>
-      <button mat-raised-button (click)="onAnswer(false)">Incorrect</button>
+      <button mat-raised-button (click)="onAnswer(true)" [disabled]="borderColorAnimationState !== 'none'">
+        Correct
+      </button>
+      <button mat-raised-button (click)="onAnswer(false)" [disabled]="borderColorAnimationState !== 'none'">
+        Incorrect
+      </button>
     </div>
   </div>
 </div>

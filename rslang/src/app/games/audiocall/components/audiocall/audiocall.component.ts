@@ -127,7 +127,7 @@ export class Audiocall implements OnInit {
   }
 
   onPlaySound(): void {
-    this.gameCoreService.playAudio(`assets/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
   }
 
   onRightAnswer(): void {
@@ -146,7 +146,7 @@ export class Audiocall implements OnInit {
 
   updateGameState(): void {
     this.currentIndex += 1;
-    this.gameCoreService.playAudio(`assets/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
     this.isAnswered = false;
     this.correctWordName = '';
     this.incorrectWordName = '';
