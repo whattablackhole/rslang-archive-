@@ -1,7 +1,7 @@
 export const EBOOK_SETTINGS = {
   currentState: {
-    group: 0,
-    page: 0,
+    group: 1,
+    page: 1,
   },
   buttonOptions: [
     {

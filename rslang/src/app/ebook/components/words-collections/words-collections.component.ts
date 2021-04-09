@@ -5,9 +5,6 @@ import { Router } from '@angular/router';
 
 import { WordsCollection } from '../../models/words-collection.model';
 import { CONFIG_EBOOK } from '../../constants/config-ebook';
-import { UserBookSettings } from '../../models/user-book-settings.model';
-import { LocalStorageService } from '../../../core/services/local-storage.service';
-import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 
 @Component({
   selector: 'app-words-collections',
@@ -19,9 +16,9 @@ export class WordsCollections {
 
   constructor(private router: Router) {}
 
-  changeSelectedGroup(collection: WordsCollection) {
+  changeSelectedGroup(collection: WordsCollection): Promise<boolean> {
     const path = `ebook/${collection.path || ''}`;
-    void this.router.navigate([path, collection.id + 1]);
+    return this.router.navigate([path, collection.id + 1]);
   }
 
   getProgress(i: number): string {
