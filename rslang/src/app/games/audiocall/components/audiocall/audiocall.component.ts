@@ -81,7 +81,6 @@ export class Audiocall implements OnInit {
     this.words = this.wordsDataService.data$;
     this.userWords = this.userAggregatedWordsService.data$;
     this.gameResultWords = { correct_words: [], incorrect_words: [] };
-    this.sortedWords = [];
   }
 
   ngOnInit(): void {

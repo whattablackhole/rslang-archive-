@@ -1,20 +1,9 @@
 <div class="game">
   <app-screen-size-changer></app-screen-size-changer>
   <h1 class="game__no-words-title" *ngIf="gameWordsState.isNoWords">Not enough words for game</h1>
-  <mat-spinner
-    *ngIf="
-      !(gameWordsState.wordsLength === gameWordsState.wordsLimit) &&
-      !isGameFinished &&
-      !gameWordsState.isNoWords &&
-      !gameWordsState.isWordsLast
-    "
-    class="spinner"
-  ></mat-spinner>
+  <mat-spinner *ngIf="!sortedWords" class="spinner"></mat-spinner>
   <div
-    *ngIf="
-      (gameWordsState.wordsLength === gameWordsState.wordsLimit && !isGameFinished) ||
-      (gameWordsState.isWordsLast && !isGameFinished)
-    "
+    *ngIf="sortedWords && !isGameFinished"
     class="game__front-block"
     [@blockPosition]="blockPosition"
     (@blockPosition.done)="onAnswerEndEvent($event)"
