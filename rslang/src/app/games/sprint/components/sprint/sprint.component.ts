@@ -178,21 +178,22 @@ export class Sprint implements OnInit {
           case 4:
           case 5:
           case 6:
+          case 7:
             this.scorePointsLimit = 40;
             this.gameLevel = 2;
-
             break;
-          case 7:
           case 8:
           case 9:
+          case 10:
+          case 11:
             this.scorePointsLimit = 80;
             this.gameLevel = 3;
-
             break;
-          case 10:
+          case 12:
+          case 13:
+          case 14:
             this.scorePointsLimit = 100;
             this.gameLevel = 4;
-
             break;
           default:
             this.scorePointsLimit = 20;
