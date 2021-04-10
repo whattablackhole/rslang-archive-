@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter,
+  Component,
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class WordsCollections {
   constructor(private router: Router) {}
 
   changeSelectedGroup(collection: WordsCollection): Promise<boolean> {
-    const path = `ebook/${collection.path || ''}`;
+    const path = `ebook/${String(collection.path) || ''}`;
     return this.router.navigate([path, collection.id + 1]);
   }
 

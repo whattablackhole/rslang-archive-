@@ -47,6 +47,8 @@ export class WordsList implements OnInit {
     this.subscription = this.route.params.subscribe((params): void => {
       this.userBookSettings.currentState.group = params.id as number;
     });
+    const { currentState } = this.userBookSettings;
+    this.getWordsList(currentState);
   }
 
   changeSelectedPage(pageNoChanged: number): void {
@@ -59,5 +61,6 @@ export class WordsList implements OnInit {
 
   getWordsList(currentState: CurrentStateBook): void {
     this.words = this.wordsDataService.GetWords(currentState);
+    console.log(this.words);
   }
 }

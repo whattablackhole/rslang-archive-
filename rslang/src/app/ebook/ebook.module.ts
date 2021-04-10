@@ -12,9 +12,18 @@ import { EbookSettings } from './components/ebook-settings/ebook-settings.compon
 import { PaginationDirective } from './directives/pagination.directive';
 import { EbookHeader } from './components/ebook-header/ebook-header.component';
 import { WordsList } from './components/words-list/words-list.component';
+import { WordItem } from './components/word-item/word-item.component';
 
 @NgModule({
-  declarations: [EbookHome, WordsCollections, EbookSettings, EbookHeader, WordsList, PaginationDirective],
+  declarations: [
+    EbookHome,
+    WordsCollections,
+    EbookSettings,
+    EbookHeader,
+    WordsList,
+    WordItem,
+    PaginationDirective,
+  ],
   imports: [SharedModule, EbookRoutingModule, MatInputModule],
   exports: [WordsCollections],
   providers: [EbookSettingsService, SettingsDataService, WordsDataService],

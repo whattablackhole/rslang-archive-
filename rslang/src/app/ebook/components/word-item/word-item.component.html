@@ -1,0 +1,39 @@
+<div class="item" appShowOverBtn>
+    <div class="item__buttons">
+        <span class="over-btn" (click)="turnOverItem()"></span>
+    </div>
+
+    <div class="item__image">
+        <img [src]=[item.image] alt="{{ item.word }}" />
+    </div>
+
+    <div class="item__description">
+        <span class="title">
+      <strong>
+        {{ item.word }}
+      </strong>
+    </span>
+        <span>
+          Transcription: {{ item.transcription }}
+    </span>
+        <span>
+          Translate:
+      <strong>
+        {{ item.wordTranslate }}
+      </strong>
+    </span>
+    </div>
+
+    <!-- <div class="item__buttons">
+      <button class="action-btn" type="button" name="isDiffica" (click)="addToDifficult(item.id)">
+        <img src="../../../../assets/ebbok/speechIco.svg" alt="speech" />
+      </button>
+      <button class="action-btn" type="button" name="isDiffica" (click)="addToDifficult(item.id)">
+        <img src="../../../../assets/ebbok/difficultIco.svg" alt="difficult" />
+      </button>
+      <button class="action-btn" type="button" name="button" (click)="addToRemove(item.id)">
+        <img src="../../../../assets/ebbok/deleteIco.svg" alt="remove" />
+      </button>
+    </div> -->
+
+</div>
