@@ -1,7 +1,9 @@
+import { InstantiateExpr } from '@angular/compiler';
 import { Component } from '@angular/core';
 import {
   Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError,
 } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,16 +13,11 @@ import {
 export class App {
   moduleLoading = false;
   constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.moduleLoading = true;
-      } else if (
-        event instanceof NavigationEnd
-        || event instanceof NavigationCancel
-        || event instanceof NavigationError
-      ) {
-        this.moduleLoading = false;
-      }
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationStart
+       || event instanceof NavigationEnd || event instanceof NavigationError || event instanceof NavigationCancel),
+    ).subscribe((event) => {
+      this.moduleLoading = event instanceof NavigationStart;
     });
   }
 }
