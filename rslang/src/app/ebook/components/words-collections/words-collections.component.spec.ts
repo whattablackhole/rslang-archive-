@@ -35,6 +35,6 @@ describe('WordsCollections', () => {
     ];
     comp.wordsCollections = wordsCollections;
 
-    comp.getGroup.subscribe(selectedWordsCollection => expect(selectedWordsCollection).toContain(wordsCollections))
+    comp.groupIdChanged.subscribe(selectedWordsCollection => expect(selectedWordsCollection).toContain(wordsCollections))
   })
 });

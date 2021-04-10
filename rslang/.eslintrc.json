@@ -26,6 +26,7 @@
         "import/prefer-default-export": "off",
         "class-methods-use-this": "off",
         "lines-between-class-members": "off",
+        "no-prototype-builtins": "off",
         "@typescript-eslint/lines-between-class-members": [
           "error",
           "always",
@@ -74,14 +75,6 @@
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
-    },
-    {
-      "files": ["*.html"],
-      "excludedFiles": ["*inline-template-*.component.html"],
-      "extends": ["plugin:prettier/recommended"],
-      "rules": {
-        "prettier/prettier": ["error", { "parser": "angular" }]
-      }
     },
     {
       "files": ["*.component.ts"],

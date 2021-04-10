@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
@@ -17,6 +18,7 @@ import { Footer } from './components/footer/footer.component';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
@@ -28,6 +30,7 @@ import { Footer } from './components/footer/footer.component';
   exports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     MatMenuModule,
     MatToolbarModule,
     MatIconModule,
