@@ -3,8 +3,6 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -20,7 +18,6 @@ import { LocalStorageType } from '../../../shared/models/change-storage-type.mod
   selector: 'app-ebook-home',
   templateUrl: './ebook-home.component.html',
   providers: [WordsDataService],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EbookHome implements OnInit, OnDestroy {
   userBookSettings: UserBookSettings;
@@ -29,7 +26,6 @@ export class EbookHome implements OnInit, OnDestroy {
 
   constructor(
     private ebookSettingsService: EbookSettingsService,
-    private cdr: ChangeDetectorRef,
     private localStorageService: LocalStorageService,
   ) {}
 
@@ -51,7 +47,6 @@ export class EbookHome implements OnInit, OnDestroy {
     this.userBookSettings = bookSettingsChanged;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
-    this.cdr.detectChanges();
   }
 
   changeSelectedBookPage(pageNoChanged: number): void {
