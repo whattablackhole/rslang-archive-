@@ -2,7 +2,7 @@ import {
   Component, Output, EventEmitter, OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Word } from '../../../shared/models/word.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
@@ -10,7 +10,7 @@ import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
 import { CurrentStateBook } from '../../models/current-state-book.model';
-import { EbookDataService } from '../../services/ebook-data.service';
+import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class WordsList implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private ebookDataService: EbookDataService,
+    private wordsDataService: WordsDataService,
     private localStorageService: LocalStorageService,
   ) {}
 
@@ -58,7 +58,6 @@ export class WordsList implements OnInit {
   }
 
   getWordsList(currentState: CurrentStateBook): void {
-    this.words = this.ebookDataService.getWords(currentState);
-    console.log(this.words);
+    this.words = this.wordsDataService.GetWords(currentState);
   }
 }
