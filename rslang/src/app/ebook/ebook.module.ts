@@ -4,7 +4,6 @@ import { SharedModule } from '../shared/shared.module';
 import { EbookRoutingModule } from './ebook-routing.module';
 
 import { EbookSettingsService } from './services/ebook-settings.service';
-import { EbookDataService } from './services/ebook-data.service';
 import { SettingsDataService } from './services/settings-data.service';
 import { WordsDataService } from '../shared/services/words-data.service';
 import { EbookHome } from './components/ebook-home/ebook-home.component';
@@ -18,6 +17,6 @@ import { WordsList } from './components/words-list/words-list.component';
   declarations: [EbookHome, WordsCollections, EbookSettings, EbookHeader, WordsList, PaginationDirective],
   imports: [SharedModule, EbookRoutingModule, MatInputModule],
   exports: [WordsCollections],
-  providers: [EbookSettingsService, EbookDataService, SettingsDataService, WordsDataService],
+  providers: [EbookSettingsService, SettingsDataService, WordsDataService],
 })
 export class EbookModule {}
