@@ -1,4 +1,3 @@
-import { InstantiateExpr } from '@angular/compiler';
 import { Component } from '@angular/core';
 import {
   Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError,
