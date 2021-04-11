@@ -1,6 +1,6 @@
-const BASE_URL = 'https://rslang-team4-whattablackhole.netlify.app';
+import { BASE_URL } from './base-url';
 
-export const GLOBAL_DATA = {
+export const API_URL = {
   WORDS: `${BASE_URL}/words?`,
   WORDS_COUNT: `${BASE_URL}/words/count?`,
   WORD_BY_ID: (id: string): string => `${BASE_URL}/words/${id}?`,
