@@ -255,7 +255,7 @@ export class Sprint implements OnInit {
     const index = this.sortedWords.findIndex((item) => item.id === id);
     if (result) {
       this.sortedWords[index].knowledgeDegree += 1;
-    } else if (this.sortedWords[index].knowledgeDegree > 0) {
+    } else if (this.sortedWords[index].knowledgeDegree) {
       this.sortedWords[index].knowledgeDegree -= 1;
     }
   }

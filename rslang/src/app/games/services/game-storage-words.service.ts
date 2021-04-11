@@ -25,7 +25,7 @@ export class GameStorageWordsService {
   getFullWords(gameWordsState: GameWordsState): void {
     const wordsState: GameWordsState = gameWordsState;
     if (this.sortedWords.length < wordsState.wordsLimit) {
-      if (parseInt(this.page, 10) > 0) {
+      if (parseInt(this.page, 10)) {
         this.page = this.gameCoreService.decreasePageNumber(this.page);
         this.getWords(this.group, this.page);
       } else if (this.sortedWords.length < wordsState.minAmout) {

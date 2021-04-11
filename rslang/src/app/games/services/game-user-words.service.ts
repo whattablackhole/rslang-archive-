@@ -31,7 +31,7 @@ export class UserWordsService {
   getFullWords(id: string, gameWordsState: GameWordsState): void {
     const wordsState: GameWordsState = gameWordsState;
     if (this.sortedWords.length < wordsState.wordsLimit) {
-      if (parseInt(this.page, 10) > 0) {
+      if (parseInt(this.page, 10)) {
         this.page = this.gameCoreService.decreasePageNumber(this.page);
         this.getWords(this.group, this.page, id);
       } else if (this.sortedWords.length < wordsState.minAmout) {
