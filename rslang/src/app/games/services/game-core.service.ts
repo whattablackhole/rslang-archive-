@@ -11,8 +11,8 @@ export class GameCoreService {
   constructor(private localStorageService: LocalStorageService) {}
 
   getWordsPath = (group: string, page: string): string => `${BASE_URL}/words?group=${group}&page=${page}`;
-
-  getUserWordsPath = (group: string, page: string, id = ''): string => `${BASE_URL}/users/${id}/aggregatedWords`;
+  getUserWordsPath = (group: string, page: string, id:string, wordsPerPage: string):
+  string => `${BASE_URL}/users/${id}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}`;
 
   addWordsToLocalStorage(words: WordWithStatistics[]): void {
     const pagesArray: Array<{ page: number; words: WordWithStatistics[] }> = [];
@@ -109,5 +109,15 @@ export class GameCoreService {
       toStudy: {},
       knowledgeDegree: 0,
     }));
+  }
+
+  toAggregatedWord(word: Word): WordWithStatistics {
+    return {
+      ...word,
+      isRemove: false,
+      isDifficult: false,
+      toStudy: {},
+      knowledgeDegree: 0,
+    };
   }
 }
