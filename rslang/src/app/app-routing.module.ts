@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { NotFoundPage } from './shared/components/not-found-page/not-found-page.component';
-import { MainPage } from './components/main-page/main-page.component';
 import { NavMenu } from './components/nav-menu/nav-menu.component';
+import { Main } from './components/main/main';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
-    component: MainPage,
+    component: Main,
   },
   {
     path: 'ebook',
@@ -17,24 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'games',
-    children: [
-      {
-        path: 'audiocall',
-        loadChildren: () => import('./games/audiocall/audiocall.module').then(
-          (m) => m.AudiocallModule,
-        ),
-      },
-      {
-        path: 'savannah',
-        loadChildren: () => import('./games/savannah/savannah.module').then(
-          (m) => m.SavannahModule,
-        ),
-      },
-      {
-        path: 'sprint',
-        loadChildren: () => import('./games/sprint/sprint.module').then((m) => m.SprintModule),
-      },
-    ],
+    loadChildren: () => import('./games/games.module').then((m) => m.GamesModule),
   },
   {
     path: 'statistics',

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AudiocallPage } from './components/audiocall-page/audiocall-page.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { Audiocall } from './components/audiocall/audiocall.component';
 import { AudiocallRoutingModule } from './audiocall-routing.module';
 
 @NgModule({
-  declarations: [AudiocallPage],
-  imports: [CommonModule, AudiocallRoutingModule],
+  declarations: [Audiocall],
+  imports: [CommonModule, AudiocallRoutingModule, SharedModule],
 })
 export class AudiocallModule {}
