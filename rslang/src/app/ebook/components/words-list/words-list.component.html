@@ -1,7 +1,7 @@
 <app-ebook-header (pageNoChanged)="changeSelectedPage($event)"> </app-ebook-header>
 <section class="words-conteiner">
-  <ng-container *ngIf="words.length > 0; else isEmptyCart" class="words-conteiner__list">
-    <app-word-item
+  <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
+    <app-word-item  class="words-conteiner__item"
       *ngFor="let item of words"
       [item] = "item">
     </app-word-item>

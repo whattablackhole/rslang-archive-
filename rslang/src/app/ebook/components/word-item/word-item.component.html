@@ -1,39 +1,47 @@
 <div class="item" appShowOverBtn>
-    <div class="item__buttons">
-        <span class="over-btn" (click)="turnOverItem()"></span>
-    </div>
-
-    <div class="item__image">
-        <img [src]=[item.image] alt="{{ item.word }}" />
-    </div>
-
-    <div class="item__description">
-        <span class="title">
-      <strong>
-        {{ item.word }}
-      </strong>
+  <div class="item__buttons">
+    <span class="over-btn" (click)="turnOverItem()"></span>
+  </div>
+  <div class="item__image">
+    <img [src]=[item.image] alt="{{ item.word }}" />
+  </div>
+  <div class="item__description">
+    <span class="title">
+      <strong>{{ item.word }}</strong>-
+      <strong>{{ item.wordTranslate }}</strong>
     </span>
-        <span>
-          Transcription: {{ item.transcription }}
+    <span>
+      transcription: {{ item.transcription }}
     </span>
-        <span>
-          Translate:
-      <strong>
-        {{ item.wordTranslate }}
-      </strong>
+    <span>
+      {{ item.textMeaning }}
     </span>
-    </div>
-
-    <!-- <div class="item__buttons">
-      <button class="action-btn" type="button" name="isDiffica" (click)="addToDifficult(item.id)">
-        <img src="../../../../assets/ebbok/speechIco.svg" alt="speech" />
-      </button>
-      <button class="action-btn" type="button" name="isDiffica" (click)="addToDifficult(item.id)">
-        <img src="../../../../assets/ebbok/difficultIco.svg" alt="difficult" />
-      </button>
-      <button class="action-btn" type="button" name="button" (click)="addToRemove(item.id)">
-        <img src="../../../../assets/ebbok/deleteIco.svg" alt="remove" />
-      </button>
-    </div> -->
-
+    <span>
+      {{ item.textMeaningTranslate }}
+    </span>
+    <!-- <span>
+      {{ item.textExample }}
+    </span>
+    <span>
+      {{ item.textExampleTranslate }}
+    </span> -->
+  </div>
+  <div class="item__buttons">
+    <!-- <div class="action-btn"></div> -->
+    <img
+      src="../../../../assets/ebbok/speechIco.svg"
+      alt="speech"
+      (click)="playSound(item.audio)"
+      class="action-btn"/>
+    <img
+      src="../../../../assets/ebbok/difficultIco.svg"
+      alt="difficult"
+      (click)="addToDifficult(item.id)"
+      class="action-btn" />
+    <img
+      src="../../../../assets/ebbok/deleteIco.svg"
+      alt="remove"
+      (click)="addToRemove(item.id)"
+      class="action-btn" />
+  </div>
 </div>
