@@ -1,5 +1,13 @@
 .chart-wrapper{
-  width: 800px;
-  height: 600px;
+  width: 40em;
+  height: 20em;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .chart-wrapper{
+    width: 30em;
+    height: 20em;
+    margin: 0 auto;
+  }
 }

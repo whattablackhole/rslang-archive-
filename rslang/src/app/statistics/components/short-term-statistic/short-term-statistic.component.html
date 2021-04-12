@@ -1,22 +1,24 @@
-<div>
-  <div>
-    <p>date: {{ statistic.date | date: 'shortDate' }}</p>
-    <p>words: {{ statistic.learnedWords }}</p>
-    <div *ngFor="let game of games">
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Winrate</th>
-          <th>Streak</th>
-          <th>RightWords</th>
-        </tr>
-        <tr>
-          <td>{{ game.name }}</td>
-          <td>{{ game.winrate }}</td>
-          <td>{{ game.streak }}</td>
-          <td>{{ game.rightWords }}</td>
-        </tr>
-      </table>
+<div class="statistic-page__short">
+  <div class="short-table">
+    <div class="short-table__row short-table__title">
+      <p>Name</p>
+      <p>Winrate</p>
+      <p>Streak</p>
+      <p>Right Words</p>
+    </div>
+    <div *ngFor="let game of games" class="short-table__row short-table__value">
+      <p>{{ game.name }}</p>
+      <p>{{ game.winrate | number: '1.0-0'}}</p>
+      <p>{{ game.streak }}</p>
+      <p>{{ game.rightWords }}</p>
     </div>
   </div>
+  <p>Learned words: {{ statistic.learnedWords }}</p>
 </div>
+<picture></picture>
+<hr>
+<meta>
+<img>
+<legend></legend>
+<form></form>
+<td></td>

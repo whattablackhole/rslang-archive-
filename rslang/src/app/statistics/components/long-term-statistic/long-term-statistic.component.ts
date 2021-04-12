@@ -14,12 +14,12 @@ export class LongTermStatistic implements OnInit {
   private dates: string[];
   private words : (number | undefined)[];
   private accWords : (number | undefined)[];
-  public lineChartData: ChartDataSets[];
-  public lineChartLabels: Label[];
-  public lineChartOptions: ChartOptions;
-  public lineChartColors: Color[];
-  public lineChartLegend: boolean;
-  public lineChartType: ChartType;
+  lineChartData: ChartDataSets[];
+  lineChartLabels: Label[];
+  lineChartOptions: ChartOptions;
+  lineChartColors: Color[];
+  lineChartLegend: boolean;
+  lineChartType: ChartType;
 
   ngOnInit(): void {
     this.dates = this.statistics.map((item) => item.date.toLocaleDateString());

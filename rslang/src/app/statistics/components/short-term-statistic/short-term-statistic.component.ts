@@ -14,6 +14,7 @@ export class ShortTermStatistic implements OnInit {
   constructor(private gamesAggregationService: GamesAggregationService) {}
 
   ngOnInit(): void {
-    this.games = this.gamesAggregationService.aggregation(this.statistic.gameStatistics);
+    this.games = this.statistic.gameStatistics;
+        //this.gamesAggregationService.aggregation(this.statistic.gameStatistics);
   }
 }
