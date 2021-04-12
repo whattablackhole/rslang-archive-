@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
@@ -19,6 +20,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
     BrowserModule,
     CoreModule,
     SharedModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
