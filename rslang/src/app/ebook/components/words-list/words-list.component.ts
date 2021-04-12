@@ -1,5 +1,5 @@
 import {
-  Component, Output, EventEmitter, OnInit,
+  Component, Output, EventEmitter, OnInit, OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ import { LocalStorageService } from '../../../core/services/local-storage.servic
   templateUrl: './words-list.component.html',
   styleUrls: ['./words-list.component.scss'],
 })
-export class WordsList implements OnInit {
+export class WordsList implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
 
@@ -73,5 +73,9 @@ export class WordsList implements OnInit {
 
   getWordsList(currentState: CurrentStateBook): void {
     this.words = this.wordsDataService.GetWords(currentState);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sb) => sb.unsubscribe());
   }
 }
