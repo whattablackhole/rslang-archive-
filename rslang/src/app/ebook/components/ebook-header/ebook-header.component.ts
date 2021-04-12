@@ -6,11 +6,11 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./ebook-header.component.scss'],
 })
 export class EbookHeader {
-  totalPages = 30;
-  title = 'ebook';
-  @Output() pageNoChanged: EventEmitter<number> = new EventEmitter<number>();
+  totalPages = 30; // TODO number of pages collections
+  title = 'ebook'; // TODO section of ebook
+  @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
-  onPageChange(pageNo: number): void {
-    this.pageNoChanged.emit(pageNo);
+  onPageChange(pageNumber: number): void {
+    this.pageChanged.emit(pageNumber);
   }
 }

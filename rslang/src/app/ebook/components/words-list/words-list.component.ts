@@ -61,6 +61,5 @@ export class WordsList implements OnInit {
 
   getWordsList(currentState: CurrentStateBook): void {
     this.words = this.wordsDataService.GetWords(currentState);
-    console.log(this.words);
   }
 }

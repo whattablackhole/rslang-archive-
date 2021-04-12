@@ -7,7 +7,7 @@ import {
   exportAs: 'appPagination',
 })
 export class PaginationDirective implements OnChanges, OnInit {
-  @Input() pageNo = 1;
+  @Input() pageNumber = 1;
   @Input() totalPages = 1;
 
   @Output() pageChange = new EventEmitter<number>();
@@ -15,16 +15,16 @@ export class PaginationDirective implements OnChanges, OnInit {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    this.setValue(this.pageNo);
+    this.setValue(this.pageNumber);
   }
 
-  ngOnChanges({ pageNo, totalPages }: SimpleChanges): void {
+  ngOnChanges({ pageNumber, totalPages }: SimpleChanges): void {
     if (totalPages) {
       this.onTotalPagesInput();
     }
 
-    if (pageNo) {
-      this.onPageNoInput();
+    if (pageNumber) {
+      this.onpageNumberInput();
     }
   }
 
@@ -42,16 +42,16 @@ export class PaginationDirective implements OnChanges, OnInit {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    this.pageNo = Number(this.el.nativeElement.value);
-    this.pageChange.emit(this.pageNo);
+    this.pageNumber = Number(this.el.nativeElement.value);
+    this.pageChange.emit(this.pageNumber);
   }
 
   get isFirst(): boolean {
-    return this.pageNo === 1;
+    return this.pageNumber === 1;
   }
 
   get isLast(): boolean {
-    return this.pageNo === this.totalPages;
+    return this.pageNumber === this.totalPages;
   }
 
   first(): void {
@@ -59,11 +59,11 @@ export class PaginationDirective implements OnChanges, OnInit {
   }
 
   prev(): void {
-    this.setPage(Math.max(1, this.pageNo - 1));
+    this.setPage(Math.max(1, this.pageNumber - 1));
   }
 
   next():void {
-    this.setPage(Math.min(this.totalPages, this.pageNo + 1));
+    this.setPage(Math.min(this.totalPages, this.pageNumber + 1));
   }
 
   last(): void {
@@ -75,9 +75,9 @@ export class PaginationDirective implements OnChanges, OnInit {
   }
 
   private setPage(val: number) {
-    this.pageNo = val;
-    this.setValue(this.pageNo);
-    this.pageChange.emit(this.pageNo);
+    this.pageNumber = val;
+    this.setValue(this.pageNumber);
+    this.pageChange.emit(this.pageNumber);
   }
 
   private getParsedValue(val: string): string {
@@ -94,15 +94,15 @@ export class PaginationDirective implements OnChanges, OnInit {
     }
   }
 
-  private onPageNoInput() {
+  private onpageNumberInput() {
     if (
-      typeof this.pageNo !== 'number'
-      || this.pageNo < 1
-      || this.pageNo > this.totalPages
+      typeof this.pageNumber !== 'number'
+      || this.pageNumber < 1
+      || this.pageNumber > this.totalPages
     ) {
-      this.pageNo = 1;
+      this.pageNumber = 1;
     }
 
-    this.setValue(this.pageNo);
+    this.setValue(this.pageNumber);
   }
 }
