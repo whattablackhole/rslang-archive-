@@ -25,9 +25,13 @@ export class AuthActionService extends BaseActionService {
     const action: CallbackObject = {
       onSuccess() {
         authService.redirectToUrl('/auth');
+        notifyService.showSuccess('Registration was successful!');
       },
       onError(err) {
-        notifyService.showError(err.message);
+        const message = (err.status === 417)
+          ? 'User with this e-mail already exists'
+          : 'Sign up error! Please try again.';
+        notifyService.showError(message);
       },
     };
     this.sendAction('POST', `${BASE_URL}/users`, action, { body: req });
