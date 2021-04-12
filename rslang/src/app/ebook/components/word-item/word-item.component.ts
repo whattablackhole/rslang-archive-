@@ -11,7 +11,7 @@ export class WordItem {
   @Input() item: Word;
 
   turnOverItem(): string {
-    return 'p = 0';
+    return 'turnOver';
   }
 
   addToRemove(id: string): string {
@@ -20,5 +20,9 @@ export class WordItem {
 
   addToDifficult(id: string): string {
     return id;
+  }
+
+  playSound(sound: string): Promise<void> {
+    return (new Audio(sound)).play();
   }
 }

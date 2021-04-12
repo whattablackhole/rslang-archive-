@@ -22,7 +22,7 @@ export class WordsDataService extends BaseDataService<Word[]> {
     this.getData(API_URL.WORDS, { params });
     this.data$.subscribe((words: Word[]) => {
       words.forEach((wordData) => {
-        const word = wordData;
+        const word = { ...wordData };
         word.image = WORDS_API_URL + word.image;
         word.audio = WORDS_API_URL + word.audio;
         word.audioMeaning = WORDS_API_URL + word.audioMeaning;
