@@ -23,7 +23,8 @@ mat-toolbar {
 
 .logo-wrapper {
   width: 100%;
-  min-width: 130px;
+  min-width: 100px;
+  max-width: 200px;
 }
 
 .account-wrapper {
@@ -42,10 +43,10 @@ mat-toolbar {
 }
 
 @media  only screen and (max-width: 480px){
-  .main-menu  {
-    display: none;
-  }
   .account-icon {
     display: none;
+  }
+  mat-toolbar {
+    padding: 0px;
   }
 }
