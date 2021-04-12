@@ -41,8 +41,7 @@ export class PaginationDirective implements OnChanges, OnInit {
       this.setValue(this.totalPages);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    this.pageNumber = Number(this.el.nativeElement.value);
+    this.pageNumber = Number((this.el.nativeElement as HTMLInputElement).value);
     this.pageChange.emit(this.pageNumber);
   }
 

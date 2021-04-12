@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter,
+} from '@angular/core';
 
 import { Word } from '../../../shared/models/word.model';
 
@@ -9,17 +11,19 @@ import { Word } from '../../../shared/models/word.model';
 })
 export class WordItem {
   @Input() item: Word;
+  @Output() wordDifficult: EventEmitter<string> = new EventEmitter<string>();
+  @Output() wordRemove: EventEmitter<string> = new EventEmitter<string>();
 
   turnOverItem(): string {
     return 'turnOver';
   }
 
-  addToRemove(id: string): string {
-    return id;
+  addToRemove(wordId: string): void {
+    this.wordRemove.emit(wordId);
   }
 
-  addToDifficult(id: string): string {
-    return id;
+  addToDifficult(wordId: string): void {
+    this.wordDifficult.emit(wordId);
   }
 
   playSound(sound: string): Promise<void> {

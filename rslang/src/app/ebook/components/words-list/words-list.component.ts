@@ -59,6 +59,18 @@ export class WordsList implements OnInit {
     this.getWordsList(currentState);
   }
 
+  changeRemoveWord(wordRemove: string): void {
+    console.log(this.words[this.indexWord(wordRemove)]);
+  }
+
+  changeDifficultWord(wordDifficult: string): void {
+    console.log(this.words[this.indexWord(wordDifficult)]);
+  }
+
+  indexWord(wordId: string): number {
+    return this.words.findIndex((element: Word) => element.id === wordId);
+  }
+
   getWordsList(currentState: CurrentStateBook): void {
     this.words = this.wordsDataService.GetWords(currentState);
   }
