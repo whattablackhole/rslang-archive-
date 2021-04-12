@@ -17,20 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'games',
-    children: [
-      {
-        path: 'audiocall',
-        loadChildren: () => import('./games/audiocall/audiocall.module').then((m) => m.AudiocallModule),
-      },
-      {
-        path: 'savannah',
-        loadChildren: () => import('./games/savannah/savannah.module').then((m) => m.SavannahModule),
-      },
-      {
-        path: 'sprint',
-        loadChildren: () => import('./games/sprint/sprint.module').then((m) => m.SprintModule),
-      },
-    ],
+    loadChildren: () => import('./games/games.module').then((m) => m.GamesModule),
   },
   {
     path: 'statistics',

@@ -5,5 +5,14 @@
 }
 
 .main {
-    padding: 2rem 6rem;
+  padding: 2rem 6rem;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.spinner {
+  display: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

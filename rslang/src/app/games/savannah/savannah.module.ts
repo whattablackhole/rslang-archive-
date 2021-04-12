@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SavannahPage } from './components/savannah-page/savannah-page.component';
+import { Savannah } from './components/savannah/savannah.component';
 import { SavannahRoutingModule } from './savannah-routing.module';
 
 @NgModule({
-  declarations: [SavannahPage],
+  declarations: [Savannah],
   imports: [CommonModule, SavannahRoutingModule],
 })
 export class SavannahModule {}

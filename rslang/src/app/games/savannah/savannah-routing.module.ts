@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SavannahPage } from './components/savannah-page/savannah-page.component';
+import { Savannah } from './components/savannah/savannah.component';
 
-const routes: Routes = [{ path: '', component: SavannahPage }];
+const routes: Routes = [{ path: '', component: Savannah }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

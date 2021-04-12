@@ -1,0 +1,79 @@
+<div class="game">
+  <app-screen-size-changer></app-screen-size-changer>
+  <div *ngIf="!isGameStarted">
+    <div class="game__menu" *ngIf="!isGameFinished">
+      <h2 class="game__title">Sprint</h2>
+      <h3 class="game__subtitle">In this game you need to use your skills to choose the appropriate answer</h3>
+      <div>
+        <mat-spinner *ngIf="!randomSortedWords"></mat-spinner>
+        <button
+          class="game__play-button"
+          *ngIf="randomSortedWords"
+          mat-raised-button
+          color="primary"
+          (click)="onStartGame()"
+        >
+          play
+        </button>
+      </div>
+    </div>
+    <div class="game__menu-finished" *ngIf="isGameFinished">
+      <app-finish-menu
+        [result]="scorePoints"
+        [correctGamePercent]="correctGamePercent"
+        [gameResultWords]="gameResultWords"
+      ></app-finish-menu>
+    </div>
+  </div>
+  <div
+    *ngIf="isGameStarted"
+    [@coloredBorder]="borderColorAnimationState"
+    (@coloredBorder.done)="onBorderDone()"
+    class="game__content"
+  >
+    <div [ngClass]="{ 'game__img-lvl game__img-lvl_two': gameLevel > 1 }"></div>
+    <div [ngClass]="{ 'game__img-lvl game__img-lvl_three': gameLevel > 2 }"></div>
+    <div [ngClass]="{ 'game__img-lvl game__img-lvl_four': gameLevel > 3 }"></div>
+    <div
+      class="game__score"
+      [ngClass]="{
+        'game__score_lvl-one': gameLevel === 1,
+        'game__score_lvl-two': gameLevel === 2,
+        'game__score_lvl-three': gameLevel === 3,
+        'game__score_lvl-four': gameLevel === 4
+      }"
+    >
+      <div #circles class="game__score-circles">
+        <div [ngClass]="{ 'game__score-circle_filled': currentStreak % 4 >= 1 }" class="game__score-circle"></div>
+        <div [ngClass]="{ 'game__score-circle_filled': currentStreak % 4 >= 2 }" class="game__score-circle"></div>
+        <div [ngClass]="{ 'game__score-circle_filled': currentStreak % 4 >= 3 }" class="game__score-circle"></div>
+      </div>
+      <div class="game__score-counter">{{ scorePoints }} очков</div>
+    </div>
+    <div
+      class="game__roof"
+      [ngClass]="{
+        'game__roof_lvl-one': gameLevel === 1,
+        'game__roof_lvl-two': gameLevel === 2,
+        'game__roof_lvl-three': gameLevel === 3,
+        'game__roof_lvl-four': gameLevel === 4
+      }"
+    ></div>
+    <div class="game__word">
+      <div class="game__word-name">{{ word.word }}</div>
+      <div class="game__word-translate">{{ word.wordTranslate }}</div>
+    </div>
+    <div class="game__buttons">
+      <button mat-raised-button (click)="onAnswer(true)" [disabled]="borderColorAnimationState !== 'none'">
+        Correct
+      </button>
+      <button mat-raised-button (click)="onAnswer(false)" [disabled]="borderColorAnimationState !== 'none'">
+        Incorrect
+      </button>
+    </div>
+  </div>
+</div>
+<app-start-animation
+  [isGameStarted]="isGameStarted"
+  [hiddenTextAnimationState]="hiddenTextAnimationState"
+></app-start-animation>

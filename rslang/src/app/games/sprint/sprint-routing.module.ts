@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SprintPage } from './components/sprint-page/sprint-page.component';
+import { Sprint } from './components/sprint/sprint.component';
 
-const routes: Routes = [{ path: '', component: SprintPage }];
+const routes: Routes = [{ path: '', component: Sprint }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
