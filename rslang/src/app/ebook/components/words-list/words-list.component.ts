@@ -4,6 +4,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { WORDS_API_URL } from '../../../shared/constants/constants';
 import { Word } from '../../../shared/models/word.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
@@ -72,7 +73,18 @@ export class WordsList implements OnInit, OnDestroy {
   }
 
   getWordsList(currentState: CurrentStateBook): void {
-    this.words = this.wordsDataService.GetWords(currentState);
+    this.words = [];
+    this.subscription = this.wordsDataService.GetWords(currentState)
+      .subscribe((words: Word[]) => {
+        words.forEach((wordData) => {
+          const word = { ...wordData };
+          word.image = WORDS_API_URL + word.image;
+          word.audio = WORDS_API_URL + word.audio;
+          word.audioMeaning = WORDS_API_URL + word.audioMeaning;
+          word.audioExample = WORDS_API_URL + word.audioExample;
+          this.words.push(word);
+        });
+      });
   }
 
   ngOnDestroy(): void {
