@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
+import { NotificationService } from '../../shared/services/notification.service';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { SigninResponse } from '../models/signin-response.model';
 
@@ -20,6 +21,7 @@ export class AuthService {
   constructor(
     private router: Router,
     private storage: LocalStorageService,
+    private notification: NotificationService,
   ) {}
 
   getIsUserAuthenticated(): boolean {
@@ -63,8 +65,8 @@ export class AuthService {
   }
 
   redirectToUrl(url: string): void {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    this.router.navigate([url]); // TODO catch error
+    this.router.navigate([url])
+      .catch((err) => this.notification.showError(err));
   }
 
   private saveAuthData(userId: string, name: string, token: string, refreshToken: string): void {
