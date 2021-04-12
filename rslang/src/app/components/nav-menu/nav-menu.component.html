@@ -1,20 +1,20 @@
 <mat-toolbar>
-  <div>
+  <div class="logo-wrapper">
     <app-logo></app-logo>
   </div>
   <div class="main-menu">
-    <button mat-button [routerLink]="['ebook']">ebook</button>
-    <button mat-button [routerLink]="['dictionary']">dictionary</button>
+    <button mat-button routerLink="ebook">ebook</button>
+    <button mat-button routerLink="dictionary">dictionary</button>
     <button mat-button [matMenuTriggerFor]="games">games</button>
     <mat-menu #games="matMenu">
-      <button mat-menu-item [routerLink]="['games/savannah']" routerLinkActive="active">savannah</button>
-      <button mat-menu-item [routerLink]="['games/audiocall']" routerLinkActive="active">audiocall</button>
-      <button mat-menu-item [routerLink]="['games/sprint']" routerLinkActive="active">sprint</button>
-      <button mat-menu-item [routerLink]="['games/match-pairs']" routerLinkActive="active">match pairs</button>
+      <button mat-menu-item routerLink="games/savannah" routerLinkActive="active">savannah</button>
+      <button mat-menu-item routerLink="games/audiocall" routerLinkActive="active">audiocall</button>
+      <button mat-menu-item routerLink="games/sprint" routerLinkActive="active">sprint</button>
+      <button mat-menu-item routerLink="games/match-pairs" routerLinkActive="active">match pairs</button>
     </mat-menu>
-    <button mat-button [routerLink]="['dictionary']">statistics</button>
+    <button mat-button routerLink="statistics">statistics</button>
   </div>
-  <div>
+  <div class="account-wrapper">
     <img class="account-icon" src="../../../assets/user.svg" alt="user-account" />
     <app-dot-menu></app-dot-menu>
   </div>

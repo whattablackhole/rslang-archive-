@@ -1,9 +1,10 @@
-<h2 style="text-align: center">Match Pairs</h2>
 <div class="game-wrapper">
-  <!-- <div *ngFor="let word of words">
-    <p class="word-card">{{ word.word }}</p>
-  </div>
+  <app-screen-size-changer></app-screen-size-changer>
+  <!-- <h2 class="center">Match Pairs</h2> -->
+  <!-- <h3 class="center">Match the word with it's translation</h3> -->
+
   <div *ngFor="let word of words">
-    <p class="word-card translation">{{ word.wordTranslate }}</p>
-  </div> -->
+    <p class="word-card" (click)="selectWord(word)">{{ word.word }}</p>
+    <p class="word-card translation" (click)="checkAnswer(word)">{{ word.wordTranslate }}</p>
+  </div>
 </div>

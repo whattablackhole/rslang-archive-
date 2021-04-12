@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {
   trigger, style, animate, transition, keyframes, animation,
 } from '@angular/animations';
-import { Word } from 'src/app/shared/models/word.model';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Router, RoutesRecognized } from '@angular/router';
-import { Observable } from 'rxjs';
 import { filter, pairwise } from 'rxjs/operators';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserAggregatedWordsService } from '../../../../shared/services/user-words-data.service';
@@ -54,13 +52,11 @@ import { GameStorageWordsService } from '../../../services/game-storage-words.se
   ],
 })
 export class Sprint implements OnInit {
-  words: Observable<Word[]>;
   randomSortedWords: WordWithStatistics[];
-  wordsFromLocalStorage: WordWithStatistics[] | string | null;
   sortedWords: WordWithStatistics[];
   word: WordWithStatistics;
 
-  gameResultWords: GameResults;
+  gameResultWords: GameResults = { correct_words: [], incorrect_words: [] };
   statistics: Statistics;
 
   borderColorAnimationState: BorderColorAnimationState;
@@ -89,14 +85,10 @@ export class Sprint implements OnInit {
   page: string;
 
   constructor(
-    private wordsDataService: WordsDataService,
     private gameCoreService: GameCoreService,
     private router: Router,
     private gameStorageWordsService: GameStorageWordsService,
   ) {
-    this.words = this.wordsDataService.data$;
-    this.sortedWords = [];
-    this.gameResultWords = { correct_words: [], incorrect_words: [] };
     this.router.events
       .pipe(
         filter((events: any) => events instanceof RoutesRecognized),
@@ -186,21 +178,22 @@ export class Sprint implements OnInit {
           case 4:
           case 5:
           case 6:
+          case 7:
             this.scorePointsLimit = 40;
             this.gameLevel = 2;
-
             break;
-          case 7:
           case 8:
           case 9:
+          case 10:
+          case 11:
             this.scorePointsLimit = 80;
             this.gameLevel = 3;
-
             break;
-          case 10:
+          case 12:
+          case 13:
+          case 14:
             this.scorePointsLimit = 100;
             this.gameLevel = 4;
-
             break;
           default:
             this.scorePointsLimit = 20;
@@ -262,7 +255,7 @@ export class Sprint implements OnInit {
     const index = this.sortedWords.findIndex((item) => item.id === id);
     if (result) {
       this.sortedWords[index].knowledgeDegree += 1;
-    } else if (this.sortedWords[index].knowledgeDegree > 0) {
+    } else if (this.sortedWords[index].knowledgeDegree) {
       this.sortedWords[index].knowledgeDegree -= 1;
     }
   }

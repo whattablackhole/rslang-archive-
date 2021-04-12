@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPage } from './components/main-page/main-page.component';
+import { Main } from './components/main/main';
 import { NavMenu } from './components/nav-menu/nav-menu.component';
 import { NotFoundPage } from './shared/components/not-found-page/not-found-page.component';
 
-
 const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
-    component: MainPage,
+    component: Main,
   },
   {
     path: 'ebook',

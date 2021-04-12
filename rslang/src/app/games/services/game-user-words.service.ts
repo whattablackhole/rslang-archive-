@@ -15,6 +15,9 @@ export class UserWordsService {
   sortedWords$: Observable<WordWithStatistics[]>;
   sortedWords: WordWithStatistics[];
 
+  page:string;
+  group:string;
+
   constructor(
     private gameCoreService: GameCoreService,
     private userWordsService: UserAggregatedWordsService,
@@ -25,31 +28,39 @@ export class UserWordsService {
     this.sortedWords$ = this.sortedWordsSubject.asObservable();
   }
 
-  updateWordState(group: string, page: string, id: string, gameWordsState: GameWordsState): void {
+  getFullWords(id: string, gameWordsState: GameWordsState): void {
     const wordsState: GameWordsState = gameWordsState;
     if (this.sortedWords.length < wordsState.wordsLimit) {
-      if (parseInt(page, 10) > 0) {
-        this.getWords(group, this.gameCoreService.decreasePageNumber(page), id);
+      if (parseInt(this.page, 10)) {
+        this.page = this.gameCoreService.decreasePageNumber(this.page);
+        this.getWords(this.group, this.page, id);
       } else if (this.sortedWords.length < wordsState.minAmout) {
         wordsState.isNoWords = true;
       } else {
         wordsState.isWordsLast = true;
-        wordsState.wordsLength = this.sortedWords.length;
       }
-    } else {
-      wordsState.wordsLength = this.sortedWords.length;
     }
   }
 
-  createWords(wordsLimit: number, page: string, group: string, id: string, gameWordsState: GameWordsState): void {
-    combineLatest([this.words$, this.userWords$]).subscribe((res: (WordWithStatistics[] | Word[])[]) => {
-      this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toAggregatedWords(res[0])];
+  createWords(group: string, page: string, id: string, gameWordsState: GameWordsState): void {
+    const wordsState: GameWordsState = gameWordsState;
+
+    this.page = page;
+    this.group = group;
+    combineLatest([this.words$, this.userWords$]).subscribe((res: (Word[] | WordWithStatistics[])[]) => {
+      if (!this.sortedWords) {
+        this.sortedWords = this.gameCoreService.toAggregatedWords(res[0]);
+      } else {
+        this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toAggregatedWords(res[0])];
+      }
       this.sortedWords = this.gameCoreService.addToSortedWords(this.sortedWords, res[1] as WordWithStatistics[]);
-      this.updateWordState(page, group, id, gameWordsState);
-      if (this.sortedWords.length >= gameWordsState.wordsLimit) {
-        this.sortedWords = this.sortedWords.slice(0, gameWordsState.wordsLimit);
+      this.getFullWords(id, wordsState);
+      if (this.sortedWords.length >= wordsState.wordsLimit) {
+        this.sortedWords = this.sortedWords.slice(0, wordsState.wordsLimit);
+        wordsState.wordsLength = this.sortedWords.length;
         this.sortedWordsSubject.next(this.sortedWords);
-      } else if (gameWordsState.isWordsLast) {
+      } else if (wordsState.isWordsLast) {
+        wordsState.wordsLength = this.sortedWords.length;
         this.sortedWordsSubject.next(this.sortedWords);
       }
     });

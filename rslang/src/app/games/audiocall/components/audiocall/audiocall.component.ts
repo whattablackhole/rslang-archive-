@@ -6,8 +6,6 @@ import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model'
 import { GameResults } from 'src/app/shared/models/game-results.model';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
-import { Word } from 'src/app/shared/models/word.model';
-import { Observable } from 'rxjs';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
@@ -40,11 +38,9 @@ import { WordDataService } from '../../../../shared/services/word-data.service';
 })
 export class Audiocall implements OnInit {
   sortedWords: WordWithStatistics[];
-  words: Observable<Word[]>;
-  userWords: Observable<WordWithStatistics[]>;
   wordsFromLocalStorage: WordWithStatistics[] | null | string;
 
-  gameResultWords: GameResults;
+  gameResultWords: GameResults = { correct_words: [], incorrect_words: [] };
   statistics: Statistics;
 
   gameWordsState: GameWordsState = {
@@ -74,15 +70,8 @@ export class Audiocall implements OnInit {
 
   constructor(
     private gameCoreService: GameCoreService,
-    private wordsDataService: WordsDataService,
-    private userAggregatedWordsService: UserAggregatedWordsService,
     private gameStorageWordsService: GameStorageWordsService,
-  ) {
-    this.words = this.wordsDataService.data$;
-    this.userWords = this.userAggregatedWordsService.data$;
-    this.gameResultWords = { correct_words: [], incorrect_words: [] };
-    this.sortedWords = [];
-  }
+  ) {}
 
   ngOnInit(): void {
     this.gameStorageWordsService.getWords(this.group, this.page);
@@ -127,7 +116,7 @@ export class Audiocall implements OnInit {
   }
 
   onPlaySound(): void {
-    this.gameCoreService.playAudio(`assets/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
   }
 
   onRightAnswer(): void {
@@ -146,7 +135,7 @@ export class Audiocall implements OnInit {
 
   updateGameState(): void {
     this.currentIndex += 1;
-    this.gameCoreService.playAudio(`assets/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
     this.isAnswered = false;
     this.correctWordName = '';
     this.incorrectWordName = '';
@@ -205,7 +194,7 @@ export class Audiocall implements OnInit {
     const index = this.sortedWords.findIndex((item) => item.id === id);
     if (result) {
       this.sortedWords[index].knowledgeDegree += 1;
-    } else if (this.sortedWords[index].knowledgeDegree > 0) {
+    } else if (this.sortedWords[index].knowledgeDegree) {
       this.sortedWords[index].knowledgeDegree -= 1;
     }
   }
