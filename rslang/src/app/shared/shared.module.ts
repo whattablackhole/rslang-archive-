@@ -12,11 +12,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
 import { Footer } from './components/footer/footer.component';
-import { Error } from './components/error/error.component';
 import { NotificationBar } from './components/notification/notification-bar.component';
 
 @NgModule({
-  declarations: [NotFoundPage, Footer, Error, NotificationBar],
+  declarations: [NotFoundPage, Footer, NotificationBar],
   imports: [
     CommonModule,
     RouterModule,
