@@ -13,7 +13,7 @@ export const gameWordsFactory = (wordsDataService: WordsDataService, gameCoreSer
 GameStorageWordsService | GameUserWordsService => {
   if (authService.getIsUserAuthenticated()) {
     return new GameUserWordsService(gameCoreService, userAggregatedWordsService,
-      statisticsActionService, wordActionService, authService);
+      wordsDataService, authService, wordActionService, statisticsActionService);
   }
   return new GameStorageWordsService(gameCoreService, wordsDataService);
 };
