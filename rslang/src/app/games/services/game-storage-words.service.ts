@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
-import { Statistics } from 'src/app/shared/models/statistics.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameCoreService } from './game-core.service';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { GameWordsState } from '../interfaces/game-words-state.model';

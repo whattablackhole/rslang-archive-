@@ -11,9 +11,9 @@ import { Component, OnInit } from '@angular/core';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { GameResults } from 'src/app/shared/models/game-results.model';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
-import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
@@ -122,7 +122,7 @@ export class Audiocall implements OnInit {
     this.gameWordsService.sortedWords$.subscribe(
       (sortedWords: WordWithStatistics[]) => {
         this.sortedWords = sortedWords;
-        console.log(this.sortedWords);
+        console.log(12,this.sortedWords);
       },
     );
   }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BASE_URL } from 'src/app/shared/constants/base-url';
 import { GameResults } from 'src/app/shared/models/game-results.model';
-import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
 import { UserWord } from 'src/app/shared/models/user-word.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameName } from '../../shared/types/game-name.type';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 @Injectable()
@@ -92,6 +92,7 @@ export class GameCoreService {
             },
           };
         }
+
         return sortedWord;
       });
     });
@@ -108,7 +109,7 @@ export class GameCoreService {
     let sorted = sortedWords;
     unSortedwords.forEach((filteredWord: UserWord) => {
       sorted = sorted.map((sortedWord: WordWithStatistics) => {
-        if (sortedWord.id === filteredWord.id) {
+        if (sortedWord.id === filteredWord.wordId) {
           return {
             ...sortedWord,
             userStats: {
@@ -146,8 +147,16 @@ export class GameCoreService {
     gameStreak: number,
     name: GameName,
   ): Statistics {
+    const correctWords: Array<{ id: string }> = [];
+    const incorrectWords: Array<{ id: string }> = [];
+    gameResults.correct_words.forEach((word: WordWithStatistics) => {
+      correctWords.push({ id: word.id });
+    });
+    gameResults.incorrect_words.forEach((word: WordWithStatistics) => {
+      incorrectWords.push({ id: word.id });
+    });
     const statistics: Statistics = {
-      correct_words: gameResults.correct_words,
+      correct_words: correctWords,
       incorrect_words: gameResults.incorrect_words,
       game_name: name,
       streak: gameStreak,

@@ -9,8 +9,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
-import { Statistics } from 'src/app/shared/models/statistics.model';
 import { UserWord } from 'src/app/shared/models/user-word.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { UserAggregatedWordsService } from '../../shared/services/user-words-data.service';
@@ -75,9 +75,11 @@ export class GameUserWordsService {
             ...this.gameCoreService.toWordsWithStatistics(res[0] as Word[]),
           ];
         }
+        const userWordsFiltered:UserWord[] =
+         this.gameCoreService.filterWordsByPage(res[1] as UserWord[], this.group, this.page);
         this.sortedWords = this.gameCoreService.addToSortedWords(
           this.sortedWords,
-          this.gameCoreService.filterWordsByPage(res[1] as UserWord[], this.group, this.page),
+          userWordsFiltered,
         );
         this.getFullWords(wordsState);
         if (this.sortedWords.length >= wordsState.wordsLimit) {

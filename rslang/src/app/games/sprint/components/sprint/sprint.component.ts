@@ -5,11 +5,11 @@ import {
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserAggregatedWordsService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
 import { GameCoreService } from '../../../services/game-core.service';
-import { Statistics } from '../../../../shared/models/statistics.model';
 import { GameResults } from '../../../../shared/models/game-results.model';
 import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
@@ -138,7 +138,6 @@ export class Sprint implements OnInit {
 
   finishGame(): void {
     this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, 'Sprint');
-    this.gameCoreService.addStatsToLocalStorage(this.statistics);
     this.generateCorrectPercent();
     this.isGameStarted = false;
     this.isGameFinished = true;

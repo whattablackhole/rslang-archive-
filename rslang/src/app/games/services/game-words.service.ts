@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Statistics } from 'src/app/shared/models/statistics.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 
