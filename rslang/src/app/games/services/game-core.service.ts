@@ -4,15 +4,15 @@ import { GameResults } from 'src/app/shared/models/game-results.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
+import { GameName } from '../../shared/types/game-name.type';
 import { LocalStorageService } from '../../core/services/local-storage.service';
-
 @Injectable()
 export class GameCoreService {
   constructor(private localStorageService: LocalStorageService) {}
 
   getWordsPath = (group: string, page: string): string => `${BASE_URL}/words?group=${group}&page=${page}`;
-
-  getUserWordsPath = (group: string, page: string, id = ''): string => `${BASE_URL}/users/${id}/aggregatedWords`;
+  getUserWordsPath = (group: string, page: string, id:string, wordsPerPage: string):
+  string => `${BASE_URL}/users/${id}/aggregatedWords?group=${group}&page=${page}&wordsPerPage=${wordsPerPage}`;
 
   addWordsToLocalStorage(words: WordWithStatistics[]): void {
     const pagesArray: Array<{ page: number; words: WordWithStatistics[] }> = [];
@@ -63,17 +63,16 @@ export class GameCoreService {
   }
 
   addToSortedWords(sortedWords: WordWithStatistics[], unSortedwords: WordWithStatistics[]): WordWithStatistics[] {
-    const filteredWords = unSortedwords.filter((word: WordWithStatistics) => word.isRemove || word.knowledgeDegree > 2);
-    let newSortedWords = sortedWords;
-    filteredWords.forEach((filterdWord: WordWithStatistics) => {
-      newSortedWords = sortedWords.map((sortedWord: WordWithStatistics) => {
+    let sorted = sortedWords;
+    unSortedwords.forEach((filterdWord: WordWithStatistics) => {
+      sorted = sorted.map((sortedWord: WordWithStatistics) => {
         if (sortedWord.id === filterdWord.id) {
           return filterdWord;
         }
         return sortedWord;
       });
     });
-    return newSortedWords;
+    return sorted.filter((word: WordWithStatistics) => !word.isRemove && word.knowledgeDegree < 3);
   }
 
   decreasePageNumber(page: string): string {
@@ -91,11 +90,11 @@ export class GameCoreService {
     });
   }
 
-  generateStats(gameResults: GameResults, gameStreak: number): Statistics {
+  generateStats(gameResults: GameResults, gameStreak: number, name: GameName): Statistics {
     const statistics: Statistics = {
       correct_words: gameResults.correct_words,
       incorrect_words: gameResults.incorrect_words,
-      game_name: 'Sprint',
+      game_name: name,
       streak: gameStreak,
       date: new Date(Date.now()),
     };
@@ -110,5 +109,15 @@ export class GameCoreService {
       toStudy: {},
       knowledgeDegree: 0,
     }));
+  }
+
+  toAggregatedWord(word: Word): WordWithStatistics {
+    return {
+      ...word,
+      isRemove: false,
+      isDifficult: false,
+      toStudy: {},
+      knowledgeDegree: 0,
+    };
   }
 }

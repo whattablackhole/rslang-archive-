@@ -1,9 +1,15 @@
-// :host {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   min-height: 100%;
-// }
+@import "src/variables";
+
+:host {
+  color: $main_dark_color;
+  font-size: 1rem;
+}
+
+.main {
+  padding: 2rem 6rem;
+  min-height: 100vh;
+  height: 100%;
+}
 
 .spinner {
   display: absolute;

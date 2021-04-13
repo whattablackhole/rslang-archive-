@@ -12,7 +12,7 @@
   background: linear-gradient(0deg, rgba(174, 34, 195, 1) 0%, rgba(135, 45, 253, 1) 100%);
   width: 100%;
   height: max-content;
-  max-width: 600px;
+  max-width: 800px;
   min-width: 100%;
   min-height: 100%;
   display: flex;
@@ -84,15 +84,11 @@
     width: 100%;
     margin-top: 50px;
     align-self: center;
-    justify-content: space-between;
+    justify-content: space-around;
     font-family: 'Noto Sans JP', sans-serif;
 
     &-item {
       font-size: 20px;
-      margin: 5px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
 
       &_correct::before {
         background-image: url('../../../../../assets/games/sprint/correct.webp');
@@ -130,4 +126,24 @@
 
 .hidden {
   display: none;
+}
+
+@media screen and (max-width:500px){
+  .game{
+    &__words{
+      &-item {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:400px){
+  .game{
+    &__words{
+      &-item {
+        font-size: 11px;
+      }
+    }
+  }
 }

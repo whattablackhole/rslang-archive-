@@ -6,21 +6,39 @@ import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model'
 import { GameResults } from 'src/app/shared/models/game-results.model';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Statistics } from 'src/app/shared/models/statistics.model';
-import { Word } from 'src/app/shared/models/word.model';
-import { Observable } from 'rxjs';
+import { WordActionService } from 'src/app/shared/services/word-action.service';
+import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
 import { UserAggregatedWordsService } from '../../../../shared/services/user-words-data.service';
 import { BlockPositionState } from '../types/block-position-state.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
+import { GameUserWordsService } from '../../../services/game-user-words.service';
 import { WordDataService } from '../../../../shared/services/word-data.service';
+import { GameWordsService } from '../../../services/game-words.service';
+import { gameWordsFactory } from '../../../services/game-words.factory';
+import { AuthService } from '../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-audiocall',
   templateUrl: './audiocall.component.html',
   styleUrls: ['./audiocall.component.scss'],
-  providers: [WordsDataService, GameCoreService, UserAggregatedWordsService, GameStorageWordsService, WordDataService],
+  providers: [
+    GameCoreService,
+    WordDataService,
+    UserAggregatedWordsService,
+    WordsDataService,
+    GameStorageWordsService,
+    GameUserWordsService,
+    StatisticsActionService,
+    WordActionService,
+    {
+      provide: GameWordsService,
+      useFactory: gameWordsFactory,
+      deps: [UserAggregatedWordsService, GameCoreService, WordsDataService,
+        AuthService, StatisticsActionService, WordActionService],
+    }],
   animations: [
     trigger('blockPosition', [
       state('right', style({ transform: 'translateX(600px)', offset: '1' })),
@@ -40,11 +58,9 @@ import { WordDataService } from '../../../../shared/services/word-data.service';
 })
 export class Audiocall implements OnInit {
   sortedWords: WordWithStatistics[];
-  words: Observable<Word[]>;
-  userWords: Observable<WordWithStatistics[]>;
   wordsFromLocalStorage: WordWithStatistics[] | null | string;
 
-  gameResultWords: GameResults;
+  gameResultWords: GameResults = { correct_words: [], incorrect_words: [] };
   statistics: Statistics;
 
   gameWordsState: GameWordsState = {
@@ -74,20 +90,16 @@ export class Audiocall implements OnInit {
 
   constructor(
     private gameCoreService: GameCoreService,
-    private wordsDataService: WordsDataService,
-    private userAggregatedWordsService: UserAggregatedWordsService,
-    private gameStorageWordsService: GameStorageWordsService,
-  ) {
-    this.words = this.wordsDataService.data$;
-    this.userWords = this.userAggregatedWordsService.data$;
-    this.gameResultWords = { correct_words: [], incorrect_words: [] };
-    this.sortedWords = [];
-  }
+    private gameWordsService: GameWordsService,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
-    this.gameStorageWordsService.getWords(this.group, this.page);
-    this.gameStorageWordsService.createWords(this.group, this.page, this.gameWordsState);
-    this.gameStorageWordsService.sortedWords$.subscribe((sortedWords: WordWithStatistics[]) => {
+    this.gameWordsService.getWords(this.group, this.page);
+
+    this.gameWordsService.createWords(this.group, this.page, this.gameWordsState);
+
+    this.gameWordsService.sortedWords$.subscribe((sortedWords: WordWithStatistics[]) => {
       this.sortedWords = sortedWords;
     });
   }
@@ -107,7 +119,7 @@ export class Audiocall implements OnInit {
   }
 
   onAnswerEndEvent(event: AnimationEvent): void {
-    if (event.toState === null) {
+    if (!event.toState) {
       this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
     }
     if (event.toState === 'right') {
@@ -127,7 +139,7 @@ export class Audiocall implements OnInit {
   }
 
   onPlaySound(): void {
-    this.gameCoreService.playAudio(`assets/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
   }
 
   onRightAnswer(): void {
@@ -146,7 +158,7 @@ export class Audiocall implements OnInit {
 
   updateGameState(): void {
     this.currentIndex += 1;
-    this.gameCoreService.playAudio(`assets/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
     this.isAnswered = false;
     this.correctWordName = '';
     this.incorrectWordName = '';
@@ -158,14 +170,9 @@ export class Audiocall implements OnInit {
   finishGame(): void {
     this.generateCorrectPercent();
     this.isGameFinished = true;
-    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak);
-    this.gameCoreService.addStatsToLocalStorage(this.statistics);
-    // if (!'userService') {   Feature Auth Code
-    //   console.log(1);
-    // } else {
-    //   this.gameCoreService.addWordsToLocalStorage(this.sortedWords);
-    //   this.gameCoreService.addStatsToLocalStorage(this.statistics);
-    // }
+    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, 'AudioCall');
+    this.gameWordsService.uploadWords(this.sortedWords);
+    // this.gameWordsService.uploadStats(this.statistics);
   }
 
   checkIfGameFinished(): void {
@@ -205,7 +212,7 @@ export class Audiocall implements OnInit {
     const index = this.sortedWords.findIndex((item) => item.id === id);
     if (result) {
       this.sortedWords[index].knowledgeDegree += 1;
-    } else if (this.sortedWords[index].knowledgeDegree > 0) {
+    } else if (this.sortedWords[index].knowledgeDegree) {
       this.sortedWords[index].knowledgeDegree -= 1;
     }
   }

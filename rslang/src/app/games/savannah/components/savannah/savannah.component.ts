@@ -180,7 +180,7 @@ export class Savannah implements OnInit {
     this.isGameEnd = true;
     this.calculateStreak();
     this.generateCorrectPercent();
-    this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak);
+    this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, "Savannah");
   }
 
   generateCorrectPercent(): void {
