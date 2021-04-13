@@ -157,7 +157,7 @@ export class GameCoreService {
     });
     const statistics: Statistics = {
       correct_words: correctWords,
-      incorrect_words: gameResults.incorrect_words,
+      incorrect_words: incorrectWords,
       game_name: name,
       streak: gameStreak,
       date: new Date(Date.now()).toISOString(),
