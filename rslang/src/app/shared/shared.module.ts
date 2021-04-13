@@ -10,6 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
 import { Footer } from './components/footer/footer.component';
@@ -32,6 +33,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatProgressSpinnerModule,
     MatCardModule,
     MatExpansionModule,
+    MatGridListModule,
   ],
   exports: [
     CommonModule,
@@ -44,6 +46,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatGridListModule,
     MatExpansionModule,
     Footer,
     FinishMenu,

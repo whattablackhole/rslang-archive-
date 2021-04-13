@@ -1,5 +1,11 @@
 import {
-  animate, keyframes, state, style, transition, trigger, AnimationEvent,
+  animate,
+  keyframes,
+  state,
+  style,
+  transition,
+  trigger,
+  AnimationEvent,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
@@ -36,9 +42,16 @@ import { AuthService } from '../../../../auth/services/auth.service';
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
-      deps: [UserAggregatedWordsService, GameCoreService, WordsDataService,
-        AuthService, StatisticsActionService, WordActionService],
-    }],
+      deps: [
+        UserAggregatedWordsService,
+        GameCoreService,
+        WordsDataService,
+        AuthService,
+        StatisticsActionService,
+        WordActionService,
+      ],
+    },
+  ],
   animations: [
     trigger('blockPosition', [
       state('right', style({ transform: 'translateX(600px)', offset: '1' })),
@@ -52,7 +65,12 @@ import { AuthService } from '../../../../auth/services/auth.service';
         ),
       ]),
       state('center', style({ transform: 'translateX(0px)', offset: '1' })),
-      transition('* => center', [animate('0.2s', keyframes([style([{ transform: 'translateX(0px)', offset: '1' }])]))]),
+      transition('* => center', [
+        animate(
+          '0.2s',
+          keyframes([style([{ transform: 'translateX(0px)', offset: '1' }])]),
+        ),
+      ]),
     ]),
   ],
 })
@@ -91,17 +109,22 @@ export class Audiocall implements OnInit {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
-    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
     this.gameWordsService.getWords(this.group, this.page);
+    this.gameWordsService.createWords(
+      this.group,
+      this.page,
+      this.gameWordsState,
+    );
 
-    this.gameWordsService.createWords(this.group, this.page, this.gameWordsState);
-
-    this.gameWordsService.sortedWords$.subscribe((sortedWords: WordWithStatistics[]) => {
-      this.sortedWords = sortedWords;
-    });
+    this.gameWordsService.sortedWords$.subscribe(
+      (sortedWords: WordWithStatistics[]) => {
+        this.sortedWords = sortedWords;
+        console.log(this.sortedWords);
+      },
+    );
   }
 
   onAnswer(item: WordWithStatistics): void {
@@ -139,26 +162,36 @@ export class Audiocall implements OnInit {
   }
 
   onPlaySound(): void {
-    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(
+      `${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`,
+    );
   }
 
   onRightAnswer(): void {
     this.correctWordName = this.sortedWords[this.currentIndex].word;
-    this.changeWordsKnowledgeDegree(this.sortedWords[this.currentIndex].id, true);
+    this.changeWordsKnowledgeDegree(
+      this.sortedWords[this.currentIndex].id,
+      true,
+    );
     this.calculateStreak(true);
     this.addWordToCorrect(this.sortedWords[this.currentIndex]);
   }
 
   onWrongAnswer(): void {
     this.incorrectWordName = this.sortedWords[this.currentIndex].word;
-    this.changeWordsKnowledgeDegree(this.sortedWords[this.currentIndex].id, false);
+    this.changeWordsKnowledgeDegree(
+      this.sortedWords[this.currentIndex].id,
+      false,
+    );
     this.calculateStreak(false);
     this.addWordToIncorrect(this.sortedWords[this.currentIndex]);
   }
 
   updateGameState(): void {
     this.currentIndex += 1;
-    this.gameCoreService.playAudio(`${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`);
+    this.gameCoreService.playAudio(
+      `${WORDS_API_URL}/${this.sortedWords[this.currentIndex].audio}`,
+    );
     this.isAnswered = false;
     this.correctWordName = '';
     this.incorrectWordName = '';
@@ -170,13 +203,20 @@ export class Audiocall implements OnInit {
   finishGame(): void {
     this.generateCorrectPercent();
     this.isGameFinished = true;
-    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, 'AudioCall');
+    this.statistics = this.gameCoreService.generateStats(
+      this.gameResultWords,
+      this.biggestStreak,
+      'AudioCall',
+    );
     this.gameWordsService.uploadWords(this.sortedWords);
-    // this.gameWordsService.uploadStats(this.statistics);
+    this.gameWordsService.uploadStats(this.statistics);
   }
 
   checkIfGameFinished(): void {
-    if (this.currentIndex + 1 === this.gameWordsState.wordsLength - this.gameWordsState.minAmout) {
+    if (
+      this.currentIndex + 1
+      === this.gameWordsState.wordsLength - this.gameWordsState.minAmout
+    ) {
       this.finishGame();
     }
   }
@@ -188,7 +228,9 @@ export class Audiocall implements OnInit {
   generateCorrectPercent(): void {
     const correctNumber: number = this.gameResultWords.correct_words.length;
     const incorrectNumber: number = this.gameResultWords.incorrect_words.length;
-    this.correctGamePercent = Math.floor((correctNumber * 100) / (incorrectNumber + correctNumber));
+    this.correctGamePercent = Math.floor(
+      (correctNumber * 100) / (incorrectNumber + correctNumber),
+    );
   }
 
   addWordToCorrect(word: WordWithStatistics): void {
@@ -211,9 +253,11 @@ export class Audiocall implements OnInit {
   changeWordsKnowledgeDegree(id: string, result: boolean): void {
     const index = this.sortedWords.findIndex((item) => item.id === id);
     if (result) {
-      this.sortedWords[index].knowledgeDegree += 1;
-    } else if (this.sortedWords[index].knowledgeDegree) {
-      this.sortedWords[index].knowledgeDegree -= 1;
+      this.sortedWords[index].userStats.optional.knowledgeDegree = this.sortedWords[index]
+        .userStats.optional.knowledgeDegree as number + 1;
+    } else if (this.sortedWords[index].userStats.optional.knowledgeDegree as number > 0) {
+      this.sortedWords[index].userStats.optional.knowledgeDegree = this.sortedWords[index]
+        .userStats.optional.knowledgeDegree as number - 1;
     }
   }
 }

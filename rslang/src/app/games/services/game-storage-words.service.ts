@@ -45,12 +45,12 @@ export class GameStorageWordsService {
 
     this.words$.subscribe((words: Word[]) => {
       if (!this.sortedWords) {
-        this.sortedWords = this.gameCoreService.toAggregatedWords(words);
+        this.sortedWords = this.gameCoreService.toWordsWithStatistics(words);
       } else {
-        this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toAggregatedWords(words)];
+        this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toWordsWithStatistics(words)];
       }
       if (Array.isArray(this.wordsFromLocalStorage)) {
-        this.sortedWords = this.gameCoreService.addToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
+        this.sortedWords = this.gameCoreService.addLocalToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
       }
       this.getFullWords(wordsState);
       if (this.sortedWords.length >= wordsState.wordsLimit) {

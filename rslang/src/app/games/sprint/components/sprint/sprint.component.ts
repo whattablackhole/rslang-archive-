@@ -254,9 +254,11 @@ export class Sprint implements OnInit {
   changeWordsKnowledgeDegree(id: string, result: boolean): void {
     const index = this.sortedWords.findIndex((item) => item.id === id);
     if (result) {
-      this.sortedWords[index].knowledgeDegree += 1;
-    } else if (this.sortedWords[index].knowledgeDegree) {
-      this.sortedWords[index].knowledgeDegree -= 1;
+      this.sortedWords[index].userStats.optional.knowledgeDegree = this.sortedWords[index]
+        .userStats.optional.knowledgeDegree as number + 1;
+    } else if (this.sortedWords[index].userStats.optional.knowledgeDegree as number > 0) {
+      this.sortedWords[index].userStats.optional.knowledgeDegree = this.sortedWords[index]
+        .userStats.optional.knowledgeDegree as number - 1;
     }
   }
 
