@@ -1,4 +1,3 @@
-/* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   trigger,
@@ -283,6 +282,7 @@ export class Savannah implements OnInit, OnDestroy {
 
   makeFilledArray(length: number): number[] {
     const arr = [];
+    // eslint-disable-next-line
     for (let i = 0; i < length; i++) {
       arr.push(i);
     }
@@ -291,6 +291,7 @@ export class Savannah implements OnInit, OnDestroy {
 
   shuffleArray(arrToShuffle: WordWithStatistics[]): WordWithStatistics[] {
     const arr = [...arrToShuffle];
+    // eslint-disable-next-line
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
