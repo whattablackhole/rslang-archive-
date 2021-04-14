@@ -2,7 +2,6 @@ import {
   Component, Input, Output, EventEmitter,
 } from '@angular/core';
 
-import { ACTION_BUTTONS } from '../../constants/action-buttons';
 import { Word } from '../../../shared/models/word.model';
 import { ActionParams } from '../../models/action-params.model';
 import { ButtonAction } from '../../../shared/types/button-action.type';
@@ -15,7 +14,6 @@ import { ButtonAction } from '../../../shared/types/button-action.type';
 export class WordItem {
   @Input() item: Word;
   @Output() setAction: EventEmitter<ActionParams> = new EventEmitter<ActionParams>();
-  ActionButtons: Array<string> = ACTION_BUTTONS;
 
   turnOverItem(): string {
     return 'turnOver';
