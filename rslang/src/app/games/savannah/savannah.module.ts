@@ -15,6 +15,7 @@ import { SavannahRoutingModule } from './savannah-routing.module';
     SavannahRoutingModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    MatIconModule],
+    MatIconModule,
+  ],
 })
 export class SavannahModule {}

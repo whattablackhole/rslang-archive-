@@ -8,16 +8,31 @@
     text-align: center;
   }
 
+  .savannah__health {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+  }
+
+  .savannah__select-container {
+    margin: 15px 0;
+  }
+
+  .savannah__select {
+    margin-left: 15px;
+  }
+
   .savannah__control-panel {
     display: flex;
     justify-content: flex-end;
   }
 
   .savannah__body {
+    min-height: calc(100vh - 110px);
     position: relative;
-    padding: 20% 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
 
@@ -28,7 +43,7 @@
   }
 
   .savannah__answer {
-    margin: 0 10px;
+    margin: 5px 5px;
     padding: 10px 15px;
     background-color: #ffffff;
     border-radius: 5px;
@@ -40,6 +55,15 @@
       background-color: #000000;
       border-color: #ffffff;
     }
+  }
+}
+
+@media (max-width: 768px ) {
+  .savannah__answers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 

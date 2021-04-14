@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  trigger, style, animate, transition, state,
+  trigger,
+  style,
+  animate,
+  transition,
+  state,
 } from '@angular/animations';
 import { Word } from 'src/app/shared/models/word.model';
 import { WordsDataService } from 'src/app/shared/services/words-data.service';
 import { GameCoreService } from 'src/app/games/services/game-core.service';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { GameResults } from 'src/app/shared/models/game-results.model';
+import { GameWordsService } from 'src/app/games/services/game-words.service';
+import { Groups, Pages } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-savannah',
   templateUrl: './savannah.component.html',
   styleUrls: ['./savannah.component.scss'],
-  providers: [WordsDataService, GameCoreService],
+  providers: [WordsDataService, GameCoreService, GameWordsService],
   animations: [
     trigger('fallingDownAnimation', [
       state(
@@ -28,7 +34,7 @@ import { GameResults } from 'src/app/shared/models/game-results.model';
         }),
       ),
       transition('* => end', animate(4000)),
-      transition('* => start', animate(0)),
+      transition('end => start', animate(0)),
     ]),
   ],
 })
@@ -39,10 +45,17 @@ export class Savannah implements OnInit {
     incorrect_words: [],
   };
 
+  group = '0';
+  page = '0';
+
+  groups: string[] = Groups;
+  pages: string[] = Pages;
+
   correctGamePercent: number;
 
   isGameStart = false;
   isGameEnd = false;
+  fromNavbar = true;
   questionCounter = 1;
   streak = 0;
   biggestStreak = 0;
@@ -57,7 +70,11 @@ export class Savannah implements OnInit {
 
   fallingDownAnimationState = 'start';
 
-  constructor(private wordsDataService: WordsDataService, private gameCoreService: GameCoreService) {}
+  constructor(
+    private wordsDataService: WordsDataService,
+    private gameCoreService: GameCoreService,
+    private gameWordsService: GameWordsService,
+  ) {}
 
   ngOnInit(): void {
     this.words = this.wordsDataService.GetWords();
@@ -74,6 +91,12 @@ export class Savannah implements OnInit {
     this.nextRoundTimer();
   }
 
+  onKeyDownHandler(e: KeyboardEvent): void {
+    if (e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4') {
+      this.checkAnswer(this.currentAnswers[+e.key - 1]);
+    }
+  }
+
   startGame(): void {
     this.isGameStart = true;
     this.generateRound();
@@ -86,8 +109,8 @@ export class Savannah implements OnInit {
     }
     this.timer = setTimeout(() => {
       this.onWrongAnswer(this.currentWord);
-      this.generateRound();
       this.fallingDownAnimationState = 'start';
+      this.generateRound();
       this.calculateStreak();
     }, this.roundTimer);
   }
@@ -113,7 +136,10 @@ export class Savannah implements OnInit {
   }
 
   generateQuestion(): void {
-    const [question] = this.unUsedWords.splice(this.randomNumber(0, this.unUsedWords.length), 1);
+    const [question] = this.unUsedWords.splice(
+      this.randomNumber(0, this.unUsedWords.length),
+      1,
+    );
     this.currentWord = question;
   }
 
@@ -143,19 +169,27 @@ export class Savannah implements OnInit {
   makeWordAggregated(word: Word): WordWithStatistics {
     return {
       ...word,
-      isRemove: false,
-      isDifficult: false,
-      toStudy: {},
-      knowledgeDegree: 0,
+      userStats: {
+        difficulty: 'hard',
+        optional: {
+          toStudy: {},
+          knowledgeDegree: 0,
+          page: 'unset',
+          group: 'unset',
+        },
+      },
     };
   }
 
-  changeWordKnowledge(word: WordWithStatistics, result: boolean): WordWithStatistics {
+  changeWordKnowledge(
+    word: WordWithStatistics,
+    result: boolean,
+  ): WordWithStatistics {
     const changedWord = { ...word };
     if (result) {
-      changedWord.knowledgeDegree += 1;
-    } else {
-      changedWord.knowledgeDegree -= 1;
+      changedWord.userStats.optional.knowledgeDegree = (changedWord.userStats.optional.knowledgeDegree as number) + 1;
+    } else if ((changedWord.userStats.optional.knowledgeDegree as number) > 0) {
+      changedWord.userStats.optional.knowledgeDegree = (changedWord.userStats.optional.knowledgeDegree as number) + 1;
     }
 
     return changedWord;
@@ -165,14 +199,18 @@ export class Savannah implements OnInit {
     this.lives.splice(0, 1);
     this.currentAnswers.length = 0;
     const aggregatedWord = this.makeWordAggregated(currentWord);
-    this.gameResultWords.incorrect_words.push(this.changeWordKnowledge(aggregatedWord, false));
+    this.gameResultWords.incorrect_words.push(
+      this.changeWordKnowledge(aggregatedWord, false),
+    );
   }
 
   onCorrectAnswer(currentWord: Word): void {
     this.streak += 1;
     this.currentAnswers.length = 0;
     const aggregatedWord = this.makeWordAggregated(currentWord);
-    this.gameResultWords.correct_words.push(this.changeWordKnowledge(aggregatedWord, true));
+    this.gameResultWords.correct_words.push(
+      this.changeWordKnowledge(aggregatedWord, true),
+    );
   }
 
   onGameEnd(): void {
@@ -180,13 +218,24 @@ export class Savannah implements OnInit {
     this.isGameEnd = true;
     this.calculateStreak();
     this.generateCorrectPercent();
-    this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, "Savannah");
+    const statistics = this.gameCoreService.generateStats(
+      this.gameResultWords,
+      this.biggestStreak,
+      'Savannah',
+    );
+    this.gameWordsService.uploadWords([
+      ...this.gameResultWords.correct_words,
+      ...this.gameResultWords.incorrect_words,
+    ]);
+    this.gameWordsService.uploadStats(statistics);
   }
 
   generateCorrectPercent(): void {
     const correctNumber: number = this.gameResultWords.correct_words.length;
     const incorrectNumber: number = this.gameResultWords.incorrect_words.length;
-    this.correctGamePercent = Math.floor((correctNumber * 100) / (incorrectNumber + correctNumber));
+    this.correctGamePercent = Math.floor(
+      (correctNumber * 100) / (incorrectNumber + correctNumber),
+    );
   }
 
   shuffleArray(arrToShuffle: Word[]): Word[] {
