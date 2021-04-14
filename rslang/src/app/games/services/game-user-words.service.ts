@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, Observable, Subject } from 'rxjs';
+import { combineLatest, Observable, ObservedValueOf, Subject } from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
 import { UserStats } from 'src/app/shared/models/word-stats.model';
@@ -66,19 +66,17 @@ export class GameUserWordsService {
     this.page = page;
     this.group = group;
     combineLatest([this.words$, this.userWords$]).subscribe(
-      (res: (Word[] | UserWord[])[]) => {
+      (wordsMap: [Word[], UserWord[]]) => {
         if (!this.sortedWords) {
-          this.sortedWords = this.gameCoreService.toWordsWithStatistics(
-            res[0] as Word[],
-          );
+          this.sortedWords = this.gameCoreService.toWordsWithStatistics(wordsMap[0]);
         } else {
           this.sortedWords = [
             ...this.sortedWords,
-            ...this.gameCoreService.toWordsWithStatistics(res[0] as Word[]),
+            ...this.gameCoreService.toWordsWithStatistics(wordsMap[0]),
           ];
         }
         const userWordsFiltered: UserWord[] = this.gameCoreService.filterWordsByGroupPage(
-          res[1] as UserWord[],
+          wordsMap[1],
           this.group,
           this.page,
         );

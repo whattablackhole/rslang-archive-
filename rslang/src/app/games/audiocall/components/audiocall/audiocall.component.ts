@@ -94,10 +94,10 @@ export class Audiocall implements OnInit {
   isAnswered = false;
 
   currentIndex = 0;
+  lastIndex: number;
   currentStreak = 0;
   correctGamePercent = 0;
   biggestStreak = 0;
-
   blockPosition: BlockPositionState;
 
   page = '0';
@@ -123,6 +123,7 @@ export class Audiocall implements OnInit {
     this.gameWordsService.sortedWords$.subscribe(
       (sortedWords: WordWithStatistics[]) => {
         this.sortedWords = sortedWords;
+        this.lastIndex = this.calculateLastIndex(this.gameWordsState);
       },
     );
   }
@@ -212,11 +213,12 @@ export class Audiocall implements OnInit {
     this.gameWordsService.uploadStats(this.statistics);
   }
 
+  calculateLastIndex(gameWordsState: GameWordsState): number {
+    return (gameWordsState.wordsLength - 1) - gameWordsState.minAmout;
+  }
+
   checkIfGameFinished(): void {
-    if (
-      this.currentIndex + 1
-      === this.gameWordsState.wordsLength - this.gameWordsState.minAmout
-    ) {
+    if (this.currentIndex === this.lastIndex) {
       this.finishGame();
     }
   }
