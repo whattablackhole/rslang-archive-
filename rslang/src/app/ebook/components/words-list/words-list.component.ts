@@ -64,6 +64,8 @@ export class WordsList implements OnInit, OnDestroy {
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
     const { currentState } = this.userBookSettings;
     this.wordsDataService.getWords(currentState);
+    // this.subscription = this.wordsDataService.data$
+    //   .subscribe((words: Word[]) => this.mapWords(words));
   }
 
   setActionForWord(params: ActionParams): void {
@@ -103,6 +105,7 @@ export class WordsList implements OnInit, OnDestroy {
       word.audioExample = WORDS_API_URL + word.audioExample;
       this.words.push(word);
     });
+    console.log(this.words);
   }
 
   ngOnDestroy(): void {
