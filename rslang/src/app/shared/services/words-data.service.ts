@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 import { Word } from '../models/word.model';
 import { CurrentStateBook } from '../../ebook/models/current-state-book.model';
@@ -15,15 +14,14 @@ export class WordsDataService extends BaseDataService<Word[]> {
     super(httpClient);
   }
 
-  GetWords(option: CurrentStateBook): Observable<Word[]> {
+  getWords(option: CurrentStateBook): void {
     const params: HttpParams = new HttpParams()
       .set('group', String(option.group - 1))
       .set('page', String(option.page - 1));
     this.getData(API_URL.WORDS, { params });
-    return this.data$;
   }
 
-  GetWordsMock(): Word[] {
+  getWordsMock(): Word[] {
     const apiWords: Word[] = [];
     WORDS_DATA.forEach((wordData) => {
       const word = wordData;
