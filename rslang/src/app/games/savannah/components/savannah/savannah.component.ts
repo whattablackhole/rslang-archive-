@@ -13,12 +13,42 @@ import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model'
 import { GameResults } from 'src/app/shared/models/game-results.model';
 import { GameWordsService } from 'src/app/games/services/game-words.service';
 import { Groups, Pages } from 'src/app/shared/constants/constants';
+import { WordDataService } from 'src/app/shared/services/word-data.service';
+import { UserWordsDataService } from 'src/app/shared/services/user-words-data.service';
+import { GameStorageWordsService } from 'src/app/games/services/game-storage-words.service';
+import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
+import { GameUserWordsService } from 'src/app/games/services/game-user-words.service';
+import { WordActionService } from 'src/app/shared/services/word-action.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
+import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 
 @Component({
   selector: 'app-savannah',
   templateUrl: './savannah.component.html',
   styleUrls: ['./savannah.component.scss'],
-  providers: [WordsDataService, GameCoreService, GameWordsService],
+  providers: [
+    GameCoreService,
+    WordDataService,
+    UserWordsDataService,
+    WordsDataService,
+    GameStorageWordsService,
+    GameUserWordsService,
+    StatisticsActionService,
+    WordActionService,
+    AuthService,
+    {
+      provide: GameWordsService,
+      useFactory: gameWordsFactory,
+      deps: [
+        WordsDataService,
+        GameCoreService,
+        AuthService,
+        UserWordsDataService,
+        WordActionService,
+        StatisticsActionService,
+      ],
+    }],
   animations: [
     trigger('fallingDownAnimation', [
       state(
@@ -48,6 +78,14 @@ export class Savannah implements OnInit {
   group = '0';
   page = '0';
 
+  gameWordsState: GameWordsState = {
+    isWordsLast: false,
+    isNoWords: false,
+    wordsLimit: 20,
+    wordsLength: 0,
+    minAmout: 10,
+  };
+
   groups: string[] = Groups;
   pages: string[] = Pages;
 
@@ -71,14 +109,24 @@ export class Savannah implements OnInit {
   fallingDownAnimationState = 'start';
 
   constructor(
-    private wordsDataService: WordsDataService,
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
   ) {}
 
   ngOnInit(): void {
-    this.words = this.wordsDataService.GetWords();
-    this.unUsedWords = [...this.words];
+    this.gameWordsService.getWords(this.group, this.page);
+    this.gameWordsService.createWordsForGame(
+      this.group,
+      this.page,
+      this.gameWordsState,
+    );
+
+    this.gameWordsService.sortedWords$.subscribe(
+      (sortedWords: WordWithStatistics[]) => {
+        this.words = sortedWords;
+        this.unUsedWords = [...this.words];
+      },
+    );
   }
 
   generateRound(): void {
