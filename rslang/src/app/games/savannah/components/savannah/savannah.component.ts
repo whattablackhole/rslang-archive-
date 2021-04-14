@@ -1,5 +1,5 @@
 /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   trigger,
   style,
@@ -7,7 +7,6 @@ import {
   transition,
   state,
 } from '@angular/animations';
-import { Word } from 'src/app/shared/models/word.model';
 import { WordsDataService } from 'src/app/shared/services/words-data.service';
 import { GameCoreService } from 'src/app/games/services/game-core.service';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
@@ -22,6 +21,7 @@ import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-savannah',
@@ -68,14 +68,15 @@ import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model'
     ]),
   ],
 })
-export class Savannah implements OnInit {
-  words: Word[];
+export class Savannah implements OnInit, OnDestroy {
+  wordsSubscription: Subscription;
+  words: WordWithStatistics[];
   gameResultWords: GameResults = {
     correctWords: [],
     incorrectWords: [],
   };
 
-  group = 0;
+  groupsNumber = 0;
   page = 0;
 
   gameWordsState: GameWordsState = {
@@ -91,22 +92,23 @@ export class Savannah implements OnInit {
 
   correctGamePercent: number;
 
-  isGameStart = false;
-  isGameEnd = false;
-  fromNavbar = true;
-  questionCounter = 1;
-  streak = 0;
-  biggestStreak = 0;
-  roundTimer = 4000;
-  answersAmount = 4;
-  groupsAmount = 6;
-  pagesAmount = 30;
+  IsNeedGameMenu: boolean = true;
+  isGameStart: boolean = false;
+  isGameEnd: boolean = false;
+  fromNavbar: boolean = true;
+  questionCounter: number = 1;
+  streak: number = 0;
+  biggestStreak: number = 0;
+  roundTimer: number = 4000;
+  answersAmount: number = 4;
+  groupsAmount: number = 6;
+  pagesAmount: number = 30;
   keys: string[] = ['1', '2', '3', '4'];
   lives: boolean[] = [true, true, true];
 
-  unUsedWords: Word[];
-  currentWord: Word;
-  currentAnswers: Word[] = [];
+  unUsedWords: WordWithStatistics[];
+  currentWord: WordWithStatistics;
+  currentAnswers: WordWithStatistics[] = [];
   timer: ReturnType<typeof setTimeout>;
 
   fallingDownAnimationState = 'start';
@@ -119,19 +121,24 @@ export class Savannah implements OnInit {
   ngOnInit(): void {
     this.groups = this.makeFilledArray(this.groupsAmount);
     this.pages = this.makeFilledArray(this.pagesAmount);
-    this.gameWordsService.getWords(`${this.group}`, `${this.page}`);
+    this.gameWordsService.getWords(`${this.groupsNumber}`, `${this.page}`);
     this.gameWordsService.createWordsForGame(
-      `${this.group}`,
+      `${this.groupsNumber}`,
       `${this.page}`,
       this.gameWordsState,
     );
 
-    this.gameWordsService.sortedWords$.subscribe(
+    this.wordsSubscription = this.gameWordsService.sortedWords$.subscribe(
       (sortedWords: WordWithStatistics[]) => {
         this.words = sortedWords;
         this.unUsedWords = [...this.words];
+        console.log(this.words)
       },
     );
+  }
+
+  ngOnDestroy():void {
+    this.wordsSubscription.unsubscribe();
   }
 
   generateRound(): void {
@@ -151,6 +158,7 @@ export class Savannah implements OnInit {
   }
 
   startGame(): void {
+    this.IsNeedGameMenu = false;
     this.isGameStart = true;
     this.generateRound();
   }
@@ -168,7 +176,7 @@ export class Savannah implements OnInit {
     }, this.roundTimer);
   }
 
-  checkAnswer(answer: Word): void {
+  checkAnswer(answer: WordWithStatistics): void {
     if (answer.id === this.currentWord.id) {
       this.onCorrectAnswer(this.currentWord);
     } else {
@@ -199,8 +207,8 @@ export class Savannah implements OnInit {
   generateAnswers(): void {
     this.currentAnswers.push(this.currentWord);
     while (this.currentAnswers.length !== this.answersAmount) {
-      const answer: Word = this.words[this.randomNumber(0, this.words.length)];
-      if (!this.currentAnswers.some((a: Word) => a.id === answer.id)) {
+      const answer: WordWithStatistics = this.words[this.randomNumber(0, this.words.length)];
+      if (!this.currentAnswers.some((a: WordWithStatistics) => a.id === answer.id)) {
         this.currentAnswers.push(answer);
       }
     }
@@ -219,21 +227,6 @@ export class Savannah implements OnInit {
     }
   }
 
-  makeWordAggregated(word: Word): WordWithStatistics {
-    return {
-      ...word,
-      userStats: {
-        difficulty: 'hard',
-        optional: {
-          toStudy: {},
-          knowledgeDegree: 0,
-          page: 'unset',
-          group: 'unset',
-        },
-      },
-    };
-  }
-
   changeWordKnowledge(
     word: WordWithStatistics,
     result: boolean,
@@ -248,21 +241,19 @@ export class Savannah implements OnInit {
     return changedWord;
   }
 
-  onWrongAnswer(currentWord: Word): void {
+  onWrongAnswer(currentWord: WordWithStatistics): void {
     this.lives.splice(0, 1);
     this.currentAnswers.length = 0;
-    const aggregatedWord = this.makeWordAggregated(currentWord);
     this.gameResultWords.incorrectWords.push(
-      this.changeWordKnowledge(aggregatedWord, false),
+      this.changeWordKnowledge(currentWord, false),
     );
   }
 
-  onCorrectAnswer(currentWord: Word): void {
+  onCorrectAnswer(currentWord: WordWithStatistics): void {
     this.streak += 1;
     this.currentAnswers.length = 0;
-    const aggregatedWord = this.makeWordAggregated(currentWord);
     this.gameResultWords.correctWords.push(
-      this.changeWordKnowledge(aggregatedWord, true),
+      this.changeWordKnowledge(currentWord, true),
     );
   }
 
@@ -299,7 +290,7 @@ export class Savannah implements OnInit {
     return arr;
   }
 
-  shuffleArray(arrToShuffle: Word[]): Word[] {
+  shuffleArray(arrToShuffle: WordWithStatistics[]): WordWithStatistics[] {
     const arr = [...arrToShuffle];
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
