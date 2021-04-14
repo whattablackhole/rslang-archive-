@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
-import { Statistics } from 'src/app/shared/models/statistics.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameCoreService } from './game-core.service';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { GameWordsState } from '../interfaces/game-words-state.model';
@@ -37,7 +37,7 @@ export class GameStorageWordsService {
     }
   }
 
-  createWords(group: string, page: string, gameWordsState: GameWordsState): void {
+  createWordsForGame(group: string, page: string, gameWordsState: GameWordsState): void {
     this.page = page;
     this.group = group;
 
@@ -52,6 +52,7 @@ export class GameStorageWordsService {
       if (Array.isArray(this.wordsFromLocalStorage)) {
         this.sortedWords = this.gameCoreService.addLocalToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
       }
+      this.sortedWords = this.gameCoreService.filterGameWords(this.sortedWords);
       this.getFullWords(wordsState);
       if (this.sortedWords.length >= wordsState.wordsLimit) {
         this.sortedWords = this.sortedWords.slice(0, wordsState.wordsLimit);

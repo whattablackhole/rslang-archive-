@@ -4,15 +4,15 @@ import { GameStorageWordsService } from './game-storage-words.service';
 import { GameUserWordsService } from './game-user-words.service';
 import { GameCoreService } from './game-core.service';
 import { WordsDataService } from '../../shared/services/words-data.service';
-import { UserAggregatedWordsService } from '../../shared/services/user-words-data.service';
+import { UserWordsDataService } from '../../shared/services/user-words-data.service';
 import { AuthService } from '../../auth/services/auth.service';
 
-export const gameWordsFactory = (wordsDataService: WordsDataService, gameCoreService: GameCoreService,
-  userAggregatedWordsService: UserAggregatedWordsService, authService: AuthService,
+export const gameWordsFactory = (wordsDataService: WordsDataService,
+  gameCoreService: GameCoreService, authService: AuthService, userWordsDataService: UserWordsDataService,
   wordActionService: WordActionService, statisticsActionService: StatisticsActionService):
 GameStorageWordsService | GameUserWordsService => {
   if (authService.getIsUserAuthenticated()) {
-    return new GameUserWordsService(gameCoreService, userAggregatedWordsService,
+    return new GameUserWordsService(gameCoreService, userWordsDataService,
       wordsDataService, authService, wordActionService, statisticsActionService);
   }
   return new GameStorageWordsService(gameCoreService, wordsDataService);

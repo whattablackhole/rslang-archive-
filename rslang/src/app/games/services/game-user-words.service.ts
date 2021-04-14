@@ -9,11 +9,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
-import { Statistics } from 'src/app/shared/models/statistics.model';
 import { UserWord } from 'src/app/shared/models/user-word.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 import { WordsDataService } from '../../shared/services/words-data.service';
-import { UserAggregatedWordsService } from '../../shared/services/user-words-data.service';
+import { UserWordsDataService } from '../../shared/services/user-words-data.service';
 import { GameCoreService } from './game-core.service';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class GameUserWordsService {
   userID: string;
   constructor(
     private gameCoreService: GameCoreService,
-    private userWordsService: UserAggregatedWordsService,
+    private userWordsService: UserWordsDataService,
     private wordsService: WordsDataService,
     private authService: AuthService,
     private wordActionService: WordActionService,
@@ -56,7 +56,7 @@ export class GameUserWordsService {
     }
   }
 
-  createWords(
+  createWordsForGame(
     group: string,
     page: string,
     gameWordsState: GameWordsState,
@@ -68,16 +68,26 @@ export class GameUserWordsService {
     combineLatest([this.words$, this.userWords$]).subscribe(
       (res: (Word[] | UserWord[])[]) => {
         if (!this.sortedWords) {
-          this.sortedWords = this.gameCoreService.toWordsWithStatistics(res[0] as Word[]);
+          this.sortedWords = this.gameCoreService.toWordsWithStatistics(
+            res[0] as Word[],
+          );
         } else {
           this.sortedWords = [
             ...this.sortedWords,
             ...this.gameCoreService.toWordsWithStatistics(res[0] as Word[]),
           ];
         }
+        const userWordsFiltered: UserWord[] = this.gameCoreService.filterWordsByGroupPage(
+          res[1] as UserWord[],
+          this.group,
+          this.page,
+        );
         this.sortedWords = this.gameCoreService.addToSortedWords(
           this.sortedWords,
-          this.gameCoreService.filterWordsByPage(res[1] as UserWord[], this.group, this.page),
+          userWordsFiltered,
+        );
+        this.sortedWords = this.gameCoreService.filterGameWords(
+          this.sortedWords,
         );
         this.getFullWords(wordsState);
         if (this.sortedWords.length >= wordsState.wordsLimit) {
@@ -99,24 +109,30 @@ export class GameUserWordsService {
     );
   }
 
+  generateUserStats(word: WordWithStatistics): UserStats {
+    return {
+      difficulty: word.userStats.difficulty,
+      optional: {
+        knowledgeDegree: word.userStats.optional.knowledgeDegree,
+        page: word.page.toString(),
+        group: word.group.toString(),
+        toStudy: {},
+      },
+    };
+  }
+
   uploadWords(words: WordWithStatistics[]): void {
     words.forEach((word: WordWithStatistics) => {
       let action: HttpAction = 'POST';
-      let body: UserStats = {
-        difficulty: word.userStats.difficulty,
-        optional: {
-          knowledgeDegree: word.userStats.optional.knowledgeDegree,
-          page: word.page.toString(),
-          group: word.group.toString(),
-          toStudy: {},
-        },
-      };
+      let body: UserStats;
       if (word.userStats.optional.group !== 'unset') {
         action = 'PUT';
         body = {
           difficulty: word.userStats.difficulty,
           optional: { ...word.userStats.optional },
         };
+      } else {
+        body = this.generateUserStats(word);
       }
       this.wordActionService.sendAction(
         action,

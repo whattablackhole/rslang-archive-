@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BASE_URL } from 'src/app/shared/constants/base-url';
 import { GameResults } from 'src/app/shared/models/game-results.model';
-import { Statistics } from 'src/app/shared/models/statistics.model';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
 import { UserWord } from 'src/app/shared/models/user-word.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameName } from '../../shared/types/game-name.type';
 import { LocalStorageService } from '../../core/services/local-storage.service';
+import { WordsByPages } from '../interfaces/words-by-pages.model';
 @Injectable()
 export class GameCoreService {
   constructor(private localStorageService: LocalStorageService) {}
@@ -16,6 +17,17 @@ export class GameCoreService {
   getUserWordsPath = (id: string): string => `${BASE_URL}/users/${id}/words`;
 
   addWordsToLocalStorage(words: WordWithStatistics[]): void {
+    const wordsByPages: Array<WordsByPages> = this.sortByPage(words);
+    wordsByPages.forEach((item) => {
+      const wordsString: string = JSON.stringify(item.words);
+      this.localStorageService.setItem(
+        `${item.words[0].group}-${item.page}`,
+        wordsString,
+      );
+    });
+  }
+
+  sortByPage(words: WordWithStatistics[]) : Array<WordsByPages> {
     const pagesArray: Array<{ page: number; words: WordWithStatistics[] }> = [];
     words.forEach((item: WordWithStatistics) => {
       if (!pagesArray.length) {
@@ -30,13 +42,7 @@ export class GameCoreService {
         });
       }
     });
-    pagesArray.forEach((item) => {
-      const wordsString: string = JSON.stringify(item.words);
-      this.localStorageService.setItem(
-        `${item.words[0].group}-${item.page}`,
-        wordsString,
-      );
-    });
+    return pagesArray;
   }
 
   addStatsToLocalStorage(stats: Statistics): void {
@@ -76,6 +82,13 @@ export class GameCoreService {
     return result;
   }
 
+  filterGameWords(words:WordWithStatistics[]): WordWithStatistics[] {
+    return words.filter(
+      (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
+       && (word.userStats.optional.knowledgeDegree as number) < 3,
+    );
+  }
+
   addLocalToSortedWords(
     sortedWords: WordWithStatistics[],
     unSortedwords: WordWithStatistics[],
@@ -92,13 +105,11 @@ export class GameCoreService {
             },
           };
         }
+
         return sortedWord;
       });
     });
-    return sorted.filter(
-      (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
-       && (word.userStats.optional.knowledgeDegree as number) < 3,
-    );
+    return sorted;
   }
 
   addToSortedWords(
@@ -108,7 +119,7 @@ export class GameCoreService {
     let sorted = sortedWords;
     unSortedwords.forEach((filteredWord: UserWord) => {
       sorted = sorted.map((sortedWord: WordWithStatistics) => {
-        if (sortedWord.id === filteredWord.id) {
+        if (sortedWord.id === filteredWord.wordId) {
           return {
             ...sortedWord,
             userStats: {
@@ -120,10 +131,7 @@ export class GameCoreService {
         return sortedWord;
       });
     });
-    return sorted.filter(
-      (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
-       && (word.userStats.optional.knowledgeDegree as number) < 3,
-    );
+    return sorted;
   }
 
   decreasePageNumber(page: string): string {
@@ -146,9 +154,17 @@ export class GameCoreService {
     gameStreak: number,
     name: GameName,
   ): Statistics {
+    const correctWords: Array<{ id: string }> = [];
+    const incorrectWords: Array<{ id: string }> = [];
+    gameResults.correct_words.forEach((word: WordWithStatistics) => {
+      correctWords.push({ id: word.id });
+    });
+    gameResults.incorrect_words.forEach((word: WordWithStatistics) => {
+      incorrectWords.push({ id: word.id });
+    });
     const statistics: Statistics = {
-      correct_words: gameResults.correct_words,
-      incorrect_words: gameResults.incorrect_words,
+      correct_words: correctWords,
+      incorrect_words: incorrectWords,
       game_name: name,
       streak: gameStreak,
       date: new Date(Date.now()).toISOString(),
@@ -186,7 +202,7 @@ export class GameCoreService {
     };
   }
 
-  filterWordsByPage(
+  filterWordsByGroupPage(
     words: UserWord[],
     group: string,
     page: string,
