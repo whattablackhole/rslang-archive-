@@ -1,14 +1,14 @@
 <div class="savannah__container">
   <app-screen-size-changer></app-screen-size-changer>
   <div *ngIf="!isGameStart">
-    <div class="game__menu" *ngIf="!isGameStart && !isGameEnd">
+    <div class="game__menu" *ngIf="!isGameEnd">
       <h2 class="game__title">Savannah</h2>
       <h3 class="game__subtitle">In this game you need to use your skills to choose the appropriate answer</h3>
       <div *ngIf="fromNavbar">
         <div class="savannah__select-container">
-          <label> Pick group:</label>
+          <label>Pick group:</label>
           <select [(ngModel)]="group" class="savannah__select">
-            <option *ngFor="let group of groups;" [value]="group">{{+group + 1}}</option>
+            <option *ngFor="let groupsNumber of groups;" [value]="groupsNumber">{{groupsNumber + 1}}</option>
           </select>
         </div>
         <div class="savannah__select-container">

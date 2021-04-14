@@ -156,10 +156,10 @@ export class GameCoreService {
   ): Statistics {
     const correctWords: Array<{ id: string }> = [];
     const incorrectWords: Array<{ id: string }> = [];
-    gameResults.correct_words.forEach((word: WordWithStatistics) => {
+    gameResults.correctWords.forEach((word: WordWithStatistics) => {
       correctWords.push({ id: word.id });
     });
-    gameResults.incorrect_words.forEach((word: WordWithStatistics) => {
+    gameResults.incorrectWords.forEach((word: WordWithStatistics) => {
       incorrectWords.push({ id: word.id });
     });
     const statistics: Statistics = {
