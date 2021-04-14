@@ -5,8 +5,7 @@
       class="words-conteiner__item"
       *ngFor="let item of words"
       [item] = "item"
-      (wordRemove)=changeRemoveWord($event)
-      (wordDifficult)=changeDifficultWord($event)>
+      (setAction)=setActionForWord($event)>
     </app-word-item>
   </ng-container>
 </section>

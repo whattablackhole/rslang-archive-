@@ -32,16 +32,18 @@
       src="../../../../assets/ebbok/speechIco.svg"
       alt="speech"
       (click)="playSound(item.audio)"
-      class="action-btn"/>
+      class="action-btn" />
     <img
       src="../../../../assets/ebbok/difficultIco.svg"
-      alt="difficult"
-      (click)="addToDifficult(item.id)"
+      alt="hard"
+      data-action="hard"
+      (click)="changeAction('hard', item.id)"
       class="action-btn" />
     <img
       src="../../../../assets/ebbok/deleteIco.svg"
-      alt="remove"
-      (click)="addToRemove(item.id)"
+      alt="removed"
+      data-action="removed"
+      (click)="changeAction('removed', item.id)"
       class="action-btn" />
   </div>
 </div>

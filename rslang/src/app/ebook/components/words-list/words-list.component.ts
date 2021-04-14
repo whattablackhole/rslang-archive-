@@ -1,16 +1,17 @@
 import {
-  Component, Output, EventEmitter, OnInit, OnDestroy,
+  Component, OnInit, OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { WORDS_API_URL } from '../../../shared/constants/constants';
+import { ActionParams } from '../../models/action-params.model';
 import { Word } from '../../../shared/models/word.model';
+import { UserStats } from '../../../shared/models/user-stats.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
-import { CurrentStateBook } from '../../models/current-state-book.model';
 import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 
@@ -24,8 +25,10 @@ export class WordsList implements OnInit, OnDestroy {
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
 
   userBookSettings: UserBookSettings;
-  words: Word[];
-  @Output() pageNoChanged: EventEmitter<number> = new EventEmitter<number>();
+  words: Word[] = [];
+  userStats: UserStats = {};
+  userWords: UserStats[] = [];
+  isUserAuthenticated = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,43 +51,58 @@ export class WordsList implements OnInit, OnDestroy {
     this.subscription = this.route.params.subscribe((params): void => {
       this.userBookSettings.currentState.group = params.id as number;
     });
+
     const { currentState } = this.userBookSettings;
-    this.getWordsList(currentState);
+    this.wordsDataService.getWords(currentState);
+    this.subscription = this.wordsDataService.data$
+      .subscribe((words: Word[]) => this.mapWords(words));
   }
 
-  changeSelectedPage(pageNoChanged: number): void {
-    this.userBookSettings.currentState.page = pageNoChanged;
+  changeSelectedPage(pageChanged: number): void {
+    this.userBookSettings.currentState.page = pageChanged;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
     const { currentState } = this.userBookSettings;
-    this.getWordsList(currentState);
+    this.wordsDataService.getWords(currentState);
   }
 
-  changeRemoveWord(wordRemove: string): void {
-    console.log(this.words[this.indexWord(wordRemove)]);
-  }
+  setActionForWord(params: ActionParams): void {
+    this.userStats.difficulty = params.action;
+    const group = String(this.words[this.indexWord(params.wordId)].group);
+    const page = String(this.words[this.indexWord(params.wordId)].page);
+    this.userStats.optional = { group, page };
+    const userId = this.isUserAuthenticated
+      ? 'userId'
+      : 'unauthenticated';
+    if (this.userWords.findIndex((element: UserStats) => element.wordId === params.wordId) === -1) {
+      this.userWords.push({
+        id: userId,
+        wordId: params.wordId,
+        difficulty: this.userStats.difficulty,
+        optional: this.userStats.optional,
+      });
+    } else {
+      console.log('update data');
+    }
 
-  changeDifficultWord(wordDifficult: string): void {
-    console.log(this.words[this.indexWord(wordDifficult)]);
+    this.localStorageService
+      .setItem(LocalStorageKey.WordsdUser, JSON.stringify(this.userWords));
   }
 
   indexWord(wordId: string): number {
     return this.words.findIndex((element: Word) => element.id === wordId);
   }
 
-  getWordsList(currentState: CurrentStateBook): void {
+  private mapWords(words: Word[]): void {
     this.words = [];
-    this.subscription = this.wordsDataService.GetWords(currentState)
-      .subscribe((words: Word[]) => {
-        words.forEach((wordData) => {
-          const word = { ...wordData };
-          word.image = WORDS_API_URL + word.image;
-          word.audio = WORDS_API_URL + word.audio;
-          word.audioMeaning = WORDS_API_URL + word.audioMeaning;
-          word.audioExample = WORDS_API_URL + word.audioExample;
-          this.words.push(word);
-        });
-      });
+    words.forEach((wordData) => {
+      const word = { ...wordData };
+      word.image = WORDS_API_URL + word.image;
+      word.audio = WORDS_API_URL + word.audio;
+      word.audioMeaning = WORDS_API_URL + word.audioMeaning;
+      word.audioExample = WORDS_API_URL + word.audioExample;
+      this.words.push(word);
+    });
   }
 
   ngOnDestroy(): void {

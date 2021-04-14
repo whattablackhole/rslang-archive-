@@ -2,7 +2,10 @@ import {
   Component, Input, Output, EventEmitter,
 } from '@angular/core';
 
+import { ACTION_BUTTONS } from '../../constants/action-buttons';
 import { Word } from '../../../shared/models/word.model';
+import { ActionParams } from '../../models/action-params.model';
+import { ButtonAction } from '../../../shared/types/button-action.type';
 
 @Component({
   selector: 'app-word-item',
@@ -11,19 +14,15 @@ import { Word } from '../../../shared/models/word.model';
 })
 export class WordItem {
   @Input() item: Word;
-  @Output() wordDifficult: EventEmitter<string> = new EventEmitter<string>();
-  @Output() wordRemove: EventEmitter<string> = new EventEmitter<string>();
+  @Output() setAction: EventEmitter<ActionParams> = new EventEmitter<ActionParams>();
+  ActionButtons: Array<string> = ACTION_BUTTONS;
 
   turnOverItem(): string {
     return 'turnOver';
   }
 
-  addToRemove(wordId: string): void {
-    this.wordRemove.emit(wordId);
-  }
-
-  addToDifficult(wordId: string): void {
-    this.wordDifficult.emit(wordId);
+  changeAction(action: ButtonAction, wordId: string): void {
+    this.setAction.emit({ action, wordId });
   }
 
   playSound(sound: string): Promise<void> {
