@@ -79,7 +79,7 @@ export class Audiocall implements OnInit {
   sortedWords: WordWithStatistics[];
   wordsFromLocalStorage: WordWithStatistics[] | null | string;
 
-  gameResultWords: GameResults = { correct_words: [], incorrect_words: [] };
+  gameResultWords: GameResults = { correctWords: [], incorrectWords: [] };
   statistics: Statistics;
 
   gameWordsState: GameWordsState = {
@@ -94,10 +94,10 @@ export class Audiocall implements OnInit {
   isAnswered = false;
 
   currentIndex = 0;
+  lastIndex: number;
   currentStreak = 0;
   correctGamePercent = 0;
   biggestStreak = 0;
-
   blockPosition: BlockPositionState;
 
   page = '0';
@@ -123,6 +123,7 @@ export class Audiocall implements OnInit {
     this.gameWordsService.sortedWords$.subscribe(
       (sortedWords: WordWithStatistics[]) => {
         this.sortedWords = sortedWords;
+        this.lastIndex = this.calculateLastIndex(this.gameWordsState);
       },
     );
   }
@@ -212,11 +213,12 @@ export class Audiocall implements OnInit {
     this.gameWordsService.uploadStats(this.statistics);
   }
 
+  calculateLastIndex(gameWordsState: GameWordsState): number {
+    return (gameWordsState.wordsLength - 1) - gameWordsState.minAmout;
+  }
+
   checkIfGameFinished(): void {
-    if (
-      this.currentIndex + 1
-      === this.gameWordsState.wordsLength - this.gameWordsState.minAmout
-    ) {
+    if (this.currentIndex === this.lastIndex) {
       this.finishGame();
     }
   }
@@ -226,19 +228,19 @@ export class Audiocall implements OnInit {
   }
 
   generateCorrectPercent(): void {
-    const correctNumber: number = this.gameResultWords.correct_words.length;
-    const incorrectNumber: number = this.gameResultWords.incorrect_words.length;
+    const correctNumber: number = this.gameResultWords.correctWords.length;
+    const incorrectNumber: number = this.gameResultWords.incorrectWords.length;
     this.correctGamePercent = Math.floor(
       (correctNumber * 100) / (incorrectNumber + correctNumber),
     );
   }
 
   addWordToCorrect(word: WordWithStatistics): void {
-    this.gameResultWords.correct_words.push(word);
+    this.gameResultWords.correctWords.push(word);
   }
 
   addWordToIncorrect(word: WordWithStatistics): void {
-    this.gameResultWords.incorrect_words.push(word);
+    this.gameResultWords.incorrectWords.push(word);
   }
 
   calculateStreak(answer: boolean): void {

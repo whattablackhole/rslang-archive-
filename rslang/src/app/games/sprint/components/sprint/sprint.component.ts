@@ -78,9 +78,9 @@ import { GameWordsService } from '../../../services/game-words.service';
 export class Sprint implements OnInit {
   randomSortedWords: WordWithStatistics[];
   sortedWords: WordWithStatistics[];
-  word: WordWithStatistics;
+  currentWord: WordWithStatistics;
 
-  gameResultWords: GameResults = { correct_words: [], incorrect_words: [] };
+  gameResultWords: GameResults = { correctWords: [], incorrectWords: [] };
   statistics: Statistics;
 
   borderColorAnimationState: BorderColorAnimationState;
@@ -180,8 +180,8 @@ export class Sprint implements OnInit {
   }
 
   generateCorrectPercent(): void {
-    const correctNumber: number = this.gameResultWords.correct_words.length;
-    const incorrectNumber: number = this.gameResultWords.incorrect_words.length;
+    const correctNumber: number = this.gameResultWords.correctWords.length;
+    const incorrectNumber: number = this.gameResultWords.incorrectWords.length;
     this.correctGamePercent = Math.floor(
       (correctNumber * 100) / (incorrectNumber + correctNumber),
     );
@@ -194,12 +194,12 @@ export class Sprint implements OnInit {
   }
 
   generateNextWord(): void {
-    this.word = this.randomSortedWords[this.currentWordIndex];
+    this.currentWord = this.randomSortedWords[this.currentWordIndex];
     this.currentWordIndex += 1;
   }
 
   findCorrectWord(): WordWithStatistics | undefined {
-    return this.sortedWords.find((item) => item.id === this.word.id);
+    return this.sortedWords.find((item) => item.id === this.currentWord.id);
   }
 
   changeScorePointLimit(answer: boolean): void {
@@ -243,11 +243,11 @@ export class Sprint implements OnInit {
   }
 
   addWordToCorrect(word: WordWithStatistics): void {
-    this.gameResultWords.correct_words.push(word);
+    this.gameResultWords.correctWords.push(word);
   }
 
   addWordToIncorrect(word: WordWithStatistics): void {
-    this.gameResultWords.incorrect_words.push(word);
+    this.gameResultWords.incorrectWords.push(word);
   }
 
   calculateStreak(answer: boolean): void {
@@ -279,14 +279,13 @@ export class Sprint implements OnInit {
 
   onAnswer(answer: boolean): void {
     this.gameCoreService.playAudio('/assets/games/sprint/pew.mp3');
-    const resultedWord: WordWithStatistics | undefined = this.findCorrectWord();
+    const correctWord: WordWithStatistics | undefined = this.findCorrectWord();
     if (
-      resultedWord
-      && (resultedWord?.wordTranslate === this.word.wordTranslate) === answer
+      correctWord && (this.currentWord.wordTranslate === correctWord.wordTranslate) === answer
     ) {
-      this.onRightAnswer(resultedWord);
-    } else if (resultedWord?.wordTranslate) {
-      this.onWrongAnswer(resultedWord);
+      this.onRightAnswer(correctWord);
+    } else if (correctWord?.wordTranslate) {
+      this.onWrongAnswer(correctWord);
     }
     this.checkIfGameFinished();
     this.generateNextWord();

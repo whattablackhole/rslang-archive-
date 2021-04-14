@@ -5,6 +5,7 @@ import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model'
 import { Word } from 'src/app/shared/models/word.model';
 import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
+import { WordId } from 'src/app/shared/types/word-id.type';
 import { GameName } from '../../shared/types/game-name.type';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { WordsByPages } from '../interfaces/words-by-pages.model';
@@ -93,22 +94,15 @@ export class GameCoreService {
     sortedWords: WordWithStatistics[],
     unSortedwords: WordWithStatistics[],
   ): WordWithStatistics[] {
-    let sorted = sortedWords;
-    unSortedwords.forEach((filteredWord: WordWithStatistics) => {
-      sorted = sorted.map((sortedWord: WordWithStatistics) => {
-        if (sortedWord.id === filteredWord.id) {
-          return {
-            ...sortedWord,
-            userStats: {
-              difficulty: filteredWord.userStats.difficulty,
-              optional: filteredWord.userStats.optional,
-            },
-          };
+    const sorted = sortedWords;
+    for (let i = 0; i < sorted.length; i += 1) {
+      for (let y = 0; y < unSortedwords.length; y += 1) {
+        if (sorted[i].id === unSortedwords[y].id) {
+          sorted.splice(i, 1, unSortedwords[y]);
+          break;
         }
-
-        return sortedWord;
-      });
-    });
+      }
+    }
     return sorted;
   }
 
@@ -152,20 +146,20 @@ export class GameCoreService {
   generateStats(
     gameResults: GameResults,
     gameStreak: number,
-    name: GameName,
+    gameName: GameName,
   ): Statistics {
-    const correctWords: Array<{ id: string }> = [];
-    const incorrectWords: Array<{ id: string }> = [];
-    gameResults.correct_words.forEach((word: WordWithStatistics) => {
+    const correctWords: Array<WordId> = [];
+    const incorrectWords: Array<WordId> = [];
+    gameResults.correctWords.forEach((word: WordWithStatistics) => {
       correctWords.push({ id: word.id });
     });
-    gameResults.incorrect_words.forEach((word: WordWithStatistics) => {
+    gameResults.incorrectWords.forEach((word: WordWithStatistics) => {
       incorrectWords.push({ id: word.id });
     });
     const statistics: Statistics = {
-      correct_words: correctWords,
-      incorrect_words: incorrectWords,
-      game_name: name,
+      correctWords,
+      incorrectWords,
+      gameName,
       streak: gameStreak,
       date: new Date(Date.now()).toISOString(),
     };
