@@ -132,7 +132,6 @@ export class Savannah implements OnInit, OnDestroy {
       (sortedWords: WordWithStatistics[]) => {
         this.words = sortedWords;
         this.unUsedWords = [...this.words];
-        console.log(this.words)
       },
     );
   }
