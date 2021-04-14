@@ -21,7 +21,8 @@ export class AuthActionService extends BaseActionService {
     super(httpClient);
   }
 
-  createUser(req: CreateUserRequest, authService = this.authService, notifyService = this.notifyService): void {
+  createUser(req: CreateUserRequest): void {
+    const { authService, notifyService } = this;
     const action: CallbackObject = {
       onSuccess() {
         authService.redirectToUrl('/auth');
@@ -37,7 +38,8 @@ export class AuthActionService extends BaseActionService {
     this.sendAction('POST', `${BASE_URL}/users`, action, { body: req });
   }
 
-  signinUser(req: SigninRequest, authService = this.authService, notifyService = this.notifyService): void {
+  signinUser(req: SigninRequest): void {
+    const { authService, notifyService } = this;
     const action: CallbackObject = {
       onSuccess(result) {
         authService.loginUser(result as SigninResponse);
