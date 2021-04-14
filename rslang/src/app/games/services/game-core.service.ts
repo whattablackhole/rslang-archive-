@@ -131,10 +131,7 @@ export class GameCoreService {
         return sortedWord;
       });
     });
-    return sorted.filter(
-      (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
-       && (word.userStats.optional.knowledgeDegree as number) < 3,
-    );
+    return sorted;
   }
 
   decreasePageNumber(page: string): string {
