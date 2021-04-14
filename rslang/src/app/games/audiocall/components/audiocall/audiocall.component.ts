@@ -39,16 +39,20 @@ import { AuthService } from '../../../../auth/services/auth.service';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
+    AuthService,
+    // (wordsDataService: WordsDataService,
+    //   gameCoreService: GameCoreService, authService: AuthService, userWordsDataService: UserWordsDataService,
+    //   wordActionService: WordActionService, statisticsActionService: StatisticsActionService):
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
       deps: [
-        UserWordsDataService,
-        GameCoreService,
         WordsDataService,
+        GameCoreService,
         AuthService,
-        StatisticsActionService,
+        UserWordsDataService,
         WordActionService,
+        StatisticsActionService,
       ],
     },
   ],
