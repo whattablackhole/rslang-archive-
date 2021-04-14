@@ -39,7 +39,6 @@ mat-grid-tile-header {
     align-self: center;
     justify-content: center;
     display: flex;
-    // align-items: center;
     width: 50vw;
     height: 70vh;
     border: 1px solid green;
@@ -93,7 +92,7 @@ mat-grid-tile-header {
     }
 
     &-icon {
-      background: url('../../../../../assets/games/audio-call/Circle-icons-speaker.svg');
+      background: url('/assets/games/audio-call/Circle-icons-speaker.svg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -123,7 +122,7 @@ mat-grid-tile-header {
       font-size: 20px;
 
       &_correct::before {
-        background-image: url('../../../../../assets/games/sprint/correct.webp');
+        background-image: url('/assets/games/sprint/correct.webp');
         background-size: 20px 20px;
         background-repeat: no-repeat;
         display: inline-block;
@@ -134,7 +133,7 @@ mat-grid-tile-header {
       }
 
       &_incorrect::before {
-        background-image: url('../../../../../assets/games/audio-call/incorrect.png');
+        background-image: url('/assets/games/audio-call/incorrect.png');
         background-size: 20px 20px;
         background-repeat: no-repeat;
         display: inline-block;

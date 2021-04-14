@@ -8,7 +8,7 @@ import { GameWordsState } from '../interfaces/game-words-state.model';
 export class GameWordsService {
   sortedWords$: Observable<WordWithStatistics[]>;
 
-  createWords(group: string, page: string, gameWordsState: GameWordsState):void {
+  createWordsForGame(group: string, page: string, gameWordsState: GameWordsState):void {
     throw new Error('Method not implemented.');
   }
 

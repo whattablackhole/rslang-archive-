@@ -1,20 +1,5 @@
 <div class="game">
   <app-screen-size-changer></app-screen-size-changer>
-  <!-- <h1 class="game__no-words-title" *ngIf="gameWordsState.isNoWords">
-    Not enough words for game
-  </h1> -->
-  <!-- <div class="game__level-selection">
-    <h1 class="game__level-header">Select level</h1>
-    <mat-grid-list cols="3" rowHeight="3:2">
-      <mat-grid-tile-header>HEADER</mat-grid-tile-header>
-      <mat-grid-tile>WTWT</mat-grid-tile>
-      <mat-grid-tile>WWFW</mat-grid-tile>
-      <mat-grid-tile>GEGGE</mat-grid-tile>
-      <mat-grid-tile>WTDWF</mat-grid-tile>
-      <mat-grid-tile>WTDWF</mat-grid-tile>
-      <mat-grid-tile>WTDWF</mat-grid-tile>
-    </mat-grid-list>
-  </div> -->
   <mat-spinner *ngIf="!sortedWords" class="spinner"></mat-spinner>
   <div
     *ngIf="sortedWords && !isGameFinished"

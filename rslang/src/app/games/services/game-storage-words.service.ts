@@ -37,7 +37,7 @@ export class GameStorageWordsService {
     }
   }
 
-  createWords(group: string, page: string, gameWordsState: GameWordsState): void {
+  createWordsForGame(group: string, page: string, gameWordsState: GameWordsState): void {
     this.page = page;
     this.group = group;
 
@@ -52,6 +52,7 @@ export class GameStorageWordsService {
       if (Array.isArray(this.wordsFromLocalStorage)) {
         this.sortedWords = this.gameCoreService.addLocalToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
       }
+      this.sortedWords = this.gameCoreService.filterGameWords(this.sortedWords);
       this.getFullWords(wordsState);
       if (this.sortedWords.length >= wordsState.wordsLimit) {
         this.sortedWords = this.sortedWords.slice(0, wordsState.wordsLimit);

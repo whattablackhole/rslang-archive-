@@ -17,7 +17,7 @@ import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
-import { UserAggregatedWordsService } from '../../../../shared/services/user-words-data.service';
+import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { BlockPositionState } from '../types/block-position-state.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 import { GameUserWordsService } from '../../../services/game-user-words.service';
@@ -33,7 +33,7 @@ import { AuthService } from '../../../../auth/services/auth.service';
   providers: [
     GameCoreService,
     WordDataService,
-    UserAggregatedWordsService,
+    UserWordsDataService,
     WordsDataService,
     GameStorageWordsService,
     GameUserWordsService,
@@ -43,7 +43,7 @@ import { AuthService } from '../../../../auth/services/auth.service';
       provide: GameWordsService,
       useFactory: gameWordsFactory,
       deps: [
-        UserAggregatedWordsService,
+        UserWordsDataService,
         GameCoreService,
         WordsDataService,
         AuthService,
@@ -113,7 +113,7 @@ export class Audiocall implements OnInit {
 
   ngOnInit(): void {
     this.gameWordsService.getWords(this.group, this.page);
-    this.gameWordsService.createWords(
+    this.gameWordsService.createWordsForGame(
       this.group,
       this.page,
       this.gameWordsState,
@@ -122,7 +122,6 @@ export class Audiocall implements OnInit {
     this.gameWordsService.sortedWords$.subscribe(
       (sortedWords: WordWithStatistics[]) => {
         this.sortedWords = sortedWords;
-        console.log(12,this.sortedWords);
       },
     );
   }
@@ -244,6 +243,7 @@ export class Audiocall implements OnInit {
   calculateStreak(answer: boolean): void {
     if (answer) {
       this.currentStreak += 1;
+      this.biggestStreak = Math.max(this.currentStreak, this.biggestStreak);
     } else {
       this.biggestStreak = Math.max(this.currentStreak, this.biggestStreak);
       this.currentStreak = 0;

@@ -6,20 +6,44 @@ import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model'
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
+import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
+import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
-import { UserAggregatedWordsService } from '../../../../shared/services/user-words-data.service';
+import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
 import { GameCoreService } from '../../../services/game-core.service';
 import { GameResults } from '../../../../shared/models/game-results.model';
 import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
-
+import { GameWordsService } from '../../../services/game-words.service';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
   styleUrls: ['./sprint.component.scss'],
-  providers: [WordsDataService, UserAggregatedWordsService, GameStorageWordsService],
+  providers: [
+    WordsDataService,
+    UserWordsDataService,
+    GameStorageWordsService,
+    GameCoreService,
+    AuthService,
+    StatisticsActionService,
+    WordActionService,
+    {
+      provide: GameWordsService,
+      useFactory: gameWordsFactory,
+      deps: [
+        UserWordsDataService,
+        GameCoreService,
+        WordsDataService,
+        AuthService,
+        StatisticsActionService,
+        WordActionService,
+      ],
+    },
+  ],
   animations: [
     trigger('coloredBorder', [
       transition(
@@ -87,7 +111,7 @@ export class Sprint implements OnInit {
   constructor(
     private gameCoreService: GameCoreService,
     private router: Router,
-    private gameStorageWordsService: GameStorageWordsService,
+    private gameWordsService: GameWordsService,
   ) {
     this.router.events
       .pipe(
@@ -110,12 +134,18 @@ export class Sprint implements OnInit {
       this.group = '1';
       this.page = '1';
     }
-    this.gameStorageWordsService.getWords(this.group, this.page);
-    this.gameStorageWordsService.createWords(this.group, this.page, this.gameWordsState);
-    this.gameStorageWordsService.sortedWords$.subscribe((sortedWords: WordWithStatistics[]) => {
-      this.sortedWords = sortedWords;
-      this.randomSortedWords = this.generateRandomWords(this.sortedWords);
-    });
+    this.gameWordsService.getWords(this.group, this.page);
+    this.gameWordsService.createWordsForGame(
+      this.group,
+      this.page,
+      this.gameWordsState,
+    );
+    this.gameWordsService.sortedWords$.subscribe(
+      (sortedWords: WordWithStatistics[]) => {
+        this.sortedWords = sortedWords;
+        this.randomSortedWords = this.generateRandomWords(this.sortedWords);
+      },
+    );
   }
 
   onBorderDone(): void {
@@ -137,16 +167,24 @@ export class Sprint implements OnInit {
   }
 
   finishGame(): void {
-    this.statistics = this.gameCoreService.generateStats(this.gameResultWords, this.biggestStreak, 'Sprint');
+    this.statistics = this.gameCoreService.generateStats(
+      this.gameResultWords,
+      this.biggestStreak,
+      'Sprint',
+    );
     this.generateCorrectPercent();
     this.isGameStarted = false;
     this.isGameFinished = true;
+    this.gameWordsService.uploadStats(this.statistics);
+    this.gameWordsService.uploadWords(this.sortedWords);
   }
 
   generateCorrectPercent(): void {
     const correctNumber: number = this.gameResultWords.correct_words.length;
     const incorrectNumber: number = this.gameResultWords.incorrect_words.length;
-    this.correctGamePercent = Math.floor((correctNumber * 100) / (incorrectNumber + correctNumber));
+    this.correctGamePercent = Math.floor(
+      (correctNumber * 100) / (incorrectNumber + correctNumber),
+    );
   }
 
   checkIfGameFinished(): void {
@@ -215,6 +253,7 @@ export class Sprint implements OnInit {
   calculateStreak(answer: boolean): void {
     if (answer) {
       this.currentStreak += 1;
+      this.biggestStreak = Math.max(this.currentStreak, this.biggestStreak);
     } else {
       this.biggestStreak = Math.max(this.currentStreak, this.biggestStreak);
       this.currentStreak = 0;
@@ -241,7 +280,10 @@ export class Sprint implements OnInit {
   onAnswer(answer: boolean): void {
     this.gameCoreService.playAudio('/assets/games/sprint/pew.mp3');
     const resultedWord: WordWithStatistics | undefined = this.findCorrectWord();
-    if (resultedWord && (resultedWord?.wordTranslate === this.word.wordTranslate) === answer) {
+    if (
+      resultedWord
+      && (resultedWord?.wordTranslate === this.word.wordTranslate) === answer
+    ) {
       this.onRightAnswer(resultedWord);
     } else if (resultedWord?.wordTranslate) {
       this.onWrongAnswer(resultedWord);
@@ -269,7 +311,9 @@ export class Sprint implements OnInit {
       if (Math.random() > 0.5) {
         return item;
       }
-      newItem.wordTranslate = (randomSortedWords[Math.floor(Math.random() * randomSortedWords.length)].wordTranslate);
+      newItem.wordTranslate = randomSortedWords[
+        Math.floor(Math.random() * randomSortedWords.length)
+      ].wordTranslate;
       return newItem;
     });
     return randomSortedWords;

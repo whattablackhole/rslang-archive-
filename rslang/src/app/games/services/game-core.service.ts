@@ -7,6 +7,7 @@ import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameName } from '../../shared/types/game-name.type';
 import { LocalStorageService } from '../../core/services/local-storage.service';
+import { WordsByPages } from '../interfaces/words-by-pages.model';
 @Injectable()
 export class GameCoreService {
   constructor(private localStorageService: LocalStorageService) {}
@@ -16,6 +17,17 @@ export class GameCoreService {
   getUserWordsPath = (id: string): string => `${BASE_URL}/users/${id}/words`;
 
   addWordsToLocalStorage(words: WordWithStatistics[]): void {
+    const wordsByPages: Array<WordsByPages> = this.sortByPage(words);
+    wordsByPages.forEach((item) => {
+      const wordsString: string = JSON.stringify(item.words);
+      this.localStorageService.setItem(
+        `${item.words[0].group}-${item.page}`,
+        wordsString,
+      );
+    });
+  }
+
+  sortByPage(words: WordWithStatistics[]) : Array<WordsByPages> {
     const pagesArray: Array<{ page: number; words: WordWithStatistics[] }> = [];
     words.forEach((item: WordWithStatistics) => {
       if (!pagesArray.length) {
@@ -30,13 +42,7 @@ export class GameCoreService {
         });
       }
     });
-    pagesArray.forEach((item) => {
-      const wordsString: string = JSON.stringify(item.words);
-      this.localStorageService.setItem(
-        `${item.words[0].group}-${item.page}`,
-        wordsString,
-      );
-    });
+    return pagesArray;
   }
 
   addStatsToLocalStorage(stats: Statistics): void {
@@ -76,6 +82,13 @@ export class GameCoreService {
     return result;
   }
 
+  filterGameWords(words:WordWithStatistics[]): WordWithStatistics[] {
+    return words.filter(
+      (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
+       && (word.userStats.optional.knowledgeDegree as number) < 3,
+    );
+  }
+
   addLocalToSortedWords(
     sortedWords: WordWithStatistics[],
     unSortedwords: WordWithStatistics[],
@@ -96,10 +109,7 @@ export class GameCoreService {
         return sortedWord;
       });
     });
-    return sorted.filter(
-      (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
-       && (word.userStats.optional.knowledgeDegree as number) < 3,
-    );
+    return sorted;
   }
 
   addToSortedWords(
@@ -195,7 +205,7 @@ export class GameCoreService {
     };
   }
 
-  filterWordsByPage(
+  filterWordsByGroupPage(
     words: UserWord[],
     group: string,
     page: string,
