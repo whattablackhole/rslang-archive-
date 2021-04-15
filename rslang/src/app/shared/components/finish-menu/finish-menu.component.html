@@ -45,10 +45,10 @@
     <div class="result__words-correct_wrapper">
       <div class="result__words-correct-header">
         <h3 class="result__words-correct-title">Correct words:</h3>
-        <div id="correct-number">{{ gameResultWords.correct_words.length }}</div>
+        <div id="correct-number">{{ gameResultWords.correctWords.length }}</div>
       </div>
       <div class="result__words-correct">
-        <div *ngFor="let item of gameResultWords.correct_words" class="result__words-item">
+        <div *ngFor="let item of gameResultWords.correctWords" class="result__words-item">
           <button
             (click)="onPlay(item)"
             mat-icon-button
@@ -64,10 +64,10 @@
     <div class="result__words-incorrect_wrapper">
       <div class="result__words-incorrect-header">
         <h3 class="result__words-incorrect-title">Incorrect words:</h3>
-        <div id="incorrect-number">{{ gameResultWords.incorrect_words.length }}</div>
+        <div id="incorrect-number">{{ gameResultWords.incorrectWords.length }}</div>
       </div>
       <div class="result__words-incorrect">
-        <div *ngFor="let item of gameResultWords.incorrect_words" class="result__words-item">
+        <div *ngFor="let item of gameResultWords.incorrectWords" class="result__words-item">
           <button
             (click)="onPlay(item)"
             mat-icon-button

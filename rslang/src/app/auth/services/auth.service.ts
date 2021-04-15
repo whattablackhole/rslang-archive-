@@ -22,7 +22,7 @@ export class AuthService {
     private storage: LocalStorageService,
   ) {}
 
-  getIsUserAuthenticated(): boolean {
+  getUserAuthenticationStatus(): boolean {
     return this.isUserAuthenticated;
   }
 
