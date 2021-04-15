@@ -26,6 +26,8 @@ export class Main implements OnInit {
   ];
 
   ngOnInit() :void {
-      AOS.init();
+      AOS.init({
+        startEvent: 'load',
+      });
   }
 }

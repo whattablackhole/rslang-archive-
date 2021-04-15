@@ -9,6 +9,7 @@
   padding: 2rem 6rem;
   min-height: 100vh;
   height: 100%;
+  transition: padding 1s;
 }
 
 .spinner {
@@ -16,4 +17,11 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 600px) {
+  .main {
+    padding: 1rem 2rem;
+    transition: padding 1s;
+  }
 }
