@@ -78,7 +78,7 @@ import { GameWordsService } from '../../../services/game-words.service';
 export class Sprint implements OnInit {
   randomSortedWords: WordWithStatistics[];
   sortedWords: WordWithStatistics[];
-  word: WordWithStatistics;
+  currentWord: WordWithStatistics;
 
   gameResultWords: GameResults = { correctWords: [], incorrectWords: [] };
   statistics: Statistics;
@@ -194,12 +194,12 @@ export class Sprint implements OnInit {
   }
 
   generateNextWord(): void {
-    this.word = this.randomSortedWords[this.currentWordIndex];
+    this.currentWord = this.randomSortedWords[this.currentWordIndex];
     this.currentWordIndex += 1;
   }
 
   findCorrectWord(): WordWithStatistics | undefined {
-    return this.sortedWords.find((item) => item.id === this.word.id);
+    return this.sortedWords.find((item) => item.id === this.currentWord.id);
   }
 
   changeScorePointLimit(answer: boolean): void {
@@ -279,14 +279,13 @@ export class Sprint implements OnInit {
 
   onAnswer(answer: boolean): void {
     this.gameCoreService.playAudio('/assets/games/sprint/pew.mp3');
-    const resultedWord: WordWithStatistics | undefined = this.findCorrectWord();
+    const correctWord: WordWithStatistics | undefined = this.findCorrectWord();
     if (
-      resultedWord
-      && (resultedWord?.wordTranslate === this.word.wordTranslate) === answer
+      correctWord && (this.currentWord.wordTranslate === correctWord.wordTranslate) === answer
     ) {
-      this.onRightAnswer(resultedWord);
-    } else if (resultedWord?.wordTranslate) {
-      this.onWrongAnswer(resultedWord);
+      this.onRightAnswer(correctWord);
+    } else if (correctWord?.wordTranslate) {
+      this.onWrongAnswer(correctWord);
     }
     this.checkIfGameFinished();
     this.generateNextWord();

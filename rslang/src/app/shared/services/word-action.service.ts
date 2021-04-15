@@ -4,7 +4,7 @@ import { BaseActionService } from 'src/app/core/services/base-action.service';
 
 @Injectable()
 export class WordActionService extends BaseActionService {
-  constructor(httpClient: HttpClient) { // eslint-disable-line @typescript-eslint/no-useless-constructor
+  public constructor(httpClient: HttpClient) {
     super(httpClient);
   }
 }
