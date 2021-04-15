@@ -1,9 +1,9 @@
 <app-ebook-header (pageChanged)="changeSelectedPage($event)"> </app-ebook-header>
-<section class="words-conteiner">
-  <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
+<section class = "words-conteiner">
+  <ng-container *ngIf = "!!words.length; else isEmptyCart" class="words-conteiner">
     <app-word-item
-      class="words-conteiner__item"
-      *ngFor="let item of words"
+      class = "words-conteiner__item"
+      *ngFor = "let item of words | filterByAction: ''"
       [item] = "item"
       (setAction)=setActionForWord($event)>
     </app-word-item>

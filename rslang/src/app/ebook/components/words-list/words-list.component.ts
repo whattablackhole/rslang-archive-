@@ -12,8 +12,10 @@ import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
+import { WordAndStatistics } from '../../../shared/models/word-statistics.model';
 import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-words-list',
@@ -25,15 +27,15 @@ export class WordsList implements OnInit, OnDestroy {
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
 
   userBookSettings: UserBookSettings;
-  words: Word[] = [];
-  userStats: UserStats = {};
+  words: WordAndStatistics[] = [];
   userWords: UserStats[] = [];
-  isUserAuthenticated = false;
+  isUserAuthenticated = this.authService.getIsUserAuthenticated();
 
   constructor(
     private route: ActivatedRoute,
     private wordsDataService: WordsDataService,
     private localStorageService: LocalStorageService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -64,36 +66,41 @@ export class WordsList implements OnInit, OnDestroy {
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
     const { currentState } = this.userBookSettings;
     this.wordsDataService.getWords(currentState);
-    // this.subscription = this.wordsDataService.data$
-    //   .subscribe((words: Word[]) => this.mapWords(words));
   }
 
   setActionForWord(params: ActionParams): void {
-    this.userStats.difficulty = params.action;
-    const group = String(this.words[this.indexWord(params.wordId)].group);
-    const page = String(this.words[this.indexWord(params.wordId)].page);
-    this.userStats.optional = { group, page };
+    // const group = String(this.words[this.indexWord(this.words, 'id', params.wordId)].group);
+    // const page = String(this.words[this.indexWord(this.words, 'id', params.wordId)].page);
+    const group = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].group);
+    const page = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].page);
+
     const userId = this.isUserAuthenticated
-      ? 'userId'
+      ? this.authService.getUserId()
       : 'unauthenticated';
-    if (this.userWords.findIndex((element: UserStats) => element.wordId === params.wordId) === -1) {
+
+    const index = this.userWords.findIndex((element: UserStats) => element.wordId === params.wordId);
+    if (index === -1) {
       this.userWords.push({
-        id: userId,
+        id: userId as string,
         wordId: params.wordId,
-        difficulty: this.userStats.difficulty,
-        optional: this.userStats.optional,
+        difficulty: params.action,
+        optional: { group, page },
       });
     } else {
-      console.log('update data');
+      this.userWords[index].difficulty = params.action;
     }
 
     this.localStorageService
       .setItem(LocalStorageKey.WordsdUser, JSON.stringify(this.userWords));
+
+    if (this.isUserAuthenticated) {
+      console.log(this.isUserAuthenticated);
+    }
   }
 
-  indexWord(wordId: string): number {
-    return this.words.findIndex((element: Word) => element.id === wordId);
-  }
+  // indexWord<T>(arr: T[], index: string, value: string): number {
+  //   return arr.findIndex((element) => element[index] === value);
+  // }
 
   private mapWords(words: Word[]): void {
     this.words = [];
@@ -105,7 +112,6 @@ export class WordsList implements OnInit, OnDestroy {
       word.audioExample = WORDS_API_URL + word.audioExample;
       this.words.push(word);
     });
-    console.log(this.words);
   }
 
   ngOnDestroy(): void {
