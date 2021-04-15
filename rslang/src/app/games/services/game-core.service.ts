@@ -86,7 +86,7 @@ export class GameCoreService {
   filterGameWords(words:WordWithStatistics[]): WordWithStatistics[] {
     return words.filter(
       (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
-       && (word.userStats.optional.knowledgeDegree as number) < 3,
+       && (word.userStats.optional.knowledgeDegree) < 3,
     );
   }
 

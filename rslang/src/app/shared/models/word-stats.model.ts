@@ -6,6 +6,6 @@ export interface UserStats {
     toStudy: StudyProgress;
     group: string;
     page: string;
-    knowledgeDegree?: number;
+    knowledgeDegree: number;
   };
 }
