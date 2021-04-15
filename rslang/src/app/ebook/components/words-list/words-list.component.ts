@@ -16,6 +16,7 @@ import { WordAndStatistics } from '../../../shared/models/word-statistics.model'
 import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { UserWordActionService } from '../../../shared/services/user-word-action.service';
 
 @Component({
   selector: 'app-words-list',
@@ -36,6 +37,7 @@ export class WordsList implements OnInit, OnDestroy {
     private wordsDataService: WordsDataService,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
+    private userWordActionService: UserWordActionService,
   ) {}
 
   ngOnInit(): void {
@@ -86,16 +88,32 @@ export class WordsList implements OnInit, OnDestroy {
         difficulty: params.action,
         optional: { group, page },
       });
+      if (this.isUserAuthenticated) {
+        this.userWordActionService.createUserWord(
+          userId as string,
+          params.wordId,
+          {
+            difficulty: params.action,
+            optional: { group, page },
+          },
+        );
+      }
     } else {
       this.userWords[index].difficulty = params.action;
+      if (this.isUserAuthenticated) {
+        this.userWordActionService.updateUserWord(
+          userId as string,
+          params.wordId,
+          {
+            difficulty: params.action,
+            optional: { group, page },
+          },
+        );
+      }
     }
 
     this.localStorageService
       .setItem(LocalStorageKey.WordsdUser, JSON.stringify(this.userWords));
-
-    if (this.isUserAuthenticated) {
-      console.log(this.isUserAuthenticated);
-    }
   }
 
   // indexWord<T>(arr: T[], index: string, value: string): number {
