@@ -29,7 +29,6 @@ export class StatisticsPage implements OnInit {
 
   ngOnInit(): void {
     this.local.setItem('GameSession', JSON.stringify(STATISTIC_DATA));
-    //this.local.setItem('GameSession', JSON.stringify([]));
     this.gsProvider.getGameSessions().subscribe((gameSessions) => {
       this.gameSessions = gameSessions;
     });
