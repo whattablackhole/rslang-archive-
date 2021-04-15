@@ -2,14 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WordsList } from './words-list.component';
 
-describe('ListWords', () => {
+describe('WordsListComponent', () => {
   let component: WordsList;
   let fixture: ComponentFixture<WordsList>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WordsList],
-    }).compileComponents();
+      declarations: [WordsList]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {
@@ -19,6 +20,6 @@ describe('ListWords', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeDefined();
+    expect(component).toBeTruthy();
   });
 });
