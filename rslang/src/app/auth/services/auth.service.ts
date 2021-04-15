@@ -24,7 +24,7 @@ export class AuthService {
     private notification: NotificationService,
   ) {}
 
-  getIsUserAuthenticated(): boolean {
+  getUserAuthenticationStatus(): boolean {
     return this.isUserAuthenticated;
   }
 

@@ -60,8 +60,8 @@
       }"
     ></div>
     <div class="game__word">
-      <div class="game__word-name">{{ word.word }}</div>
-      <div class="game__word-translate">{{ word.wordTranslate }}</div>
+      <div class="game__word-name">{{ currentWord.word }}</div>
+      <div class="game__word-translate">{{ currentWord.wordTranslate }}</div>
     </div>
     <div class="game__buttons">
       <button mat-raised-button (click)="onAnswer(true)" [disabled]="borderColorAnimationState !== 'none'">

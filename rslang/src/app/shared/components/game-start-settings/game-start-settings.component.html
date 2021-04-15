@@ -1,0 +1,14 @@
+<div>
+  <div class="game__select-container">
+    <label>Pick group:</label>
+    <select [(ngModel)]="groupNumber" class="game__select" (change)="groupNumberChangeHandler()">
+      <option *ngFor="let groupsNumber of groups;" [value]="groupsNumber">{{groupsNumber + 1}}</option>
+    </select>
+  </div>
+  <div class="game__select-container">
+    <label>Pick page:</label>
+    <select [(ngModel)]="page" class="game__select" (change)="pageChangeHandler()">
+      <option *ngFor="let page of pages;" [value]="page">{{+page + 1}}</option>
+    </select>
+  </div>
+</div>
