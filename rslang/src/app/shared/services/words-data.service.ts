@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
+
 import { Word } from '../models/word.model';
-import { BaseDataService } from '../../core/services/base-data.service';
+import { CurrentStateBook } from '../../ebook/models/current-state-book.model';
 import { WORDS_API_URL, WORDS_DATA } from '../constants/constants';
+import { API_URL } from '../constants/api-url';
+import { BaseDataService } from '../../core/services/base-data.service';
 
 @Injectable()
 export class WordsDataService extends BaseDataService<Word[]> {
@@ -11,7 +14,14 @@ export class WordsDataService extends BaseDataService<Word[]> {
     super(httpClient);
   }
 
-  public GetWords(): Word[] {
+  getWords(option: CurrentStateBook): void {
+    const params: HttpParams = new HttpParams()
+      .set('group', String(option.group - 1))
+      .set('page', String(option.page - 1));
+    this.getData(API_URL.WORDS, { params });
+  }
+
+  getWordsMock(): Word[] {
     const apiWords: Word[] = [];
     WORDS_DATA.forEach((wordData) => {
       const word = wordData;
