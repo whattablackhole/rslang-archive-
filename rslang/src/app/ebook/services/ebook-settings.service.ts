@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { LocalStorageService } from '../../core/services/local-storage.service';
-import { SettingsService } from './settings.service';
+import { SettingsDataService } from './settings-data.service';
 import { UserBookSettings } from '../models/user-book-settings.model';
 import { GlobalSettings } from '../models/global-settings.model';
 import { LocalStorageKey } from '../../shared/models/local-storage-keys.model';
@@ -17,7 +17,7 @@ export class EbookSettingsService {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private settingsService: SettingsService,
+    private settingsService: SettingsDataService,
   ) { }
 
   load(): void {

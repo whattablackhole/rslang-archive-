@@ -7,6 +7,20 @@
   user-select: none;
 }
 
+mat-grid-tile {
+  background: lightblue;
+}
+
+mat-grid-list {
+  margin-top: 90px;
+  width: 100%;
+  height: 100%;
+}
+
+mat-grid-tile-header {
+  align-self: center;
+}
+
 .game {
   background: rgb(174, 34, 195);
   background: linear-gradient(0deg, rgba(174, 34, 195, 1) 0%, rgba(135, 45, 253, 1) 100%);
@@ -20,6 +34,23 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+
+  &__level-selection {
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    width: 50vw;
+    height: 70vh;
+    border: 1px solid green;
+    position: relative;
+  }
+
+  &__level-header {
+    padding: 30px;
+    border: 1px solid red;
+    position: absolute;
+    top: -30px;
+  }
 
   &__no-words-title {
     text-align: center;
@@ -61,7 +92,7 @@
     }
 
     &-icon {
-      background: url('../../../../../assets/games/audio-call/Circle-icons-speaker.svg');
+      background: url('/assets/games/audio-call/Circle-icons-speaker.svg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -91,7 +122,7 @@
       font-size: 20px;
 
       &_correct::before {
-        background-image: url('../../../../../assets/games/sprint/correct.webp');
+        background-image: url('/assets/games/sprint/correct.webp');
         background-size: 20px 20px;
         background-repeat: no-repeat;
         display: inline-block;
@@ -102,7 +133,7 @@
       }
 
       &_incorrect::before {
-        background-image: url('../../../../../assets/games/audio-call/incorrect.png');
+        background-image: url('/assets/games/audio-call/incorrect.png');
         background-size: 20px 20px;
         background-repeat: no-repeat;
         display: inline-block;
@@ -128,9 +159,9 @@
   display: none;
 }
 
-@media screen and (max-width:500px){
-  .game{
-    &__words{
+@media screen and (max-width:500px) {
+  .game {
+    &__words {
       &-item {
         font-size: 16px;
       }
@@ -138,9 +169,9 @@
   }
 }
 
-@media screen and (max-width:400px){
-  .game{
-    &__words{
+@media screen and (max-width:400px) {
+  .game {
+    &__words {
       &-item {
         font-size: 11px;
       }

@@ -46,6 +46,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatGridListModule,
     MatExpansionModule,
     MatGridListModule,
     Footer,
