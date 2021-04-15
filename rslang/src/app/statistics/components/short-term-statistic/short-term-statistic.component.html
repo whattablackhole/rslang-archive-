@@ -1,0 +1,18 @@
+<div class="statistic-page__short">
+  <div class="short-table">
+    <div class="short-table__row short-table__title">
+      <p>Name</p>
+      <p>Winrate</p>
+      <p>Streak</p>
+      <p>Right Words</p>
+    </div>
+    <div *ngFor="let game of games" class="short-table__row short-table__value">
+      <p>{{ game.name }}</p>
+      <p>{{ game.winrate | number: '1.0-0'}}</p>
+      <p>{{ game.streak }}</p>
+      <p>{{ game.rightWords }}</p>
+    </div>
+  </div>
+  <p>Learned words: {{ statistic.learnedWords }}</p>
+</div>
+

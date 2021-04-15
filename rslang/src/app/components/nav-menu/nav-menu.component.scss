@@ -4,19 +4,49 @@ mat-toolbar {
   align-items: center;
   height: 90px;
   background-color: white;
+}
 
-  .main-menu {
-    font-size: 20px;
+.main-menu {
+  font-size: 20px;
+  width: fit-content;
+}
+
+.main-menu button {
+  margin-right: 5px;
+}
+
+.account-icon {
+  max-width: 25px;
+  width: 100%;
+  height: auto;
+}
+
+.logo-wrapper {
+  width: 100%;
+  min-width: 100px;
+  max-width: 200px;
+}
+
+.account-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 70px;
+  min-width: 20px;
+  width: 100%;
+}
+
+@media  only screen and (max-width: 800px){
+  .main-menu  {
+    display: none;
   }
+}
 
+@media  only screen and (max-width: 480px){
   .account-icon {
-    height: 25px;
+    display: none;
   }
-
-  div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 70px;
+  mat-toolbar {
+    padding: 0px;
   }
 }
