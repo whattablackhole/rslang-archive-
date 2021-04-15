@@ -23,7 +23,16 @@ import { RandomizePipe } from './pipes/randomize.pipe';
 import { GameStartSettings } from './components/game-start-settings/game-start-settings.component';
 
 @NgModule({
-  declarations: [NotFoundPage, Footer, NotificationBar, FinishMenu, ScreenSizeChanger, StartAnimation, RandomizePipe, GameStartSettings],
+  declarations: [
+    NotFoundPage,
+    Footer,
+    NotificationBar,
+    FinishMenu,
+    ScreenSizeChanger,
+    StartAnimation,
+    RandomizePipe,
+    GameStartSettings,
+  ],
   imports: [
     CommonModule,
     RouterModule,
