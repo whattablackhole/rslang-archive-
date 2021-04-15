@@ -21,7 +21,6 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
-import { GameStatistics } from 'src/app/shared/models/game-statistics.model';
 
 @Component({
   selector: 'app-savannah',
@@ -260,7 +259,7 @@ export class Savannah implements OnDestroy {
     this.isGameEnd = true;
     this.calculateStreak();
     this.generateCorrectPercent();
-    const statistics: GameStatistics = this.gameCoreService.generateStats(
+    const statistics = this.gameCoreService.generateStats(
       this.gameResultWords,
       this.biggestStreak,
       'Savannah',
