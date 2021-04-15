@@ -14,7 +14,7 @@ export class DotMenu implements OnInit, OnDestroy {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.isUserAuthenticated = this.authService.IsUserAuthenticated();
+    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     this.authStatusSubscription = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {

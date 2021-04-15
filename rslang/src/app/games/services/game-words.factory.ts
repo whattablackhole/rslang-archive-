@@ -11,7 +11,7 @@ export const gameWordsFactory = (wordsDataService: WordsDataService,
   gameCoreService: GameCoreService, authService: AuthService, userWordsDataService: UserWordsDataService,
   wordActionService: WordActionService, statisticsActionService: StatisticsActionService):
 GameStorageWordsService | GameUserWordsService => {
-  if (authService.IsUserAuthenticated()) {
+  if (authService.getUserAuthenticationStatus()) {
     return new GameUserWordsService(gameCoreService, userWordsDataService,
       wordsDataService, authService, wordActionService, statisticsActionService);
   }

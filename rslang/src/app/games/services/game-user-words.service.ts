@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, Observable, ObservedValueOf, Subject } from 'rxjs';
+import {
+  combineLatest, Observable, ObservedValueOf, Subject,
+} from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
 import { UserStats } from 'src/app/shared/models/word-stats.model';
