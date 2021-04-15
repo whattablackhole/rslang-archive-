@@ -1,1 +1,1 @@
-export type ButtonAction = 'hard' | 'removed';
+export type ButtonAction = 'hard' | 'removed' | '';

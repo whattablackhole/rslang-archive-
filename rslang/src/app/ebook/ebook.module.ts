@@ -13,6 +13,7 @@ import { PaginationDirective } from './directives/pagination.directive';
 import { EbookHeader } from './components/ebook-header/ebook-header.component';
 import { WordsList } from './components/words-list/words-list.component';
 import { WordItem } from './components/word-item/word-item.component';
+import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { WordItem } from './components/word-item/word-item.component';
     WordsList,
     WordItem,
     PaginationDirective,
+    FilterByActionPipe,
   ],
   imports: [SharedModule, EbookRoutingModule, MatInputModule],
   exports: [WordsCollections],

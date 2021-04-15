@@ -1,5 +1,5 @@
 import { StudyProgress } from 'src/app/ebook/models/study-progress.model';
-// import { UserWord } from './user-word.model';
+import { ButtonAction } from '../types/button-action.type';
 import { Word } from './word.model';
 
 export interface WordWithStatistics extends Word {
@@ -7,5 +7,14 @@ export interface WordWithStatistics extends Word {
   isRemove: boolean;
   toStudy: StudyProgress;
   knowledgeDegree: number;
-  // userOption: UserWord;
+}
+
+export interface WordAndStatistics extends Word {
+  difficulty?: ButtonAction;
+  optional?: {
+    knowledgeDegree?: number;
+    toStudy?: StudyProgress;
+    page?: string;
+    group?: string;
+  }
 }

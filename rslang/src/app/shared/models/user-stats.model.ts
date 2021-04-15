@@ -4,8 +4,8 @@ import { ButtonAction } from '../types/button-action.type';
 export interface UserStats {
   id?: string;
   wordId?: string;
-  difficulty?: ButtonAction;
-  optional?: {
+  difficulty: ButtonAction;
+  optional: {
     knowledgeDegree?: number;
     toStudy?: StudyProgress;
     page?: string;
