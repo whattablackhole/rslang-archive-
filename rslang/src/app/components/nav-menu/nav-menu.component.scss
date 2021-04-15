@@ -1,9 +1,16 @@
+@import "src/variables";
 mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 90px;
   background-color: white;
+  padding: 0 6rem;
+}
+
+.btn{
+  background: $blue_color;
+  box-shadow: 2px 2px 5px $main_gray_color;
 }
 
 .main-menu {
