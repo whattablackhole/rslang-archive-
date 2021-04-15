@@ -11,6 +11,6 @@ export class FilterByActionPipe implements PipeTransform {
     if (!list || !difficulty) {
       return list;
     }
-    return list.filter((element) => element.difficulty === difficulty);
+    return list.filter((element: WordAndStatistics) => element.difficulty === difficulty);
   }
 }

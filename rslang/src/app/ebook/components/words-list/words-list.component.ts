@@ -28,9 +28,9 @@ export class WordsList implements OnInit, OnDestroy {
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
 
   userBookSettings: UserBookSettings;
-  words: WordAndStatistics[] = [];
+  words: Word[] = [];
   userWords: UserStats[] = [];
-  isUserAuthenticated = this.authService.getIsUserAuthenticated();
+  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
 
   constructor(
     private route: ActivatedRoute,
