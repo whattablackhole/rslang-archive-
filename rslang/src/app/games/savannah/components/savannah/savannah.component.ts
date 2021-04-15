@@ -138,7 +138,7 @@ export class Savannah implements OnDestroy {
   getWords(): void {
     this.isLoading = true;
     this.isShownGameSettings = false;
-    this.gameWordsService.getWords(`${this.groupNumber}`, `${this.page}`);
+    this.gameWordsService.getWords(this.groupNumber, this.page);
     this.gameWordsService.createWordsForGame(
       this.groupNumber,
       this.page,
