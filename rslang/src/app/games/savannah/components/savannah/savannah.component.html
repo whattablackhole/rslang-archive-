@@ -3,22 +3,19 @@
   <div class="game__menu" *ngIf="IsNeedGameMenu">
     <h2 class="game__title">Savannah</h2>
     <h3 class="game__subtitle">In this game you need to use your skills to choose the appropriate answer</h3>
-    <div *ngIf="fromNavbar">
-      <div class="savannah__select-container">
-        <label>Pick group:</label>
-        <select [(ngModel)]="groupsNumber" class="savannah__select">
-          <option *ngFor="let groupsNumber of groups;" [value]="groupsNumber">{{groupsNumber + 1}}</option>
-        </select>
-      </div>
-      <div class="savannah__select-container">
-        <label>Pick page:</label>
-        <select [(ngModel)]="page" class="savannah__select">
-          <option *ngFor="let page of pages;" [value]="page">{{+page + 1}}</option>
-        </select>
-      </div>
+    <div *ngIf="isShownGameSettings">
+      <app-game-start-settings [groupsAmount]='groupsAmount' [pagesAmount]='pagesAmount'
+        (groupNumberChange)='groupNumberChangeHandler($event)' (pageChange)='pageChangeHandler($event)'>
+      </app-game-start-settings>
     </div>
-    <div>
-      <mat-spinner *ngIf="!words"></mat-spinner>
+    <div *ngIf="!words">
+      <mat-spinner *ngIf="isLoading" style="margin:0 auto;"
+      mode="indeterminate"></mat-spinner>
+      <button class="game__play-button" *ngIf="!isLoading" mat-raised-button color="primary" (click)="getWords()">
+        get words
+      </button>
+    </div>
+    <div *ngIf="words">
       <button class="game__play-button" *ngIf="words" mat-raised-button color="primary" (click)="startGame()">
         play
       </button>
@@ -35,11 +32,8 @@
         {{ currentWord.word }}
       </div>
       <div class="savannah__answers" (window:keydown)="onKeyDownHandler($event)">
-        <button
-          *ngFor="let answer of currentAnswers; index as i"
-          class="savannah__answer"
-          (click)="checkAnswer(answer)"
-        >
+        <button *ngFor="let answer of currentAnswers; index as i" class="savannah__answer"
+          (click)="checkAnswer(answer)">
           {{ i + 1 }} {{ answer.wordTranslate }}
         </button>
       </div>

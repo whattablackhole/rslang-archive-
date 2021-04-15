@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   trigger,
   style,
@@ -21,6 +21,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
+import { GameStatistics } from 'src/app/shared/models/game-statistics.model';
 
 @Component({
   selector: 'app-savannah',
@@ -67,7 +68,7 @@ import { Subscription } from 'rxjs';
     ]),
   ],
 })
-export class Savannah implements OnInit, OnDestroy {
+export class Savannah implements OnDestroy {
   wordsSubscription: Subscription;
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
@@ -75,8 +76,8 @@ export class Savannah implements OnInit, OnDestroy {
     incorrectWords: [],
   };
 
-  groupsNumber = 0;
-  page = 0;
+  groupNumber = '0';
+  page = '0';
 
   gameWordsState: GameWordsState = {
     isWordsLast: false,
@@ -86,22 +87,20 @@ export class Savannah implements OnInit, OnDestroy {
     minAmout: 10,
   };
 
-  groups: number[];
-  pages: number[];
-
   correctGamePercent: number;
 
-  IsNeedGameMenu: boolean = true;
-  isGameStart: boolean = false;
-  isGameEnd: boolean = false;
-  fromNavbar: boolean = true;
-  questionCounter: number = 1;
-  streak: number = 0;
-  biggestStreak: number = 0;
-  roundTimer: number = 4000;
-  answersAmount: number = 4;
-  groupsAmount: number = 6;
-  pagesAmount: number = 30;
+  isLoading = false;
+  IsNeedGameMenu = true;
+  isGameStart = false;
+  isGameEnd = false;
+  isShownGameSettings = true;
+  questionCounter = 1;
+  streak = 0;
+  biggestStreak = 0;
+  roundTimer = 4000;
+  answersAmount = 4;
+  groupsAmount = 6;
+  pagesAmount = 30;
   keys: string[] = ['1', '2', '3', '4'];
   lives: boolean[] = [true, true, true];
 
@@ -116,24 +115,6 @@ export class Savannah implements OnInit, OnDestroy {
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
   ) {}
-
-  ngOnInit(): void {
-    this.groups = this.makeFilledArray(this.groupsAmount);
-    this.pages = this.makeFilledArray(this.pagesAmount);
-    this.gameWordsService.getWords(`${this.groupsNumber}`, `${this.page}`);
-    this.gameWordsService.createWordsForGame(
-      `${this.groupsNumber}`,
-      `${this.page}`,
-      this.gameWordsState,
-    );
-
-    this.wordsSubscription = this.gameWordsService.sortedWords$.subscribe(
-      (sortedWords: WordWithStatistics[]) => {
-        this.words = sortedWords;
-        this.unUsedWords = [...this.words];
-      },
-    );
-  }
 
   ngOnDestroy():void {
     this.wordsSubscription.unsubscribe();
@@ -153,6 +134,25 @@ export class Savannah implements OnInit, OnDestroy {
     if (this.keys.includes(event.key)) {
       this.checkAnswer(this.currentAnswers[+event.key - 1]);
     }
+  }
+
+  getWords(): void {
+    this.isLoading = true;
+    this.isShownGameSettings = false;
+    this.gameWordsService.getWords(`${this.groupNumber}`, `${this.page}`);
+    this.gameWordsService.createWordsForGame(
+      this.groupNumber,
+      this.page,
+      this.gameWordsState,
+    );
+
+    this.wordsSubscription = this.gameWordsService.sortedWords$.subscribe(
+      (sortedWords: WordWithStatistics[]) => {
+        this.isLoading = false;
+        this.words = sortedWords;
+        this.unUsedWords = [...this.words];
+      },
+    );
   }
 
   startGame(): void {
@@ -231,9 +231,9 @@ export class Savannah implements OnInit, OnDestroy {
   ): WordWithStatistics {
     const changedWord = { ...word };
     if (result) {
-      changedWord.userStats.optional.knowledgeDegree = (changedWord.userStats.optional.knowledgeDegree as number) + 1;
-    } else if ((changedWord.userStats.optional.knowledgeDegree as number) > 0) {
-      changedWord.userStats.optional.knowledgeDegree = (changedWord.userStats.optional.knowledgeDegree as number) + 1;
+      changedWord.userStats.optional.knowledgeDegree += 1;
+    } else if (changedWord.userStats.optional.knowledgeDegree > 0) {
+      changedWord.userStats.optional.knowledgeDegree -= 1;
     }
 
     return changedWord;
@@ -260,7 +260,7 @@ export class Savannah implements OnInit, OnDestroy {
     this.isGameEnd = true;
     this.calculateStreak();
     this.generateCorrectPercent();
-    const statistics = this.gameCoreService.generateStats(
+    const statistics: GameStatistics = this.gameCoreService.generateStats(
       this.gameResultWords,
       this.biggestStreak,
       'Savannah',
@@ -280,13 +280,12 @@ export class Savannah implements OnInit, OnDestroy {
     );
   }
 
-  makeFilledArray(length: number): number[] {
-    const arr = [];
-    // eslint-disable-next-line
-    for (let i = 0; i < length; i++) {
-      arr.push(i);
-    }
-    return arr;
+  groupNumberChangeHandler(groupNumber: string): void {
+    this.groupNumber = groupNumber;
+  }
+
+  pageChangeHandler(page: string): void {
+    this.page = page;
   }
 
   shuffleArray(arrToShuffle: WordWithStatistics[]): WordWithStatistics[] {
