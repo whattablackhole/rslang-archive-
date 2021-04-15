@@ -1,13 +1,14 @@
-:host {
-  background-color: lighten(grey, 30%);
-  width: 100%;
-  height: 40px;
-}
-
 .footer__wrapper {
+  height: 40px;
+  background-color: lighten(white, 10%);
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.footer-base {
+  width: 40px;
+  visibility: hidden;
 }
 
 .footer__logo {

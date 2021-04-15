@@ -11,7 +11,7 @@
       <button mat-flat-button color="primary" class="main__button">Sign up</button>
     </div>
     <div class="main__pic">
-      <img src="../../../../assets/images/main_page.svg" alt="learn_english" />
+      <img src="../../../../assets/main/main.png" alt="learn_english" />
     </div>
   </div>
 </section>
@@ -28,44 +28,18 @@
     </iframe>
   </div>
 </section>
-<section class="main__team">
-  <mat-accordion>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-description>
-          <p class="main__team__panel-description">Click to show our team</p>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <app-team></app-team>
-    </mat-expansion-panel>
-  </mat-accordion>
-</section>
-<div class="show__team">
-  <app-team></app-team>
-</div>
-
-<section class="main__games">
-  <h3 class="main__games__title">OUR GAMES</h3>
-  <div class="main__games__cards">
-    <mat-card *ngFor="let game of games" class="main__games__item">
-      <h3 class="main__games__item__title">{{ game.title }}</h3>
-      <div class="main__games__item__description">
-        <p class="main__games__item__description-text">{{ game.description }}</p>
-      </div>
-    </mat-card>
-  </div>
-</section>
 
 <section class="main__advantages">
-  <h3 class="main__advantages__title">OUR ADVANTAGES</h3>
+  <div class="top-line"></div>
+  <h3 class="main__advantages__title">Our Advantages:</h3>
   <div class="main__advantages__items">
     <div class="main__advantages__item">
       <div class="main__advantages__item__icon">
         <img src="../../../../assets/images/personalized_program_icon.svg" alt="personalized_program" />
       </div>
-      <h3 class="main__advantages__item__title">Personalized learning program</h3>
+      <h3 class="main__advantages__item__title">Personalized Vocabulary</h3>
       <div class="main__advantages__item__description">
-        <p class="main__advantages__item__description-text">Learn with a program created by experts in linguistics</p>
+        <p class="main__advantages__item__description-text">Find approach to create your own sets of words</p>
       </div>
     </div>
 
@@ -100,5 +74,22 @@
     </div>
   </div>
 </section>
+
+
+<section class="main__team">
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-description>
+          <p class="main__team__panel-description">Click to show our team</p>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-team></app-team>
+    </mat-expansion-panel>
+  </mat-accordion>
+</section>
+<div class="show__team">
+  <app-team></app-team>
+</div>
 
 <app-footer></app-footer>

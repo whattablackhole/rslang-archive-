@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Game } from './../models/game.model';
 
 @Component({
   selector: 'app-main',
@@ -8,19 +7,4 @@ import { Game } from './../models/game.model';
 })
 export class Main {
   panelOpenState = false;
-  games: Game[] = [
-    {
-      title: 'Savanna',
-      description: `Сhoose the correct translation from four options `,
-    },
-    { title: 'AudioCall', description: `Listen to the voice and choose the correct translation from five options` },
-    {
-      title: 'Sprint',
-      description: `Choose the translation to matches the displayed English word, while the timer is running`,
-    },
-    {
-      title: 'Find the pair',
-      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.`,
-    },
-  ];
 }

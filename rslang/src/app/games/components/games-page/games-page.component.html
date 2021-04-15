@@ -1,0 +1,14 @@
+
+<section class="main__games">
+    <h3 class="main__games__title">Play and reach up your vocabulary:</h3>
+    <div class="main__games__cards">
+      <mat-card *ngFor="let game of games" class="main__games__item" [ngStyle]="game.url">
+        <h3 class="main__games__item__title">{{ game.title }}</h3>
+        <div class="main__games__item__description hidden">
+          <p class="main__games__item__description-text ">{{ game.description }}</p>
+          <button mat-raised-button color="primary" class="main__games__item__button">Play</button>
+        </div>
+      </mat-card>
+    </div>
+  </section>
+  <app-footer></app-footer>

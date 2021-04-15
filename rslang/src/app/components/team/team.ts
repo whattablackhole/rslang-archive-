@@ -10,58 +10,51 @@ export class Team {
     {
       name: 'Rudolf Hrytsenyak',
       position: 'team leader',
-      contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Dolor risus sed cras enim aliquam pulvinar dui augue.
-      Adipiscing viverra eu tellus felis urna diam platea dignissim morbi.`,
+      contribution: 'Lorem ipsum dolor sit amet',
       github: 'https://github.com/whattablackhole',
+      url: '../../../assets/images/team/Rudolf.jpg',
     },
     {
       name: 'Anna Tolstova',
       position: 'team leader',
-      contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Dolor risus sed cras enim aliquam pulvinar dui augue.
-      Adipiscing viverra eu tellus felis urna diam platea dignissim morbi.`,
+      contribution: 'Lorem ipsum dolor sit amet',
       github: 'https://github.com/Anntol',
+      url: '../../../assets/images/team/person_pic.jpeg',
     },
     {
       name: 'Tatsiana Kastrubai',
       position: 'team leader',
-      contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Dolor risus sed cras enim aliquam pulvinar dui augue.
-      Adipiscing viverra eu tellus felis urna diam platea dignissim morbi.`,
+      contribution: 'Lorem ipsum dolor sit amet',
       github: 'https://github.com/kastrubait',
+      url: '../../../assets/images/team/person_pic.jpeg',
     },
     {
       name: 'Natali Tverdokhlibova',
       position: 'team leader',
-      contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Dolor risus sed cras enim aliquam pulvinar dui augue.
-      Adipiscing viverra eu tellus felis urna diam platea dignissim morbi.`,
+      contribution: 'Lorem ipsum dolor sit amet',
       github: 'https://github.com/coriander31415',
+      url: '../../../assets/images/team/person_pic.jpeg',
     },
     {
       name: 'Alena Budnik',
       position: 'team leader',
-      contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Dolor risus sed cras enim aliquam pulvinar dui augue.
-      Adipiscing viverra eu tellus felis urna diam platea dignissim morbi.`,
+      contribution: 'Lorem ipsum dolor sit amet',
       github: 'https://github.com/superpuper777',
+      url: '../../../assets/images/team/person_pic.jpeg',
     },
     {
       name: 'Khan Maliká',
       position: 'team leader',
-      contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Dolor risus sed cras enim aliquam pulvinar dui augue.
-      Adipiscing viverra eu tellus felis urna diam platea dignissim morbi.`,
+      contribution: 'Lorem ipsum dolor sit amet',
       github: 'https://github.com/EvilKami7',
+      url: '../../../assets/images/team/person_pic.jpeg',
     },
     {
       name: 'Andrew Zubkov',
       position: 'team leader',
-      contribution: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-      Dolor risus sed cras enim aliquam pulvinar dui augue.
-      Adipiscing viverra eu tellus felis urna diam platea dignissim morbi.`,
+      contribution: 'Lorem ipsum dolor sit amet',
       github: 'https://github.com/nofishtou',
+      url: '../../../assets/images/team/person_pic.jpeg',
     },
   ];
 }

@@ -1,0 +1,110 @@
+@import "src/variables";
+
+@mixin main-title {
+  margin-bottom: $margin_after_title;
+  font-size: 1.4rem;
+  text-align: center;
+  color: $main_blue;
+  font-family: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+}
+
+@mixin card-title {
+  font-size: 1.2rem;
+  font-size: 400;
+  text-align: center;
+  color: $main_blue;
+}
+
+.main__games {
+    margin-bottom: 100px;
+  
+    &__title {
+      @include main-title;
+      font-weight: 700;
+      border-radius: 1px;
+      max-width: 350px;
+      width: 100%;
+      font-size: 2rem;
+      margin:50px auto;
+    }
+  
+    &__cards {
+      display: grid;
+      row-gap: 80px;
+      column-gap: 50px;
+      grid-auto-flow: row;
+      justify-content: center;
+      grid-template-columns: auto auto;
+      height: auto;
+      @media screen and (max-width: 780px) {
+        grid-template-columns: auto;
+      }
+    }
+  
+    &__item {
+      width: 16rem;
+      min-height: 8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 2rem;
+      box-shadow: 1px 4px 8px 0px rgba(34, 60, 80, 0.2);
+      height: 100%;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+     
+      &__title {
+        @include card-title;
+        font-weight: 600;
+        color: #fff;
+        text-transform: uppercase;
+        
+      }
+      &__button {
+        background-color: $main_blue;
+        max-width: 200px;
+        width: 100%;
+        align-self: center;
+      }
+      &__description{
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      &__description-text {
+        color: white;
+        background-color: transparentize($color: $main_blue, $amount: 0.2);
+        border-radius: 5px;
+        font-family: 'Noto Sans JP', sans-serif;
+  
+      }
+    }
+  
+  }
+  
+
+  .hidden {
+    opacity: 0;
+  }
+  
+  .main__games__item {
+    opacity: 0.9;
+    border: 1px solid $main_blue;
+    box-shadow: 1px 4px 8px 0px rgba(34, 60, 80, 0.5);
+  }
+  
+  .main__games__item:hover .hidden {
+    opacity: 1;
+    transition: opacity  0.5s;
+  }
+  
+  
+  .main__games__item:hover {
+    opacity: 1;
+    transition: opacity , transform 0.5s;
+    transform: scale(1.1);
+  }
+  
