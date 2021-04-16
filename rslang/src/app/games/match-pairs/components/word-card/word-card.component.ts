@@ -1,5 +1,9 @@
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  animate, keyframes, state, style, transition, trigger,
+} from '@angular/animations';
+import {
+  Component, EventEmitter, Input, Output,
+} from '@angular/core';
 import { CardData } from '../../models/card-data.model';
 
 @Component({
@@ -21,7 +25,7 @@ import { CardData } from '../../models/card-data.model';
         opacity: 0,
       })),
       transition('default => selected', [
-        animate('200ms'),
+        animate('100ms'),
       ]),
       transition('selected => default', [
         animate('200ms'),
@@ -29,7 +33,7 @@ import { CardData } from '../../models/card-data.model';
       transition('* => matched', [
         animate('700ms'),
       ]),
-      transition('selected => error',
+      transition('selected <=> error',
         animate('1.2s ease-out', keyframes([
           style({ transform: 'translate3d(-2px, 0, 0)', offset: 0.1, background: 'red' }),
           style({ transform: 'translate3d(3px, 0, 0)', offset: 0.2, background: 'red' }),
@@ -40,10 +44,9 @@ import { CardData } from '../../models/card-data.model';
           style({ transform: 'translate3d(-5px, 0, 0)', offset: 0.7, background: 'red' }),
           style({ transform: 'translate3d(3px, 0, 0)', offset: 0.8, background: 'red' }),
           style({ transform: 'translate3d(-2px, 0, 0)', offset: 0.9, background: 'red' }),
-        ]))
-      ),
-    ])
-  ]
+        ]))),
+    ]),
+  ],
 })
 export class WordCard {
   @Input() data: CardData;

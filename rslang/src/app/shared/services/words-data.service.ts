@@ -1,6 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { BaseDataService } from '../../core/services/base-data.service';
 import { CurrentStateBook } from '../../ebook/models/current-state-book.model';
 import { API_URL } from '../constants/api-url';
@@ -9,20 +8,18 @@ import { Word } from '../models/word.model';
 
 @Injectable()
 export class WordsDataService extends BaseDataService<Word[]> {
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-  constructor(httpClient: HttpClient) {
+  public constructor(httpClient: HttpClient) {
     super(httpClient);
   }
 
-  GetWords(option: CurrentStateBook): Observable<Word[]> {
+  getWords(option: CurrentStateBook): void {
     const params: HttpParams = new HttpParams()
       .set('group', String(option.group - 1))
       .set('page', String(option.page - 1));
     this.getData(API_URL.WORDS, { params });
-    return this.data$;
   }
 
-  GetWordsMock(): Word[] {
+  getWordsMock(): Word[] {
     const apiWords: Word[] = [];
     WORDS_DATA.forEach((wordData) => {
       const word = wordData;

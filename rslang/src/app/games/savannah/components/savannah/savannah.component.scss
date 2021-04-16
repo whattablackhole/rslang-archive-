@@ -1,0 +1,63 @@
+.savannah__container {
+  margin: 0 auto;
+  padding: 0 5%;
+  max-width: 100%;
+  position: relative;
+  .game__menu {
+    padding-top: 30px;
+    text-align: center;
+  }
+
+  .savannah__health {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+  }
+
+  .savannah__control-panel {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .savannah__body {
+    min-height: calc(100vh - 110px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .savannah__question {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .savannah__answer {
+    margin: 5px 5px;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s ease-in all;
+    &:hover {
+      color: #ffffff;
+      background-color: #000000;
+      border-color: #ffffff;
+    }
+  }
+}
+
+@media (max-width: 768px ) {
+  .savannah__answers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+

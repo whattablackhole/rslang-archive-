@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Word } from 'src/app/shared/models/word.model';
 import { WordsDataService } from 'src/app/shared/services/words-data.service';
 import { CardData } from '../../models/card-data.model';
-import { CardState } from '../../models/card-state.type';
 
 @Component({
   selector: 'app-match-pairs',
@@ -15,8 +14,7 @@ export class MatchPairs implements OnInit {
   selectedCards: CardData[] = [];
   words: Word[] = [];
 
-  state: CardState;
-  matchedCount = 0;
+  correctAnswers = 0;
 
   constructor(private wordsDataService: WordsDataService) { }
 
@@ -26,18 +24,21 @@ export class MatchPairs implements OnInit {
 
   renderCards(): void {
     this.cards = [];
-    this.words = this.wordsDataService.GetWordsMock();
+    this.words = this.wordsDataService.getWordsMock();
     this.words.forEach((word) => {
-      const cardData: CardData = {
+      const cardDataEN: CardData = {
         id: word.id,
-        word: word.word,
-        translation: word.wordTranslate,
-        state: 'default'
+        title: word.word,
+        state: 'default',
       };
-      this.cards.push({ ...cardData });
-      this.cards.push({ ...cardData });
+      const cardDataRU: CardData = {
+        id: word.id,
+        title: word.wordTranslate,
+        state: 'default',
+      };
+      this.cards.push({ ...cardDataEN });
+      this.cards.push({ ...cardDataRU });
     });
-    this.cards = this.shuffleCards(this.cards);
   }
 
   cardClicked(index: number): void {
@@ -54,31 +55,28 @@ export class MatchPairs implements OnInit {
     }
   }
 
-  setDefaultState(): void{
-    this.state = 'default';
-  }
-
   checkAnswer(): void {
     setTimeout(() => {
       const cardOne = this.selectedCards[0];
       const cardTwo = this.selectedCards[1];
       const nextState = cardOne.id === cardTwo.id ? 'matched' : 'error';
-      cardOne.state = cardTwo.state = nextState;
+      cardOne.state = nextState;
+      cardTwo.state = nextState;
+
+      setTimeout(() => {
+        if (nextState === 'error') {
+          cardOne.state = 'default';
+          cardTwo.state = 'default';
+        }
+      }, 500);
 
       this.selectedCards = [];
       if (nextState === 'matched') {
-        this.matchedCount++;
-        if (this.matchedCount === this.words.length) {
+        this.correctAnswers += 1;
+        if (this.correctAnswers === this.words.length) {
           console.log('Game Finished!');
         }
       }
-    }, 500);
+    }, 1000);
   }
-
-  shuffleCards(cards: any[]): any[] {
-    return cards.map(a => [Math.random(), a])
-      .sort((a, b) => a[0] - b[0])
-      .map(a => a[1]);
-  }
-
 }

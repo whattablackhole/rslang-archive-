@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
+import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameCoreService } from './game-core.service';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { GameWordsState } from '../interfaces/game-words-state.model';
@@ -36,7 +37,7 @@ export class GameStorageWordsService {
     }
   }
 
-  createWords(group: string, page: string, gameWordsState: GameWordsState): void {
+  createWordsForGame(group: string, page: string, gameWordsState: GameWordsState): void {
     this.page = page;
     this.group = group;
 
@@ -44,13 +45,14 @@ export class GameStorageWordsService {
 
     this.words$.subscribe((words: Word[]) => {
       if (!this.sortedWords) {
-        this.sortedWords = this.gameCoreService.toAggregatedWords(words);
+        this.sortedWords = this.gameCoreService.toWordsWithStatistics(words);
       } else {
-        this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toAggregatedWords(words)];
+        this.sortedWords = [...this.sortedWords, ...this.gameCoreService.toWordsWithStatistics(words)];
       }
       if (Array.isArray(this.wordsFromLocalStorage)) {
-        this.sortedWords = this.gameCoreService.addToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
+        this.sortedWords = this.gameCoreService.addLocalToSortedWords(this.sortedWords, this.wordsFromLocalStorage);
       }
+      this.sortedWords = this.gameCoreService.filterGameWords(this.sortedWords);
       this.getFullWords(wordsState);
       if (this.sortedWords.length >= wordsState.wordsLimit) {
         this.sortedWords = this.sortedWords.slice(0, wordsState.wordsLimit);
@@ -66,5 +68,13 @@ export class GameStorageWordsService {
   getWords(group: string, page: string): void {
     this.wordsService.getData(this.gameCoreService.getWordsPath(group, page));
     this.wordsFromLocalStorage = this.gameCoreService.getLocalStorageWords(group, page);
+  }
+
+  uploadWords(words:WordWithStatistics[]): void {
+    this.gameCoreService.addWordsToLocalStorage(words);
+  }
+
+  uploadStats(stats: Statistics): void {
+    this.gameCoreService.addStatsToLocalStorage(stats);
   }
 }

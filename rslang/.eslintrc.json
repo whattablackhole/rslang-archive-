@@ -66,8 +66,18 @@
         "@angular-eslint/component-class-suffix": [
           "warn",
           {
-            "suffixes": ["", "Component", "Page"]
+            "suffixes": ["", "Page"]
           }
+        ],
+        "no-plusplus": [
+          "error",
+          {
+            "allowForLoopAfterthoughts": true
+          }
+        ],
+        "no-useless-constructor" : "off" ,
+        "@typescript-eslint/no-useless-constructor": [
+          "warn"
         ]
       }
     },

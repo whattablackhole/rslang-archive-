@@ -3,10 +3,9 @@
   <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
     <app-word-item
       class="words-conteiner__item"
-      *ngFor="let item of words"
-      [item] = "item"
-      (wordRemove)=changeRemoveWord($event)
-      (wordDifficult)=changeDifficultWord($event)>
+      *ngFor ="let item of words | filterByAction: ''"
+      [item]="item"
+      (setAction)=setActionForWord($event)>
     </app-word-item>
   </ng-container>
 </section>

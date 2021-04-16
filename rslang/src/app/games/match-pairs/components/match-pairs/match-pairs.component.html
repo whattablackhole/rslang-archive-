@@ -1,8 +1,7 @@
 <div class="game-wrapper">
   <app-screen-size-changer></app-screen-size-changer>
-  <app-word-card
-    *ngFor="let card of cards; let idx=index" 
-    [data]="card" 
-    (cardClicked)="cardClicked(idx)">
+  <h2 class="game-title">Match Pairs Game</h2>
+  <h3 class="game-subtitle">Match words with their translations! <br> Good luck!</h3>
+  <app-word-card *ngFor="let card of cards; let idx=index" [data]="card" (cardClicked)="cardClicked(idx)">
   </app-word-card>
 </div>

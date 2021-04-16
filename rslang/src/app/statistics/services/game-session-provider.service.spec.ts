@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SettingsService } from './settings.service';
+import { GSProviderService } from './gs-provider.service';
 
-describe('SettingsService', () => {
-  let service: SettingsService;
+describe('GameSessionProviderService', () => {
+  let service: GSProviderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SettingsService);
+    service = TestBed.inject(GSProviderService);
   });
 
   it('should be created', () => {

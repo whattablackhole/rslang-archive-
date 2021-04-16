@@ -10,6 +10,7 @@ import { WordsCollections } from './components/words-collections/words-collectio
 import { WordsList } from './components/words-list/words-list.component';
 import { PaginationDirective } from './directives/pagination.directive';
 import { EbookRoutingModule } from './ebook-routing.module';
+import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
 import { EbookSettingsService } from './services/ebook-settings.service';
 import { SettingsDataService } from './services/settings-data.service';
 
@@ -22,6 +23,7 @@ import { SettingsDataService } from './services/settings-data.service';
     WordsList,
     WordItem,
     PaginationDirective,
+    FilterByActionPipe,
   ],
   imports: [SharedModule, EbookRoutingModule, MatInputModule],
   exports: [WordsCollections],

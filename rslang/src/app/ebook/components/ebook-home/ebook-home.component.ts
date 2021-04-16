@@ -48,8 +48,8 @@ export class EbookHome implements OnInit, OnDestroy {
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
   }
 
-  changeSelectedBookPage(pageNoChanged: number): void {
-    this.userBookSettings.currentState.page = pageNoChanged;
+  changeSelectedBookPage(pageNumberChanged: number): void {
+    this.userBookSettings.currentState.page = pageNumberChanged;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
   }
