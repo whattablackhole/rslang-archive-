@@ -5,7 +5,7 @@ mat-toolbar {
   align-items: center;
   height: 90px;
   background-color: white;
-  padding: 0 6rem;
+  padding: 0 5rem;
 }
 
 .btn{
@@ -55,6 +55,6 @@ mat-toolbar {
     display: none;
   }
   mat-toolbar {
-    padding: 0px;
+    padding: 1rem;
   }
 }
