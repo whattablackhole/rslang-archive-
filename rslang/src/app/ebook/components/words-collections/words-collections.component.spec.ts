@@ -27,7 +27,9 @@ describe('WordsCollections', () => {
     const wordsCollections: WordsCollection[] = [
       {
         id: 1,
-        name: 'collection 2',
+        name: 'collection #2',
+        path: 'group',
+        img: '../assets/collections/collections-2.png',
         pages: 30,
         words: 600,
         progress: 0,

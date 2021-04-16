@@ -1,8 +1,10 @@
 import {
-  Component, Input, Output, EventEmitter,
+  Component,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { WordsCollection } from '../../models/words-collection.model';
+import { CONFIG_EBOOK } from '../../constants/config-ebook';
 
 @Component({
   selector: 'app-words-collections',
@@ -10,14 +12,16 @@ import { WordsCollection } from '../../models/words-collection.model';
   styleUrls: ['./words-collections.component.scss'],
 })
 export class WordsCollections {
-  @Input() wordsCollections!: WordsCollection[];
-  @Output() groupIdChanged: EventEmitter<number> = new EventEmitter<number>();
+  wordsCollections: WordsCollection[] = CONFIG_EBOOK.collections;
 
-  changeSelectedGroup(collection: WordsCollection): void {
-    this.groupIdChanged.emit(collection.id);
+  constructor(private router: Router) {}
+
+  changeSelectedGroup(collection: WordsCollection): Promise<boolean> {
+    const path = `ebook/${String(collection.path) || ''}`;
+    return this.router.navigate([path, collection.id + 1]);
   }
 
-  getProgress(item: number): string {
-    return `${(100 * (this.wordsCollections[item].progress / this.wordsCollections[item].words)).toFixed(0)}%`;
+  getProgress(i: number): string {
+    return `${(100 * (this.wordsCollections[i].progress / this.wordsCollections[i].words)).toFixed(0)}%`;
   }
 }

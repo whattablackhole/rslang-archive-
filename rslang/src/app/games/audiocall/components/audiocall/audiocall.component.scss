@@ -1,0 +1,180 @@
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mat-grid-tile {
+  background: lightblue;
+}
+
+mat-grid-list {
+  margin-top: 90px;
+  width: 100%;
+  height: 100%;
+}
+
+mat-grid-tile-header {
+  align-self: center;
+}
+
+.game {
+  background: rgb(174, 34, 195);
+  background: linear-gradient(0deg, rgba(174, 34, 195, 1) 0%, rgba(135, 45, 253, 1) 100%);
+  width: 100%;
+  height: max-content;
+  max-width: 800px;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+
+  &__level-selection {
+    align-self: center;
+    justify-content: center;
+    display: flex;
+    width: 50vw;
+    height: 70vh;
+    border: 1px solid green;
+    position: relative;
+  }
+
+  &__level-header {
+    padding: 30px;
+    border: 1px solid red;
+    position: absolute;
+    top: -30px;
+  }
+
+  &__no-words-title {
+    text-align: center;
+  }
+
+  &__front-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    width: 100%;
+    align-self: center;
+  }
+
+  &__button {
+    align-self: center;
+    margin-top: 30px;
+    width: 130px;
+    border-top: 0.1px solid darken($color: whitesmoke, $amount: 50%);
+    border-right: 0.1px solid darken($color: whitesmoke, $amount: 50%);
+    border-bottom: 0.1px solid transparent;
+    border-left: 0.1px solid transparent;
+  }
+
+  &__button:hover {
+    border-bottom: 0.1px solid whitesmoke;
+    border-left: 0.1px solid whitesmoke;
+    transition: border 0.4s linear;
+  }
+
+  &__sound {
+
+    &_wrapper {
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-self: center;
+    }
+
+    &-icon {
+      background: url('/assets/games/audio-call/Circle-icons-speaker.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.2s ease-in-out;
+
+    }
+
+    &-icon:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+
+  &__words {
+    display: flex;
+    max-width: 800px;
+    width: 100%;
+    margin-top: 50px;
+    align-self: center;
+    justify-content: space-around;
+    font-family: 'Noto Sans JP', sans-serif;
+
+    &-item {
+      font-size: 20px;
+
+      &_correct::before {
+        background-image: url('/assets/games/sprint/correct.webp');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        margin-left: 10px;
+        width: 20px;
+        height: 20px;
+        content: "";
+      }
+
+      &_incorrect::before {
+        background-image: url('/assets/games/audio-call/incorrect.png');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        margin-left: 10px;
+        width: 20px;
+        height: 20px;
+        content: "";
+      }
+    }
+  }
+
+  .game__words-item_choosed {
+    color: black !important;
+    opacity: 1 !important;
+  }
+
+  .spinner {
+    align-self: center;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width:500px) {
+  .game {
+    &__words {
+      &-item {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:400px) {
+  .game {
+    &__words {
+      &-item {
+        font-size: 11px;
+      }
+    }
+  }
+}

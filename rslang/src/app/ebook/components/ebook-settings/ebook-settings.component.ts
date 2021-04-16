@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
 } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 import { UserBookSettings } from '../../models/user-book-settings.model';
 
@@ -10,9 +11,13 @@ import { UserBookSettings } from '../../models/user-book-settings.model';
   styleUrls: ['./ebook-settings.component.scss'],
 })
 export class EbookSettings {
-  isUserAuthenticated = false;
+  isUserAuthenticated = true;
   @Input() userBookSettings: UserBookSettings;
   @Output() bookSettingsChanged: EventEmitter<UserBookSettings> = new EventEmitter<UserBookSettings>();
+  name: FormControl = new FormControl('', [
+    Validators.minLength(3),
+    Validators.maxLength(200),
+  ]);
 
   onSubmit(): void {
     this.bookSettingsChanged.emit(this.userBookSettings);

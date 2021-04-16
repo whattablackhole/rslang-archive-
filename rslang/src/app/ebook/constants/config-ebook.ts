@@ -4,6 +4,7 @@ export const CONFIG_EBOOK = {
     {
       id: 0,
       name: 'collection #1',
+      path: 'group',
       img: '../assets/collections/collections-1.png',
       pages: 30,
       words: 600,
@@ -12,6 +13,7 @@ export const CONFIG_EBOOK = {
     {
       id: 1,
       name: 'collection #2',
+      path: 'group',
       img: '../assets/collections/collections-2.png',
       pages: 30,
       words: 600,
@@ -20,6 +22,7 @@ export const CONFIG_EBOOK = {
     {
       id: 2,
       name: 'collection #3',
+      path: 'group',
       img: '../assets/collections/collections-3.png',
       pages: 30,
       words: 600,
@@ -28,6 +31,7 @@ export const CONFIG_EBOOK = {
     {
       id: 3,
       name: 'collection #4',
+      path: 'group',
       img: '../assets/collections/collections-4.png',
       pages: 30,
       words: 600,
@@ -36,6 +40,7 @@ export const CONFIG_EBOOK = {
     {
       id: 4,
       name: 'collection #5',
+      path: 'group',
       img: '../assets/collections/collections-5.png',
       pages: 30,
       words: 600,
@@ -44,6 +49,7 @@ export const CONFIG_EBOOK = {
     {
       id: 5,
       name: 'collection #6',
+      path: 'group',
       img: '../assets/collections/collections-6.png',
       pages: 30,
       words: 600,

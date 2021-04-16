@@ -1,0 +1,233 @@
+.game {
+  position: relative;
+  background: url('/assets/games/sprint/532-min.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  max-height: 1000px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    height: 100%;
+    width: 100%;
+    max-width: 600px;
+    &-finished {
+      margin-top: 50px;
+    }
+  }
+
+  &__title {
+    width: fit-content;
+  }
+
+  &__subtitle {
+    width: fit-content
+  }
+
+  &__content {
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    font-size: 50px;
+    color: red;
+    position: absolute;
+    max-width: 500px;
+    width: 100%;
+    height: 500px;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: gameOpac 5s;
+  }
+
+  &__img-lvl {
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    margin: 10px 0 0 10px;
+
+    &_two {
+      background: url('/assets/games/sprint/wing.png') rgba(0, 0, 0, 0);
+    }
+
+    &_three {
+      right: 0;
+      background: url('/assets/games/sprint/w-reverse.png') rgba(0, 0, 0, 0);
+    }
+
+    &_four {
+      top: -100px;
+      background: url('/assets/games/sprint/tobi.png') rgba(0, 0, 0, 0);
+    }
+  }
+
+  &__play-button {
+    width: 100px;
+    align-self: center;
+    justify-self: center;
+  }
+
+  &__score {
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: #369a7e;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &_lvl-one {
+      background-color: #369a7e;
+    }
+
+    &_lvl-two {
+      background-color: #32386d;
+    }
+
+    &_lvl-three {
+      background-color: lightcoral;
+    }
+
+    &_lvl-four {
+      background-color: gold;
+    }
+
+    &-circles {
+      display: flex;
+      margin: 5px;
+    }
+
+    &-circle {
+      background-color: grey;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 5px;
+    }
+
+    &-circle_filled {
+      background: url('/assets/games/sprint/correct.webp');
+      background-color: #fd3359;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  &__roof {
+    height: 50px;
+    width: 100%;
+
+    &_lvl-one {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(#369a7e),
+          color-stop(0.49, #369a7e),
+          color-stop(0.51, springgreen),
+          to(springgreen));
+      -webkit-background-size: 29px 100%;
+    }
+
+    &_lvl-two {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(#32386d),
+          color-stop(0.49, #32386d),
+          color-stop(0.51, springgreen),
+          to(springgreen));
+      -webkit-background-size: 29px 100%;
+    }
+
+    &_lvl-three {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(lightcoral),
+          color-stop(0.49, lightcoral),
+          color-stop(0.51, springgreen),
+          to(springgreen));
+      -webkit-background-size: 29px 100%;
+    }
+
+    &_lvl-four {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(gold),
+          color-stop(0.49, gold),
+          color-stop(0.51, springgreen),
+          to(springgreen));
+      -webkit-background-size: 29px 100%;
+    }
+  }
+
+  &__word-name {
+    text-align: center;
+    align-self: center;
+    color: #3c4043;
+    margin-bottom: 15px;
+  }
+
+  &__word {
+    align-self: center;
+    margin-top: 20px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__word-translate {
+    margin: 10px 0 10px 0;
+    text-align: center;
+    align-self: center;
+    color: #3c4043;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.unhidden {
+  display: block;
+}
+
+@keyframes gameOpac {
+  0% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,241 @@
+@import "src/variables";
+
+@mixin main-title {
+  margin-bottom: $margin_after_title;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  color: $main_blue;
+}
+
+@mixin card-title {
+  font-size: 1.2rem;
+  font-size: 400;
+  text-align: center;
+  color: $main_blue;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: $margin_after_section;
+
+    @media screen and (max-width: 988px) {
+      margin-top: 4rem;
+    }
+  }
+
+  &__promo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__titles {
+      &__sub-title {
+        font-size: .9rem;
+        font-weight: 500;
+        color: $accent_color;
+
+        @media screen and (max-width: 780px) {
+          font-size: .7rem;
+          font-weight: 400;
+        }
+      }
+
+      &__title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $main_blue;
+
+        @media screen and (max-width: 780px) {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+      }
+
+      &__description {
+        font-size: .9rem;
+        color: $main_gray_color;
+      }
+    }
+  }
+
+  &__pic {
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    @media screen and (max-width: 988px) {
+      display: none;
+    }
+  }
+
+  &__button {
+    width: 40%;
+    margin-top: 1.5rem;
+    background-color: $main_blue;
+  }
+
+  &__pic {
+    max-width: 600px;
+
+    img {
+      width: 100%;
+      opacity: .9;
+    }
+  }
+}
+
+.main__advantages {
+  margin-bottom: $margin_after_section;
+
+  &__title {
+    @include main-title;
+  }
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+
+    @media screen and (max-width: 840px) {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: scroll;
+      overflow-y: hidden;
+    }
+  }
+
+  &__item {
+
+    &__title {
+      @include card-title;
+    }
+
+    &__icon {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: stretch;
+      width: 300px;
+      height: 100px;
+
+      img {
+        width: 100%;
+        opacity: .8;
+      }
+    }
+
+    &__description {
+      &-text {
+        font-size: 0.9rem;
+        text-align: center;
+        color: $main_gray_color;
+      }
+    }
+  }
+}
+
+.main__video {
+  position: relative;
+  width: 100%;
+  margin-bottom: $margin_after_section;
+
+  &__wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+
+    &__item {
+      padding-top: 56.25%;
+    }
+  }
+
+  &__element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+
+}
+
+.main__games {
+  margin-bottom: $margin_after_section;
+
+  &__title {
+    @include main-title;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  &__item {
+    width: 16rem;
+    min-height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 2rem;
+    background: $blue_color;
+    box-shadow: 1px 4px 8px 0px rgba(34, 60, 80, 0.2);
+
+    &:nth-child(2n) {
+      background: $bg_color;
+    }
+
+    &__title {
+      @include card-title;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    &__description-text {
+      color: #fff;
+    }
+  }
+}
+
+.main__team {
+  margin-bottom: $margin_after_section;
+
+  &__panel-description {
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $accent_color;
+  }
+}
+
+.main__team {
+  display: none;
+
+  @media screen and (max-width: 780px) {
+    display: block;
+  }
+}
+
+.show__team {
+  display: none;
+
+  @media screen and (min-width: 780px) {
+    display: block;
+  }
+}

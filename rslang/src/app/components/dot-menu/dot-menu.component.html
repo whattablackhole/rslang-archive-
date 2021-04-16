@@ -1,0 +1,55 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="dotMenu" aria-label="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #dotMenu="matMenu" xPosition="before">
+    <button mat-menu-item [routerLink]="['main']" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
+      <span>home</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="ebook">
+      <mat-icon>book</mat-icon>
+      <span>ebook</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="games">
+      <mat-icon>games</mat-icon>
+      <span>games</span>
+    </button>
+    <button mat-menu-item [routerLink]="['statistics']" routerLinkActive="active">
+      <mat-icon>graphic_eq</mat-icon>
+      <span>statistics</span>
+    </button>
+    <button mat-menu-item [routerLink]="['auth']" routerLinkActive="active" *ngIf="!this.isUserAuthenticated">
+      <mat-icon>account_circle</mat-icon>
+      <span>sign in</span>
+    </button>
+    <button mat-menu-item [routerLink]="" *ngIf="this.isUserAuthenticated" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>sign out</span>
+    </button>
+  </mat-menu>
+  <mat-menu #ebook="matMenu" xPosition="before">
+    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">collections</button>
+    <button mat-menu-item [matMenuTriggerFor]="ebookVocabulary">dictionary</button>
+    <button mat-menu-item>Settings</button>
+  </mat-menu>
+  <mat-menu #games="matMenu" xPosition="before">
+    <button mat-menu-item>Саванна</button>
+    <button mat-menu-item>Аудиовызов</button>
+    <button mat-menu-item>Сприн</button>
+    <button mat-menu-item>Своя игра</button>
+  </mat-menu>
+  <mat-menu #ebookCollection="matMenu" xPosition="before">
+    <button mat-menu-item>Коллекция 1</button>
+    <button mat-menu-item>Коллекция 2</button>
+    <button mat-menu-item>Коллекция 3</button>
+    <button mat-menu-item>Коллекция 4</button>
+    <button mat-menu-item>Коллекция 5</button>
+    <button mat-menu-item>Коллекция 6</button>
+  </mat-menu>
+  <mat-menu #ebookVocabulary="matMenu" xPosition="before">
+    <button mat-menu-item>Изучаемые слова</button>
+    <button mat-menu-item>Сложные слова</button>
+    <button mat-menu-item>Удаленные слова</button>
+  </mat-menu>
+</div>

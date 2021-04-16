@@ -1,23 +1,43 @@
 import { Injectable } from '@angular/core';
 
-import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { LocalStorageService } from '../../core/services/local-storage.service';
+import { SettingsDataService } from './settings-data.service';
+import { UserBookSettings } from '../models/user-book-settings.model';
+import { GlobalSettings } from '../models/global-settings.model';
 import { LocalStorageKey } from '../../shared/models/local-storage-keys.model';
 import { EBOOK_SETTINGS } from '../constants/ebook-settings';
-import { UserBookSettings } from '../models/user-book-settings.model';
+import { API_URL } from '../../shared/constants/api-url';
+import { USER_MOCK_DATA } from '../constants/user-mock-data';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class EbookSettingsService {
-  constructor(private localStorageService: LocalStorageService) { }
-  ebookSettingsData: UserBookSettings;
+  ebookSettings: UserBookSettings;
+  isUserAuthenticated = false;
+  userId: string;
 
-  firstLoadAndSet(): void {
-    const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings as string);
-    if (!data) {
-      this.ebookSettingsData = EBOOK_SETTINGS;
+  constructor(
+    private localStorageService: LocalStorageService,
+    private settingsService: SettingsDataService,
+  ) { }
+
+  load(): void {
+    if (this.isUserAuthenticated) {
+      this.userId = USER_MOCK_DATA.userId;
+      this.settingsService.getData(API_URL.USER_SETTINGS(this.userId));
+      this.settingsService.data$.subscribe((data: GlobalSettings) => {
+        this.ebookSettings = data.optionals;
+      });
       this.localStorageService
-        .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.ebookSettingsData));
+        .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.ebookSettings));
     }
+    if (!localStorage.hasOwnProperty(LocalStorageKey.EbookSettings)) {
+      this.setDefaultSettings();
+    }
+  }
+
+  private setDefaultSettings(): void {
+    const defaultSettings = EBOOK_SETTINGS;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(defaultSettings));
   }
 }

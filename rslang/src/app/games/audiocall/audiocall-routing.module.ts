@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AudiocallPage } from './components/audiocall-page/audiocall-page.component';
+import { Audiocall } from './components/audiocall/audiocall.component';
 
-const routes: Routes = [{ path: '', component: AudiocallPage }];
+const routes: Routes = [{ path: '', component: Audiocall }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
