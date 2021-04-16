@@ -12,7 +12,6 @@ import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
-import { WordAndStatistics } from '../../../shared/models/word-statistics.model';
 import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
@@ -28,9 +27,9 @@ export class WordsList implements OnInit, OnDestroy {
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
 
   userBookSettings: UserBookSettings;
-  words: WordAndStatistics[] = [];
+  words: Word[] = [];
   userWords: UserStats[] = [];
-  isUserAuthenticated = this.authService.getIsUserAuthenticated();
+  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
 
   constructor(
     private route: ActivatedRoute,
