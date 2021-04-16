@@ -5,8 +5,7 @@
 }
 
 .main {
-  padding: 2rem 6rem;
-  min-height: 100vh;
+  min-height: calc(100vh - 180px);
   height: 100%;
 }
 

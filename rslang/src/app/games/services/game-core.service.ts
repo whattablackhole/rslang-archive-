@@ -7,11 +7,13 @@ import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { WordId } from 'src/app/shared/types/word-id.type';
 import { GameName } from '../../shared/types/game-name.type';
-import { LocalStorageService } from '../../core/services/local-storage.service';
 import { WordsByPages } from '../interfaces/words-by-pages.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
+import { NotificationService } from '../../shared/services/notification.service';
+
 @Injectable()
 export class GameCoreService {
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService, private notifyService: NotificationService) {}
 
   getWordsPath = (group: string, page: string): string => `${BASE_URL}/words?group=${group}&page=${page}`;
 
@@ -151,7 +153,7 @@ export class GameCoreService {
     audio.src = url;
     audio.load();
     audio.play().catch((err: Error) => {
-      console.error(err);
+      this.notifyService.showError(err.message);
     });
   }
 
