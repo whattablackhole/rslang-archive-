@@ -1,3 +1,5 @@
+@import "src/variables";
+
 .unselectable {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -38,15 +40,16 @@ mat-grid-tile-header {
     min-width: 100px;
     margin-top: 20px;
     width: 10vw;
+    background-color: $accent_color;
   }
   &__title {
-    color: black;
+    color: #313237;
     font-weight: 500;
     font-size: 4vw;
     margin-bottom: 40px;
   }
   &__subtitle {
-    color: black;
+    color: #313237;
     font-weight: 500;
     font-size: 2vw;
     margin-bottom: 40px;
@@ -107,6 +110,8 @@ mat-grid-tile-header {
     min-width: 130px;
     max-width: 20vw;
     width: 100%;
+    background-color: $accent_color;
+    color: white;
     border-top: 0.1px solid darken($color: whitesmoke, $amount: 50%);
     border-right: 0.1px solid darken($color: whitesmoke, $amount: 50%);
     border-bottom: 0.1px solid transparent;
@@ -129,7 +134,7 @@ mat-grid-tile-header {
     }
 
     &-icon {
-      background: url('/assets/games/audio-call/Circle-icons-speaker.svg');
+      background: url('/assets/games/audio-call/Circle-icons-speaker1.svg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -156,10 +161,10 @@ mat-grid-tile-header {
     font-family: 'Noto Sans JP', sans-serif;
 
     &-item {
+
       font-size: 2vw;
       width: 100%;
-
-      &_correct::before {
+      &_correct:before {
         background-image: url('/assets/games/sprint/correct.webp');
         background-size: 20px 20px;
         background-repeat: no-repeat;
