@@ -90,6 +90,18 @@ export class GameCoreService {
     );
   }
 
+  addStudyStats(words: WordWithStatistics[], gameResultWords: GameResults): WordWithStatistics[] {
+    const resultLength: number = gameResultWords.correctWords.length;
+    let sortedWords: WordWithStatistics[] = words;
+    sortedWords = sortedWords.map((item: WordWithStatistics) => {
+      const newItem = item;
+      const currentTotal: number = newItem.userStats.optional.toStudy.actualStats[0].total;
+      newItem.userStats.optional.toStudy = { actualStats: [{ successfully: resultLength, total: currentTotal + 1 }] };
+      return newItem;
+    });
+    return sortedWords;
+  }
+
   addLocalToSortedWords(
     sortedWords: WordWithStatistics[],
     unSortedwords: WordWithStatistics[],
@@ -170,9 +182,9 @@ export class GameCoreService {
     return words.map((elem) => ({
       ...elem,
       userStats: {
-        difficulty: 'hard',
+        difficulty: 'unset',
         optional: {
-          toStudy: {},
+          toStudy: { actualStats: [{ successfully: 0, total: 0 }] },
           knowledgeDegree: 0,
           page: 'unset',
           group: 'unset',
@@ -185,9 +197,9 @@ export class GameCoreService {
     return {
       ...word,
       userStats: {
-        difficulty: 'hard',
+        difficulty: 'unset',
         optional: {
-          toStudy: {},
+          toStudy: { actualStats: [{ successfully: 0, total: 0 }] },
           knowledgeDegree: 0,
           page: 'unset',
           group: 'unset',

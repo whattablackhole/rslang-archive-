@@ -35,7 +35,6 @@ import { Subscription } from 'rxjs';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
-    AuthService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -257,6 +256,13 @@ export class Savannah implements OnDestroy {
   onGameEnd(): void {
     this.isGameStart = false;
     this.isGameEnd = true;
+    const gameResultWords : WordWithStatistics[] = this.gameCoreService.addStudyStats(
+      [
+        ...this.gameResultWords.correctWords,
+        ...this.gameResultWords.incorrectWords,
+      ],
+      this.gameResultWords,
+    );
     this.calculateStreak();
     this.generateCorrectPercent();
     const statistics = this.gameCoreService.generateStats(
@@ -264,10 +270,7 @@ export class Savannah implements OnDestroy {
       this.biggestStreak,
       'Savannah',
     );
-    this.gameWordsService.uploadWords([
-      ...this.gameResultWords.correctWords,
-      ...this.gameResultWords.incorrectWords,
-    ]);
+    this.gameWordsService.uploadWords(gameResultWords);
     this.gameWordsService.uploadStats(statistics);
   }
 

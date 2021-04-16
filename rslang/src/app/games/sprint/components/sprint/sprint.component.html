@@ -5,7 +5,7 @@
       <h2 class="game__title">Sprint</h2>
       <h3 class="game__subtitle">In this game you need to use your skills to choose the appropriate answer</h3>
       <div>
-        <mat-spinner *ngIf="!randomSortedWords"></mat-spinner>
+        <mat-spinner *ngIf="!randomSortedWords && isChoosed"></mat-spinner>
         <button
           class="game__play-button"
           *ngIf="randomSortedWords"
@@ -16,6 +16,10 @@
           play
         </button>
       </div>
+      <app-game-start-settings  *ngIf="!randomSortedWords" class="game__settings" [groupsAmount]='groupsAmount' [pagesAmount]='pagesAmount'
+      (groupNumberChange)='onChooseGroup($event)' (pageChange)='onChoosePage($event)'>
+    </app-game-start-settings>
+    <button *ngIf="!isChoosed" class="game__choose-button" mat-raised-button color="primary"  (click)="onChooseSubmit()">Submit selection</button>
     </div>
     <div class="game__menu-finished" *ngIf="isGameFinished">
       <app-finish-menu

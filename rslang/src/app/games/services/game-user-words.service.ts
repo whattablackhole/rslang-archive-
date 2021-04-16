@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  combineLatest, Observable, ObservedValueOf, Subject,
+  combineLatest, Observable, Subject,
 } from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
@@ -116,7 +116,7 @@ export class GameUserWordsService {
         knowledgeDegree: word.userStats.optional.knowledgeDegree,
         page: word.page.toString(),
         group: word.group.toString(),
-        toStudy: {},
+        toStudy: word.userStats.optional.toStudy,
       },
     };
   }

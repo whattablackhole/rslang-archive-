@@ -14,6 +14,7 @@ import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model'
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
+import { Subscription } from 'rxjs';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
@@ -25,6 +26,7 @@ import { WordDataService } from '../../../../shared/services/word-data.service';
 import { GameWordsService } from '../../../services/game-words.service';
 import { gameWordsFactory } from '../../../services/game-words.factory';
 import { AuthService } from '../../../../auth/services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-audiocall',
@@ -39,7 +41,6 @@ import { AuthService } from '../../../../auth/services/auth.service';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
-    AuthService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -55,13 +56,13 @@ import { AuthService } from '../../../../auth/services/auth.service';
   ],
   animations: [
     trigger('blockPosition', [
-      state('right', style({ transform: 'translateX(600px)', offset: '1' })),
+      state('right', style({ transform: 'translateX(70vw)', offset: '1' })),
       transition('* => right', [
         animate(
           '1s',
           keyframes([
             style({ transform: 'translateX(30px)', offset: '0.7' }),
-            style([{ transform: 'translateX(-900px)', offset: '1' }]),
+            style([{ transform: 'translateX(-70vw)', offset: '1' }]),
           ]),
         ),
       ]),
@@ -78,6 +79,7 @@ import { AuthService } from '../../../../auth/services/auth.service';
 export class Audiocall implements OnInit {
   sortedWords: WordWithStatistics[];
   wordsFromLocalStorage: WordWithStatistics[] | null | string;
+  wordsSubscription : Subscription;
 
   gameResultWords: GameResults = { correctWords: [], incorrectWords: [] };
   statistics: Statistics;
@@ -91,13 +93,18 @@ export class Audiocall implements OnInit {
   };
 
   isGameFinished = false;
+  isGameStarted = false;
   isAnswered = false;
+  isAnswerButtonDisabled = false;
 
   currentIndex = 0;
   lastIndex: number;
   currentStreak = 0;
   correctGamePercent = 0;
   biggestStreak = 0;
+  groupsAmount = 6;
+  pagesAmount = 30;
+
   blockPosition: BlockPositionState;
 
   page = '0';
@@ -110,21 +117,44 @@ export class Audiocall implements OnInit {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
+    private router: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
+    this.wordsSubscription = this.gameWordsService.sortedWords$.subscribe(
+      (sortedWords: WordWithStatistics[]) => {
+        this.sortedWords = sortedWords;
+        this.lastIndex = this.calculateLastIndex(this.gameWordsState);
+        this.wordsSubscription.unsubscribe();
+      },
+    );
+    const params = this.router.snapshot.queryParams;
+    if (params.prev === 'book' && parseInt(params.group, 10) && parseInt(params.page, 10)) {
+      this.page = params.page as string;
+      this.group = params.group as string;
+      this.onPlay();
+    }
+    if (!this.page || !this.group) {
+      this.group = '0';
+      this.page = '0';
+    }
+  }
+
+  onChooseGroup(group: string): void {
+    this.group = group;
+  }
+
+  onChoosePage(page: string): void {
+    this.page = page;
+  }
+
+  onPlay():void {
+    this.isGameStarted = true;
     this.gameWordsService.getWords(this.group, this.page);
     this.gameWordsService.createWordsForGame(
       this.group,
       this.page,
       this.gameWordsState,
-    );
-
-    this.gameWordsService.sortedWords$.subscribe(
-      (sortedWords: WordWithStatistics[]) => {
-        this.sortedWords = sortedWords;
-        this.lastIndex = this.calculateLastIndex(this.gameWordsState);
-      },
     );
   }
 
@@ -160,6 +190,7 @@ export class Audiocall implements OnInit {
       this.onWrongAnswer();
     }
     this.blockPosition = 'right';
+    this.isAnswerButtonDisabled = true;
   }
 
   onPlaySound(): void {
@@ -199,11 +230,13 @@ export class Audiocall implements OnInit {
     this.choosedWordName = '';
     this.answerButtonText = "Don't know";
     this.blockPosition = 'center';
+    this.isAnswerButtonDisabled = false;
   }
 
   finishGame(): void {
     this.generateCorrectPercent();
     this.isGameFinished = true;
+    this.sortedWords = this.gameCoreService.addStudyStats(this.sortedWords, this.gameResultWords);
     this.statistics = this.gameCoreService.generateStats(
       this.gameResultWords,
       this.biggestStreak,
