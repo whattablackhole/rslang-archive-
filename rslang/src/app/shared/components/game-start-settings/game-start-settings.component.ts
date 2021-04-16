@@ -37,7 +37,6 @@ export class GameStartSettings implements OnInit {
 
   makeFilledArray(length: number): number[] {
     const arr = [];
-    // eslint-disable-next-line
     for (let i = 0; i < length; i++) {
       arr.push(i);
     }
