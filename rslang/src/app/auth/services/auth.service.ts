@@ -41,6 +41,7 @@ export class AuthService {
   logoutUser(): void {
     this.clearAuthData();
     this.changeAuthStatus(false);
+    this.notification.showSuccess('You are signed out!');
   }
 
   changeAuthStatus(isLogin: boolean): void {
