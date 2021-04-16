@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { WordAndStatistics } from '../../shared/models/word-statistics.model';
+import { Word } from '../../shared/models/word.model';
 import { ButtonAction } from '../../shared/types/button-action.type';
 
 @Pipe({
   name: 'filterByAction',
 })
 export class FilterByActionPipe implements PipeTransform {
-  transform(list: WordAndStatistics[], difficulty: ButtonAction): WordAndStatistics[] {
+  transform(list: Word[], difficulty: ButtonAction): Word[] {
     if (!list || !difficulty) {
       return list;
     }
-    return list.filter((element: WordAndStatistics) => element.difficulty === difficulty);
+    return list.filter((element: Word) => element.word === difficulty);
   }
 }
