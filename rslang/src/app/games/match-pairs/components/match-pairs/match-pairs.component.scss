@@ -1,3 +1,5 @@
+@import "src/variables";
+
 .wrapper {
   position: relative;
   width: 100%;
@@ -5,9 +7,9 @@
   display: flex;
   justify-content: center;
   background: 
-    linear-gradient(to bottom right, #024959 10%, transparent), 
+    linear-gradient(to bottom right, $main_blue 10%, transparent), 
     radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.2) 70%, transparent 50%) center center/10px 10px, 
-    linear-gradient(to bottom right, #79C7D1, #ED675B);
+    linear-gradient(to bottom right, $blue_color, $accent_color);
 }
 
 .game-wrapper {
@@ -16,43 +18,4 @@
   flex-wrap: wrap;
   position: relative;
   
-}
-
-.word-card {
-  min-width: 100px;
-  max-width: 240px;
-  padding: 20px;
-  overflow-wrap: break-word;
-  margin: 10px;
-  border-radius: 12px;
-  background-color: darken(#79C7D1,10%);;
-  box-sizing: border-box;
-  text-align: center;
-  vertical-align: middle;
-  box-shadow: 10px 10px 20px -18px rgba(0, 0, 0, 0.75);
-  cursor: pointer;
-  user-select: none;
-  transition: all .5s ease-in-out;
-}
-
-.word-card:hover {
-  transform: scale(1.05);
-  opacity: .8;
-}
-
-p {
-  font-size: large;
-  color: white;
-}
-
-.center {
-  text-align: center;
-}
-
-h2, h3 {
-  width: fit-content;
-}
-
-.translation {
-  background-color: lighten(#ED675B,0.5%);;
 }

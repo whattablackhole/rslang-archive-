@@ -1,0 +1,5 @@
+<div (click)="cardClicked.emit()">
+  <button class="word-card" [@cardAnimation]="data.state">
+    <p> {{ data.word }} </p>
+  </button>
+</div>

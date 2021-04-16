@@ -1,0 +1,41 @@
+@import "src/variables";
+
+button {
+  border: 0;
+  padding: 0;
+}
+
+.word-card {
+  min-width: 100px;
+  max-width: 240px;
+  padding: 20px;
+  overflow-wrap: break-word;
+  margin: 10px;
+  border-radius: 12px;
+  background-color: darken($blue_color,10%);;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 10px 10px 20px -18px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+  user-select: none;
+}
+
+.word-card:hover {
+  transform: scale(1.02);
+  opacity: 0.8;
+}
+
+p {
+  font-size: large;
+  color: white;
+  margin: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.translation {
+  background-color: lighten($accent_color,0.5%);;
+}
