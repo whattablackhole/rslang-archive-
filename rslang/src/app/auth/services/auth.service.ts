@@ -49,6 +49,12 @@ export class AuthService {
     this.authStatus.next(isLogin);
   }
 
+  autoLoginUser(): void {
+    if (this.getJwtToken()) {
+      this.changeAuthStatus(true);
+    }
+  }
+
   getJwtToken(): string | null {
     return this.storage.getItem(this.JWT_TOKEN);
   }
