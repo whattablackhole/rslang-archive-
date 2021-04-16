@@ -9,18 +9,30 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { FinishMenu } from './components/finish-menu/finish-menu.component';
 import { Footer } from './components/footer/footer.component';
 import { GameStartSettings } from './components/game-start-settings/game-start-settings.component';
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
+import { NotificationBar } from './components/notification/notification-bar.component';
 import { ScreenSizeChanger } from './components/screen-size-changer/screen-size-changer.component';
 import { StartAnimation } from './components/start-animation/start-animation.component';
 import { RandomizePipe } from './pipes/randomize.pipe';
 
+
 @NgModule({
-  declarations: [NotFoundPage, Footer, FinishMenu, ScreenSizeChanger, StartAnimation, RandomizePipe, GameStartSettings],
+  declarations: [
+    NotFoundPage,
+    Footer,
+    NotificationBar,
+    FinishMenu,
+    ScreenSizeChanger,
+    StartAnimation,
+    RandomizePipe,
+    GameStartSettings,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -33,6 +45,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatProgressSpinnerModule,
     MatCardModule,
     MatExpansionModule,
+    MatSnackBarModule,
     MatGridListModule,
   ],
   exports: [
@@ -48,6 +61,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatCardModule,
     MatGridListModule,
     MatExpansionModule,
+    MatSnackBarModule,
     Footer,
     FinishMenu,
     ScreenSizeChanger,
@@ -55,5 +69,6 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     RandomizePipe,
     GameStartSettings,
   ],
+  providers: [NotificationBar],
 })
 export class SharedModule {}

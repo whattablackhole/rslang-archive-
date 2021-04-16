@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  combineLatest, Observable, ObservedValueOf, Subject,
+  combineLatest, Observable, Subject,
 } from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
@@ -16,6 +16,7 @@ import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../shared/services/user-words-data.service';
+import { NotificationService } from '../../shared/services/notification.service';
 import { GameCoreService } from './game-core.service';
 
 @Injectable()
@@ -36,6 +37,7 @@ export class GameUserWordsService {
     private authService: AuthService,
     private wordActionService: WordActionService,
     private statisticsActionService: StatisticsActionService,
+    private notifyService: NotificationService,
   ) {
     this.words$ = this.wordsService.data$;
     this.userWords$ = this.userWordsService.data$;
@@ -139,7 +141,7 @@ export class GameUserWordsService {
         `${BASE_URL}/users/${this.userID}/words/${word.id}`,
         {
           onError: (err: HttpErrorResponse) => {
-            console.log(err);
+            this.notifyService.showError(err.message);
           },
         },
         { body },
@@ -153,7 +155,7 @@ export class GameUserWordsService {
       `${BASE_URL}/users/${this.userID}/statistics`,
       {
         onError: (err) => {
-          console.log(err);
+          this.notifyService.showError(err.message);
         },
       },
       {
