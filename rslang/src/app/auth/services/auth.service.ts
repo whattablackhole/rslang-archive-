@@ -25,7 +25,9 @@ export class AuthService {
   ) {}
 
   getUserAuthenticationStatus(): boolean {
-    return this.isUserAuthenticated;
+    console.log('auth: ', this.isUserAuthenticated, !!this.getJwtToken());
+    // return this.isUserAuthenticated;
+    return !!this.getJwtToken();
   }
 
   getAuthStatusListener(): Observable<boolean> {
@@ -44,9 +46,20 @@ export class AuthService {
     this.notification.showSuccess('You are signed out!');
   }
 
+  logoutUserWithRedirect(): void {
+    this.logoutUser();
+    this.redirectToUrl('/auth');
+    this.notification.showError('Token expired! Please enter your credentials.');
+  }
+
   changeAuthStatus(isLogin: boolean): void {
     this.isUserAuthenticated = isLogin;
     this.authStatus.next(isLogin);
+  }
+
+  updateTokens(token: string, refreshToken: string): void {
+    this.storage.setItem(this.JWT_TOKEN, token);
+    this.storage.setItem(this.REFRESH_TOKEN, refreshToken);
   }
 
   autoLoginUser(): void {

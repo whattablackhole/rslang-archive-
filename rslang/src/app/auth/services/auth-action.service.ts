@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { NotificationService } from '../../shared/services/notification.service';
 import { CallbackObject } from '../../shared/models/callback-object.model';
@@ -62,5 +62,26 @@ export class AuthActionService extends BaseActionService {
       },
     };
     this.sendAction('POST', `${BASE_URL}/signin`, action, { body: req });
+  }
+
+  refreshToken(userId: string, refreshToken: string): void {
+    const { authService, notifyService } = this;
+    const action: CallbackObject = {
+      onSuccess(result) {
+        console.log('refresh success');
+        const data = result as SigninResponse;
+        authService.updateTokens(data.token, data.refreshToken);
+        notifyService.showSuccess('Tokens updated!');
+      },
+      onError(error) {
+        console.log('refresh error', error);
+        if ([401, 403].includes(error.status)) {
+          authService.logoutUserWithRedirect();
+        }
+      },
+    };
+
+    this.sendAction('PUT', `${BASE_URL}/users/${userId}/tokens`, action,
+      { headers: { Authorization: `Bearer ${refreshToken}` } });
   }
 }
