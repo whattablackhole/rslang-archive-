@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { STATISTIC_DATA } from '../../constants/constants';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 import { StatisticCalculationService } from '../../services/statistic-calculation.service';
-import { Statistic } from '../../models/statistic.model';
+import { GlobalStatistic } from '../../models/statistic.model';
 import { GSProviderService } from '../../services/gs-provider.service';
-import { GameSession } from '../../models/game-session.model';
 import { GSLocalProviderService } from '../../services/gs-local-provider.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
-import { APP_CONFIG, AppConfig } from '../../services/config.token';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Statistics } from '../../../shared/models/statistics-short.model';
+import {of, throwError} from "rxjs";
 
 @Component({
   selector: 'app-statistics-page',
@@ -15,23 +16,33 @@ import { APP_CONFIG, AppConfig } from '../../services/config.token';
   styleUrls: ['./statistics-page.component.scss'],
   providers: [LocalStorageService, HttpClient, {
     provide: GSProviderService,
-    useFactory: (config: AppConfig, http: HttpClient, local: LocalStorageService) => (
-      config.user ? new GSProviderService(http) : new GSLocalProviderService(local)
+    useFactory: (authService: AuthService, http: HttpClient, local: LocalStorageService) => (
+      authService.getUserAuthenticationStatus()
+        ? new GSProviderService(http, authService)
+        : new GSLocalProviderService(local)
     ),
-    deps: [APP_CONFIG, HttpClient, LocalStorageService],
+    deps: [AuthService, HttpClient, LocalStorageService],
   }],
 })
 export class StatisticsPage implements OnInit {
-  statisticsList: Statistic[];
-  gameSessions: GameSession[];
+  statisticsList: GlobalStatistic[];
+  gameSessions: Statistics[] = [];
   constructor(private statisticCalculation: StatisticCalculationService,
     private gsProvider: GSProviderService, private local: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.local.setItem('GameSession', JSON.stringify(STATISTIC_DATA));
-    this.gsProvider.getGameSessions().subscribe((gameSessions) => {
-      this.gameSessions = gameSessions;
-    });
+    this.gsProvider.getGameSessions().pipe(catchError((err: HttpErrorResponse) => {
+      console.log(err);
+      return throwError(err);
+    }))
+      .subscribe(
+        (gameSessions) => {
+          this.gameSessions = gameSessions;
+        },
+        (error) => {
+          console.log('error caught in component', error);
+        },
+      );
     this.statisticsList = this.statisticCalculation.groupByDate(this.gameSessions);
   }
 }

@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { GameSession } from '../models/game-session.model';
-import { Statistic } from '../models/statistic.model';
+import { GlobalStatistic } from '../models/statistic.model';
 import { GameStatistic } from '../models/game-statistic.model';
+import { Statistics } from '../../shared/models/statistics-short.model';
 
 @Injectable()
 export class StatisticCalculationService {
-  transformToGameStatistic(gamesSession: GameSession): GameStatistic {
+  transformToGameStatistic(gamesSession: Statistics): GameStatistic {
     return {
-      name: gamesSession.name,
+      name: gamesSession.gameName,
       winrate: this.getWinRate(gamesSession),
       rightWords: this.getRightWords(gamesSession),
       streak: gamesSession.streak,
     };
   }
 
-  groupByDate(gamesSessions: GameSession[]): Statistic[] {
-    const statistics: Statistic[] = [];
+  groupByDate(gamesSessions: Statistics[]): GlobalStatistic[] {
+    const statistics: GlobalStatistic[] = [];
     const dates = new Set(gamesSessions.map((game) => (this.getStringDate(game.date))));
     dates.forEach((date) => {
       const gameGroupByDate = gamesSessions.filter(
@@ -42,18 +42,18 @@ export class StatisticCalculationService {
       : gameDate;
   }
 
-  getWinRate(gamesSession: GameSession): number {
-    const allWords = gamesSession.correct_words.length + gamesSession.incorrect_words.length;
-    return (gamesSession.correct_words.length / allWords) * 100;
+  getWinRate(gamesSession: Statistics): number {
+    const allWords = gamesSession.correctWords.length + gamesSession.incorrectWords.length;
+    return (gamesSession.correctWords.length / allWords) * 100;
   }
 
-  getRightWords(gamesSession: GameSession): number {
-    return gamesSession.correct_words.length;
+  getRightWords(gamesSession: Statistics): number {
+    return gamesSession.correctWords.length;
   }
 
-  getLearnedWords(gamesSession: GameSession []) : number {
-    const correct = new Set(...gamesSession.map((game) => game.correct_words.map((word) => word.id)));
-    const incorrect = new Set(...gamesSession.map((game) => game.incorrect_words.map((word) => word.id)));
+  getLearnedWords(gamesSession: Statistics []) : number {
+    const correct = new Set(...gamesSession.map((game) => game.correctWords.map((word) => word.id)));
+    const incorrect = new Set(...gamesSession.map((game) => game.correctWords.map((word) => word.id)));
     const difference = [...correct].filter((wordId) => !incorrect.has(wordId));
     return gamesSession.length < 3 ? 0 : difference.length;
   }

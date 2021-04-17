@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { Statistic } from '../../models/statistic.model';
+import { GlobalStatistic } from '../../models/statistic.model';
 
 @Component({
   selector: 'app-long-term-statistic',
@@ -9,7 +9,7 @@ import { Statistic } from '../../models/statistic.model';
   styleUrls: ['./long-term-statistic.component.scss'],
 })
 export class LongTermStatistic implements OnInit {
-  @Input() statistics: Statistic[];
+  @Input() statistics: GlobalStatistic[];
 
   private dates: string[];
   private words : (number | undefined)[];
