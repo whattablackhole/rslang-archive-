@@ -33,15 +33,15 @@ export class StatisticsPage implements OnInit, OnDestroy {
     private gsProvider: GSProviderService, private local: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.gsProvider.getGameSessions();
     this.subscription = this.gsProvider.data$.subscribe(
       (gameSessions) => {
-        if (!this.gameSessions) {
+        if (this.gameSessions) {
           this.gameSessions = gameSessions.optional.stats;
           this.statisticsList = this.statisticCalculation.groupByDate(this.gameSessions);
         }
       },
     );
+    this.gsProvider.getGameSessions();
     this.statisticsList = this.statisticCalculation.groupByDate(this.gameSessions);
   }
 
