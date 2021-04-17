@@ -1,6 +1,6 @@
 <section class="ebook-header">
   <div class="ebook-header__title">
-    <h1 (click)="goToPage()">{{ title }}</h1>
+    <h1>{{ title }}</h1>
   </div>
   <div class="ebook-header__slider">
     <span>collection: </span>
@@ -10,6 +10,7 @@
       [step]="groupSlider.step"
       [thumbLabel]="groupSlider.thumbLabel"
       [tickInterval]="getSliderTickInterval()"
+      (groupChange)="onGroupChange(value)"
       [(ngModel)]="value">
     </mat-slider>
   </div>

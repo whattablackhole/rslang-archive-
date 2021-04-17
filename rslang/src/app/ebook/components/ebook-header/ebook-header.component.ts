@@ -23,15 +23,11 @@ export class EbookHeader {
     this.pageChanged.emit(pageNumber);
   }
 
-  goToPage(): CurrentStateBook {
-    console.log('game', this.currentState);
-    return this.currentState;
+  onGroupChange(groupId: number): void {
+    this.groupChanged.emit(groupId);
   }
 
   getSliderTickInterval(): number {
-    if (this.groupSlider.showTicks) {
-      return this.groupSlider.tickInterval;
-    }
-    return 0;
+    return this.groupSlider.showTicks ? this.groupSlider.tickInterval : 0;
   }
 }

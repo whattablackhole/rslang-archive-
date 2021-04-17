@@ -34,7 +34,12 @@ export class GameSidenav {
     return this.router.navigate([path]);
   }
 
-  goToVocabulary(event: Event): number {
-    return 1;
+  goToVocabulary(event: Event): Promise<boolean> {
+    const target = event.target as HTMLElement;
+    const path = this
+      .router
+      .createUrlTree(['ebook', target.id])
+      .toString();
+    return this.router.navigate([path]);
   }
 }
