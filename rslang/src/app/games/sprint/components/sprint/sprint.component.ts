@@ -18,6 +18,7 @@ import { GameResults } from '../../../../shared/models/game-results.model';
 import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
+import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
 @Component({
   selector: 'app-sprint',
@@ -103,6 +104,11 @@ export class Sprint implements OnInit {
     minAmout: 5,
   };
 
+  countDownOptions: CountDownOptions = {
+    leftTime: 65,
+    format: 'ss.S',
+  };
+
   isGameStarted = false;
   isGameFinished = false;
   isChoosed = false;
@@ -152,6 +158,24 @@ export class Sprint implements OnInit {
       this.page,
       this.gameWordsState,
     );
+  }
+
+  onTimeUp(event: CountdownEvent): void {
+    if (event.action === 'done') {
+      this.autoFinishGame();
+    }
+  }
+
+  autoFinishGame():void {
+    this.currentWordIndex -= 1;
+    while (!this.isGameFinished) {
+      this.addWordToIncorrect(this.sortedWords[this.currentWordIndex]);
+      this.changeWordsKnowledgeDegree(
+        this.sortedWords[this.currentWordIndex].id, false,
+      );
+      this.currentWordIndex += 1;
+      this.checkIfGameFinished();
+    }
   }
 
   onBorderDone(): void {

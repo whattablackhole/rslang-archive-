@@ -37,6 +37,7 @@
     (@coloredBorder.done)="onBorderDone()"
     class="game__content"
   >
+    <countdown class="game__countdown" [config]="countDownOptions" (event)="onTimeUp($event)"></countdown>
     <div class="game__img-lvl game__img-lvl_one"></div>
     <div [ngClass]="{ 'game__img-lvl game__img-lvl_two': gameLevel > 1 }"></div>
     <div [ngClass]="{ 'game__img-lvl game__img-lvl_three': gameLevel > 2 }"></div>
