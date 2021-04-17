@@ -14,8 +14,8 @@ import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model'
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
@@ -27,7 +27,6 @@ import { WordDataService } from '../../../../shared/services/word-data.service';
 import { GameWordsService } from '../../../services/game-words.service';
 import { gameWordsFactory } from '../../../services/game-words.factory';
 import { AuthService } from '../../../../auth/services/auth.service';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-audiocall',
@@ -121,7 +120,7 @@ export class Audiocall implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords)=>{
+    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords) => {
       this.sortedWords = sortedWords;
       this.lastIndex = this.calculateLastIndex(this.gameWordsState);
     });

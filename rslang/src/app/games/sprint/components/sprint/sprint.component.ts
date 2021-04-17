@@ -9,7 +9,7 @@ import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { WordActionService } from 'src/app/shared/services/word-action.service';
-import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -19,7 +19,6 @@ import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 import { GameWordsService } from '../../../services/game-words.service';
-import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
@@ -121,7 +120,7 @@ export class Sprint implements OnInit {
   }
 
   ngOnInit(): void {
-    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords)=>{
+    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords) => {
       this.sortedWords = sortedWords;
       this.randomSortedWords = this.generateRandomWords(this.sortedWords);
     });
