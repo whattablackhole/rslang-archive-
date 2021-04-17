@@ -34,6 +34,8 @@
         "@angular/platform-browser": "~11.2.6",
         "@angular/platform-browser-dynamic": "~11.2.6",
         "@angular/router": "~11.2.6",
+        "chart.js": "^2.8.0",
+        "ng2-charts": "^2.3.0",
         "ngx-countdown": "^11.0.3",
         "rxjs": "~6.6.0",
         "tslib": "^2.0.0",
