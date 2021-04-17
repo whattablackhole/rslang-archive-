@@ -156,10 +156,11 @@ export class GameUserWordsService {
     this.statisticsDataService.getFullData(`${BASE_URL}/users/${this.userID}/statistics`)
       .subscribe((statistics: BackEndStatistics | string) => {
         let body;
-        if (typeof statistics !== 'string' && Array.isArray(statistics.optional)) {
-          body = { userId: this.userID, optional: statistics.optional.push(stats) };
+        if (typeof statistics !== 'string' && Array.isArray(statistics.optional.stats)) {
+          statistics.optional.stats.push(stats);
+          body = { optional: { stats: statistics.optional.stats } };
         } else {
-          body = { userId: this.userID, optional: [stats] };
+          body = { optional: { stats: [stats] } };
         }
         this.statisticsActionService.sendAction(
           'PUT',

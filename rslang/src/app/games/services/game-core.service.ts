@@ -50,7 +50,7 @@ export class GameCoreService {
   }
 
   addStatsToLocalStorage(stats: Statistics): void {
-    const backEndStats: BackEndStatistics = { userId: 'undefined', optional: [stats] };
+    const backEndStats: BackEndStatistics = { id: 'undefined', optional: { stats: [stats] } };
     let result: BackEndStatistics | string | null = this.localStorageService.getItem(
       'statistics',
     );
@@ -62,7 +62,7 @@ export class GameCoreService {
       }
     }
     if ((result as BackEndStatistics)) {
-      (result as BackEndStatistics).optional.push(stats);
+      (result as BackEndStatistics).optional.stats.push(stats);
       this.localStorageService.setItem('statistics', JSON.stringify(result));
     } else {
       this.localStorageService.setItem('statistics', JSON.stringify(backEndStats));
