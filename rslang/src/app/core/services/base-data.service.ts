@@ -1,6 +1,5 @@
-import { Observable, Subject, throwError } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
 import { HttpOptions } from '../models/http-options.model';
 
 export abstract class BaseDataService<T> {
@@ -12,7 +11,7 @@ export abstract class BaseDataService<T> {
   }
 
   getData(path: string, options?: HttpOptions): void {
-    this.httpClient.get<T>(path, options).pipe(catchError((err: HttpErrorResponse) => throwError(err)))
+    this.httpClient.get<T>(path, options)
       .subscribe((data: T) => {
         this.subject.next(data);
       }, (error: HttpErrorResponse) => {

@@ -9,6 +9,7 @@ import { GSLocalProviderService } from '../../services/gs-local-provider.service
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Statistics } from '../../../shared/models/statistics-short.model';
+import { BackEndStatistics } from '../../../shared/models/statistics-backend.model';
 
 @Component({
   selector: 'app-statistics-page',
@@ -25,21 +26,19 @@ import { Statistics } from '../../../shared/models/statistics-short.model';
   }],
 })
 export class StatisticsPage implements OnInit {
-  statisticsList: GlobalStatistic[];
+  statisticsList: GlobalStatistic[] = [];
   gameSessions: Statistics[] = [];
   constructor(private statisticCalculation: StatisticCalculationService,
     private gsProvider: GSProviderService, private local: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.gsProvider.getGameSessions().pipe(catchError((err: HttpErrorResponse) => {
-      return throwError(err);
-    }))
+    this.gsProvider.getGameSessions()
       .subscribe(
         (gameSessions) => {
-          this.gameSessions = gameSessions;
-        },
-        (error) => {
-          console.log('error caught in component', error);
+          if (this.gameSessions !== undefined) {
+            this.gameSessions = gameSessions.optional.stats;
+            this.statisticsList = this.statisticCalculation.groupByDate(this.gameSessions);
+          }
         },
       );
     this.statisticsList = this.statisticCalculation.groupByDate(this.gameSessions);
