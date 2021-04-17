@@ -16,6 +16,8 @@ import { StatisticsActionService } from 'src/app/shared/services/statistics-acti
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
@@ -41,6 +43,8 @@ import { AuthService } from '../../../../auth/services/auth.service';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
+    StatisticsDataService,
+    NotificationService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -51,6 +55,8 @@ import { AuthService } from '../../../../auth/services/auth.service';
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     },
   ],

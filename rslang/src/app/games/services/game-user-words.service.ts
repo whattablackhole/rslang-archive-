@@ -13,9 +13,11 @@ import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
+import { BackEndStatistics } from 'src/app/shared/models/statistics-backend.model';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../shared/services/user-words-data.service';
+import { StatisticsDataService } from '../../shared/services/statistics-data.service';
 import { NotificationService } from '../../shared/services/notification.service';
 import { GameCoreService } from './game-core.service';
 
@@ -38,6 +40,7 @@ export class GameUserWordsService {
     private wordActionService: WordActionService,
     private statisticsActionService: StatisticsActionService,
     private notifyService: NotificationService,
+    private statisticsDataService: StatisticsDataService,
   ) {
     this.words$ = this.wordsService.data$;
     this.userWords$ = this.userWordsService.data$;
@@ -150,17 +153,26 @@ export class GameUserWordsService {
   }
 
   uploadStats(stats: Statistics): void {
-    this.statisticsActionService.sendAction(
-      'PUT',
-      `${BASE_URL}/users/${this.userID}/statistics`,
-      {
-        onError: (err) => {
-          this.notifyService.showError(err.message);
-        },
-      },
-      {
-        body: { optional: { ...stats } },
-      },
-    );
+    this.statisticsDataService.getFullData(`${BASE_URL}/users/${this.userID}/statistics`)
+      .subscribe((statistics: BackEndStatistics | string) => {
+        let body;
+        if (typeof statistics !== 'string' && Array.isArray(statistics.optional)) {
+          body = { userId: this.userID, optional: statistics.optional.push(stats) };
+        } else {
+          body = { userId: this.userID, optional: [stats] };
+        }
+        this.statisticsActionService.sendAction(
+          'PUT',
+          `${BASE_URL}/users/${this.userID}/statistics`,
+          {
+            onError: (err) => {
+              this.notifyService.showError(err.message);
+            },
+          },
+          {
+            body,
+          },
+        );
+      });
   }
 }

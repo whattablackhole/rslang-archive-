@@ -21,6 +21,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
 
 @Component({
   selector: 'app-savannah',
@@ -35,6 +37,8 @@ import { Subscription } from 'rxjs';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
+    NotificationService,
+    StatisticsDataService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -45,6 +49,8 @@ import { Subscription } from 'rxjs';
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     }],
   animations: [

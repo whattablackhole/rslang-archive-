@@ -11,6 +11,8 @@ import { StatisticsActionService } from 'src/app/shared/services/statistics-acti
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { first } from 'rxjs/operators';
 import { CountdownEvent } from 'ngx-countdown';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -32,6 +34,8 @@ import { GameWordsService } from '../../../services/game-words.service';
     GameCoreService,
     StatisticsActionService,
     WordActionService,
+    NotificationService,
+    StatisticsDataService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -42,6 +46,8 @@ import { GameWordsService } from '../../../services/game-words.service';
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     },
   ],
