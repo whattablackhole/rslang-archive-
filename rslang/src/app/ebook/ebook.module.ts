@@ -15,6 +15,7 @@ import { EbookHeader } from './components/ebook-header/ebook-header.component';
 import { WordsList } from './components/words-list/words-list.component';
 import { WordItem } from './components/word-item/word-item.component';
 import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
+import { GameSidenav } from './components/game-sidenav/game-sidenav.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
     WordItem,
     PaginationDirective,
     FilterByActionPipe,
+    GameSidenav,
   ],
   imports: [SharedModule, EbookRoutingModule, MatInputModule, MatSliderModule],
   exports: [WordsCollections],
