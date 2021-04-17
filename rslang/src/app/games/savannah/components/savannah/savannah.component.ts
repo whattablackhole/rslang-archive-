@@ -247,6 +247,7 @@ export class Savannah implements OnInit {
   }
 
   onWrongAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/error.mp3');
     this.lives.splice(0, 1);
     this.currentAnswers.length = 0;
     this.gameResultWords.incorrectWords.push(
@@ -255,6 +256,7 @@ export class Savannah implements OnInit {
   }
 
   onCorrectAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/success.mp3');
     this.streak += 1;
     this.currentAnswers.length = 0;
     this.gameResultWords.correctWords.push(
