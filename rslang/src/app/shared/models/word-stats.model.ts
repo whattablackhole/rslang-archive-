@@ -1,7 +1,7 @@
 import { StudyProgress } from 'src/app/ebook/models/study-progress.model';
 
 export interface UserStats {
-  difficulty: 'hard' | 'removed' | '',
+  difficulty: 'hard' | 'removed' | 'unset',
   optional: {
     toStudy: StudyProgress;
     group: string;
