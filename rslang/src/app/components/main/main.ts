@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Game } from './../models/game.model';
+import * as AOS  from 'aos';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.html',
   styleUrls: ['./main.scss'],
 })
-export class Main {
+export class Main implements OnInit {
   panelOpenState = false;
   games: Game[] = [
     {
@@ -23,4 +24,10 @@ export class Main {
       description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.`,
     },
   ];
+
+  ngOnInit() :void {
+      AOS.init({
+        startEvent: 'load',
+      });
+  }
 }
