@@ -53,7 +53,7 @@ export class StatisticCalculationService {
 
   getLearnedWords(gamesSession: Statistics []) : number {
     const correct = new Set(...gamesSession.map((game) => game.correctWords.map((word) => word.id)));
-    const incorrect = new Set(...gamesSession.map((game) => game.correctWords.map((word) => word.id)));
+    const incorrect = new Set(...gamesSession.map((game) => game.incorrectWords.map((word) => word.id)));
     const difference = [...correct].filter((wordId) => !incorrect.has(wordId));
     return gamesSession.length < 3 ? 0 : difference.length;
   }

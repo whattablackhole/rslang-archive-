@@ -12,9 +12,7 @@ export abstract class BaseDataService<T> {
   }
 
   getData(path: string, options?: HttpOptions): void {
-    this.httpClient.get<T>(path, options).pipe(catchError((err: HttpErrorResponse) => {
-      return throwError(err);
-    }))
+    this.httpClient.get<T>(path, options).pipe(catchError((err: HttpErrorResponse) => throwError(err)))
       .subscribe((data: T) => {
         this.subject.next(data);
       }, (error: HttpErrorResponse) => {
