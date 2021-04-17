@@ -21,7 +21,6 @@ import { ScreenSizeChanger } from './components/screen-size-changer/screen-size-
 import { StartAnimation } from './components/start-animation/start-animation.component';
 import { RandomizePipe } from './pipes/randomize.pipe';
 
-
 @NgModule({
   declarations: [
     NotFoundPage,
