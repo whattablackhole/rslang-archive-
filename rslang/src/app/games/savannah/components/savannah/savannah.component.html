@@ -70,6 +70,13 @@
       </div>
     </div>
   </div>
+  <div *ngIf="isGameStart" class="savannah__icon">
+    <img
+      class="savannah__icon__crystal"
+      src="assets/images/Icon_crystal.svg"
+      alt="crystal"
+    />
+  </div>
   <div class="game__menu-finished" *ngIf="isGameEnd">
     <app-finish-menu
       [correctGamePercent]="correctGamePercent"

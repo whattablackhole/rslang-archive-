@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: linear-gradient($blue_color, $accent_color);
@@ -71,7 +72,13 @@
       border: solid 1px $blue_color;
     }
   }
+  .savannah__icon{
+    &__crystal{
+      width: 60px;
+    }
+  }
 }
+
 
 @media (max-width: 768px ) {
   .savannah__answers {
