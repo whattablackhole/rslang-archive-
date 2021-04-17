@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   style,
@@ -21,6 +21,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-savannah',
@@ -66,7 +67,7 @@ import { Subscription } from 'rxjs';
     ]),
   ],
 })
-export class Savannah implements OnDestroy {
+export class Savannah implements OnInit {
   wordsSubscription: Subscription;
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
@@ -112,10 +113,16 @@ export class Savannah implements OnDestroy {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
+    private router: ActivatedRoute,
   ) {}
 
-  ngOnDestroy():void {
-    this.wordsSubscription.unsubscribe();
+  ngOnInit():void {
+    const params = this.router.snapshot.queryParams;
+    if (params.prev === 'book' && parseInt(params.group, 10) && parseInt(params.page, 10)) {
+      this.page = params.page as string;
+      this.groupNumber = params.group as string;
+      this.getWords();
+    }
   }
 
   generateRound(): void {
@@ -151,6 +158,7 @@ export class Savannah implements OnDestroy {
         this.unUsedWords = [...this.words];
       },
     );
+    this.wordsSubscription.unsubscribe();
   }
 
   startGame(): void {
