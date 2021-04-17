@@ -20,6 +20,7 @@ import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
+import { CountdownEvent } from 'ngx-countdown';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
