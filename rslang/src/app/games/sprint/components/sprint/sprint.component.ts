@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { first } from 'rxjs/operators';
+import { CountdownEvent } from 'ngx-countdown';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -20,7 +21,6 @@ import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
-import { CountdownEvent } from 'ngx-countdown';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
