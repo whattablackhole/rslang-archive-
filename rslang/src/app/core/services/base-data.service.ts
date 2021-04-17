@@ -11,8 +11,9 @@ export abstract class BaseDataService<T> {
   }
 
   getData(path: string, options?: HttpOptions): void {
-    this.httpClient.get<T>(path, options).subscribe((data: T) => {
-      this.subject.next(data);
-    });
+    this.httpClient.get<T>(path, options)
+      .subscribe((data: T) => {
+        this.subject.next(data);
+      }, () => { this.subject.next(undefined)});
   }
 }

@@ -153,10 +153,11 @@ export class GameUserWordsService {
   }
 
   uploadStats(stats: Statistics): void {
-    this.statisticsDataService.getFullData(`${BASE_URL}/users/${this.userID}/statistics`)
-      .subscribe((statistics: BackEndStatistics | string) => {
+    this.statisticsDataService.getData(`${BASE_URL}/users/${this.userID}/statistics`);
+    this.statisticsDataService.data$
+      .subscribe((statistics: BackEndStatistics | undefined) => {
         let body;
-        if (typeof statistics !== 'string' && Array.isArray(statistics.optional.stats)) {
+        if (statistics && Array.isArray(statistics.optional.stats)) {
           statistics.optional.stats.push(stats);
           body = { optional: { stats: statistics.optional.stats } };
         } else {
@@ -174,6 +175,6 @@ export class GameUserWordsService {
             body,
           },
         );
-      });
+      }).unsubscribe();
   }
 }
