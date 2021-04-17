@@ -1,6 +1,6 @@
 import { Statistics } from './statistics-short.model';
 
 export interface BackEndStatistics {
-  id: string;
+  userId: string;
   optional: Statistics[]
 }
