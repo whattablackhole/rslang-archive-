@@ -4,11 +4,15 @@
   align-items: center;
   gap: 2rem;
   color: #fff;
-  &__form-field{
-    width: 2rem;
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: transparent;
   }
 }
 
+.mat-form-field-appearance-outline{
+  width: 70px;
+}
 .mat-select-arrow, .mat-select {
   color: #fff;
 }
@@ -17,4 +21,4 @@
   color: #fff;
 }
 
-.mat-focused .mat-form-field-label{ color: #fff; } .mat-focused .mat-form-field-underline .mat-form-field-ripple{ background: #79c7d1; }
+

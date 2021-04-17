@@ -1,7 +1,6 @@
 @import "src/variables";
 .savannah__container {
   width: 100%;
-  max-height: 1000px;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -63,9 +62,13 @@
     border-radius: 5px;
     cursor: pointer;
     outline: none;
-    transition: 0.6s ease-in all;
+    font-size: 1.2rem;
+    transition: 0.3s ease-in all;
+    border: solid 1px #fff;
+    color: #fff;
     &:hover {
-      
+      color: $blue_color;
+      border: solid 1px $blue_color;
     }
   }
 }

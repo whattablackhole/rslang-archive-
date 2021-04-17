@@ -1,7 +1,10 @@
 <div>
   <div class="game__select-container">
     <mat-label>Pick group:</mat-label>
-    <mat-form-field class="game____select-container__form-field">
+    <mat-form-field
+      appearance="outline"
+      class="game____select-container__form-field"
+    >
       <mat-select
         [(ngModel)]="groupNumber"
         class="game__select"
@@ -12,10 +15,8 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <!-- </div> -->
-    <!-- <div class="game__select-container"> -->
     <mat-label>Pick page:</mat-label>
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-select
         [(ngModel)]="page"
         class="game__select"
@@ -26,6 +27,5 @@
         }}</mat-option>
       </mat-select>
     </mat-form-field>
-    <!-- </div> -->
   </div>
 </div>
