@@ -7,7 +7,7 @@ export abstract class BaseDataService<T> {
   data$: Observable<T>;
   private subject = new Subject<T>();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient) {
     this.data$ = this.subject.asObservable();
   }
 
