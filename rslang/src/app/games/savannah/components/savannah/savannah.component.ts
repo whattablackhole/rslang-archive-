@@ -156,9 +156,10 @@ export class Savannah implements OnInit {
         this.isLoading = false;
         this.words = sortedWords;
         this.unUsedWords = [...this.words];
+        this.wordsSubscription.unsubscribe();
       },
     );
-    this.wordsSubscription.unsubscribe();
+
   }
 
   startGame(): void {
