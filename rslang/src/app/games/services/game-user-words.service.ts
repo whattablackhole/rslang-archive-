@@ -118,7 +118,7 @@ export class GameUserWordsService {
         knowledgeDegree: word.userStats.optional.knowledgeDegree,
         page: word.page.toString(),
         group: word.group.toString(),
-        toStudy: {},
+        toStudy: word.userStats.optional.toStudy,
       },
     };
   }
