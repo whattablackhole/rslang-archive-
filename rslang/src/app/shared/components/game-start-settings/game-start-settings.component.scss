@@ -1,7 +1,20 @@
 .game__select-container {
-  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  color: #fff;
+  &__form-field{
+    width: 2rem;
+  }
 }
 
-.game__select {
-  margin-left: 15px;
+.mat-select-arrow, .mat-select {
+  color: #fff;
 }
+
+.mat-select-value-text{
+  color: #fff;
+}
+
+.mat-focused .mat-form-field-label{ color: #fff; } .mat-focused .mat-form-field-underline .mat-form-field-ripple{ background: #79c7d1; }

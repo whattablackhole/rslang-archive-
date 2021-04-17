@@ -1,11 +1,32 @@
+@import "src/variables";
 .savannah__container {
-  margin: 0 auto;
-  padding: 0 5%;
-  max-width: 100%;
-  position: relative;
+  width: 100%;
+  max-height: 1000px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient($blue_color, $accent_color);
   .game__menu {
     padding-top: 30px;
     text-align: center;
+  }
+
+  .game__title {
+    font-size: 2rem;
+    color: #fff;
+  }
+  .game__subtitle{
+    color: #fff;
+  }
+
+  .game__play-button{
+    align-self: center;
+    justify-self: center;
+    color: $blue_color;
+    border: solid 1px $blue_color;
+    font-size: 1.1rem;
+    text-transform: uppercase;
   }
 
   .savannah__health {
@@ -31,21 +52,20 @@
   .savannah__question {
     position: absolute;
     left: 50%;
+    font-size: 2rem;
+    color:#fff;
     transform: translateX(-50%);
   }
 
   .savannah__answer {
     margin: 5px 5px;
     padding: 10px 15px;
-    background-color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
     outline: none;
-    transition: 0.3s ease-in all;
+    transition: 0.6s ease-in all;
     &:hover {
-      color: #ffffff;
-      background-color: #000000;
-      border-color: #ffffff;
+      
     }
   }
 }
