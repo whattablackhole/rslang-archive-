@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as AOS from 'aos';
 import { Contributer } from '../models/contributor.model';
+
 @Component({
   selector: 'app-team',
   templateUrl: './team.html',
   styleUrls: ['./team.scss'],
 })
-export class Team {
+export class Team implements OnInit {
   contributors: Contributer[] = [
     {
       name: 'Rudolf Hrytsenyak',
@@ -64,4 +66,8 @@ export class Team {
       github: 'https://github.com/nofishtou',
     },
   ];
+
+  ngOnInit():void {
+    AOS.init();
+  }
 }
