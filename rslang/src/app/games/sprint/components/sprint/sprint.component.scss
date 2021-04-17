@@ -10,6 +10,24 @@
   display: flex;
   justify-content: center;
 
+  &__countdown {
+  background-color: #ed675b;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  font-size: 22px;
+  font-family: 'Noto Sans JP', sans-serif;
+  position: absolute;
+  right: 1vw;
+  top: -40px;
+  }
+  
   &__menu {
     display: flex;
     flex-direction: column;

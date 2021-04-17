@@ -5,6 +5,7 @@ import {
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
+import { CountdownEvent } from 'ngx-countdown';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -18,6 +19,7 @@ import { GameResults } from '../../../../shared/models/game-results.model';
 import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
+import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
 @Component({
   selector: 'app-sprint',
@@ -102,6 +104,11 @@ export class Sprint implements OnInit {
     minAmout: 5,
   };
 
+  countDownOptions: CountDownOptions = {
+    leftTime: 65,
+    format: 'ss.S',
+  };
+
   isGameStarted = false;
   isGameFinished = false;
 
@@ -146,6 +153,24 @@ export class Sprint implements OnInit {
         this.randomSortedWords = this.generateRandomWords(this.sortedWords);
       },
     );
+  }
+
+  onTimeUp(event: CountdownEvent): void {
+    if (event.action === 'done') {
+      this.autoFinishGame();
+    }
+  }
+
+  autoFinishGame():void {
+    this.currentWordIndex -= 1;
+    while (!this.isGameFinished) {
+      this.addWordToIncorrect(this.sortedWords[this.currentWordIndex]);
+      this.changeWordsKnowledgeDegree(
+        this.sortedWords[this.currentWordIndex].id, false,
+      );
+      this.currentWordIndex += 1;
+      this.checkIfGameFinished();
+    }
   }
 
   onBorderDone(): void {
