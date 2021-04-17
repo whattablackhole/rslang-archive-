@@ -15,6 +15,11 @@
   color: $main_blue;
 }
 
+.main-wrapper{
+  background: linear-gradient(#fff 10%, $blue_color, #fff 90%);
+  padding: 2rem 6rem;
+}
+
 .main {
   display: flex;
   flex-direction: column;

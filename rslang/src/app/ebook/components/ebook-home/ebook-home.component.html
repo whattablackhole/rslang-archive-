@@ -1,7 +1,9 @@
+<!-- <router-outlet name="ebook-header"></router-outlet> -->
+<router-outlet #outlet="outlet"></router-outlet>
+<!-- <app-ebook-settings
 <router-outlet #outlet="outlet"></router-outlet>
 <app-ebook-settings
   [userBookSettings]="userBookSettings"
   (bookSettingsChanged)="changeSelectedBookSetting($event)"
-></app-ebook-settings>
-<!-- <app-words-collections [wordsCollections]="wordsCollections"></app-words-collections> -->
-<app-footer></app-footer>
+></app-ebook-settings> -->
+<!-- <app-words-collections [wordsCollections]="wordsCollections" (groupIdChanged)="changeSelectedGroupId($event)"></app-words-collections> -->

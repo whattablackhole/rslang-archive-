@@ -1,6 +1,5 @@
 <div class="game">
   <app-screen-size-changer></app-screen-size-changer>
-  <h1 class="game__no-words-title" *ngIf="gameWordsState.isNoWords">Not enough words for game</h1>
   <mat-spinner *ngIf="!sortedWords" class="spinner"></mat-spinner>
   <div
     *ngIf="sortedWords && !isGameFinished"
@@ -15,23 +14,30 @@
       <button
         mat-button
         class="unselectable game__words-item"
-        *ngFor="let item of sortedWords | randomize: currentIndex:currentIndex + gameWordsState.minAmout"
-        (click)="onAnswer(item)"
+        *ngFor="
+          let sortedWord of sortedWords
+            | randomize: currentIndex:currentIndex + gameWordsState.minAmout
+        "
+        (click)="onAnswer(sortedWord)"
         [disabled]="isAnswered"
         [ngClass]="{
-          'game__words-item_correct': item.word === correctWordName,
-          'game__words-item_incorrect': item.word === incorrectWordName,
-          'game__words-item_choosed': item.word === choosedWordName
+          'game__words-item_correct': sortedWord.word === correctWordName,
+          'game__words-item_incorrect': sortedWord.word === incorrectWordName,
+          'game__words-item_choosed': sortedWord.word === choosedWordName
         }"
       >
-        {{ item.wordTranslate }}
+        {{ sortedWord.wordTranslate }}
       </button>
     </div>
     <button mat-button class="game__button" (click)="onFinishAnswer()">
-      {{ answerButtonText }} <mat-icon [ngClass]="{ hidden: !isAnswered }">arrow_forward</mat-icon>
+      {{ answerButtonText }}
+      <mat-icon [ngClass]="{ hidden: !isAnswered }">arrow_forward</mat-icon>
     </button>
   </div>
   <div *ngIf="isGameFinished">
-    <app-finish-menu [gameResultWords]="gameResultWords" [correctGamePercent]="correctGamePercent"></app-finish-menu>
+    <app-finish-menu
+      [gameResultWords]="gameResultWords"
+      [correctGamePercent]="correctGamePercent"
+    ></app-finish-menu>
   </div>
 </div>
