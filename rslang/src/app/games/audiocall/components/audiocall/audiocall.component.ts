@@ -15,6 +15,7 @@ import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
@@ -26,7 +27,6 @@ import { WordDataService } from '../../../../shared/services/word-data.service';
 import { GameWordsService } from '../../../services/game-words.service';
 import { gameWordsFactory } from '../../../services/game-words.factory';
 import { AuthService } from '../../../../auth/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-audiocall',

@@ -1,7 +1,9 @@
+
 <div class="game">
   <app-screen-size-changer></app-screen-size-changer>
   <div *ngIf="!isGameStarted">
     <div class="game__menu" *ngIf="!isGameFinished">
+      <div class="game__img"></div>
       <h2 class="game__title">Sprint</h2>
       <h3 class="game__subtitle">In this game you need to use your skills to choose the appropriate answer</h3>
       <div>
@@ -35,6 +37,7 @@
     (@coloredBorder.done)="onBorderDone()"
     class="game__content"
   >
+    <div class="game__img-lvl game__img-lvl_one"></div>
     <div [ngClass]="{ 'game__img-lvl game__img-lvl_two': gameLevel > 1 }"></div>
     <div [ngClass]="{ 'game__img-lvl game__img-lvl_three': gameLevel > 2 }"></div>
     <div [ngClass]="{ 'game__img-lvl game__img-lvl_four': gameLevel > 3 }"></div>
