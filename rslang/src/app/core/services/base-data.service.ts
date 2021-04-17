@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpOptions } from '../models/http-options.model';
 
 export abstract class BaseDataService<T> {
@@ -14,8 +14,6 @@ export abstract class BaseDataService<T> {
     this.httpClient.get<T>(path, options)
       .subscribe((data: T) => {
         this.subject.next(data);
-      }, (error: HttpErrorResponse) => {
-        console.log('Does not find info');
       });
   }
 }

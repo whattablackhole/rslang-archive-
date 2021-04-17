@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { BASE_URL } from 'src/app/shared/constants/base-url';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { BaseDataService } from '../../core/services/base-data.service';
 import { BackEndStatistics } from '../../shared/models/statistics-backend.model';
+import { API_URL } from '../../shared/constants/api-url';
 
 @Injectable()
 export class GSProviderService extends BaseDataService<BackEndStatistics> {
@@ -14,8 +13,7 @@ export class GSProviderService extends BaseDataService<BackEndStatistics> {
     this.userID = this.authService.getUserId() as string;
   }
 
-  getGameSessions(): Observable<BackEndStatistics> {
-    this.getData(`${BASE_URL}/users/${this.userID}/statistics`);
-    return this.data$;
+  getGameSessions(): void {
+    this.getData(API_URL.USER_STATISTICS(this.userID));
   }
 }
