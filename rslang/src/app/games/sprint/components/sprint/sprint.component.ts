@@ -3,13 +3,14 @@ import {
   trigger, style, animate, transition, keyframes, animation,
 } from '@angular/animations';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
-import { Router, RoutesRecognized } from '@angular/router';
-import { filter, pairwise } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { WordActionService } from 'src/app/shared/services/word-action.service';
+import { first } from 'rxjs/operators';
+import { CountdownEvent } from 'ngx-countdown';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -18,6 +19,7 @@ import { GameResults } from '../../../../shared/models/game-results.model';
 import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
+import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
 @Component({
   selector: 'app-sprint',
@@ -28,7 +30,6 @@ import { GameWordsService } from '../../../services/game-words.service';
     UserWordsDataService,
     GameStorageWordsService,
     GameCoreService,
-    AuthService,
     StatisticsActionService,
     WordActionService,
     {
@@ -85,7 +86,6 @@ export class Sprint implements OnInit {
 
   borderColorAnimationState: BorderColorAnimationState;
   hiddenTextAnimationState: HiddenTextAnimationState;
-
   currentWordIndex = 0;
   biggestStreak = 0;
   currentStreak = 0;
@@ -93,6 +93,9 @@ export class Sprint implements OnInit {
   scorePoints = 0;
   gameLevel = 1;
   correctGamePercent = 0;
+
+  groupsAmount = 6;
+  pagesAmount = 30;
 
   gameWordsState: GameWordsState = {
     isWordsLast: false,
@@ -102,50 +105,78 @@ export class Sprint implements OnInit {
     minAmout: 5,
   };
 
+  countDownOptions: CountDownOptions = {
+    leftTime: 65,
+    format: 'ss.S',
+  };
+
   isGameStarted = false;
   isGameFinished = false;
+  isChoosed = false;
+  isGameFromBook = false;
 
   group: string;
   page: string;
 
   constructor(
     private gameCoreService: GameCoreService,
-    private router: Router,
+    private router: ActivatedRoute,
     private gameWordsService: GameWordsService,
   ) {
-    this.router.events
-      .pipe(
-        filter((events: any) => events instanceof RoutesRecognized),
-        pairwise(),
-      )
-      .subscribe((events: RoutesRecognized[]) => {
-        if (events[0].url.startsWith('/ebook')) {
-          this.page = events[0].state.root.queryParams.page as string;
-          this.group = events[0].state.root.queryParams.group as string;
-        } else {
-          this.page = '1';
-          this.group = '1';
-        }
-      });
+
   }
 
   ngOnInit(): void {
-    if (!this.page && !this.group) {
-      this.group = '1';
-      this.page = '1';
+    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords) => {
+      this.sortedWords = sortedWords;
+      this.randomSortedWords = this.generateRandomWords(this.sortedWords);
+    });
+    const params = this.router.snapshot.queryParams;
+    if (params.prev === 'book' && parseInt(params.group, 10) && parseInt(params.page, 10)) {
+      this.page = params.page as string;
+      this.group = params.group as string;
+      this.onChooseSubmit();
     }
+    if (!this.page || !this.group) {
+      this.group = '0';
+      this.page = '0';
+    }
+  }
+
+  onChooseGroup(group: string): void {
+    this.group = group;
+  }
+
+  onChoosePage(page: string): void {
+    this.page = page;
+  }
+
+  onChooseSubmit():void {
+    this.isChoosed = true;
     this.gameWordsService.getWords(this.group, this.page);
     this.gameWordsService.createWordsForGame(
       this.group,
       this.page,
       this.gameWordsState,
     );
-    this.gameWordsService.sortedWords$.subscribe(
-      (sortedWords: WordWithStatistics[]) => {
-        this.sortedWords = sortedWords;
-        this.randomSortedWords = this.generateRandomWords(this.sortedWords);
-      },
-    );
+  }
+
+  onTimeUp(event: CountdownEvent): void {
+    if (event.action === 'done') {
+      this.autoFinishGame();
+    }
+  }
+
+  autoFinishGame():void {
+    this.currentWordIndex -= 1;
+    while (!this.isGameFinished) {
+      this.addWordToIncorrect(this.sortedWords[this.currentWordIndex]);
+      this.changeWordsKnowledgeDegree(
+        this.sortedWords[this.currentWordIndex].id, false,
+      );
+      this.currentWordIndex += 1;
+      this.checkIfGameFinished();
+    }
   }
 
   onBorderDone(): void {
@@ -167,6 +198,7 @@ export class Sprint implements OnInit {
   }
 
   finishGame(): void {
+    this.sortedWords = this.gameCoreService.addStudyStats(this.sortedWords, this.gameResultWords);
     this.statistics = this.gameCoreService.generateStats(
       this.gameResultWords,
       this.biggestStreak,
