@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
+import { MatSliderModule } from '@angular/material/slider';
 import { SharedModule } from '../shared/shared.module';
 import { EbookRoutingModule } from './ebook-routing.module';
 
@@ -26,7 +27,7 @@ import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
     PaginationDirective,
     FilterByActionPipe,
   ],
-  imports: [SharedModule, EbookRoutingModule, MatInputModule],
+  imports: [SharedModule, EbookRoutingModule, MatInputModule, MatSliderModule],
   exports: [WordsCollections],
   providers: [EbookSettingsService, SettingsDataService, WordsDataService],
 })
