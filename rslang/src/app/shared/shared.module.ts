@@ -10,10 +10,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
 import { Footer } from './components/footer/footer.component';
+import { NotificationBar } from './components/notification/notification-bar.component';
 import { FinishMenu } from './components/finish-menu/finish-menu.component';
 import { ScreenSizeChanger } from './components/screen-size-changer/screen-size-changer.component';
 import { StartAnimation } from './components/start-animation/start-animation.component';
@@ -21,7 +23,16 @@ import { RandomizePipe } from './pipes/randomize.pipe';
 import { GameStartSettings } from './components/game-start-settings/game-start-settings.component';
 
 @NgModule({
-  declarations: [NotFoundPage, Footer, FinishMenu, ScreenSizeChanger, StartAnimation, RandomizePipe, GameStartSettings],
+  declarations: [
+    NotFoundPage,
+    Footer,
+    NotificationBar,
+    FinishMenu,
+    ScreenSizeChanger,
+    StartAnimation,
+    RandomizePipe,
+    GameStartSettings,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -34,6 +45,7 @@ import { GameStartSettings } from './components/game-start-settings/game-start-s
     MatProgressSpinnerModule,
     MatCardModule,
     MatExpansionModule,
+    MatSnackBarModule,
     MatGridListModule,
   ],
   exports: [
@@ -49,6 +61,7 @@ import { GameStartSettings } from './components/game-start-settings/game-start-s
     MatCardModule,
     MatGridListModule,
     MatExpansionModule,
+    MatSnackBarModule,
     Footer,
     FinishMenu,
     ScreenSizeChanger,
@@ -56,5 +69,6 @@ import { GameStartSettings } from './components/game-start-settings/game-start-s
     RandomizePipe,
     GameStartSettings,
   ],
+  providers: [NotificationBar],
 })
 export class SharedModule {}
