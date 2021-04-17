@@ -19,6 +19,7 @@ import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 import { GameWordsService } from '../../../services/game-words.service';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
@@ -84,7 +85,6 @@ export class Sprint implements OnInit {
 
   borderColorAnimationState: BorderColorAnimationState;
   hiddenTextAnimationState: HiddenTextAnimationState;
-  wordsSubscription: Subscription;
   currentWordIndex = 0;
   biggestStreak = 0;
   currentStreak = 0;
@@ -121,13 +121,10 @@ export class Sprint implements OnInit {
   }
 
   ngOnInit(): void {
-    this.wordsSubscription = this.gameWordsService.sortedWords$.subscribe(
-      (sortedWords: WordWithStatistics[]) => {
-        this.sortedWords = sortedWords;
-        this.randomSortedWords = this.generateRandomWords(this.sortedWords);
-        this.wordsSubscription.unsubscribe();
-      },
-    );
+    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords)=>{
+      this.sortedWords = sortedWords;
+      this.randomSortedWords = this.generateRandomWords(this.sortedWords);
+    });
     const params = this.router.snapshot.queryParams;
     if (params.prev === 'book' && parseInt(params.group, 10) && parseInt(params.page, 10)) {
       this.page = params.page as string;

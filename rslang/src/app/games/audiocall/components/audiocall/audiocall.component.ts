@@ -27,6 +27,7 @@ import { WordDataService } from '../../../../shared/services/word-data.service';
 import { GameWordsService } from '../../../services/game-words.service';
 import { gameWordsFactory } from '../../../services/game-words.factory';
 import { AuthService } from '../../../../auth/services/auth.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-audiocall',
@@ -79,7 +80,6 @@ import { AuthService } from '../../../../auth/services/auth.service';
 export class Audiocall implements OnInit {
   sortedWords: WordWithStatistics[];
   wordsFromLocalStorage: WordWithStatistics[] | null | string;
-  wordsSubscription : Subscription;
 
   gameResultWords: GameResults = { correctWords: [], incorrectWords: [] };
   statistics: Statistics;
@@ -121,13 +121,10 @@ export class Audiocall implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.wordsSubscription = this.gameWordsService.sortedWords$.subscribe(
-      (sortedWords: WordWithStatistics[]) => {
-        this.sortedWords = sortedWords;
-        this.lastIndex = this.calculateLastIndex(this.gameWordsState);
-        this.wordsSubscription.unsubscribe();
-      },
-    );
+    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords)=>{
+      this.sortedWords = sortedWords;
+      this.lastIndex = this.calculateLastIndex(this.gameWordsState);
+    });
     const params = this.router.snapshot.queryParams;
     if (params.prev === 'book' && parseInt(params.group, 10) && parseInt(params.page, 10)) {
       this.page = params.page as string;
