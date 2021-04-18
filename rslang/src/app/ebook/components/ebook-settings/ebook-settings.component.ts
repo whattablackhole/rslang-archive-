@@ -18,7 +18,7 @@ import { LocalStorageType } from '../../../shared/models/change-storage-type.mod
   styleUrls: ['./ebook-settings.component.scss'],
 })
 export class EbookSettings implements OnInit, OnDestroy {
-  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
+  isUserAuthenticated = false;
   userBookSettings: UserBookSettings;
   name: FormControl = new FormControl('', [
     Validators.minLength(3),
@@ -35,6 +35,7 @@ export class EbookSettings implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
     this.ebookSettingsSubscription = this.localStorageService.changes$

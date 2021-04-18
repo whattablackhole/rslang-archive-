@@ -20,6 +20,7 @@ import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
 import { GameSidenav } from './components/game-sidenav/game-sidenav.component';
 import { SettingsActionService } from './services/settings-action.service';
 import { EbookProviderService } from './services/ebook-provider.service';
+import { UsersWordsDataService } from './services/users-words-data.service';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { EbookProviderService } from './services/ebook-provider.service';
     WordsDataService,
     SettingsActionService,
     EbookProviderService,
+    UsersWordsDataService,
   ],
 })
 export class EbookModule {}

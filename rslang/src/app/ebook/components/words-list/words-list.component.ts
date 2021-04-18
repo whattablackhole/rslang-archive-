@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { WORDS_API_URL } from '../../../shared/constants/constants';
 import { ActionParams } from '../../models/action-params.model';
 import { Word } from '../../../shared/models/word.model';
-import { UserStats } from '../../../shared/models/user-stats.model';
+import { UsersWords } from '../../../shared/models/user-stats.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
@@ -30,7 +30,7 @@ export class WordsList implements OnInit, OnDestroy {
 
   userBookSettings: UserBookSettings;
   words: Word[] = [];
-  userWords: UserStats[] = [];
+  userWords: UsersWords[] = [];
   isUserAuthenticated = true;
 
   constructor(
@@ -107,7 +107,7 @@ export class WordsList implements OnInit, OnDestroy {
       ? this.authService.getUserId()
       : 'unauthenticated';
 
-    const index = this.userWords.findIndex((element: UserStats) => element.wordId === params.wordId);
+    const index = this.userWords.findIndex((element: UsersWords) => element.wordId === params.wordId);
     if (index === -1) {
       this.userWords.push({
         id: userId as string,
