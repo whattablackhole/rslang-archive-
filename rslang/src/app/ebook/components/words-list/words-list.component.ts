@@ -98,8 +98,6 @@ export class WordsList implements OnInit, OnDestroy {
   }
 
   setActionForWord(params: ActionParams): void {
-    // const group = String(this.words[this.indexWord(this.words, 'id', params.wordId)].group);
-    // const page = String(this.words[this.indexWord(this.words, 'id', params.wordId)].page);
     const group = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].group);
     const page = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].page);
 

@@ -13,7 +13,7 @@ import { SettingsActionService } from './settings-action.service';
 @Injectable()
 export class EbookSettingsService {
   ebookSettings: UserBookSettings;
-  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
+  isUserAuthenticated = false;
   userId: string;
 
   constructor(
@@ -24,6 +24,7 @@ export class EbookSettingsService {
   ) { }
 
   load(): void {
+    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     if (this.isUserAuthenticated) {
       this.userId = this.authService.getUserId() as string;
       this.settingsService.getData(API_URL.USER_SETTINGS(this.userId));

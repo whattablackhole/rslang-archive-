@@ -4,10 +4,13 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { UsersWords } from 'src/app/shared/models/user-stats.model';
 import { UsersWordsDataService } from '../../services/users-words-data.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
+import { UserBookSettings } from '../../models/user-book-settings.model';
 import { WordsCollection } from '../../models/words-collection.model';
+import { UsersWords } from '../../../shared/models/user-stats.model';
 import { CONFIG_EBOOK } from '../../constants/config-ebook';
 
 @Component({
@@ -19,12 +22,14 @@ export class WordsCollections implements OnInit, OnDestroy {
   wordsCollections: WordsCollection[] = CONFIG_EBOOK.collections;
   allWordssubscriptions: Subscription;
   allUsersWords: UsersWords[];
+  userBookSettings: UserBookSettings;
   isUserAuthenticated = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
+    private localStorageService: LocalStorageService,
     private usersWordsDataService: UsersWordsDataService,
   ) {}
 
@@ -34,18 +39,26 @@ export class WordsCollections implements OnInit, OnDestroy {
       ? this.authService.getUserId()
       : 'unauthenticated';
 
-    this.usersWordsDataService.getAllUsersWords(userId as string);
-    this.allWordssubscriptions = this.usersWordsDataService.data$
-      .subscribe((words: UsersWords[]) => {
-        this.allUsersWords = words;
-        console.log(this.allUsersWords);
-      });
+    if (this.isUserAuthenticated) {
+      this.usersWordsDataService.getAllUsersWords(userId as string);
+      this.allWordssubscriptions = this.usersWordsDataService.data$
+        .subscribe((words: UsersWords[]) => {
+          this.allUsersWords = words;
+        });
+    }
   }
 
   changeSelectedGroup(collection: WordsCollection): Promise<boolean> {
+    const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
+    this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
+    this.userBookSettings.currentState.group = collection.id;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    // TODO for authenticated
+    const page = 0;
     const path = this
       .router
-      .createUrlTree([collection.id + 1, 'page', 1], { relativeTo: this.route })
+      .createUrlTree([collection.id + 1, 'page', page + 1], { relativeTo: this.route })
       .toString();
     return this.router.navigate([path]);
   }
@@ -55,6 +68,8 @@ export class WordsCollections implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.allWordssubscriptions.unsubscribe();
+    if (this.isUserAuthenticated) {
+      this.allWordssubscriptions.unsubscribe();
+    }
   }
 }
