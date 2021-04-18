@@ -7,6 +7,19 @@
   gap: 5px;
 }
 
+.logo-container:hover {
+  cursor: pointer;
+}
+
+.logo-container:active,
+.logo-container:focus {
+  outline: none;
+}
+
+.logo-container:focus {
+  outline: 0px solid transparent
+}
+
 .logo {
   height: 40px;
   margin-top: 10px;

@@ -34,6 +34,12 @@
   width: 200px;
 }
 
+.logo-wrapper:active,
+.log0-wrapper:focus {
+  outline: none;
+}
+
+
 .account-wrapper {
   display: flex;
   justify-content: space-between;

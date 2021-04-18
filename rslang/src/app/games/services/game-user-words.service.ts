@@ -13,9 +13,12 @@ import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
+import { BackEndStatistics } from 'src/app/shared/models/statistics-backend.model';
+import { first } from 'rxjs/operators';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../shared/services/user-words-data.service';
+import { StatisticsDataService } from '../../shared/services/statistics-data.service';
 import { NotificationService } from '../../shared/services/notification.service';
 import { GameCoreService } from './game-core.service';
 
@@ -38,6 +41,7 @@ export class GameUserWordsService {
     private wordActionService: WordActionService,
     private statisticsActionService: StatisticsActionService,
     private notifyService: NotificationService,
+    private statisticsDataService: StatisticsDataService,
   ) {
     this.words$ = this.wordsService.data$;
     this.userWords$ = this.userWordsService.data$;
@@ -150,17 +154,28 @@ export class GameUserWordsService {
   }
 
   uploadStats(stats: Statistics): void {
-    this.statisticsActionService.sendAction(
-      'PUT',
-      `${BASE_URL}/users/${this.userID}/statistics`,
-      {
-        onError: (err) => {
-          this.notifyService.showError(err.message);
-        },
-      },
-      {
-        body: { optional: { ...stats } },
-      },
-    );
+    this.statisticsDataService.getData(`${BASE_URL}/users/${this.userID}/statistics`);
+    this.statisticsDataService.data$.pipe(first())
+      .subscribe((statistics: BackEndStatistics) => {
+        let body;
+        if (statistics && Array.isArray(statistics.optional.stats)) {
+          statistics.optional.stats.push(stats);
+          body = { optional: { stats: statistics.optional.stats } };
+        } else {
+          body = { optional: { stats: [stats] } };
+        }
+        this.statisticsActionService.sendAction(
+          'PUT',
+          `${BASE_URL}/users/${this.userID}/statistics`,
+          {
+            onError: (err) => {
+              this.notifyService.showError(err.message);
+            },
+          },
+          {
+            body,
+          },
+        );
+      });
   }
 }

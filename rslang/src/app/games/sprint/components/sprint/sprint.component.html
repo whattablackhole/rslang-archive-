@@ -7,7 +7,8 @@
       <h2 class="game__title">Sprint</h2>
       <h3 class="game__subtitle">In this game you need to use your skills to choose the appropriate answer</h3>
       <div>
-        <mat-spinner *ngIf="!randomSortedWords && isChoosed"></mat-spinner>
+        <div *ngIf="gameWordsState.isNoWords" class="game__no-words">Not enough words</div>
+        <mat-spinner *ngIf="!randomSortedWords && isChoosed && !gameWordsState.isNoWords"></mat-spinner>
         <button
           class="game__play-button"
           *ngIf="randomSortedWords"
