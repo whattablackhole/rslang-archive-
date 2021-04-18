@@ -14,6 +14,10 @@ import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model'
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
+import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
+import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { WORDS_API_URL } from '../../../../shared/constants/constants';
@@ -39,7 +43,6 @@ import { AuthService } from '../../../../auth/services/auth.service';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
-    AuthService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -55,13 +58,13 @@ import { AuthService } from '../../../../auth/services/auth.service';
   ],
   animations: [
     trigger('blockPosition', [
-      state('right', style({ transform: 'translateX(600px)', offset: '1' })),
+      state('right', style({ transform: 'translateX(70vw)', offset: '1' })),
       transition('* => right', [
         animate(
           '1s',
           keyframes([
             style({ transform: 'translateX(30px)', offset: '0.7' }),
-            style([{ transform: 'translateX(-900px)', offset: '1' }]),
+            style([{ transform: 'translateX(-70vw)', offset: '1' }]),
           ]),
         ),
       ]),
@@ -91,13 +94,18 @@ export class Audiocall implements OnInit {
   };
 
   isGameFinished = false;
+  isGameStarted = false;
   isAnswered = false;
+  isAnswerButtonDisabled = false;
 
   currentIndex = 0;
   lastIndex: number;
   currentStreak = 0;
   correctGamePercent = 0;
   biggestStreak = 0;
+  groupsAmount = 6;
+  pagesAmount = 30;
+
   blockPosition: BlockPositionState;
 
   page = '0';
@@ -107,24 +115,47 @@ export class Audiocall implements OnInit {
   incorrectWordName: string;
   choosedWordName: string;
 
+  eventStartGameSubscription = new Subscription();
+
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
+    private ebookProviderService: EbookProviderService,
   ) {}
 
   ngOnInit(): void {
+    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords) => {
+      this.sortedWords = sortedWords;
+      this.lastIndex = this.calculateLastIndex(this.gameWordsState);
+    });
+    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
+      .subscribe(
+        (eventStartGame: EventStartGame) => {
+          if (eventStartGame.fromEbook && eventStartGame.currentState) {
+            const { page, group } = eventStartGame.currentState;
+            this.page = `${page}`;
+            this.group = `${group}`;
+          }
+          this.eventStartGameSubscription.unsubscribe();
+        },
+      );
+  }
+
+  onChooseGroup(group: string): void {
+    this.group = group;
+  }
+
+  onChoosePage(page: string): void {
+    this.page = page;
+  }
+
+  onPlay():void {
+    this.isGameStarted = true;
     this.gameWordsService.getWords(this.group, this.page);
     this.gameWordsService.createWordsForGame(
       this.group,
       this.page,
       this.gameWordsState,
-    );
-
-    this.gameWordsService.sortedWords$.subscribe(
-      (sortedWords: WordWithStatistics[]) => {
-        this.sortedWords = sortedWords;
-        this.lastIndex = this.calculateLastIndex(this.gameWordsState);
-      },
     );
   }
 
@@ -160,6 +191,7 @@ export class Audiocall implements OnInit {
       this.onWrongAnswer();
     }
     this.blockPosition = 'right';
+    this.isAnswerButtonDisabled = true;
   }
 
   onPlaySound(): void {
@@ -199,11 +231,13 @@ export class Audiocall implements OnInit {
     this.choosedWordName = '';
     this.answerButtonText = "Don't know";
     this.blockPosition = 'center';
+    this.isAnswerButtonDisabled = false;
   }
 
   finishGame(): void {
     this.generateCorrectPercent();
     this.isGameFinished = true;
+    this.sortedWords = this.gameCoreService.addStudyStats(this.sortedWords, this.gameResultWords);
     this.statistics = this.gameCoreService.generateStats(
       this.gameResultWords,
       this.biggestStreak,

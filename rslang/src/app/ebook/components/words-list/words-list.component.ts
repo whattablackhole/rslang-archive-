@@ -1,7 +1,8 @@
 import {
   Component, OnInit, OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { WORDS_API_URL } from '../../../shared/constants/constants';
@@ -16,6 +17,7 @@ import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { UserWordActionService } from '../../../shared/services/user-word-action.service';
+import { EbookSettingsService } from '../../services/ebook-settings.service';
 
 @Component({
   selector: 'app-words-list',
@@ -29,14 +31,17 @@ export class WordsList implements OnInit, OnDestroy {
   userBookSettings: UserBookSettings;
   words: Word[] = [];
   userWords: UserStats[] = [];
-  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
+  isUserAuthenticated = true;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
+    private location: Location,
     private wordsDataService: WordsDataService,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private userWordActionService: UserWordActionService,
+    private ebookSettings: EbookSettingsService,
   ) {}
 
   ngOnInit(): void {
@@ -61,10 +66,33 @@ export class WordsList implements OnInit, OnDestroy {
       .subscribe((words: Word[]) => this.mapWords(words));
   }
 
+  changeSelectedGroup(groupChanged: number): void {
+    const { page } = this.userBookSettings.currentState;
+    const path = this
+      .router
+      .createUrlTree(['ebook/group', groupChanged, 'page', page])
+      .toString();
+    this.location.go(path);
+
+    this.userBookSettings.currentState.group = groupChanged;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    const { currentState } = this.userBookSettings;
+    this.wordsDataService.getWords(currentState);
+  }
+
   changeSelectedPage(pageChanged: number): void {
+    const { group } = this.userBookSettings.currentState;
+    const path = this
+      .router
+      .createUrlTree(['ebook/group', group, 'page', pageChanged])
+      .toString();
+    this.location.go(path);
+
     this.userBookSettings.currentState.page = pageChanged;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    this.ebookSettings.setUserSettings();
     const { currentState } = this.userBookSettings;
     this.wordsDataService.getWords(currentState);
   }

@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
 
 import { NotFoundPage } from './components/not-found-page/not-found-page.component';
 import { Footer } from './components/footer/footer.component';
@@ -47,6 +48,7 @@ import { GameStartSettings } from './components/game-start-settings/game-start-s
     MatExpansionModule,
     MatSnackBarModule,
     MatGridListModule,
+    MatSelectModule,
   ],
   exports: [
     CommonModule,
@@ -62,6 +64,7 @@ import { GameStartSettings } from './components/game-start-settings/game-start-s
     MatGridListModule,
     MatExpansionModule,
     MatSnackBarModule,
+    MatSelectModule,
     Footer,
     FinishMenu,
     ScreenSizeChanger,

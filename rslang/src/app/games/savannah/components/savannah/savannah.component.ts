@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   style,
@@ -21,6 +21,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
+import { EbookProviderService } from '../../../../ebook/services/ebook-provider.service';
+import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
 
 @Component({
   selector: 'app-savannah',
@@ -35,7 +37,6 @@ import { Subscription } from 'rxjs';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
-    AuthService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -67,8 +68,10 @@ import { Subscription } from 'rxjs';
     ]),
   ],
 })
-export class Savannah implements OnDestroy {
+
+export class Savannah implements OnInit {
   wordsSubscription: Subscription;
+  eventStartGameSubscription = new Subscription();
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
     correctWords: [],
@@ -113,10 +116,23 @@ export class Savannah implements OnDestroy {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
+    private ebookProviderService: EbookProviderService,
   ) {}
 
-  ngOnDestroy():void {
-    this.wordsSubscription.unsubscribe();
+  ngOnInit(): void {
+    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
+      .subscribe(
+        (eventStartGame: EventStartGame) => {
+          if (eventStartGame.fromEbook && eventStartGame.currentState) {
+            this.isShownGameSettings = eventStartGame.fromEbook;
+            const { page, group } = eventStartGame.currentState;
+            this.page = `${page}`;
+            this.groupNumber = `${group}`;
+            this.getWords();
+          }
+          this.eventStartGameSubscription.unsubscribe();
+        },
+      );
   }
 
   generateRound(): void {
@@ -150,6 +166,7 @@ export class Savannah implements OnDestroy {
         this.isLoading = false;
         this.words = sortedWords;
         this.unUsedWords = [...this.words];
+        this.wordsSubscription.unsubscribe();
       },
     );
   }
@@ -239,6 +256,7 @@ export class Savannah implements OnDestroy {
   }
 
   onWrongAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/error.mp3');
     this.lives.splice(0, 1);
     this.currentAnswers.length = 0;
     this.gameResultWords.incorrectWords.push(
@@ -247,6 +265,7 @@ export class Savannah implements OnDestroy {
   }
 
   onCorrectAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/success.mp3');
     this.streak += 1;
     this.currentAnswers.length = 0;
     this.gameResultWords.correctWords.push(
@@ -257,6 +276,13 @@ export class Savannah implements OnDestroy {
   onGameEnd(): void {
     this.isGameStart = false;
     this.isGameEnd = true;
+    const gameResultWords : WordWithStatistics[] = this.gameCoreService.addStudyStats(
+      [
+        ...this.gameResultWords.correctWords,
+        ...this.gameResultWords.incorrectWords,
+      ],
+      this.gameResultWords,
+    );
     this.calculateStreak();
     this.generateCorrectPercent();
     const statistics = this.gameCoreService.generateStats(
@@ -264,10 +290,7 @@ export class Savannah implements OnDestroy {
       this.biggestStreak,
       'Savannah',
     );
-    this.gameWordsService.uploadWords([
-      ...this.gameResultWords.correctWords,
-      ...this.gameResultWords.incorrectWords,
-    ]);
+    this.gameWordsService.uploadWords(gameResultWords);
     this.gameWordsService.uploadStats(statistics);
   }
 

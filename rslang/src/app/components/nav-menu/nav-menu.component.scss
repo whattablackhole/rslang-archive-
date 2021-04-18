@@ -30,17 +30,21 @@
 }
 
 .logo-wrapper {
-  width: 100%;
-  min-width: 100px;
-  max-width: 200px;
+  // width: 100%;
+  width: 200px;
 }
+
+.logo-wrapper:active,
+.logo-wrapper:focus {
+  outline: none;
+}
+
 
 .account-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 70px;
-  min-width: 20px;
   width: 100%;
 }
 
