@@ -56,16 +56,15 @@ export class MatchPairs implements OnInit {
   gameWordsState: GameWordsState = {
     isWordsLast: false,
     isNoWords: false,
-    wordsLimit: 3,
+    wordsLimit: 20,
     wordsLength: 0,
-    minAmout: 3,
+    minAmout: 20,
   };
 
   isGameStart = false;
   isGameEnd = false;
 
   currentIndex = 0;
-  // lastIndex: number;
   groupsAmount = 6;
   pagesAmount = 30;
   streak = 0;
@@ -151,14 +150,12 @@ export class MatchPairs implements OnInit {
   }
 
   onWrongAnswer(answer: WordWithStatistics): void {
-    this.streak += 1;
     this.gameResultWords.incorrectWords.push(
       this.changeWordKnowledge(answer, false),
     );
   }
 
   onGameEnd(): void {
-    // this.isGameStart = false;
     this.isGameEnd = true;
     const gameResultWords: WordWithStatistics[] = this.gameCoreService.addStudyStats(
       [

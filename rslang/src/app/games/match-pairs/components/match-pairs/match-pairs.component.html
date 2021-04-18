@@ -12,13 +12,13 @@
   <mat-spinner *ngIf="isGameStart && !sortedWords" class="spinner"></mat-spinner>
   <div *ngIf="sortedWords && !isGameEnd" class="game-words">
     <div class="game-words-row">
-      <button class="word-card" (click)="cardClicked(sortedWord)"
+      <button class="word-card" (click)="cardClicked(sortedWord)" appDeactivateCard="0.5"
         *ngFor="let sortedWord of sortedWords | randomize: currentIndex:currentIndex + gameWordsState.minAmout">
         <p>{{ sortedWord.word }}</p>
       </button>
     </div>
     <div class="game-words-row">
-      <button class="word-card translation" (click)="cardClicked(sortedWord)"
+      <button class="word-card translation" (click)="cardClicked(sortedWord)" appDeactivateCard="0.5"
         *ngFor="let sortedWord of sortedWords | randomize: currentIndex:currentIndex + gameWordsState.minAmout">
         <p>{{ sortedWord.wordTranslate }}</p>
       </button>
