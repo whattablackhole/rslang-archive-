@@ -7,12 +7,15 @@
 
 .footer__wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 90px;
   background: $main_blue;
   color: #fff;
   font-size: 0.9rem;
+  @include common-padding;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .footer__logo {

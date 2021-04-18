@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { BaseDataService } from '../../core/services/base-data.service';
-import { GameSession } from '../models/game-session.model';
+import { BackEndStatistics } from '../../shared/models/statistics-backend.model';
+import { API_URL } from '../../shared/constants/api-url';
 
 @Injectable()
-export class GSProviderService extends BaseDataService<GameSession[]> {
-  url = 'address';
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-  constructor(httpClient: HttpClient) {
+export class GSProviderService extends BaseDataService<BackEndStatistics> {
+  userID: string;
+  constructor(httpClient: HttpClient, private authService: AuthService) {
     super(httpClient);
+    this.userID = this.authService.getUserId() as string;
   }
 
-  getGameSessions(): Observable<GameSession[]> {
-    this.getData(this.url);
-    return this.data$;
+  getGameSessions(): void {
+    this.getData(API_URL.USER_STATISTICS(this.userID));
   }
 }

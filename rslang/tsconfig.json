@@ -3,6 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "assets/*": [
+          "/Users/alenafevr/Angular/RSS/rslang/rslang/src/assets/*"
+      ]
+  },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

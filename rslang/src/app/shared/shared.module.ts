@@ -9,6 +9,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
@@ -46,6 +47,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatExpansionModule,
     MatSnackBarModule,
     MatGridListModule,
+    MatSelectModule,
   ],
   exports: [
     CommonModule,
@@ -61,6 +63,7 @@ import { RandomizePipe } from './pipes/randomize.pipe';
     MatGridListModule,
     MatExpansionModule,
     MatSnackBarModule,
+    MatSelectModule,
     Footer,
     FinishMenu,
     ScreenSizeChanger,
