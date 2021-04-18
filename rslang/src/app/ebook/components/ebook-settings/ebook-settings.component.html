@@ -2,12 +2,17 @@
   <form #settingsForm="ngForm">
     <div *ngIf="isUserAuthenticated">
       <mat-form-field class="example-full-width">
-        <input matInput id="username" value="User name" />
+        <input matInput id="username" placeholder="User name" [formControl]="name"/>
       </mat-form-field>
     </div>
     <p class=" subtitle ">Buttons</p>
     <div *ngFor="let itembtn of userBookSettings.buttonOptions">
-      <input type="checkbox" [id]="itembtn.value" [name]="itembtn.value" [value]="itembtn.value" [(ngModel)]="itembtn.checked" />
+      <input
+        type="checkbox"
+        [id]="itembtn.value"
+        [name]="itembtn.value"
+        [value]="itembtn.value"
+        [(ngModel)]="itembtn.checked" />
       <label [for]="itembtn.value">
         {{ itembtn.label }}
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +23,12 @@
     </div>
     <p class="subtitle">Info about word</p>
     <div *ngFor="let itemword of userBookSettings.wordOptions">
-      <input type="checkbox" [id]="itemword.value" [name]="itemword.value" [value]="itemword.value" [(ngModel)]="itemword.checked" />
+      <input
+        type="checkbox"
+        [id]="itemword.value"
+        [name]="itemword.value"
+        [value]="itemword.value"
+        [(ngModel)]="itemword.checked" />
       <label [for]="itemword.value">
         {{ itemword.label }}
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">

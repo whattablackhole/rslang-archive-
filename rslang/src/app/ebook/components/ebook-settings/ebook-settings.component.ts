@@ -6,6 +6,7 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { SettingsActionService } from '../../services/settings-action.service';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
@@ -17,8 +18,7 @@ import { LocalStorageType } from '../../../shared/models/change-storage-type.mod
   styleUrls: ['./ebook-settings.component.scss'],
 })
 export class EbookSettings implements OnInit {
-  // isUserAuthenticated = this.authService.getUserAuthenticationStatus();
-  isUserAuthenticated = true;
+  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
   userBookSettings: UserBookSettings;
   name: FormControl = new FormControl('', [
     Validators.minLength(3),
@@ -26,10 +26,12 @@ export class EbookSettings implements OnInit {
   ]);
 
   ebookSettingsSubscription: Subscription;
+  usernameSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
     private localStorageService: LocalStorageService,
+    private settingsActionService: SettingsActionService,
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,25 @@ export class EbookSettings implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.userBookSettings);
+    this.usernameSubscription = this.name.valueChanges
+      .subscribe((results: string) => {
+        this.userBookSettings.userName = results;
+      });
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+
+    const userId = this.isUserAuthenticated
+      ? this.authService.getUserId()
+      : 'unauthenticated';
+
+    if (this.isUserAuthenticated) {
+      this.settingsActionService.upsertSettings(
+        userId as string,
+        {
+          wordsPerDay: 20,
+          optional: { ...this.userBookSettings },
+        },
+      );
+    }
   }
 }
