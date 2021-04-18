@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   style,
@@ -23,6 +23,9 @@ import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model'
 import { Subscription } from 'rxjs';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
+import { first } from 'rxjs/operators';
+import { EbookProviderService } from '../../../../ebook/services/ebook-provider.service';
+import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
 
 @Component({
   selector: 'app-savannah',
@@ -72,7 +75,8 @@ import { StatisticsDataService } from 'src/app/shared/services/statistics-data.s
     ]),
   ],
 })
-export class Savannah implements OnDestroy {
+
+export class Savannah implements OnInit {
   wordsSubscription: Subscription;
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
@@ -118,10 +122,22 @@ export class Savannah implements OnDestroy {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
+    private ebookProviderService: EbookProviderService,
   ) {}
 
-  ngOnDestroy():void {
-    this.wordsSubscription.unsubscribe();
+  ngOnInit(): void {
+    this.ebookProviderService.eventStartGame$.pipe(first())
+      .subscribe(
+        (eventStartGame: EventStartGame) => {
+          if (eventStartGame.fromEbook && eventStartGame.currentState) {
+            this.isShownGameSettings = eventStartGame.fromEbook;
+            const { page, group } = eventStartGame.currentState;
+            this.page = `${page}`;
+            this.groupNumber = `${group}`;
+            this.getWords();
+          }
+        },
+      );
   }
 
   generateRound(): void {
@@ -155,6 +171,7 @@ export class Savannah implements OnDestroy {
         this.isLoading = false;
         this.words = sortedWords;
         this.unUsedWords = [...this.words];
+        this.wordsSubscription.unsubscribe();
       },
     );
   }
@@ -244,6 +261,7 @@ export class Savannah implements OnDestroy {
   }
 
   onWrongAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/error.mp3');
     this.lives.splice(0, 1);
     this.currentAnswers.length = 0;
     this.gameResultWords.incorrectWords.push(
@@ -252,6 +270,7 @@ export class Savannah implements OnDestroy {
   }
 
   onCorrectAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/success.mp3');
     this.streak += 1;
     this.currentAnswers.length = 0;
     this.gameResultWords.correctWords.push(
