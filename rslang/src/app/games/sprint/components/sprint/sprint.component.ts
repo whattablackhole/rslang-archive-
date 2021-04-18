@@ -3,7 +3,6 @@ import {
   trigger, style, animate, transition, keyframes, animation,
 } from '@angular/animations';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
-import { ActivatedRoute } from '@angular/router';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -21,6 +20,9 @@ import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
+import { Subscription } from 'rxjs';
+import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
+import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
@@ -118,10 +120,12 @@ export class Sprint implements OnInit {
   group: string;
   page: string;
 
+  eventStartGameSubscription = new Subscription();
+
   constructor(
     private gameCoreService: GameCoreService,
-    private router: ActivatedRoute,
     private gameWordsService: GameWordsService,
+    private ebookDataService: EbookDataService,
   ) {
 
   }
@@ -131,16 +135,17 @@ export class Sprint implements OnInit {
       this.sortedWords = sortedWords;
       this.randomSortedWords = this.generateRandomWords(this.sortedWords);
     });
-    const params = this.router.snapshot.queryParams;
-    if (params.prev === 'book' && parseInt(params.group, 10) && parseInt(params.page, 10)) {
-      this.page = params.page as string;
-      this.group = params.group as string;
-      this.onChooseSubmit();
-    }
-    if (!this.page || !this.group) {
-      this.group = '0';
-      this.page = '0';
-    }
+    this.eventStartGameSubscription = this.ebookDataService.eventStartGame$
+    .subscribe(
+      (eventStartGame: EventStartGame) => {
+        if(eventStartGame.fromEbook && eventStartGame.currentState) {
+          const {page, group} = eventStartGame.currentState;
+          this.page = `${page}`;
+          this.group = `${group}`;
+        }
+        this.eventStartGameSubscription.unsubscribe();
+      },
+    );
   }
 
   onChooseGroup(group: string): void {

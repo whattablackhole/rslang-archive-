@@ -21,7 +21,9 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { EbookDataService } from '../../../../ebook/services/ebook-data.service';
+import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
+
 
 @Component({
   selector: 'app-savannah',
@@ -67,8 +69,10 @@ import { ActivatedRoute } from '@angular/router';
     ]),
   ],
 })
+
 export class Savannah implements OnInit {
   wordsSubscription: Subscription;
+  eventStartGameSubscription = new Subscription();
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
     correctWords: [],
@@ -113,16 +117,23 @@ export class Savannah implements OnInit {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
-    private router: ActivatedRoute,
+    private ebookDataService: EbookDataService,
   ) {}
 
-  ngOnInit():void {
-    const params = this.router.snapshot.queryParams;
-    if (params.prev === 'book' && parseInt(params.group, 10) && parseInt(params.page, 10)) {
-      this.page = params.page as string;
-      this.groupNumber = params.group as string;
-      this.getWords();
-    }
+  ngOnInit(): void {
+    this.eventStartGameSubscription = this.ebookDataService.eventStartGame$
+      .subscribe(
+        (eventStartGame: EventStartGame) => {
+          if(eventStartGame.fromEbook && eventStartGame.currentState) {
+            this.isShownGameSettings = eventStartGame.fromEbook;
+            const {page, group} = eventStartGame.currentState;
+            this.page = `${page}`;
+            this.groupNumber = `${group}`;
+            this.getWords();
+          }
+          this.eventStartGameSubscription.unsubscribe();
+        },
+      );
   }
 
   generateRound(): void {
