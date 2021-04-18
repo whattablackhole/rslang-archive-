@@ -3,4 +3,5 @@ export interface Contributer {
   position: string;
   contribution: string;
   github: string;
+  img: string;
 }

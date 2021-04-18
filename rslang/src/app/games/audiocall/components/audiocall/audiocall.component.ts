@@ -17,7 +17,6 @@ import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { first } from 'rxjs/operators';
 import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
-import { Subscription } from 'rxjs';
 import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
 import { GameCoreService } from '../../../services/game-core.service';
