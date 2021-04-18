@@ -14,6 +14,7 @@ import { StatisticsActionService } from 'src/app/shared/services/statistics-acti
 import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { BackEndStatistics } from 'src/app/shared/models/statistics-backend.model';
+import { first } from 'rxjs/operators';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../shared/services/user-words-data.service';
@@ -154,8 +155,8 @@ export class GameUserWordsService {
 
   uploadStats(stats: Statistics): void {
     this.statisticsDataService.getData(`${BASE_URL}/users/${this.userID}/statistics`);
-    this.statisticsDataService.data$
-      .subscribe((statistics: BackEndStatistics | undefined) => {
+    this.statisticsDataService.data$.pipe(first())
+      .subscribe((statistics: BackEndStatistics) => {
         let body;
         if (statistics && Array.isArray(statistics.optional.stats)) {
           statistics.optional.stats.push(stats);
@@ -175,6 +176,6 @@ export class GameUserWordsService {
             body,
           },
         );
-      }).unsubscribe();
+      });
   }
 }

@@ -6,14 +6,13 @@ export abstract class BaseDataService<T> {
   data$: Observable<T>;
   private subject = new Subject<T>();
 
-  constructor(public httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) {
     this.data$ = this.subject.asObservable();
   }
 
   getData(path: string, options?: HttpOptions): void {
-    this.httpClient.get<T>(path, options)
-      .subscribe((data: T) => {
-        this.subject.next(data);
-      }, () => { this.subject.next(undefined)});
+    this.httpClient.get<T>(path, options).subscribe((data: T) => {
+      this.subject.next(data);
+    });
   }
 }
