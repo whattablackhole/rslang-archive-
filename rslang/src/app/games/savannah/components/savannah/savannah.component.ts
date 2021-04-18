@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   trigger,
   style,
@@ -21,6 +21,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
+import { EbookProviderService } from '../../../../ebook/services/ebook-provider.service';
+import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
 
 @Component({
   selector: 'app-savannah',
@@ -66,7 +68,7 @@ import { Subscription } from 'rxjs';
     ]),
   ],
 })
-export class Savannah implements OnDestroy {
+export class Savannah implements OnDestroy, OnInit {
   wordsSubscription: Subscription;
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
@@ -109,13 +111,28 @@ export class Savannah implements OnDestroy {
 
   fallingDownAnimationState = 'start';
 
+  eventStartGameSubscription = new Subscription();
+  EventStartGame: EventStartGame;
+
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
+    private ebookProviderService: EbookProviderService,
   ) {}
+
+  ngOnInit(): void {
+    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
+      .subscribe(
+        (data: EventStartGame) => {
+          this.EventStartGame = data;
+        },
+      );
+  }
 
   ngOnDestroy():void {
     this.wordsSubscription.unsubscribe();
+
+    this.eventStartGameSubscription.unsubscribe();
   }
 
   generateRound(): void {

@@ -1,4 +1,7 @@
-<app-ebook-header (pageChanged)="changeSelectedPage($event)"> </app-ebook-header>
+<app-ebook-header
+  (pageChanged)="changeSelectedPage($event)"
+  (groupChanged)="changeSelectedGroup($event)">
+</app-ebook-header>
 <section class="words-conteiner">
   <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
     <app-word-item
@@ -7,6 +10,7 @@
       [item]="item"
       (setAction)=setActionForWord($event)>
     </app-word-item>
+    <app-game-sidenav class="words-conteiner__game-nav"></app-game-sidenav>
   </ng-container>
 </section>
 <ng-template #isEmptyCart>

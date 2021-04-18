@@ -29,27 +29,14 @@
     </button>
   </mat-menu>
   <mat-menu #ebook="matMenu" xPosition="before">
-    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">collections</button>
-    <button mat-menu-item [matMenuTriggerFor]="ebookVocabulary">dictionary</button>
-    <button mat-menu-item>Settings</button>
+    <button mat-menu-item routerLink="ebook/group">collections</button>
+    <button mat-menu-item routerLink="ebook/vocabulary">vocabulary</button>
+    <button mat-menu-item routerLink="ebook/settings">settings</button>
   </mat-menu>
   <mat-menu #games="matMenu" xPosition="before">
     <button mat-menu-item routerLink='games/savannah'>Savannah</button>
     <button mat-menu-item routerLink='games/audiocall'>Audiocall</button>
     <button mat-menu-item routerLink='games/sprint'>Sprint</button>
     <button mat-menu-item>Match Pairs</button>
-  </mat-menu>
-  <mat-menu #ebookCollection="matMenu" xPosition="before">
-    <button mat-menu-item>Collection 1</button>
-    <button mat-menu-item>Collection 2</button>
-    <button mat-menu-item>Collection 3</button>
-    <button mat-menu-item>Collection 4</button>
-    <button mat-menu-item>Collection 5</button>
-    <button mat-menu-item>Collection 6</button>
-  </mat-menu>
-  <mat-menu #ebookVocabulary="matMenu" xPosition="before">
-    <button mat-menu-item>Learning words</button>
-    <button mat-menu-item>Difficult words</button>
-    <button mat-menu-item>Removed words</button>
   </mat-menu>
 </div>
