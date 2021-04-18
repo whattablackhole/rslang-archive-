@@ -12,9 +12,9 @@ const routes: Routes = [
     component: EbookHome,
     children: [
       { path: 'group', component: WordsCollections },
-      { path: 'group/:id', component: WordsList },
+      { path: 'group/:id/page/:id', component: WordsList },
+      { path: 'vocabulary', component: EbookSettings },
       { path: 'settings', component: EbookSettings },
-      { path: '', component: EbookHeader, outlet: 'ebook-header' },
     ],
   },
 ];

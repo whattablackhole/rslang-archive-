@@ -1,0 +1,68 @@
+@import '../../../../variables';
+
+#gameSidenav a {
+  position: absolute;
+  right: -100px;
+  transition: 0.3s;
+  padding: 13px;
+  width: 110px;
+  text-decoration: none;
+  font-size: 20px;
+  border-radius: 7px 0 0 7px;
+}
+
+.white {
+  color: $white_color;
+}
+
+#gameSidenav a:hover {
+  right: -10px;
+}
+
+#vocabulary {
+  background-color: $accent_color;
+  color: $accent_color;
+}
+
+#savannah,
+#audiocall,
+#sprint,
+#match-pairs {
+  background-color: $main_blue;
+  color: $main_blue;
+}
+
+#vocabulary:hover,
+#savannah:hover,
+#audiocall:hover,
+#sprint:hover,
+#match-pairs:hover {
+  cursor: pointer;
+  color: $white_color;
+  box-shadow: 2px 2px 5px $main_gray_color;
+}
+
+#vocabulary {
+  top: 20px;
+}
+#savannah {
+  top: 74px;
+}
+
+#audiocall {
+  top: 128px;
+}
+
+#sprint {
+  top:182px;
+}
+
+#match-pairs {
+  top: 236px;
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill,
+.mat-accent .mat-slider-thumb,
+.mat-accent .mat-slider-thumb-label {
+  background-color: $accent_color;
+}

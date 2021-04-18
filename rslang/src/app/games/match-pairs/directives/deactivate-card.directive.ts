@@ -1,7 +1,9 @@
-import { Directive, ElementRef, HostBinding, HostListener, Renderer2 } from '@angular/core';
+import {
+  Directive, ElementRef, HostBinding, HostListener, Renderer2,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appDeactivateCard]'
+  selector: '[appDeactivateCard]',
 })
 export class DeactivateCardDirective {
   @HostBinding('style.opacity') elRefOpacity = 1;

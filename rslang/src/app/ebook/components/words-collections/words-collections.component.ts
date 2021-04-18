@@ -1,7 +1,7 @@
 import {
   Component,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CONFIG_EBOOK } from '../../constants/config-ebook';
 import { WordsCollection } from '../../models/words-collection.model';
 
@@ -13,14 +13,20 @@ import { WordsCollection } from '../../models/words-collection.model';
 export class WordsCollections {
   wordsCollections: WordsCollection[] = CONFIG_EBOOK.collections;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   changeSelectedGroup(collection: WordsCollection): Promise<boolean> {
-    const path = `ebook/${String(collection.path) || ''}`;
-    return this.router.navigate([path, collection.id + 1]);
+    const path = this
+      .router
+      .createUrlTree([collection.id + 1, 'page', 1], { relativeTo: this.route })
+      .toString();
+    return this.router.navigate([path]);
   }
 
   getProgress(i: number): string {
-    return `${(100 * (this.wordsCollections[i].progress / this.wordsCollections[i].words)).toFixed(0)}%`;
+    return `${(100 * (1 - (this.wordsCollections[i].progress / this.wordsCollections[i].words))).toFixed(0)}%`;
   }
 }

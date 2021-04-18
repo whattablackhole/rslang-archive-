@@ -138,7 +138,6 @@ export class MatchPairs implements OnInit {
     this.pairsCounter += 1;
     if (this.pairsCounter > this.sortedWords.length) {
       this.onGameEnd();
-      return;
     }
   }
 
