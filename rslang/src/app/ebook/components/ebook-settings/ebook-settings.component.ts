@@ -1,5 +1,5 @@
 import {
-  Component, OnInit,
+  Component, OnDestroy, OnInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormControl, Validators } from '@angular/forms';
@@ -17,7 +17,7 @@ import { LocalStorageType } from '../../../shared/models/change-storage-type.mod
   templateUrl: './ebook-settings.component.html',
   styleUrls: ['./ebook-settings.component.scss'],
 })
-export class EbookSettings implements OnInit {
+export class EbookSettings implements OnInit, OnDestroy {
   isUserAuthenticated = this.authService.getUserAuthenticationStatus();
   userBookSettings: UserBookSettings;
   name: FormControl = new FormControl('', [
@@ -68,5 +68,10 @@ export class EbookSettings implements OnInit {
         },
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.ebookSettingsSubscription.unsubscribe();
+    this.usernameSubscription.unsubscribe();
   }
 }

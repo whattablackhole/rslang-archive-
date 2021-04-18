@@ -19,7 +19,7 @@ import { WordItem } from './components/word-item/word-item.component';
 import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
 import { GameSidenav } from './components/game-sidenav/game-sidenav.component';
 import { SettingsActionService } from './services/settings-action.service';
-import { EbookDataService } from './services/ebook-data.service';
+import { EbookProviderService } from './services/ebook-provider.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { EbookDataService } from './services/ebook-data.service';
     SettingsDataService,
     WordsDataService,
     SettingsActionService,
-    EbookDataService,
+    EbookProviderService,
   ],
 })
 export class EbookModule {}
