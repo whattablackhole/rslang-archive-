@@ -10,6 +10,9 @@ import { StatisticsActionService } from 'src/app/shared/services/statistics-acti
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { first } from 'rxjs/operators';
 import { CountdownEvent } from 'ngx-countdown';
+import { Subscription } from 'rxjs';
+import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
+import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -20,9 +23,6 @@ import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
 import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
-import { Subscription } from 'rxjs';
-import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
-import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
@@ -136,16 +136,16 @@ export class Sprint implements OnInit {
       this.randomSortedWords = this.generateRandomWords(this.sortedWords);
     });
     this.eventStartGameSubscription = this.ebookDataService.eventStartGame$
-    .subscribe(
-      (eventStartGame: EventStartGame) => {
-        if(eventStartGame.fromEbook && eventStartGame.currentState) {
-          const {page, group} = eventStartGame.currentState;
-          this.page = `${page}`;
-          this.group = `${group}`;
-        }
-        this.eventStartGameSubscription.unsubscribe();
-      },
-    );
+      .subscribe(
+        (eventStartGame: EventStartGame) => {
+          if (eventStartGame.fromEbook && eventStartGame.currentState) {
+            const { page, group } = eventStartGame.currentState;
+            this.page = `${page}`;
+            this.group = `${group}`;
+          }
+          this.eventStartGameSubscription.unsubscribe();
+        },
+      );
   }
 
   onChooseGroup(group: string): void {

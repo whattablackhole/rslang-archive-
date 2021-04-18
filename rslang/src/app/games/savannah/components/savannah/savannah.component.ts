@@ -24,7 +24,6 @@ import { Subscription } from 'rxjs';
 import { EbookDataService } from '../../../../ebook/services/ebook-data.service';
 import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
 
-
 @Component({
   selector: 'app-savannah',
   templateUrl: './savannah.component.html',
@@ -124,9 +123,9 @@ export class Savannah implements OnInit {
     this.eventStartGameSubscription = this.ebookDataService.eventStartGame$
       .subscribe(
         (eventStartGame: EventStartGame) => {
-          if(eventStartGame.fromEbook && eventStartGame.currentState) {
+          if (eventStartGame.fromEbook && eventStartGame.currentState) {
             this.isShownGameSettings = eventStartGame.fromEbook;
-            const {page, group} = eventStartGame.currentState;
+            const { page, group } = eventStartGame.currentState;
             this.page = `${page}`;
             this.groupNumber = `${group}`;
             this.getWords();
@@ -170,7 +169,6 @@ export class Savannah implements OnInit {
         this.wordsSubscription.unsubscribe();
       },
     );
-
   }
 
   startGame(): void {
