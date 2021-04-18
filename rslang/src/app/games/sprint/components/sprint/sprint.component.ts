@@ -12,7 +12,6 @@ import { first } from 'rxjs/operators';
 import { CountdownEvent } from 'ngx-countdown';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
-import { Subscription } from 'rxjs';
 import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
 import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
