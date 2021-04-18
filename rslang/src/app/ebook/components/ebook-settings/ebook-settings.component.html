@@ -37,6 +37,12 @@
         </svg>
       </label>
     </div>
-    <button class="btn" [disabled]="settingsForm.invalid" (click)="onSubmit()">Save settings</button>
+    <button
+      class="btn"
+      routerLink="../group"
+      [disabled]="settingsForm.invalid"
+      (click)="onSubmit()">
+      Save settings
+    </button>
   </form>
 </section>

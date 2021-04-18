@@ -2,6 +2,7 @@ import {
   Component, OnDestroy, OnInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 
 import { LocalStorageService } from '../../../core/services/local-storage.service';
@@ -32,6 +33,8 @@ export class EbookSettings implements OnInit, OnDestroy {
     private authService: AuthService,
     private localStorageService: LocalStorageService,
     private settingsActionService: SettingsActionService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -71,8 +74,18 @@ export class EbookSettings implements OnInit, OnDestroy {
     }
   }
 
+  goToPage(): Promise<boolean> {
+    const path = this
+      .router
+      .createUrlTree([''], { relativeTo: this.route })
+      .toString();
+    return this.router.navigate([path]);
+  }
+
   ngOnDestroy(): void {
     this.ebookSettingsSubscription.unsubscribe();
-    this.usernameSubscription.unsubscribe();
+    if (this.isUserAuthenticated) {
+      this.usernameSubscription.unsubscribe();
+    }
   }
 }

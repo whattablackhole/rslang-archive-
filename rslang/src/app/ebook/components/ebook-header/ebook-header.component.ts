@@ -27,10 +27,10 @@ export class EbookHeader {
   openSettings(): Promise<boolean> {
     const path = this
       .router
-      .createUrlTree(['settings'])
+      .createUrlTree(['ebook', 'settings'])
       .toString();
     return this.router.navigate([path]);
-  };
+  }
 
   onPageChange(pageNumber: number): void {
     this.pageChanged.emit(pageNumber);
