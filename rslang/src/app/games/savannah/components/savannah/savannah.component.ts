@@ -21,7 +21,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
-import { EbookDataService } from '../../../../ebook/services/ebook-data.service';
+import { EbookProviderService } from '../../../../ebook/services/ebook-provider.service';
 import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
 
 @Component({
@@ -116,11 +116,11 @@ export class Savannah implements OnInit {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
-    private ebookDataService: EbookDataService,
+    private ebookProviderService: EbookProviderService,
   ) {}
 
   ngOnInit(): void {
-    this.eventStartGameSubscription = this.ebookDataService.eventStartGame$
+    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
       .subscribe(
         (eventStartGame: EventStartGame) => {
           if (eventStartGame.fromEbook && eventStartGame.currentState) {

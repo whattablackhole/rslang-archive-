@@ -6,7 +6,7 @@ import { EventStartGame } from '../models/event-start-game.model';
 @Injectable({
   providedIn: 'root',
 })
-export class EbookDataService {
+export class EbookProviderService {
   private dataSource = new BehaviorSubject<EventStartGame>({ fromEbook: false });
   eventStartGame$ = this.dataSource.asObservable();
 

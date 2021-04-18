@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
+import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class DotMenu implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private ebookDataService: EbookDataService,
+    private ebookProviderService: EbookProviderService,
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class DotMenu implements OnInit, OnDestroy {
   }
 
   goToPage(event: Event): Promise<boolean> {
-    this.ebookDataService.updatedDataSelectionGame({
+    this.ebookProviderService.updatedDataSelectionGame({
       fromEbook: false,
     });
     const target = event.target as HTMLElement;

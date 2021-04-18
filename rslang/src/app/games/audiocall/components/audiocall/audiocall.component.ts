@@ -16,7 +16,7 @@ import { StatisticsActionService } from 'src/app/shared/services/statistics-acti
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
+import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
 import { GameCoreService } from '../../../services/game-core.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
@@ -120,7 +120,7 @@ export class Audiocall implements OnInit {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
-    private ebookDataService: EbookDataService,
+    private ebookProviderService: EbookProviderService,
   ) {}
 
   ngOnInit(): void {
@@ -128,7 +128,7 @@ export class Audiocall implements OnInit {
       this.sortedWords = sortedWords;
       this.lastIndex = this.calculateLastIndex(this.gameWordsState);
     });
-    this.eventStartGameSubscription = this.ebookDataService.eventStartGame$
+    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
       .subscribe(
         (eventStartGame: EventStartGame) => {
           if (eventStartGame.fromEbook && eventStartGame.currentState) {

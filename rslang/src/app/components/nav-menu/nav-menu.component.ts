@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
+import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,11 +10,11 @@ import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
 export class NavMenu {
   constructor(
     private router: Router,
-    private ebookDataService: EbookDataService,
+    private ebookProviderService: EbookProviderService,
   ) {}
 
   goToPage(event: Event): Promise<boolean> {
-    this.ebookDataService.updatedDataSelectionGame({
+    this.ebookProviderService.updatedDataSelectionGame({
       fromEbook: false,
     });
     const target = event.target as HTMLElement;

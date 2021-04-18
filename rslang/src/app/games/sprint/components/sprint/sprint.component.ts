@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
 import { CountdownEvent } from 'ngx-countdown';
 import { Subscription } from 'rxjs';
 import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
-import { EbookDataService } from 'src/app/ebook/services/ebook-data.service';
+import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -125,7 +125,7 @@ export class Sprint implements OnInit {
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
-    private ebookDataService: EbookDataService,
+    private ebookProviderService: EbookProviderService,
   ) {
 
   }
@@ -135,7 +135,7 @@ export class Sprint implements OnInit {
       this.sortedWords = sortedWords;
       this.randomSortedWords = this.generateRandomWords(this.sortedWords);
     });
-    this.eventStartGameSubscription = this.ebookDataService.eventStartGame$
+    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
       .subscribe(
         (eventStartGame: EventStartGame) => {
           if (eventStartGame.fromEbook && eventStartGame.currentState) {
