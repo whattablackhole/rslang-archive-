@@ -21,6 +21,9 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
+import { first } from 'rxjs/operators';
 import { EbookProviderService } from '../../../../ebook/services/ebook-provider.service';
 import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
 
@@ -37,6 +40,8 @@ import { EventStartGame } from '../../../../ebook/models/event-start-game.model'
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
+    NotificationService,
+    StatisticsDataService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -47,6 +52,8 @@ import { EventStartGame } from '../../../../ebook/models/event-start-game.model'
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     }],
   animations: [
@@ -71,7 +78,6 @@ import { EventStartGame } from '../../../../ebook/models/event-start-game.model'
 
 export class Savannah implements OnInit {
   wordsSubscription: Subscription;
-  eventStartGameSubscription = new Subscription();
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
     correctWords: [],
@@ -120,7 +126,7 @@ export class Savannah implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
+    this.ebookProviderService.eventStartGame$.pipe(first())
       .subscribe(
         (eventStartGame: EventStartGame) => {
           if (eventStartGame.fromEbook && eventStartGame.currentState) {
@@ -130,7 +136,6 @@ export class Savannah implements OnInit {
             this.groupNumber = `${group}`;
             this.getWords();
           }
-          this.eventStartGameSubscription.unsubscribe();
         },
       );
   }

@@ -30,7 +30,7 @@ mat-grid-tile-header {
   height: max-content;
   max-width: 1920px;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,6 +41,10 @@ mat-grid-tile-header {
     margin-top: 20px;
     width: 10vw;
     background-color: $accent_color;
+  }
+  &__no-words {
+    color: red;
+    text-align: center;
   }
   &__title {
     color: #313237;

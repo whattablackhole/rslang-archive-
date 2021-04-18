@@ -7,4 +7,5 @@ export const API_URL = {
   USER_WORDS: (userId: string): string => `${BASE_URL}/users/${userId}/words`,
   USER_WORD_BY_ID: (userId: string, wordId: string): string => `${BASE_URL}/users/${userId}/words/${wordId}`,
   USER_SETTINGS: (userId: string): string => `${BASE_URL}/users/${userId}/settings`,
+  USER_STATISTICS: (userId: string): string => `${BASE_URL}/users/${userId}/statistics`,
 };

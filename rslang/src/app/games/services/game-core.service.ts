@@ -6,6 +6,7 @@ import { Word } from 'src/app/shared/models/word.model';
 import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { WordId } from 'src/app/shared/types/word-id.type';
+import { BackEndStatistics } from 'src/app/shared/models/statistics-backend.model';
 import { GameName } from '../../shared/types/game-name.type';
 import { WordsByPages } from '../interfaces/words-by-pages.model';
 import { LocalStorageService } from '../../core/services/local-storage.service';
@@ -49,21 +50,22 @@ export class GameCoreService {
   }
 
   addStatsToLocalStorage(stats: Statistics): void {
-    let result: Statistics[] | string | null = this.localStorageService.getItem(
+    const backEndStats: BackEndStatistics = { id: 'undefined', optional: { stats: [stats] } };
+    let result: BackEndStatistics | string | null = this.localStorageService.getItem(
       'statistics',
     );
     if (result) {
       try {
-        result = JSON.parse(result) as Statistics[];
+        result = JSON.parse(result) as BackEndStatistics;
       } catch {
         result = null;
       }
     }
-    if (Array.isArray(result)) {
-      result.push(stats);
+    if ((result as BackEndStatistics)) {
+      (result as BackEndStatistics).optional.stats.push(stats);
       this.localStorageService.setItem('statistics', JSON.stringify(result));
     } else {
-      this.localStorageService.setItem('statistics', JSON.stringify([stats]));
+      this.localStorageService.setItem('statistics', JSON.stringify(backEndStats));
     }
   }
 
