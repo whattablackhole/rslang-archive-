@@ -42,6 +42,10 @@ mat-grid-tile-header {
     width: 10vw;
     background-color: $accent_color;
   }
+  &__no-words {
+    color: red;
+    text-align: center;
+  }
   &__title {
     color: #313237;
     font-weight: 500;

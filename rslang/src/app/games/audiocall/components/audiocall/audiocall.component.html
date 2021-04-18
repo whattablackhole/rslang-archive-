@@ -9,7 +9,8 @@
   </app-game-start-settings>
   <button class="game__play-button" mat-raised-button color="primary" (click)="onPlay()">Play</button>
   </div>
-  <mat-spinner *ngIf="isGameStarted && !sortedWords" class="spinner"></mat-spinner>
+  <div *ngIf="gameWordsState.isNoWords" class="game__no-words">not enough words.Choose another page or group.</div>
+  <mat-spinner *ngIf="isGameStarted && !sortedWords && !gameWordsState.isNoWords" class="spinner"></mat-spinner>
   <div
     *ngIf="sortedWords && !isGameFinished"
     class="game__front-block"

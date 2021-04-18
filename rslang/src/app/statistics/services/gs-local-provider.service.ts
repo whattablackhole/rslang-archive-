@@ -11,7 +11,7 @@ export class GSLocalProviderService {
     this.data$ = this.subject.asObservable();
   }
 
-  getGameSessions() {
+  getGameSessions():void {
     const gameSessions : BackEndStatistics = { id: 'undefined', optional: { stats: [] } };
     Object.assign(gameSessions, JSON.parse(this.localStorage.getItem('statistics') || '[]'));
     this.subject.next(gameSessions);
