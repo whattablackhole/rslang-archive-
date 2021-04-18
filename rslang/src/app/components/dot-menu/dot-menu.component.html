@@ -34,9 +34,9 @@
     <button mat-menu-item routerLink="ebook/settings">settings</button>
   </mat-menu>
   <mat-menu #games="matMenu" xPosition="before">
-    <button mat-menu-item routerLink='games/savannah'>Savannah</button>
-    <button mat-menu-item routerLink='games/audiocall'>Audiocall</button>
-    <button mat-menu-item routerLink='games/sprint'>Sprint</button>
-    <button mat-menu-item>Match Pairs</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="savannah">Savannah</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="audiocall">Audiocall</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="sprint">Sprint</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="sprint">Match Pairs</button>
   </mat-menu>
 </div>
