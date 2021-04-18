@@ -17,6 +17,7 @@ import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { UserWordActionService } from '../../../shared/services/user-word-action.service';
+import { EbookSettingsService } from '../../services/ebook-settings.service';
 
 @Component({
   selector: 'app-words-list',
@@ -40,6 +41,7 @@ export class WordsList implements OnInit, OnDestroy {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private userWordActionService: UserWordActionService,
+    private ebookSettings: EbookSettingsService,
   ) {}
 
   ngOnInit(): void {
@@ -90,6 +92,7 @@ export class WordsList implements OnInit, OnDestroy {
     this.userBookSettings.currentState.page = pageChanged;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    this.ebookSettings.setUserSettings();
     const { currentState } = this.userBookSettings;
     this.wordsDataService.getWords(currentState);
   }

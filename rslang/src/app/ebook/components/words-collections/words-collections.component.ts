@@ -28,6 +28,6 @@ export class WordsCollections {
   }
 
   getProgress(i: number): string {
-    return `${(100 * (this.wordsCollections[i].progress / this.wordsCollections[i].words)).toFixed(0)}%`;
+    return `${(100 * (1 - (this.wordsCollections[i].progress / this.wordsCollections[i].words))).toFixed(0)}%`;
   }
 }
