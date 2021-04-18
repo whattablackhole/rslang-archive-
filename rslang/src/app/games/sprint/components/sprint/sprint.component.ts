@@ -10,6 +10,8 @@ import { StatisticsActionService } from 'src/app/shared/services/statistics-acti
 import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { first } from 'rxjs/operators';
 import { CountdownEvent } from 'ngx-countdown';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
 import { Subscription } from 'rxjs';
 import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
 import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
@@ -34,6 +36,8 @@ import { GameWordsService } from '../../../services/game-words.service';
     GameCoreService,
     StatisticsActionService,
     WordActionService,
+    NotificationService,
+    StatisticsDataService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -44,6 +48,8 @@ import { GameWordsService } from '../../../services/game-words.service';
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     },
   ],
@@ -117,10 +123,8 @@ export class Sprint implements OnInit {
   isChoosed = false;
   isGameFromBook = false;
 
-  group: string;
-  page: string;
-
-  eventStartGameSubscription = new Subscription();
+  group = '0';
+  page = '0';
 
   constructor(
     private gameCoreService: GameCoreService,
@@ -135,15 +139,15 @@ export class Sprint implements OnInit {
       this.sortedWords = sortedWords;
       this.randomSortedWords = this.generateRandomWords(this.sortedWords);
     });
-    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
+    this.ebookProviderService.eventStartGame$.pipe(first())
       .subscribe(
         (eventStartGame: EventStartGame) => {
           if (eventStartGame.fromEbook && eventStartGame.currentState) {
             const { page, group } = eventStartGame.currentState;
             this.page = `${page}`;
             this.group = `${group}`;
+            this.onChooseSubmit();
           }
-          this.eventStartGameSubscription.unsubscribe();
         },
       );
   }

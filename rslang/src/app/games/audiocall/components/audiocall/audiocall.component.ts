@@ -15,6 +15,8 @@ import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { first } from 'rxjs/operators';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { Subscription } from 'rxjs';
 import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
@@ -43,6 +45,8 @@ import { AuthService } from '../../../../auth/services/auth.service';
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
+    StatisticsDataService,
+    NotificationService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -53,6 +57,8 @@ import { AuthService } from '../../../../auth/services/auth.service';
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     },
   ],
@@ -115,8 +121,6 @@ export class Audiocall implements OnInit {
   incorrectWordName: string;
   choosedWordName: string;
 
-  eventStartGameSubscription = new Subscription();
-
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
@@ -128,15 +132,15 @@ export class Audiocall implements OnInit {
       this.sortedWords = sortedWords;
       this.lastIndex = this.calculateLastIndex(this.gameWordsState);
     });
-    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
+    this.ebookProviderService.eventStartGame$.pipe(first())
       .subscribe(
         (eventStartGame: EventStartGame) => {
           if (eventStartGame.fromEbook && eventStartGame.currentState) {
             const { page, group } = eventStartGame.currentState;
             this.page = `${page}`;
             this.group = `${group}`;
+            this.onPlay();
           }
-          this.eventStartGameSubscription.unsubscribe();
         },
       );
   }
