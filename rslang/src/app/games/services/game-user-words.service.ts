@@ -158,7 +158,7 @@ export class GameUserWordsService {
     this.statisticsDataService.data$.pipe(first())
       .subscribe((statistics: BackEndStatistics) => {
         let body;
-        if (statistics && Array.isArray(statistics.optional.stats)) {
+        if (statistics && statistics.optional && Array.isArray(statistics.optional.stats)) {
           statistics.optional.stats.push(stats);
           body = { optional: { stats: statistics.optional.stats } };
         } else {
