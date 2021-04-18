@@ -1,17 +1,11 @@
 <div class="item" appShowOverBtn>
-  <div class="item__buttons">
-    <span class="over-btn" (click)="turnOverItem()"></span>
-  </div>
   <div class="item__image">
     <img [src]=[item.image] alt="{{ item.word }}" />
   </div>
   <div class="item__description">
     <span class="title">
-      <strong>{{ item.word }}</strong>-
+      <strong>{{ item.word }}</strong> {{ item.transcription }} -
       <strong>{{ item.wordTranslate }}</strong>
-    </span>
-    <span>
-      transcription: {{ item.transcription }}
     </span>
     <span>
       {{ item.textMeaning }}
@@ -19,15 +13,14 @@
     <span>
       {{ item.textMeaningTranslate }}
     </span>
-    <!-- <span>
+    <span>
       {{ item.textExample }}
     </span>
     <span>
       {{ item.textExampleTranslate }}
-    </span> -->
+    </span>
   </div>
   <div class="item__buttons">
-    <!-- <div class="action-btn"></div> -->
     <img
       src="../../../../assets/ebbok/speechIco.svg"
       alt="speech"

@@ -1,6 +1,11 @@
 <section class="ebook-header">
   <div class="ebook-header__title">
-    <h1>{{ title }}</h1>
+    <h1><i>{{ title }}</i></h1>
+    <img
+      src="../../../../assets/ebbok/iconSettings.svg"
+      alt="Settings"
+      class="settings-btn"
+      (click)="openSettings()" />
   </div>
   <div class="ebook-header__slider">
     <span>collection: </span>
