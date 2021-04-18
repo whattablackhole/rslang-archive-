@@ -1,5 +1,9 @@
 @import "src/variables";
 
+:host {
+  outline: none;
+}
+
 .logo-container{
   display: flex;
   flex-direction: row;
