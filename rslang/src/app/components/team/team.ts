@@ -22,7 +22,7 @@ export class Team {
       img: 'https://avatars.githubusercontent.com/u/10944996?v=4',
     },
     {
-      name: 'Tatsiana Kastrubai',
+      name: 'Tatsiana',
       position: 'Team Communicator',
       // eslint-disable-next-line @typescript-eslint/quotes
       contribution: `Ebook, Dictionary, Settings, Linter rules`,

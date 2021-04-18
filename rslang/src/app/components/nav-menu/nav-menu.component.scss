@@ -1,11 +1,11 @@
 @import "src/variables";
-mat-toolbar {
+.menu__wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 90px;
   background-color: white;
-  padding: 0 5rem;
+  @include common-padding;
 }
 
 .btn{

@@ -16,8 +16,8 @@
 }
 
 .main-wrapper{
-  background: linear-gradient(#fff 10%, $blue_color, #fff 90%);
-  padding: 2rem 6rem;
+  background: linear-gradient(#fff 20%, $blue_color, #fff 90%);
+  @include common-padding;
 }
 
 .main {
