@@ -68,13 +68,11 @@ export class AuthActionService extends BaseActionService {
     const { authService, notifyService } = this;
     const action: CallbackObject = {
       onSuccess(result) {
-        console.log('refresh success');
         const data = result as SigninResponse;
         authService.updateTokens(data.token, data.refreshToken);
         notifyService.showSuccess('Tokens updated!');
       },
       onError(error) {
-        console.log('refresh error', error);
         if ([401, 403].includes(error.status)) {
           authService.logoutUserWithRedirect();
         }

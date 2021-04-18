@@ -15,7 +15,6 @@ export class AuthService {
   private readonly JWT_TOKEN = 'Token';
   private readonly REFRESH_TOKEN = 'RefreshToken';
 
-  private isUserAuthenticated = false;
   private authStatus = new Subject<boolean>();
   private jwtToken = new Subject<string>();
 
@@ -26,8 +25,6 @@ export class AuthService {
   ) {}
 
   getUserAuthenticationStatus(): boolean {
-    console.log('auth: ', this.isUserAuthenticated, !!this.getJwtToken());
-    // return this.isUserAuthenticated;
     return !!this.getJwtToken();
   }
 
@@ -58,7 +55,6 @@ export class AuthService {
   }
 
   changeAuthStatus(isLogin: boolean): void {
-    this.isUserAuthenticated = isLogin;
     this.authStatus.next(isLogin);
   }
 
