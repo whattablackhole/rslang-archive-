@@ -38,7 +38,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
-  margin: 20px;
+  margin: 5px;
 }
 
 button {
@@ -49,9 +49,9 @@ button {
 .word-card {
   min-width: 100px;
   max-width: 240px;
-  padding: 20px;
+  padding: 12px;
   overflow-wrap: break-word;
-  margin: 10px;
+  margin: 5px;
   border-radius: 12px;
   background-color: darken($blue_color,10%);;
   box-sizing: border-box;
