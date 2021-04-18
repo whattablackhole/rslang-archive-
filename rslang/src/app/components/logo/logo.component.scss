@@ -5,6 +5,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   gap: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .logo-container:hover {
@@ -23,6 +26,8 @@
 .logo {
   height: 40px;
   margin-top: 10px;
+  border: none;
+  outline: none;
 }
 
 .logo-title {
