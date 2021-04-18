@@ -57,7 +57,7 @@ export class EbookSettingsService {
     this.settingsActionService.upsertSettings(
       userId,
       {
-        learnedWords: 20,
+        wordsPerDay: 20,
         optional: { ...this.ebookSettings },
       },
     );

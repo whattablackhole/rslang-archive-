@@ -1,6 +1,6 @@
 import { UserBookSettings } from './user-book-settings.model';
 
 export interface GlobalSettings {
-  learnedWords: number;
+  wordsPerDay: number;
   optional: UserBookSettings;
 }
