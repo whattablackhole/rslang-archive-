@@ -17,6 +17,7 @@ export class AuthService {
 
   private isUserAuthenticated = false;
   private authStatus = new Subject<boolean>();
+  private jwtToken = new Subject<string>();
 
   constructor(
     private router: Router,
@@ -32,6 +33,10 @@ export class AuthService {
 
   getAuthStatusListener(): Observable<boolean> {
     return this.authStatus.asObservable();
+  }
+
+  updateTokenListener(): Observable<string> {
+    return this.jwtToken.asObservable();
   }
 
   loginUser(data: SigninResponse): void {
@@ -60,6 +65,7 @@ export class AuthService {
   updateTokens(token: string, refreshToken: string): void {
     this.storage.setItem(this.JWT_TOKEN, token);
     this.storage.setItem(this.REFRESH_TOKEN, refreshToken);
+    this.jwtToken.next(token);
   }
 
   autoLoginUser(): void {
