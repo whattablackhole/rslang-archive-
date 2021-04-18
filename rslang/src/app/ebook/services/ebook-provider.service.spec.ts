@@ -2,7 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { EbookProviderService } from './ebook-provider.service';
 
-describe('EbbokDataService', () => {
+
+describe('EbookProviderService', () => {
   let service: EbookProviderService;
 
   beforeEach(() => {
