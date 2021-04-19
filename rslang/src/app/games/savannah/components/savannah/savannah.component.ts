@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   trigger,
   style,
@@ -21,6 +21,9 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
+import { first } from 'rxjs/operators';
 import { EbookProviderService } from '../../../../ebook/services/ebook-provider.service';
 import { EventStartGame } from '../../../../ebook/models/event-start-game.model';
 
@@ -37,6 +40,8 @@ import { EventStartGame } from '../../../../ebook/models/event-start-game.model'
     GameUserWordsService,
     StatisticsActionService,
     WordActionService,
+    NotificationService,
+    StatisticsDataService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -47,6 +52,8 @@ import { EventStartGame } from '../../../../ebook/models/event-start-game.model'
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     }],
   animations: [
@@ -68,7 +75,8 @@ import { EventStartGame } from '../../../../ebook/models/event-start-game.model'
     ]),
   ],
 })
-export class Savannah implements OnDestroy, OnInit {
+
+export class Savannah implements OnInit {
   wordsSubscription: Subscription;
   words: WordWithStatistics[];
   gameResultWords: GameResults = {
@@ -111,9 +119,6 @@ export class Savannah implements OnDestroy, OnInit {
 
   fallingDownAnimationState = 'start';
 
-  eventStartGameSubscription = new Subscription();
-  EventStartGame: EventStartGame;
-
   constructor(
     private gameCoreService: GameCoreService,
     private gameWordsService: GameWordsService,
@@ -121,18 +126,18 @@ export class Savannah implements OnDestroy, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.eventStartGameSubscription = this.ebookProviderService.eventStartGame$
+    this.ebookProviderService.eventStartGame$.pipe(first())
       .subscribe(
-        (data: EventStartGame) => {
-          this.EventStartGame = data;
+        (eventStartGame: EventStartGame) => {
+          if (eventStartGame.fromEbook && eventStartGame.currentState) {
+            this.isShownGameSettings = eventStartGame.fromEbook;
+            const { page, group } = eventStartGame.currentState;
+            this.page = `${page}`;
+            this.groupNumber = `${group}`;
+            this.getWords();
+          }
         },
       );
-  }
-
-  ngOnDestroy():void {
-    this.wordsSubscription.unsubscribe();
-
-    this.eventStartGameSubscription.unsubscribe();
   }
 
   generateRound(): void {
@@ -166,6 +171,7 @@ export class Savannah implements OnDestroy, OnInit {
         this.isLoading = false;
         this.words = sortedWords;
         this.unUsedWords = [...this.words];
+        this.wordsSubscription.unsubscribe();
       },
     );
   }
@@ -255,6 +261,7 @@ export class Savannah implements OnDestroy, OnInit {
   }
 
   onWrongAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/error.mp3');
     this.lives.splice(0, 1);
     this.currentAnswers.length = 0;
     this.gameResultWords.incorrectWords.push(
@@ -263,6 +270,7 @@ export class Savannah implements OnDestroy, OnInit {
   }
 
   onCorrectAnswer(currentWord: WordWithStatistics): void {
+    this.gameCoreService.playAudio('/assets/games/savannah/success.mp3');
     this.streak += 1;
     this.currentAnswers.length = 0;
     this.gameResultWords.correctWords.push(

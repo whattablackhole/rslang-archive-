@@ -27,10 +27,10 @@ mat-grid-tile-header {
   background: rgb(174, 34, 195);
   background: linear-gradient(0deg, rgba(174, 34, 195, 1) 0%, rgba(135, 45, 253, 1) 100%);
   width: 100%;
-  height: max-content;
   max-width: 1920px;
   min-width: 100%;
-  min-height: 100%;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,6 +41,10 @@ mat-grid-tile-header {
     margin-top: 20px;
     width: 10vw;
     background-color: $accent_color;
+  }
+  &__no-words {
+    color: red;
+    text-align: center;
   }
   &__title {
     color: #313237;
@@ -60,6 +64,7 @@ mat-grid-tile-header {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 50px;
     &-img {
       background: url('/assets/games/audio-call/audio-call.png');
       background-size: contain;

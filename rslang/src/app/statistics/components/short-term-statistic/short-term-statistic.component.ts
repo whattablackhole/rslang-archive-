@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Statistic } from '../../models/statistic.model';
+import { GlobalStatistic } from '../../models/statistic.model';
 import { GameStatistic } from '../../models/game-statistic.model';
 import { GamesAggregationService } from '../../services/games-aggregation.service';
 
@@ -9,7 +9,7 @@ import { GamesAggregationService } from '../../services/games-aggregation.servic
   styleUrls: ['./short-term-statistic.component.scss'],
 })
 export class ShortTermStatistic implements OnInit {
-  @Input() statistic: Statistic;
+  @Input() statistic: GlobalStatistic;
   games: Array<GameStatistic>;
   constructor(private gamesAggregationService: GamesAggregationService) {}
 

@@ -9,3 +9,13 @@ $success_color: #28a745;
 $white_color: #ffffff;
 $margin_after_title: 4rem;
 $margin_after_section: 8rem;
+
+@mixin common-padding {
+  padding: 4rem 6rem;
+  @media screen and (max-width: 1288px) {
+    padding: 1rem 3rem;
+  }
+  @media screen and (max-width: 988px) {
+    padding: 0rem 1rem;
+  }
+}
