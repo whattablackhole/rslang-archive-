@@ -3,7 +3,7 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #dotMenu="matMenu" xPosition="before">
-    <button mat-menu-item [routerLink]="['main']" routerLinkActive="active">
+    <button mat-menu-item [routerLink]="['home']" routerLinkActive="active">
       <mat-icon>home</mat-icon>
       <span>home</span>
     </button>
@@ -29,27 +29,14 @@
     </button>
   </mat-menu>
   <mat-menu #ebook="matMenu" xPosition="before">
-    <button mat-menu-item [matMenuTriggerFor]="ebookCollection">collections</button>
-    <button mat-menu-item [matMenuTriggerFor]="ebookVocabulary">dictionary</button>
-    <button mat-menu-item>Settings</button>
+    <button mat-menu-item routerLink="ebook/group">collections</button>
+    <button mat-menu-item routerLink="ebook/vocabulary">vocabulary</button>
+    <button mat-menu-item routerLink="ebook/settings">settings</button>
   </mat-menu>
   <mat-menu #games="matMenu" xPosition="before">
-    <button mat-menu-item>Саванна</button>
-    <button mat-menu-item>Аудиовызов</button>
-    <button mat-menu-item>Сприн</button>
-    <button mat-menu-item>Своя игра</button>
-  </mat-menu>
-  <mat-menu #ebookCollection="matMenu" xPosition="before">
-    <button mat-menu-item>Коллекция 1</button>
-    <button mat-menu-item>Коллекция 2</button>
-    <button mat-menu-item>Коллекция 3</button>
-    <button mat-menu-item>Коллекция 4</button>
-    <button mat-menu-item>Коллекция 5</button>
-    <button mat-menu-item>Коллекция 6</button>
-  </mat-menu>
-  <mat-menu #ebookVocabulary="matMenu" xPosition="before">
-    <button mat-menu-item>Изучаемые слова</button>
-    <button mat-menu-item>Сложные слова</button>
-    <button mat-menu-item>Удаленные слова</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="savannah">Savannah</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="audiocall">Audiocall</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="sprint">Sprint</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="sprint">Match Pairs</button>
   </mat-menu>
 </div>

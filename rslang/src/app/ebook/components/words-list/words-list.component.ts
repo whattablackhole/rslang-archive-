@@ -1,13 +1,14 @@
 import {
   Component, OnInit, OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 
 import { WORDS_API_URL } from '../../../shared/constants/constants';
 import { ActionParams } from '../../models/action-params.model';
 import { Word } from '../../../shared/models/word.model';
-import { UserStats } from '../../../shared/models/user-stats.model';
+import { UsersWords } from '../../../shared/models/user-stats.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
@@ -16,6 +17,7 @@ import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { UserWordActionService } from '../../../shared/services/user-word-action.service';
+import { EbookSettingsService } from '../../services/ebook-settings.service';
 
 @Component({
   selector: 'app-words-list',
@@ -28,15 +30,18 @@ export class WordsList implements OnInit, OnDestroy {
 
   userBookSettings: UserBookSettings;
   words: Word[] = [];
-  userWords: UserStats[] = [];
-  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
+  userWords: UsersWords[] = [];
+  isUserAuthenticated = true;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
+    private location: Location,
     private wordsDataService: WordsDataService,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private userWordActionService: UserWordActionService,
+    private ebookSettings: EbookSettingsService,
   ) {}
 
   ngOnInit(): void {
@@ -61,17 +66,38 @@ export class WordsList implements OnInit, OnDestroy {
       .subscribe((words: Word[]) => this.mapWords(words));
   }
 
-  changeSelectedPage(pageChanged: number): void {
-    this.userBookSettings.currentState.page = pageChanged;
+  changeSelectedGroup(groupChanged: number): void {
+    const { page } = this.userBookSettings.currentState;
+    const path = this
+      .router
+      .createUrlTree(['ebook/group', groupChanged, 'page', page])
+      .toString();
+    this.location.go(path);
+
+    this.userBookSettings.currentState.group = groupChanged;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
     const { currentState } = this.userBookSettings;
     this.wordsDataService.getWords(currentState);
   }
 
+  changeSelectedPage(pageChanged: number): void {
+    const { group } = this.userBookSettings.currentState;
+    const path = this
+      .router
+      .createUrlTree(['ebook/group', group, 'page', pageChanged])
+      .toString();
+    this.location.go(path);
+
+    this.userBookSettings.currentState.page = pageChanged;
+    this.localStorageService
+      .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
+    this.ebookSettings.setUserSettings();
+    const { currentState } = this.userBookSettings;
+    this.wordsDataService.getWords(currentState);
+  }
+
   setActionForWord(params: ActionParams): void {
-    // const group = String(this.words[this.indexWord(this.words, 'id', params.wordId)].group);
-    // const page = String(this.words[this.indexWord(this.words, 'id', params.wordId)].page);
     const group = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].group);
     const page = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].page);
 
@@ -79,7 +105,7 @@ export class WordsList implements OnInit, OnDestroy {
       ? this.authService.getUserId()
       : 'unauthenticated';
 
-    const index = this.userWords.findIndex((element: UserStats) => element.wordId === params.wordId);
+    const index = this.userWords.findIndex((element: UsersWords) => element.wordId === params.wordId);
     if (index === -1) {
       this.userWords.push({
         id: userId as string,

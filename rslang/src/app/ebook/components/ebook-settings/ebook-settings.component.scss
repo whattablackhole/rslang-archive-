@@ -17,11 +17,22 @@ $label-ischecked: ();
 $svg-ischecked: (background: lighten($clr-5, 50%));
 
 .ebook-settings {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 120px;
+  padding: 30px 0;
+  width: 250px;
+  height: 100vh;
+
   display: block;
   position: relative;
   padding-left: 15px;
   margin-bottom: 12px;
-  width: 250px;
+
   cursor: pointer;
   font-size: 18px;
   -webkit-user-select: none;

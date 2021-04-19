@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WordItem } from './word-item.component';
+import { NotificationBar } from './notification-bar.component';
 
-describe('WordItem', () => {
-  let component: WordItem;
-  let fixture: ComponentFixture<WordItem>;
+describe('NotificationBar', () => {
+  let component: NotificationBar;
+  let fixture: ComponentFixture<NotificationBar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WordItem ]
+      declarations: [ NotificationBar ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WordItem);
+    fixture = TestBed.createComponent(NotificationBar);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

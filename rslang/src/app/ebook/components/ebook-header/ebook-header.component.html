@@ -1,18 +1,35 @@
 <section class="ebook-header">
-    <div class="ebook-header__title">
-        <h1>{{ title }}</h1>
-    </div>
-    <div class="ebook-header__pagination">
-        <button (click)="pagination.first()" [disabled]="pagination.isFirst"><<</button>
-        <button (click)="pagination.prev()" [disabled]="pagination.isFirst"><</button>
+  <div class="ebook-header__title">
+    <h1><i>{{ title }}</i></h1>
+    <img
+      src="../../../../assets/ebbok/iconSettings.svg"
+      alt="Settings"
+      class="settings-btn"
+      (click)="openSettings()" />
+  </div>
+  <div class="ebook-header__slider">
+    <span>collection: </span>
+    <mat-slider
+      [max]="groupSlider.max"
+      [min]="groupSlider.min"
+      [step]="groupSlider.step"
+      [thumbLabel]="groupSlider.thumbLabel"
+      [tickInterval]="getSliderTickInterval()"
+      (groupChange)="onGroupChange(value)"
+      [(ngModel)]="value">
+    </mat-slider>
+  </div>
+  <div class="ebook-header__pagination">
+    <span>page: </span>
+    <button (click)="pagination.first()" [disabled]="pagination.isFirst"><<</button>
+    <button (click)="pagination.prev()" [disabled]="pagination.isFirst"><</button>
+    <input appPagination #pagination="appPagination" [totalPages]="totalPages" (pageChange)="onPageChange($event)" />
+    <span class="total-pages">/ {{ pagination.totalPages }}</span>
 
-        <input appPagination #pagination="appPagination" [totalPages]="totalPages" (pageChange)="onPageChange($event)" />
-        <span class="total-pages"> / {{ pagination.totalPages }}</span>
-
-        <button (click)="pagination.next()" [disabled]="pagination.isLast">></button>
-        <button (click)="pagination.last()" [disabled]="pagination.isLast">>></button>
-    </div>
-    <!-- <svg viewbox="0 0 200 200">
+    <button (click)="pagination.next()" [disabled]="pagination.isLast">></button>
+    <button (click)="pagination.last()" [disabled]="pagination.isLast">>></button>
+  </div>
+    <svg viewbox="0 0 200 200">
     <defs>
       <filter id="blurFilter" y="-5" height="40">
         <feGaussianBlur in="SourceGraphic" stdDeviation="3" y="-5" />
@@ -57,5 +74,5 @@
       <circle r="18" cx="70" cy="80" fill="orangered" stroke-width="0" stroke="orangered"></circle>
       <text x="70" y="87" font-family="Arial" font-size="18" text-anchor="middle" fill="#fff">%</text>
     </g>
-  </svg> -->
+  </svg>
 </section>

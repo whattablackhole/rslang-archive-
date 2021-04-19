@@ -3,13 +3,17 @@ import {
   trigger, style, animate, transition, keyframes, animation,
 } from '@angular/animations';
 import { GameWordsState } from 'src/app/games/interfaces/game-words-state.model';
-import { Router, RoutesRecognized } from '@angular/router';
-import { filter, pairwise } from 'rxjs/operators';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { gameWordsFactory } from 'src/app/games/services/game-words.factory';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { WordActionService } from 'src/app/shared/services/word-action.service';
+import { first } from 'rxjs/operators';
+import { CountdownEvent } from 'ngx-countdown';
+import { NotificationService } from 'src/app/shared/services/notification.service';
+import { StatisticsDataService } from 'src/app/shared/services/statistics-data.service';
+import { EventStartGame } from 'src/app/ebook/models/event-start-game.model';
+import { EbookProviderService } from 'src/app/ebook/services/ebook-provider.service';
 import { WordsDataService } from '../../../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../../../shared/services/user-words-data.service';
 import { WordWithStatistics } from '../../../../shared/models/word-statistics.model';
@@ -18,6 +22,7 @@ import { GameResults } from '../../../../shared/models/game-results.model';
 import { BorderColorAnimationState } from '../../types/border-color.type';
 import { HiddenTextAnimationState } from '../../types/hidden-text.type';
 import { GameStorageWordsService } from '../../../services/game-storage-words.service';
+import { CountDownOptions } from '../../../interfaces/countdown.model';
 import { GameWordsService } from '../../../services/game-words.service';
 @Component({
   selector: 'app-sprint',
@@ -28,9 +33,10 @@ import { GameWordsService } from '../../../services/game-words.service';
     UserWordsDataService,
     GameStorageWordsService,
     GameCoreService,
-    AuthService,
     StatisticsActionService,
     WordActionService,
+    NotificationService,
+    StatisticsDataService,
     {
       provide: GameWordsService,
       useFactory: gameWordsFactory,
@@ -41,6 +47,8 @@ import { GameWordsService } from '../../../services/game-words.service';
         UserWordsDataService,
         WordActionService,
         StatisticsActionService,
+        NotificationService,
+        StatisticsDataService,
       ],
     },
   ],
@@ -85,7 +93,6 @@ export class Sprint implements OnInit {
 
   borderColorAnimationState: BorderColorAnimationState;
   hiddenTextAnimationState: HiddenTextAnimationState;
-
   currentWordIndex = 0;
   biggestStreak = 0;
   currentStreak = 0;
@@ -93,6 +100,9 @@ export class Sprint implements OnInit {
   scorePoints = 0;
   gameLevel = 1;
   correctGamePercent = 0;
+
+  groupsAmount = 6;
+  pagesAmount = 30;
 
   gameWordsState: GameWordsState = {
     isWordsLast: false,
@@ -102,50 +112,79 @@ export class Sprint implements OnInit {
     minAmout: 5,
   };
 
+  countDownOptions: CountDownOptions = {
+    leftTime: 65,
+    format: 'ss.S',
+  };
+
   isGameStarted = false;
   isGameFinished = false;
+  isChoosed = false;
+  isGameFromBook = false;
 
-  group: string;
-  page: string;
+  group = '0';
+  page = '0';
 
   constructor(
     private gameCoreService: GameCoreService,
-    private router: Router,
     private gameWordsService: GameWordsService,
+    private ebookProviderService: EbookProviderService,
   ) {
-    this.router.events
-      .pipe(
-        filter((events: any) => events instanceof RoutesRecognized),
-        pairwise(),
-      )
-      .subscribe((events: RoutesRecognized[]) => {
-        if (events[0].url.startsWith('/ebook')) {
-          this.page = events[0].state.root.queryParams.page as string;
-          this.group = events[0].state.root.queryParams.group as string;
-        } else {
-          this.page = '1';
-          this.group = '1';
-        }
-      });
+
   }
 
   ngOnInit(): void {
-    if (!this.page && !this.group) {
-      this.group = '1';
-      this.page = '1';
-    }
+    this.gameWordsService.sortedWords$.pipe((first())).subscribe((sortedWords) => {
+      this.sortedWords = sortedWords;
+      this.randomSortedWords = this.generateRandomWords(this.sortedWords);
+    });
+    this.ebookProviderService.eventStartGame$.pipe(first())
+      .subscribe(
+        (eventStartGame: EventStartGame) => {
+          if (eventStartGame.fromEbook && eventStartGame.currentState) {
+            const { page, group } = eventStartGame.currentState;
+            this.page = `${page}`;
+            this.group = `${group}`;
+            this.onChooseSubmit();
+          }
+        },
+      );
+  }
+
+  onChooseGroup(group: string): void {
+    this.group = group;
+  }
+
+  onChoosePage(page: string): void {
+    this.page = page;
+  }
+
+  onChooseSubmit():void {
+    this.isChoosed = true;
     this.gameWordsService.getWords(this.group, this.page);
     this.gameWordsService.createWordsForGame(
       this.group,
       this.page,
       this.gameWordsState,
     );
-    this.gameWordsService.sortedWords$.subscribe(
-      (sortedWords: WordWithStatistics[]) => {
-        this.sortedWords = sortedWords;
-        this.randomSortedWords = this.generateRandomWords(this.sortedWords);
-      },
-    );
+  }
+
+  onTimeUp(event: CountdownEvent): void {
+    if (event.action === 'done') {
+      this.autoFinishGame();
+    }
+  }
+
+  autoFinishGame():void {
+    this.currentWordIndex -= 1;
+    while (!this.isGameFinished) {
+      this.addWordToIncorrect(this.sortedWords[this.currentWordIndex]);
+      this.changeWordsKnowledgeDegree(
+        this.sortedWords[this.currentWordIndex].id, false,
+      );
+      this.currentWordIndex += 1;
+      this.checkIfGameFinished();
+    }
   }
 
   onBorderDone(): void {
@@ -167,6 +206,7 @@ export class Sprint implements OnInit {
   }
 
   finishGame(): void {
+    this.sortedWords = this.gameCoreService.addStudyStats(this.sortedWords, this.gameResultWords);
     this.statistics = this.gameCoreService.generateStats(
       this.gameResultWords,
       this.biggestStreak,

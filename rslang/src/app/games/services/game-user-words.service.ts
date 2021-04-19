@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  combineLatest, Observable, ObservedValueOf, Subject,
+  combineLatest, Observable, Subject,
 } from 'rxjs';
 import { WordWithStatistics } from 'src/app/shared/models/word-statistics.model';
 import { Word } from 'src/app/shared/models/word.model';
@@ -13,9 +13,13 @@ import { WordActionService } from 'src/app/shared/services/word-action.service';
 import { StatisticsActionService } from 'src/app/shared/services/statistics-action.service';
 import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
+import { BackEndStatistics } from 'src/app/shared/models/statistics-backend.model';
+import { first } from 'rxjs/operators';
 import { GameWordsState } from '../interfaces/game-words-state.model';
 import { WordsDataService } from '../../shared/services/words-data.service';
 import { UserWordsDataService } from '../../shared/services/user-words-data.service';
+import { StatisticsDataService } from '../../shared/services/statistics-data.service';
+import { NotificationService } from '../../shared/services/notification.service';
 import { GameCoreService } from './game-core.service';
 
 @Injectable()
@@ -36,6 +40,8 @@ export class GameUserWordsService {
     private authService: AuthService,
     private wordActionService: WordActionService,
     private statisticsActionService: StatisticsActionService,
+    private notifyService: NotificationService,
+    private statisticsDataService: StatisticsDataService,
   ) {
     this.words$ = this.wordsService.data$;
     this.userWords$ = this.userWordsService.data$;
@@ -116,7 +122,7 @@ export class GameUserWordsService {
         knowledgeDegree: word.userStats.optional.knowledgeDegree,
         page: word.page.toString(),
         group: word.group.toString(),
-        toStudy: {},
+        toStudy: word.userStats.optional.toStudy,
       },
     };
   }
@@ -139,7 +145,7 @@ export class GameUserWordsService {
         `${BASE_URL}/users/${this.userID}/words/${word.id}`,
         {
           onError: (err: HttpErrorResponse) => {
-            console.log(err);
+            this.notifyService.showError(err.message);
           },
         },
         { body },
@@ -148,17 +154,28 @@ export class GameUserWordsService {
   }
 
   uploadStats(stats: Statistics): void {
-    this.statisticsActionService.sendAction(
-      'PUT',
-      `${BASE_URL}/users/${this.userID}/statistics`,
-      {
-        onError: (err) => {
-          console.log(err);
-        },
-      },
-      {
-        body: { optional: { ...stats } },
-      },
-    );
+    this.statisticsDataService.getData(`${BASE_URL}/users/${this.userID}/statistics`);
+    this.statisticsDataService.data$.pipe(first())
+      .subscribe((statistics: BackEndStatistics) => {
+        let body;
+        if (statistics.optional && Array.isArray(statistics.optional.stats)) {
+          statistics.optional.stats.push(stats);
+          body = { optional: { stats: statistics.optional.stats } };
+        } else {
+          body = { optional: { stats: [stats] } };
+        }
+        this.statisticsActionService.sendAction(
+          'PUT',
+          `${BASE_URL}/users/${this.userID}/statistics`,
+          {
+            onError: (err) => {
+              this.notifyService.showError(err.message);
+            },
+          },
+          {
+            body,
+          },
+        );
+      });
   }
 }

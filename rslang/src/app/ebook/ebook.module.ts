@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+import { MatSliderModule } from '@angular/material/slider';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from '../shared/shared.module';
 import { EbookRoutingModule } from './ebook-routing.module';
@@ -14,6 +17,10 @@ import { EbookHeader } from './components/ebook-header/ebook-header.component';
 import { WordsList } from './components/words-list/words-list.component';
 import { WordItem } from './components/word-item/word-item.component';
 import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
+import { GameSidenav } from './components/game-sidenav/game-sidenav.component';
+import { SettingsActionService } from './services/settings-action.service';
+import { EbookProviderService } from './services/ebook-provider.service';
+import { UsersWordsDataService } from './services/users-words-data.service';
 
 @NgModule({
   declarations: [
@@ -25,9 +32,26 @@ import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
     WordItem,
     PaginationDirective,
     FilterByActionPipe,
+    GameSidenav,
   ],
-  imports: [SharedModule, EbookRoutingModule, MatInputModule],
+  imports: [
+    SharedModule,
+    EbookRoutingModule,
+    MatInputModule,
+    MatSliderModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatInputModule,
+  ],
   exports: [WordsCollections],
-  providers: [EbookSettingsService, SettingsDataService, WordsDataService],
+  providers: [
+    EbookSettingsService,
+    SettingsDataService,
+    WordsDataService,
+    SettingsActionService,
+    EbookProviderService,
+    UsersWordsDataService,
+  ],
 })
 export class EbookModule {}

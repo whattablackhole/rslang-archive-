@@ -1,3 +1,4 @@
+@import "src/variables";
 :host {
   background-color: lighten(grey, 30%);
   width: 100%;
@@ -6,8 +7,15 @@
 
 .footer__wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  height: 90px;
+  background: $main_blue;
+  color: #fff;
+  font-size: 0.9rem;
+  @include common-padding;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .footer__logo {
@@ -17,6 +25,7 @@
 .footer__team {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .footer__list-item {
@@ -28,11 +37,9 @@
 
 .footer__list {
   display: flex;
+  gap: 5px;
 }
 
-.footer__year-text {
-  margin-left: 5px;
-}
 
 ul,
 li {
@@ -42,10 +49,11 @@ li {
 }
 
 li {
-  margin: 5px;
+  width: 25px;
+  height: 25px;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 640px) {
   .footer__year-text {
     display: none;
   }

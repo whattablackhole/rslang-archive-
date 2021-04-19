@@ -16,25 +16,18 @@
     position: absolute;
     right: 5px;
     width: 35px;
-    .over-btn {
-      display: none;
-      cursor: pointer;
-    }
-    .over-btn {
-      width: 20px;
-      height: 110px;
-      // background: url('../../../../assets/svg/close.svg') no-repeat top;
-    }
     .visible {
       display: inline-block;
     }
   }
 
   &__image {
-    margin-left: 30px;
+    margin-left: 10px;
+    margin-right: 20px;
     border-radius: 50%;
     img {
       height: 110px;
+      float: left;
     }
   }
 

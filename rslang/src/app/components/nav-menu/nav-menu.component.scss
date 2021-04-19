@@ -1,9 +1,17 @@
-mat-toolbar {
+@import "src/variables";
+.menu__wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 90px;
   background-color: white;
+  @include common-padding;
+}
+
+.btn{
+  background: $accent_color;
+  color: #fff;
+  box-shadow: 2px 2px 5px $main_gray_color;
 }
 
 .main-menu {
@@ -22,17 +30,21 @@ mat-toolbar {
 }
 
 .logo-wrapper {
-  width: 100%;
-  min-width: 100px;
-  max-width: 200px;
+  // width: 100%;
+  width: 200px;
 }
+
+.logo-wrapper:active,
+.logo-wrapper:focus {
+  outline: none;
+}
+
 
 .account-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 70px;
-  min-width: 20px;
   width: 100%;
 }
 
@@ -47,6 +59,6 @@ mat-toolbar {
     display: none;
   }
   mat-toolbar {
-    padding: 0px;
+    padding: 1rem;
   }
 }

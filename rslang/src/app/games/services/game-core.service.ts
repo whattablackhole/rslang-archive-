@@ -6,12 +6,15 @@ import { Word } from 'src/app/shared/models/word.model';
 import { UserWord } from 'src/app/shared/models/user-word.model';
 import { Statistics } from 'src/app/shared/models/statistics-short.model';
 import { WordId } from 'src/app/shared/types/word-id.type';
+import { BackEndStatistics } from 'src/app/shared/models/statistics-backend.model';
 import { GameName } from '../../shared/types/game-name.type';
-import { LocalStorageService } from '../../core/services/local-storage.service';
 import { WordsByPages } from '../interfaces/words-by-pages.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
+import { NotificationService } from '../../shared/services/notification.service';
+
 @Injectable()
 export class GameCoreService {
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService, private notifyService: NotificationService) {}
 
   getWordsPath = (group: string, page: string): string => `${BASE_URL}/words?group=${group}&page=${page}`;
 
@@ -47,21 +50,22 @@ export class GameCoreService {
   }
 
   addStatsToLocalStorage(stats: Statistics): void {
-    let result: Statistics[] | string | null = this.localStorageService.getItem(
+    const backEndStats: BackEndStatistics = { id: 'undefined', optional: { stats: [stats] } };
+    let result: BackEndStatistics | string | null = this.localStorageService.getItem(
       'statistics',
     );
     if (result) {
       try {
-        result = JSON.parse(result) as Statistics[];
+        result = JSON.parse(result) as BackEndStatistics;
       } catch {
         result = null;
       }
     }
-    if (Array.isArray(result)) {
-      result.push(stats);
+    if ((result as BackEndStatistics)) {
+      (result as BackEndStatistics).optional.stats.push(stats);
       this.localStorageService.setItem('statistics', JSON.stringify(result));
     } else {
-      this.localStorageService.setItem('statistics', JSON.stringify([stats]));
+      this.localStorageService.setItem('statistics', JSON.stringify(backEndStats));
     }
   }
 
@@ -88,6 +92,18 @@ export class GameCoreService {
       (word: WordWithStatistics) => word.userStats.difficulty !== 'removed'
        && (word.userStats.optional.knowledgeDegree) < 3,
     );
+  }
+
+  addStudyStats(words: WordWithStatistics[], gameResultWords: GameResults): WordWithStatistics[] {
+    const resultLength: number = gameResultWords.correctWords.length;
+    let sortedWords: WordWithStatistics[] = words;
+    sortedWords = sortedWords.map((item: WordWithStatistics) => {
+      const newItem = item;
+      const currentTotal: number = newItem.userStats.optional.toStudy.actualStats[0].total;
+      newItem.userStats.optional.toStudy = { actualStats: [{ successfully: resultLength, total: currentTotal + 1 }] };
+      return newItem;
+    });
+    return sortedWords;
   }
 
   addLocalToSortedWords(
@@ -139,7 +155,7 @@ export class GameCoreService {
     audio.src = url;
     audio.load();
     audio.play().catch((err: Error) => {
-      console.error(err);
+      this.notifyService.showError(err.message);
     });
   }
 
@@ -170,9 +186,9 @@ export class GameCoreService {
     return words.map((elem) => ({
       ...elem,
       userStats: {
-        difficulty: 'hard',
+        difficulty: 'unset',
         optional: {
-          toStudy: {},
+          toStudy: { actualStats: [{ successfully: 0, total: 0 }] },
           knowledgeDegree: 0,
           page: 'unset',
           group: 'unset',
@@ -185,9 +201,9 @@ export class GameCoreService {
     return {
       ...word,
       userStats: {
-        difficulty: 'hard',
+        difficulty: 'unset',
         optional: {
-          toStudy: {},
+          toStudy: { actualStats: [{ successfully: 0, total: 0 }] },
           knowledgeDegree: 0,
           page: 'unset',
           group: 'unset',

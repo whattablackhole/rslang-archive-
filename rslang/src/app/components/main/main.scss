@@ -15,6 +15,11 @@
   color: $main_blue;
 }
 
+.main-wrapper{
+  background: linear-gradient(#fff 20%, $blue_color, #fff 90%);
+  @include common-padding;
+}
+
 .main {
   display: flex;
   flex-direction: column;
