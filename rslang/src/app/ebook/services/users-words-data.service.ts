@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { UsersWords } from '../../shared/models/user-stats.model';
+import { UsersWords } from '../../shared/models/users-words.model';
 import { API_URL } from '../../shared/constants/api-url';
 import { BaseDataService } from '../../core/services/base-data.service';
 

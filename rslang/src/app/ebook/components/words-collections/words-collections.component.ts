@@ -10,7 +10,7 @@ import { LocalStorageService } from '../../../core/services/local-storage.servic
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 import { WordsCollection } from '../../models/words-collection.model';
-import { UsersWords } from '../../../shared/models/user-stats.model';
+import { UsersWords } from '../../../shared/models/users-words.model';
 import { CONFIG_EBOOK } from '../../constants/config-ebook';
 
 @Component({
@@ -51,7 +51,7 @@ export class WordsCollections implements OnInit, OnDestroy {
   changeSelectedGroup(collection: WordsCollection): Promise<boolean> {
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
-    this.userBookSettings.currentState.group = collection.id;
+    this.userBookSettings.currentState.group = collection.id + 1;
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
     // TODO for authenticated

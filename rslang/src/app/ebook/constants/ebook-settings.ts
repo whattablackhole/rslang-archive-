@@ -11,10 +11,9 @@ export const EBOOK_SETTINGS = {
       checked: true,
     },
     {
-      value: 'isRemote',
+      value: 'isRemoted',
       label: 'Show "delete word" button',
       checked: true,
-
     },
   ],
   wordOptions: [
