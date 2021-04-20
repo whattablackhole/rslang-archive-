@@ -4,6 +4,7 @@ import {
 
 import { Word } from '../../../shared/models/word.model';
 import { ActionParams } from '../../models/action-params.model';
+import { OptionsChecked } from '../../models/options-checked.model';
 import { ButtonAction } from '../../../shared/types/button-action.type';
 
 @Component({
@@ -12,6 +13,7 @@ import { ButtonAction } from '../../../shared/types/button-action.type';
   styleUrls: ['./word-item.component.scss'],
 })
 export class WordItem {
+  @Input() optionsChecked: OptionsChecked;
   @Input() item: Word;
   @Output() setAction: EventEmitter<ActionParams> = new EventEmitter<ActionParams>();
 

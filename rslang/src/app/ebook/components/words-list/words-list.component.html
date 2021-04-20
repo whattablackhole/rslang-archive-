@@ -6,7 +6,8 @@
   <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
     <app-word-item
       class="words-conteiner__item"
-      *ngFor ="let item of words | filterByAction: ''"
+      [optionsChecked]="optionsChecked"
+      *ngFor ="let item of words | filterByAction: 'unset'"
       [item]="item"
       (setAction)=setActionForWord($event)>
     </app-word-item>

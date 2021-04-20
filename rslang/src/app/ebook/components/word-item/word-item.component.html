@@ -5,20 +5,12 @@
   <div class="item__description">
     <span class="title">
       <strong>{{ item.word }}</strong> {{ item.transcription }} -
-      <strong>{{ item.wordTranslate }}</strong>
+      <strong *ngIf="optionsChecked.translationOfWord">{{ item.wordTranslate }}</strong>
     </span>
-    <span>
-      {{ item.textMeaning }}
-    </span>
-    <span>
-      {{ item.textMeaningTranslate }}
-    </span>
-    <span>
-      {{ item.textExample }}
-    </span>
-    <span>
-      {{ item.textExampleTranslate }}
-    </span>
+    <span *ngIf="optionsChecked.examplesOfUse"> {{ item.textMeaning }} </span>
+    <span *ngIf="optionsChecked.translationOfExamples"> {{ item.textMeaningTranslate }} </span>
+    <span *ngIf="optionsChecked.examplesOfUse"> {{ item.textExample }} </span>
+    <span *ngIf="optionsChecked.translationOfExamples"> {{ item.textExampleTranslate }} </span>
   </div>
   <div class="item__buttons">
     <img
@@ -30,12 +22,14 @@
       src="../../../../assets/ebbok/difficultIco.svg"
       alt="hard"
       data-action="hard"
+      *ngIf="optionsChecked.isDifficult"
       (click)="changeAction('hard', item.id)"
       class="action-btn" />
     <img
       src="../../../../assets/ebbok/deleteIco.svg"
       alt="removed"
       data-action="removed"
+      *ngIf="optionsChecked.isRemoted"
       (click)="changeAction('removed', item.id)"
       class="action-btn" />
   </div>

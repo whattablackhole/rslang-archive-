@@ -13,12 +13,13 @@ import { UserBookSettings } from '../../models/user-book-settings.model';
 import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
 import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
+import { OptionsChecked } from '../../models/options-checked.model';
+import { EbookSettingsService } from '../../services/ebook-settings.service';
+import { WordOptions } from '../../models/word-options.model';
 import { WordsDataService } from '../../../shared/services/words-data.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { AuthService } from '../../../auth/services/auth.service';
 import { UserWordActionService } from '../../../shared/services/user-word-action.service';
-import { EbookSettingsService } from '../../services/ebook-settings.service';
-import { WordOptions } from '../../models/word-options';
 
 @Component({
   selector: 'app-words-list',
@@ -30,6 +31,7 @@ export class WordsList implements OnInit, OnDestroy {
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
 
   userBookSettings: UserBookSettings;
+  optionsChecked: OptionsChecked = {};
   words: WordOptions[] = [];
   userWords: UsersWords[] = [];
   isUserAuthenticated = false;
@@ -62,10 +64,23 @@ export class WordsList implements OnInit, OnDestroy {
       this.userBookSettings.currentState.group = params.id as number;
     });
 
+    this.setOptionCheckedSettings(this.userBookSettings);
+
     const { currentState } = this.userBookSettings;
     this.wordsDataService.getWords(currentState);
     this.subscription = this.wordsDataService.data$
       .subscribe((words: WordOptions[]) => this.mapWords(words));
+  }
+
+  setOptionCheckedSettings(userBookSettings: UserBookSettings): void {
+    const { buttonOptions, wordOptions } = userBookSettings;
+    buttonOptions.forEach((element) => {
+      this.optionsChecked[element.value] = element.checked as boolean;
+    });
+    wordOptions.forEach((element) => {
+      this.optionsChecked[element.value] = element.checked as boolean;
+    });
+    console.log(this.optionsChecked);
   }
 
   changeSelectedGroup(groupChanged: number): void {
