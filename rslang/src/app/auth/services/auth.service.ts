@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   logoutUser(): void {
-    this.clearAuthData();
+    this.clearStorageData();
     this.changeAuthStatus(false);
     this.notification.showSuccess('You are signed out!');
   }
@@ -98,10 +98,7 @@ export class AuthService {
     this.storage.setItem(this.REFRESH_TOKEN, refreshToken);
   }
 
-  private clearAuthData(): void {
-    this.storage.removeItem(this.USER_ID);
-    this.storage.removeItem(this.USER_NAME);
-    this.storage.removeItem(this.JWT_TOKEN);
-    this.storage.removeItem(this.REFRESH_TOKEN);
+  private clearStorageData(): void {
+    this.storage.clear();
   }
 }
