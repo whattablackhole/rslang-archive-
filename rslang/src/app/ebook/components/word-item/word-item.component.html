@@ -1,8 +1,5 @@
 <div class="item">
-  <!-- <div class="item__image">
-    <img [src]=[item.image] alt="{{ item.word }}" />
-  </div> -->
-  <div class="item__description">
+    <div class="item__description">
     <img [src]=[item.image] alt="{{ item.word }}" class="circle"/>
     <span>
       <strong class="label-hard ">!</strong>
@@ -34,7 +31,6 @@
       src="../../../../assets/ebbok/difficultIco.svg"
       alt="hard"
       data-action="hard"
-      appShowLabelHardWord
       *ngIf="optionsChecked.isDifficult"
       (click)="changeAction('hard', item.id)"
       class="action-btn" />

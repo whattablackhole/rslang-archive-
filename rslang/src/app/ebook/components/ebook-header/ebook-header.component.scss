@@ -21,6 +21,10 @@
           position: absolute;
           top: 5px;
           left: 170px;
+          &:hover{
+            cursor: pointer;
+            filter: drop-shadow(0 0 0.1rem $main_blue);
+          }
         }
     }
     &__pagination {
@@ -37,17 +41,13 @@
     }
     &__slider {
       position: absolute;
-      top: 20px;
+      top: 25px;
       right: 65px;
-      .h2 {
-        margin: 0 8px 16px;
-      }
       .section {
         display: flex;
         height: 60px;
         align-content: right;
         align-items: center;
-
       }
     }
     svg {
