@@ -1,10 +1,9 @@
 import {
-  Component, Input, Output, EventEmitter,
+  Component, EventEmitter, Input, Output,
 } from '@angular/core';
-
 import { Word } from '../../../shared/models/word.model';
-import { ActionParams } from '../../models/action-params.model';
 import { ButtonAction } from '../../../shared/types/button-action.type';
+import { ActionParams } from '../../models/action-params.model';
 
 @Component({
   selector: 'app-word-item',

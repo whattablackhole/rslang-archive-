@@ -1,10 +1,9 @@
 import {
   Component,
 } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-
-import { WordsCollection } from '../../models/words-collection.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CONFIG_EBOOK } from '../../constants/config-ebook';
+import { WordsCollection } from '../../models/words-collection.model';
 
 @Component({
   selector: 'app-words-collections',

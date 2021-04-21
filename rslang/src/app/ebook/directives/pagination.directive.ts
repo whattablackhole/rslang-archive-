@@ -1,5 +1,5 @@
 import {
-  Directive, OnChanges, OnInit, Input, Output, EventEmitter, ElementRef, Renderer2, SimpleChanges, HostListener,
+  Directive, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges,
 } from '@angular/core';
 
 @Directive({

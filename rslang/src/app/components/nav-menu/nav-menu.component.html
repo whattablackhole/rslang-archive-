@@ -33,8 +33,13 @@
       >
         sprint
       </button>
-      <button mat-menu-item (click)="goToPage($event)" data-path="sprint">
-        other game
+      <button 
+        mat-menu-item
+        (click)="goToPage($event)"
+        routerLinkActive="active"
+        data-path="match-pairs"
+      >
+        match pairs
       </button>
     </mat-menu>
     <button class="btn" mat-button routerLink="statistics">statistics</button>

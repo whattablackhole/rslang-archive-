@@ -1,7 +1,6 @@
 import {
-  Component, Output, EventEmitter, Input,
+  Component, EventEmitter, Input, Output,
 } from '@angular/core';
-
 import { COLLECTIONS_SLIDER } from '../../constants/collections-slider';
 import { CurrentStateBook } from '../../models/current-state-book.model';
 

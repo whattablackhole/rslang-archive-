@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-
 import { EbookSettingsService } from '../../services/ebook-settings.service';
 
 @Component({
