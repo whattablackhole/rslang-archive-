@@ -6,7 +6,6 @@ import {
   selector: '[appShowLabelHardWord]',
 })
 export class ShowLabelHardWordDirective {
-  // @Input('appShowLabelHardWord') classVisible = 'visible';
   isInitialState = false;
 
   constructor(
@@ -20,12 +19,12 @@ export class ShowLabelHardWordDirective {
 
   togglelabel(): void {
     this.isInitialState = !this.isInitialState;
-    const showLabelEl: HTMLElement = (this.el.nativeElement as HTMLElement)
-      .querySelector('label-hard') as HTMLElement;
+    const showLabelEl = (this.el.nativeElement as HTMLElement)
+      .querySelector('.label-hard') as HTMLElement;
     if (this.isInitialState) {
-      this.renderer.addClass(showLabelEl, 'visible');
+      this.renderer.removeStyle(showLabelEl, 'visibility');
     } else {
-      this.renderer.removeClass(showLabelEl, 'visible');
+      this.renderer.setStyle(showLabelEl, 'visibility', 'hidden');
     }
   }
 }
