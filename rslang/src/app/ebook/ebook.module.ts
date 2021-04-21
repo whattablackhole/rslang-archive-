@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +22,8 @@ import { GameSidenav } from './components/game-sidenav/game-sidenav.component';
 import { SettingsActionService } from './services/settings-action.service';
 import { EbookProviderService } from './services/ebook-provider.service';
 import { UsersWordsDataService } from './services/users-words-data.service';
+import { Vocabulary } from './components/vocabulary/vocabulary.component';
+import { ShowLabelHardWordDirective } from './directives/show-label-hard-word.directive';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import { UsersWordsDataService } from './services/users-words-data.service';
     PaginationDirective,
     FilterByActionPipe,
     GameSidenav,
+    Vocabulary,
+    ShowLabelHardWordDirective,
   ],
   imports: [
     SharedModule,
@@ -43,6 +48,7 @@ import { UsersWordsDataService } from './services/users-words-data.service';
     MatFormFieldModule,
     MatInputModule,
     MatInputModule,
+    MatTabsModule,
   ],
   exports: [WordsCollections],
   providers: [

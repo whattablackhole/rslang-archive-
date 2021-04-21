@@ -1,12 +1,12 @@
 import {
-  Directive, Input, Renderer2, ElementRef, HostListener,
+  Directive, Renderer2, ElementRef, HostListener,
 } from '@angular/core';
 
 @Directive({
   selector: '[appShowLabelHardWord]',
 })
 export class ShowLabelHardWordDirective {
-  @Input('appShowLabelHardWord') classVisible = 'visible';
+  // @Input('appShowLabelHardWord') classVisible = 'visible';
   isInitialState = false;
 
   constructor(

@@ -21,6 +21,7 @@ import { LocalStorageService } from '../../../core/services/local-storage.servic
 import { AuthService } from '../../../auth/services/auth.service';
 import { UserWordActionService } from '../../../shared/services/user-word-action.service';
 import { CurrentStateBook } from '../../models/current-state-book.model';
+import { EbookProviderService } from '../../services/ebook-provider.service';
 
 @Component({
   selector: 'app-words-list',
@@ -46,12 +47,14 @@ export class WordsList implements OnInit, OnDestroy {
     private authService: AuthService,
     private userWordActionService: UserWordActionService,
     private ebookSettings: EbookSettingsService,
+    private providerService: EbookProviderService,
   ) {}
 
   ngOnInit(): void {
     this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
+    console.log(this.userBookSettings);
     this.subscription = this.localStorageService.changes$
       .subscribe(
         (events: StorageChanges) => {
@@ -78,6 +81,7 @@ export class WordsList implements OnInit, OnDestroy {
     wordOptions.forEach((element) => {
       this.optionsChecked[element.value] = element.checked as boolean;
     });
+    this.providerService.updatedOptionSettings(this.optionsChecked);
   }
 
   changeSelectedGroup(groupChanged: number): void {
@@ -160,6 +164,7 @@ export class WordsList implements OnInit, OnDestroy {
 
     this.localStorageService
       .setItem(LocalStorageKey.WordsdUser, JSON.stringify(this.userWords));
+    this.providerService.updatedUserWords(this.userWords);
   }
 
   // indexWord<T>(arr: T[], index: string, value: string): number {
@@ -175,6 +180,7 @@ export class WordsList implements OnInit, OnDestroy {
       word.audioExample = WORDS_API_URL + word.audioExample;
       this.words.push(word);
     });
+    this.providerService.updatedDataViewsWords(this.words);
   }
 
   private isNotPageWasViewed(state: CurrentStateBook): boolean {
