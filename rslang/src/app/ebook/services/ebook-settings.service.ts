@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-
-import { LocalStorageService } from '../../core/services/local-storage.service';
-import { SettingsDataService } from './settings-data.service';
 import { AuthService } from '../../auth/services/auth.service';
-import { UserBookSettings } from '../models/user-book-settings.model';
-import { GlobalSettings } from '../models/global-settings.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
+import { API_URL } from '../../shared/constants/api-url';
 import { LocalStorageKey } from '../../shared/models/local-storage-keys.model';
 import { EBOOK_SETTINGS } from '../constants/ebook-settings';
-import { API_URL } from '../../shared/constants/api-url';
+import { GlobalSettings } from '../models/global-settings.model';
+import { UserBookSettings } from '../models/user-book-settings.model';
 import { SettingsActionService } from './settings-action.service';
+import { SettingsDataService } from './settings-data.service';
 
 @Injectable()
 export class EbookSettingsService {

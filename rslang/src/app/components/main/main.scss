@@ -17,6 +17,7 @@
 
 .main-wrapper{
   background: linear-gradient(#fff 20%, $blue_color, #fff 90%);
+  overflow-x: hidden;
   @include common-padding;
 }
 

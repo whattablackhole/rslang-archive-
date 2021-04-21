@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter,
+  Component, EventEmitter, Input, Output,
 } from '@angular/core';
 
 import { ActionParams } from '../../models/action-params.model';

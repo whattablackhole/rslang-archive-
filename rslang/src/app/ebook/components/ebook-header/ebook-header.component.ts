@@ -1,5 +1,5 @@
 import {
-  Component, Output, EventEmitter, Input,
+  Component, EventEmitter, Input, Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,6 @@ import { CurrentStateBook } from '../../models/current-state-book.model';
 })
 export class EbookHeader {
   totalPages = 30; // TODO number of pages collections
-  //  // TODO section of ebook
   @Input() title: string;
   @Input() currentState: CurrentStateBook;
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
