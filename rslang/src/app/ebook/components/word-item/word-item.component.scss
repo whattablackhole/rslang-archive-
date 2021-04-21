@@ -1,63 +1,64 @@
 @import '../../../../variables';
 
+.hard {
+  color: #ed675b;
+}
+.visible {
+  display: inline-block;
+}
+
 .item {
   position: relative;
   height: auto;
   min-height: 110px;
-
-  &__buttons,
-  &__image,
-  &__description {
-    margin-right: 5px;
-    display: inline-block;
-  }
+  padding-right: 50px;
 
   &__buttons {
     position: absolute;
+    margin-right: 5px;
+    top: 10px;
     right: 5px;
     width: 35px;
-    .visible {
-      display: inline-block;
-    }
+
     img:hover{
       cursor: pointer;
       filter: drop-shadow(0 0 0.3rem $main_blue);
     }
   }
 
-  &__image {
-    margin-left: 10px;
+  .circle {
+    float: left;
     margin-right: 20px;
-    border-radius: 50%;
-    img {
-      height: 110px;
-      float: left;
-    }
+    // shape-outside: circle(50%);
+    height: 120px;
   }
-
-  &__description {
-    width: auto;
-    max-width: 600px;
-    align-items: center;
-  }
-
-  &__description span {
+  span {
     display: block;
-    margin-top: 1px;
+    width: inherit;
     font-size: 14px;
     font-family: 'Trebuchet MS';
     color: $main_dark_color;
   }
 
-  &__description span:first-child {
+  span:nth-child(2) {
     margin-bottom: 10px;
     font-size: 20px;
     font-weight: 700;
     color: $main_blue;
   }
 
-  &__description span:last-child {
+  span:last-child {
     font-weight: 200;
+  }
+
+  span .label-hard {
+    display: none;
+    width: 10px;
+    margin-right: 10px;
+    padding: 1px 9px;
+    color: #ed675b;
+    border-radius: 50%;
+    border: 2px solid #ed675b;
   }
 
   .action-btn {
@@ -73,36 +74,22 @@
   }
 }
 
-.item:hover {
-  &__buttons {
-    .over-btn {
-      display: inline-block;
-    }
-  }
-}
-
 @media (max-width: 800px) {
   .item {
-    height: auto;
-    width: 100%;
     flex-wrap: wrap;
     justify-content: flex-start;
-    &__image img {
+    text-align: center;
+    margin-top: 6px;
+    .circle {
+      clear: left;
+      display: block;
       width: auto;
       height: 120px;
-    }
-    &__image,
-    &__description {
-      width: 100%;
-      text-align: center;
-      margin: 6px 0;
+      margin-left: 20px;
     }
     &__buttons {
       top: 10px;
       right: 0;
-      .over-btn {
-        height: 30px;
-      }
     }
   }
 }

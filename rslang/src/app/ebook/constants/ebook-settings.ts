@@ -25,12 +25,12 @@ export const EBOOK_SETTINGS = {
     {
       value: 'examplesOfUse',
       label: 'Show examples of use',
-      checked: false,
+      checked: true,
     },
     {
       value: 'translationOfExamples',
       label: 'Show translation examples',
-      checked: true,
+      checked: false,
     },
   ],
 };

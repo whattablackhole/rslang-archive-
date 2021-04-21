@@ -1,16 +1,28 @@
-<div class="item" appShowOverBtn>
-  <div class="item__image">
+<div class="item">
+  <!-- <div class="item__image">
     <img [src]=[item.image] alt="{{ item.word }}" />
-  </div>
+  </div> -->
   <div class="item__description">
-    <span class="title">
-      <strong>{{ item.word }}</strong> {{ item.transcription }} -
-      <strong *ngIf="optionsChecked.translationOfWord">{{ item.wordTranslate }}</strong>
+    <img [src]=[item.image] alt="{{ item.word }}" class="circle"/>
+    <span>
+      <strong class="label-hard ">!</strong>
+      <strong class="word">{{ item.word }} </strong>
+      <strong [style.font-size.px]="16" > {{ item.transcription }}</strong>
+      <strong *ngIf="optionsChecked.translationOfWord"> - {{ item.wordTranslate }}</strong>
     </span>
-    <span *ngIf="optionsChecked.examplesOfUse"> {{ item.textMeaning }} </span>
-    <span *ngIf="optionsChecked.translationOfExamples"> {{ item.textMeaningTranslate }} </span>
-    <span *ngIf="optionsChecked.examplesOfUse"> {{ item.textExample }} </span>
-    <span *ngIf="optionsChecked.translationOfExamples"> {{ item.textExampleTranslate }} </span>
+    <span *ngIf="optionsChecked.examplesOfUse">
+      <button (click)="playSound(item.audioMeaning)" mat-icon-button>
+        <mat-icon>campaign</mat-icon>
+      </button> {{ item.textMeaning }}
+      <i *ngIf="optionsChecked.translationOfExamples"> / {{ item.textMeaningTranslate }}</i>
+    </span>
+    <span *ngIf="optionsChecked.examplesOfUse">
+      <button (click)="playSound(item.audioExample)" mat-icon-button>
+        <mat-icon (click)="playSound(item.audioExample)">campaign</mat-icon>
+      </button>
+      {{ item.textExample }}
+      <i *ngIf="optionsChecked.translationOfExamples"> / {{ item.textExampleTranslate }}</i>
+    </span>
   </div>
   <div class="item__buttons">
     <img

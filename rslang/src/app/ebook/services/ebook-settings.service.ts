@@ -54,13 +54,16 @@ export class EbookSettingsService {
     }
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.ebookSettings = JSON.parse(data as string) as UserBookSettings;
-    const userId = this.authService.getUserId() as string;
-    this.settingsActionService.upsertSettings(
-      userId,
-      {
-        wordsPerDay: 20,
-        optional: { ...this.ebookSettings },
-      },
-    );
+    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
+    if (this.isUserAuthenticated) {
+      const userId = this.authService.getUserId() as string;
+      this.settingsActionService.upsertSettings(
+        userId,
+        {
+          wordsPerDay: 20,
+          optional: { ...this.ebookSettings },
+        },
+      );
+    }
   }
 }
