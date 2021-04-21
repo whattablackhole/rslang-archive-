@@ -22,6 +22,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { UserWordActionService } from '../../../shared/services/user-word-action.service';
 import { CurrentStateBook } from '../../models/current-state-book.model';
 import { EbookProviderService } from '../../services/ebook-provider.service';
+import { UsersWordsDataService } from '../../services/users-words-data.service';
 
 @Component({
   selector: 'app-words-list',
@@ -47,6 +48,7 @@ export class WordsList implements OnInit, OnDestroy {
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private userWordActionService: UserWordActionService,
+    private usersWordsDataService: UsersWordsDataService,
     private ebookSettings: EbookSettingsService,
     private providerService: EbookProviderService,
   ) {}
@@ -55,7 +57,6 @@ export class WordsList implements OnInit, OnDestroy {
     this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
-    console.log(this.userBookSettings);
     this.subscription = this.localStorageService.changes$
       .subscribe(
         (events: StorageChanges) => {
@@ -67,11 +68,27 @@ export class WordsList implements OnInit, OnDestroy {
 
     this.setOptionCheckedSettings(this.userBookSettings);
 
+    if (this.isUserAuthenticated) {
+      const userId = this.authService.getUserId();
+      this.usersWordsDataService.getAllUsersWords(userId as string);
+      this.subscription = this.usersWordsDataService.data$
+        .subscribe((words: UsersWords[]) => {
+          this.userWords = words;
+        });
+    } else if (!localStorage.hasOwnProperty(LocalStorageKey.WordsdUser)) {
+      const temp = this.localStorageService.getItem(LocalStorageKey.WordsdUser);
+      this.userWords = JSON.parse(temp as string) as UsersWords[];
+    }
+    this.providerService.updatedUserWords(this.userWords);
     const { currentState } = this.userBookSettings;
     this.state = currentState;
-    this.wordsDataService.getWords(currentState);
-    this.subscription = this.wordsDataService.data$
-      .subscribe((words: WordOptions[]) => this.mapWords(words));
+    if (this.isNotPageWasViewed(this.state)) {
+      this.wordsDataService.getWords(currentState);
+      this.subscription = this.wordsDataService.data$
+        .subscribe((words: WordOptions[]) => this.mapWords(words));
+    }
+
+    console.log(this.userWords);
   }
 
   setOptionCheckedSettings(userBookSettings: UserBookSettings): void {

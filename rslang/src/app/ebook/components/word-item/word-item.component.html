@@ -2,7 +2,7 @@
     <div class="item__description">
     <img [src]=[item.image] alt="{{ item.word }}" class="circle"/>
     <span>
-      <strong *ngIf="action=='hard'" class="label-hard"  appShowLabelHardWord>?</strong>
+      <strong *ngIf="item. difficulty=='hard'" class="label-hard"  appShowLabelHardWord>?</strong>
       <strong class="word">{{ item.word }} </strong>
       <strong [style.font-size.px]="16" > {{ item.transcription }}</strong>
       <strong *ngIf="optionsChecked.translationOfWord"> - {{ item.wordTranslate }}</strong>
