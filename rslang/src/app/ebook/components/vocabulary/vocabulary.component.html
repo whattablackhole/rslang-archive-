@@ -14,7 +14,7 @@
           <app-word-item
             class="words-conteiner__item"
             [optionsChecked]="optionsChecked"
-            *ngFor ="let item of words | filterByAction:userWords:'unset'"
+            *ngFor ="let item of words | filterByAction:userWords:'removed'"
             [item]="item">
           </app-word-item>
         </ng-container>

@@ -14,20 +14,10 @@
 }
 
 .words-conteiner {
-  position: absolute;
-  top: 180px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin-right: 2rem;
-  margin-top: 3rem;
-  overflow-x: hidden;
-
   &__item {
     display: block;
     padding: 20px 5px 20px 20px;
-    width: 80%;
+    width: 90%;
     max-width: 1200px;
     border: 0px solid $accent_color;
     @media (max-width: 800px) {
@@ -46,6 +36,7 @@
     13px 0 15px -13px $accent_color,
     0 0 40px $main_gray_color inset;
   }
+}
 
 
 
@@ -59,7 +50,7 @@
   //     color: darken($color: #c9dff2, $amount: 10%)
   //   }
   // }
-}
+// }
 .game-nav {
   position: fixed;
   top: 150px;

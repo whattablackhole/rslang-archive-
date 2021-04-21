@@ -56,7 +56,9 @@ export class EbookSettingsService {
     this.ebookSettings = JSON.parse(data as string) as UserBookSettings;
     this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     if (this.isUserAuthenticated) {
+      const name = this.authService.getUserName() as string;
       const userId = this.authService.getUserId() as string;
+      this.ebookSettings.userName = name;
       this.settingsActionService.upsertSettings(
         userId,
         {

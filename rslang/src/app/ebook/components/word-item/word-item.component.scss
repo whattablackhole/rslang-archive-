@@ -3,6 +3,7 @@
 .hard {
   color: #ed675b;
 }
+
 .visible {
   display: inline-block;
 }
@@ -29,7 +30,6 @@
   .circle {
     float: left;
     margin-right: 20px;
-    // shape-outside: circle(50%);
     height: 120px;
   }
   span {
@@ -52,13 +52,13 @@
   }
 
   span .label-hard {
-    display: none;
     width: 10px;
     margin-right: 10px;
     padding: 1px 9px;
     color: #ed675b;
     border-radius: 50%;
     border: 2px solid #ed675b;
+    visibility: visible;
   }
 
   .action-btn {

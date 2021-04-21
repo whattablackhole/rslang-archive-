@@ -2,22 +2,21 @@
     <div class="item__description">
     <img [src]=[item.image] alt="{{ item.word }}" class="circle"/>
     <span>
-      <strong class="label-hard ">!</strong>
+      <strong *ngIf="action=='hard'" class="label-hard"  appShowLabelHardWord>?</strong>
       <strong class="word">{{ item.word }} </strong>
       <strong [style.font-size.px]="16" > {{ item.transcription }}</strong>
       <strong *ngIf="optionsChecked.translationOfWord"> - {{ item.wordTranslate }}</strong>
     </span>
-    <span *ngIf="optionsChecked.examplesOfUse">
+    <span *ngIf="optionsChecked.examplesOfUse" [innerHTML]="item.textMeaning">
       <button (click)="playSound(item.audioMeaning)" mat-icon-button>
         <mat-icon>campaign</mat-icon>
-      </button> {{ item.textMeaning }}
+      </button>
       <i *ngIf="optionsChecked.translationOfExamples"> / {{ item.textMeaningTranslate }}</i>
     </span>
-    <span *ngIf="optionsChecked.examplesOfUse">
+    <span *ngIf="optionsChecked.examplesOfUse" [innerHTML]="item.textExample">
       <button (click)="playSound(item.audioExample)" mat-icon-button>
         <mat-icon (click)="playSound(item.audioExample)">campaign</mat-icon>
       </button>
-      {{ item.textExample }}
       <i *ngIf="optionsChecked.translationOfExamples"> / {{ item.textExampleTranslate }}</i>
     </span>
   </div>
@@ -30,14 +29,12 @@
     <img
       src="../../../../assets/ebbok/difficultIco.svg"
       alt="hard"
-      data-action="hard"
       *ngIf="optionsChecked.isDifficult"
       (click)="changeAction('hard', item.id)"
       class="action-btn" />
     <img
       src="../../../../assets/ebbok/deleteIco.svg"
       alt="removed"
-      data-action="removed"
       *ngIf="optionsChecked.isRemoted"
       (click)="changeAction('removed', item.id)"
       class="action-btn" />
