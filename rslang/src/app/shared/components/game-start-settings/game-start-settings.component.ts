@@ -1,11 +1,12 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter,
+  Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
   selector: 'app-game-start-settings',
   templateUrl: './game-start-settings.component.html',
   styleUrls: ['./game-start-settings.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class GameStartSettings implements OnInit {
   groupNumber = 0;

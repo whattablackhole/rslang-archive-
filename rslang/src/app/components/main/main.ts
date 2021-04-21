@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as AOS from 'aos';
 import { Game } from './../models/game.model';
 
 @Component({
@@ -6,7 +7,7 @@ import { Game } from './../models/game.model';
   templateUrl: './main.html',
   styleUrls: ['./main.scss'],
 })
-export class Main {
+export class Main implements OnInit {
   panelOpenState = false;
   games: Game[] = [
     {
@@ -19,8 +20,14 @@ export class Main {
       description: `Choose the translation to matches the displayed English word, while the timer is running`,
     },
     {
-      title: 'Find the pair',
-      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.`,
+      title: 'Match the pairs',
+      description: `Match English words with their translation.`,
     },
   ];
+
+  ngOnInit() :void {
+      AOS.init({
+        startEvent: 'load',
+      });
+  }
 }

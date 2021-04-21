@@ -6,13 +6,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   margin-left: 1rem;
   margin-top: 3rem;
   &__item {
     display: block;
     padding: 20px 5px 20px 20px;
-    width: 95%;
+    width: 80%;
     max-width: 1200px;
     border: 0px solid $accent_color;
     @media (max-width: 800px) {
@@ -29,6 +29,12 @@
     -13px 0 15px -13px $accent_color,
     13px 0 15px -13px $accent_color,
     0 0 40px $main_gray_color inset;
+  }
+
+  &__game-nav {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
   &__empty {

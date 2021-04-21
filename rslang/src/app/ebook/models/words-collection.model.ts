@@ -3,6 +3,7 @@ export interface WordsCollection {
   name: string;
   path: string;
   img: string;
+  color: string;
   pages: number;
   words: number;
   progress: number;

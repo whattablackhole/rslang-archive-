@@ -1,6 +1,6 @@
 $bgColor: #020438;
 $boxColor: #020438;
-$waterFColor: #4d6de3;
+$waterFColor: #389aa3;
 $waterBColor: #c7eeff;
 
 #correct-number {
@@ -44,6 +44,7 @@ $waterBColor: #c7eeff;
 
     button {
       padding: 0 20px;
+      background-color: #ed675b;
     }
 
     :first-child {
@@ -62,7 +63,7 @@ $waterBColor: #c7eeff;
       font-size: 20px;
       color: white;
       text-align: center;
-      background-color: #3f51b5;
+      background-color: #ed675b;
       border-radius: 15px;
     }
 
@@ -71,7 +72,7 @@ $waterBColor: #c7eeff;
       font-size: 20px;
       color: white;
       text-align: center;
-      background-color: #3f51b5;
+      background-color: #ed675b;
       border-radius: 15px;
     }
   }
@@ -96,7 +97,6 @@ $waterBColor: #c7eeff;
       display: flex;
       align-self: center;
       flex-direction: column;
-
       &-title {
         margin: 0 5px;
       }
@@ -111,7 +111,6 @@ $waterBColor: #c7eeff;
       display: flex;
       align-self: center;
       flex-direction: column;
-
       &-header {
         display: flex;
         align-items: center;

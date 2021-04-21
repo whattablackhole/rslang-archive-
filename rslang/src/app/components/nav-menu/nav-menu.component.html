@@ -1,21 +1,55 @@
-<mat-toolbar>
+<mat-toolbar class="menu__wrapper">
   <div class="logo-wrapper">
-    <app-logo></app-logo>
+    <app-logo routerLink="home"></app-logo>
   </div>
   <div class="main-menu">
-    <button class="btn" mat-button routerLink="ebook">ebook</button>
-    <button class="btn" mat-button routerLink="dictionary">dictionary</button>
+    <button class="btn" mat-button routerLink="ebook/group">ebook</button>
+    <button class="btn" mat-button routerLink="ebook/vocabulary">
+      vocabulary
+    </button>
     <button class="btn" mat-button [matMenuTriggerFor]="games">games</button>
     <mat-menu #games="matMenu">
-      <button mat-menu-item routerLink="games/savannah" routerLinkActive="active">savannah</button>
-      <button mat-menu-item routerLink="games/audiocall" routerLinkActive="active">audiocall</button>
-      <button mat-menu-item routerLink="games/sprint" routerLinkActive="active">sprint</button>
-      <button mat-menu-item routerLink="games/sprint">other game</button>
+      <button
+        mat-menu-item
+        (click)="goToPage($event)"
+        routerLinkActive="active"
+        data-path="savannah"
+      >
+        savannah
+      </button>
+      <button
+        mat-menu-item
+        (click)="goToPage($event)"
+        routerLinkActive="active"
+        data-path="audiocall"
+      >
+        audiocall
+      </button>
+      <button
+        mat-menu-item
+        (click)="goToPage($event)"
+        routerLinkActive="active"
+        data-path="sprint"
+      >
+        sprint
+      </button>
+      <button 
+        mat-menu-item
+        (click)="goToPage($event)"
+        routerLinkActive="active"
+        data-path="match-pairs"
+      >
+        match pairs
+      </button>
     </mat-menu>
     <button class="btn" mat-button routerLink="statistics">statistics</button>
   </div>
   <div class="account-wrapper">
-    <img class="account-icon" src="../../../assets/user.svg" alt="user-account" />
+    <img
+      class="account-icon"
+      src="../../../assets/user.svg"
+      alt="user-account"
+    />
     <app-dot-menu></app-dot-menu>
   </div>
 </mat-toolbar>

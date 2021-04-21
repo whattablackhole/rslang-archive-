@@ -3,6 +3,7 @@ export const EBOOK_SETTINGS = {
     group: 1,
     page: 1,
   },
+  userName: 'User',
   buttonOptions: [
     {
       value: 'isDifficult',
