@@ -38,6 +38,7 @@ export class WordsList implements OnInit, OnDestroy {
   words: WordOptions[] = [];
   userWords: UsersWords[] = [];
   isUserAuthenticated = false;
+  title = 'study words';
 
   constructor(
     private router: Router,
@@ -119,7 +120,6 @@ export class WordsList implements OnInit, OnDestroy {
     if (this.isNotPageWasViewed(this.state)) {
       this.wordsDataService.getWords(currentState);
     }
-    console.log(this.words);
   }
 
   setActionForWord(params: ActionParams): void {

@@ -12,7 +12,8 @@ import { CurrentStateBook } from '../../models/current-state-book.model';
 })
 export class EbookHeader {
   totalPages = 30; // TODO number of pages collections
-  title = 'study words'; // TODO section of ebook
+  //  // TODO section of ebook
+  @Input() title: string;
   @Input() currentState: CurrentStateBook;
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();
   @Output() groupChanged: EventEmitter<number> = new EventEmitter<number>();

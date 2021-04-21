@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsersWords } from 'src/app/shared/models/users-words.model';
-// import { StorageChanges } from 'src/app/core/models/change-storage.model';
-// import { LocalStorageService } from 'src/app/core/services/local-storage.service';
-// import { LocalStorageType } from 'src/app/shared/models/change-storage-type.model';
-// import { LocalStorageKey } from 'src/app/shared/models/local-storage-keys.model';
+
 import { OptionsChecked } from '../../models/options-checked.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
 
@@ -20,10 +18,11 @@ export class Vocabulary implements OnInit {
   userWords: UsersWords[] = [];
   userBookSettings: UserBookSettings;
   optionsChecked: OptionsChecked = {};
+  title = 'vocabulary';
 
   constructor(
     private providerService: EbookProviderService,
-    // private localStorageService: LocalStorageService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -53,5 +52,13 @@ export class Vocabulary implements OnInit {
           }
         },
       );
+  }
+
+  openSettings(): Promise<boolean> {
+    const path = this
+      .router
+      .createUrlTree(['ebook', 'settings'])
+      .toString();
+    return this.router.navigate([path]);
   }
 }

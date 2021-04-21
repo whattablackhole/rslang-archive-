@@ -2,11 +2,12 @@
 @import '../../constants/theme-ebook.scss';
 
 .tab-group {
-  max-width: 1920px;
+  width: 90%;
   height: 100%;
+  min-height: calc(100vh - 200px);
   display: block;
-  margin-top: 50px;
-}
+  margin: 40px 50px;
+ }
 
 .tab {
   margin: 20px;
@@ -46,20 +47,48 @@
     0 0 40px $main_gray_color inset;
   }
 
-  &__game-nav {
-    position: fixed;
-    top: 200px;
-    right: 0;
-  }
 
-  &__empty {
-    display: block;
-    font-family: 'Trebuchet MS';
-    text-align: center;
-    margin: 64px 0;
-    h2 {
-      font-size: 32px;
-      color: darken($color: #c9dff2, $amount: 10%)
-    }
+
+  // &__empty {
+  //   display: block;
+  //   font-family: 'Trebuchet MS';
+  //   text-align: center;
+  //   margin: 64px 0;
+  //   h2 {
+  //     font-size: 32px;
+  //     color: darken($color: #c9dff2, $amount: 10%)
+  //   }
+  // }
+}
+.game-nav {
+  position: fixed;
+  top: 150px;
+  right: 0;
+}
+
+.ebook-header {
+  position: fixed;
+  top: 90px;
+  margin: 0 30p;
+  width: 100%;
+  background-color: rgba($clr-white, 1);
+  z-index: 15;
+  &__title {
+      position: absolute;
+      top: 85px;
+      left: 180px;
+      color: $main_blue;
+      h1 {
+        font-size: 28px;
+      }
+      .settings-btn {
+        position: absolute;
+        top: 5px;
+        left: 170px;
+        &:hover{
+          cursor: pointer;
+          filter: drop-shadow(0 0 0.1rem $main_blue);
+        }
+      }
   }
 }

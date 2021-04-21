@@ -1,41 +1,53 @@
-<mat-tab-group mat-stretch-tabs class="tab-group mat-elevation-z4" animationDuration="1500ms">
-  <mat-tab label="Learning words">
-    <div class="tab words-conteiner">
-      <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
-        <app-word-item
-          class="words-conteiner__item"
-          [optionsChecked]="optionsChecked"
-          *ngFor ="let item of words | filterByAction:userWords:'unset'"
-          [item]="item">
-        </app-word-item>
-      </ng-container>
-    </div>
-  </mat-tab>
-  <mat-tab label="Difficult words">
-    <div class="tab words-conteiner">
-      <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
-        <app-word-item
-          class="words-conteiner__item"
-          [optionsChecked]="optionsChecked"
-          *ngFor ="let item of words | filterByAction:userWords:'hard'"
-          [item]="item">
-        </app-word-item>
-      </ng-container>
-    </div>
-  </mat-tab>
-  <mat-tab label="Deleted words">
-    <div class="tab">
-      <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
-        <app-word-item
-          class="words-conteiner__item"
-          [optionsChecked]="optionsChecked"
-          *ngFor ="let item of words | filterByAction:userWords:'removed'"
-          [item]="item">
-        </app-word-item>
-      </ng-container>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+<div>
+  <div class="ebook-header__title">
+    <h1><i>{{ title }}</i></h1>
+    <img
+      src="../../../../assets/ebbok/iconSettings.svg"
+      alt="Settings"
+      class="settings-btn"
+      (click)="openSettings()" />
+  </div>
+  <mat-tab-group mat-stretch-tabs class="tab-group mat-elevation-z4" animationDuration="1500ms">
+    <mat-tab label="Learning words">
+      <div class="tab words-conteiner">
+        <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
+          <app-word-item
+            class="words-conteiner__item"
+            [optionsChecked]="optionsChecked"
+            *ngFor ="let item of words | filterByAction:userWords:'unset'"
+            [item]="item">
+          </app-word-item>
+        </ng-container>
+      </div>
+    </mat-tab>
+    <mat-tab label="Difficult words">
+      <div class="tab words-conteiner">
+        <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
+          <app-word-item
+            class="words-conteiner__item"
+            [optionsChecked]="optionsChecked"
+            *ngFor ="let item of words | filterByAction:userWords:'hard'"
+            [item]="item">
+          </app-word-item>
+        </ng-container>
+      </div>
+    </mat-tab>
+    <mat-tab label="Deleted words">
+      <div class="tab">
+        <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
+          <app-word-item
+            class="words-conteiner__item"
+            [optionsChecked]="optionsChecked"
+            *ngFor ="let item of words | filterByAction:userWords:'removed'"
+            [item]="item">
+          </app-word-item>
+        </ng-container>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<app-game-sidenav class="game-nav"></app-game-sidenav>
+<app-footer></app-footer>
 <ng-template #isEmptyCart>
   <h2>No words have been added. Start learning now </h2>
 </ng-template>
