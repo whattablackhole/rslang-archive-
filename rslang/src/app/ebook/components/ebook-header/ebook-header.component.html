@@ -1,18 +1,22 @@
 <section class="ebook-header">
   <div class="ebook-header__title">
-    <h1>{{ title }}</h1>
+    <h1><i>{{ title }}</i></h1>
+    <img
+      src="../../../../assets/ebbok/iconSettings.svg"
+      alt="Settings"
+      class="settings-btn"
+      (click)="openSettings()" />
   </div>
   <div class="ebook-header__slider">
     <span>collection: </span>
-    <mat-slider
-      [max]="groupSlider.max"
-      [min]="groupSlider.min"
-      [step]="groupSlider.step"
-      [thumbLabel]="groupSlider.thumbLabel"
-      [tickInterval]="getSliderTickInterval()"
-      (groupChange)="onGroupChange(value)"
-      [(ngModel)]="value">
-    </mat-slider>
+    <span  name="collection">
+      <button class="toggle-btn" value="1" (click)="onGroupChange(1)"> #1 </button>
+      <button class="toggle-btn" value="2" (click)="onGroupChange(2)"> #2 </button>
+      <button class="toggle-btn" value="3" (click)="onGroupChange(3)"> #3 </button>
+      <button class="toggle-btn" value="4" (click)="onGroupChange(4)"> #4 </button>
+      <button class="toggle-btn" value="5" (click)="onGroupChange(5)"> #5 </button>
+      <button class="toggle-btn" value="6" (click)="onGroupChange(6)"> #6 </button>
+    </span>
   </div>
   <div class="ebook-header__pagination">
     <span>page: </span>

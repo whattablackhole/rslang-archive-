@@ -2,7 +2,7 @@
   <form #settingsForm="ngForm">
     <div *ngIf="isUserAuthenticated">
       <mat-form-field class="example-full-width">
-        <input matInput id="username" placeholder="User name" [formControl]="name"/>
+        <input matInput id="username" placeholder="User name" value="Ann" readonly/>
       </mat-form-field>
     </div>
     <p class=" subtitle ">Buttons</p>
@@ -37,6 +37,13 @@
         </svg>
       </label>
     </div>
-    <button class="btn" [disabled]="settingsForm.invalid" (click)="onSubmit()">Save settings</button>
+    <button
+      class="btn"
+      type="button"
+      routerLink="../group"
+      [disabled]="settingsForm.invalid"
+      (click)="onSubmit()">
+      Save settings
+    </button>
   </form>
 </section>

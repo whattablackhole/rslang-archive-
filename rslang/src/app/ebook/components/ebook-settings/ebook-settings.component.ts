@@ -1,7 +1,8 @@
 import {
-  Component, OnInit,
+  Component, OnDestroy, OnInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 
 import { LocalStorageService } from '../../../core/services/local-storage.service';
@@ -17,8 +18,8 @@ import { LocalStorageType } from '../../../shared/models/change-storage-type.mod
   templateUrl: './ebook-settings.component.html',
   styleUrls: ['./ebook-settings.component.scss'],
 })
-export class EbookSettings implements OnInit {
-  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
+export class EbookSettings implements OnInit, OnDestroy {
+  isUserAuthenticated = false;
   userBookSettings: UserBookSettings;
   name: FormControl = new FormControl('', [
     Validators.minLength(3),
@@ -32,9 +33,12 @@ export class EbookSettings implements OnInit {
     private authService: AuthService,
     private localStorageService: LocalStorageService,
     private settingsActionService: SettingsActionService,
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
+    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
     this.ebookSettingsSubscription = this.localStorageService.changes$
@@ -67,6 +71,21 @@ export class EbookSettings implements OnInit {
           optional: { ...this.userBookSettings },
         },
       );
+    }
+  }
+
+  goToPage(): Promise<boolean> {
+    const path = this
+      .router
+      .createUrlTree([''], { relativeTo: this.route })
+      .toString();
+    return this.router.navigate([path]);
+  }
+
+  ngOnDestroy(): void {
+    this.ebookSettingsSubscription.unsubscribe();
+    if (this.isUserAuthenticated) {
+      this.usernameSubscription.unsubscribe();
     }
   }
 }

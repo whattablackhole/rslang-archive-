@@ -9,7 +9,7 @@ export const CONFIG_EBOOK = {
       color: '#bf800b4f',
       pages: 30,
       words: 600,
-      progress: 320,
+      progress: 0,
     },
     {
       id: 1,
@@ -29,7 +29,7 @@ export const CONFIG_EBOOK = {
       color: '#f2b897b2',
       pages: 30,
       words: 600,
-      progress: 50,
+      progress: 0,
     },
     {
       id: 3,

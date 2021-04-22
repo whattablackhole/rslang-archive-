@@ -1,9 +1,0 @@
-export const USER_MOCK_DATA = {
-  message: 'Authenticated',
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNmM5MmRhZjY1MmYwMDAxN2JmMTVlOC'
-  + 'IsImlhdCI6MTYxNzcyODcwMCwiZXhwIjoxNjE3NzQzMTAwfQ.zECWGTnC7doIc-ux8tdgFzuBelYvAGGdknHnTZE5LCk',
-  refreshToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNmM5MmRhZjY1MmYwMDAxN2JmMTV'
-  + 'lOCIsInRva2VuSWQiOiI0ZjNhODI4OS01OTAwLTQ2NjEtYTczMS0yMWM4YjE2MmI2MjgiLCJpYXQiOjE2MTc3Mjg3M'
-  + 'DAsImV4cCI6MTYxNzc0NDkwMH0.q477HY03w-U1YXcHXc1Lkb_p1wiv--r-7fKlRQU8NYU',
-  userId: '606c92daf652f00017bf15e8',
-};

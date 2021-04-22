@@ -9,6 +9,7 @@
   text-decoration: none;
   font-size: 20px;
   border-radius: 7px 0 0 7px;
+  z-index: 20;
 }
 
 .white {
@@ -19,6 +20,7 @@
   right: -10px;
 }
 
+#group,
 #vocabulary {
   background-color: $accent_color;
   color: $accent_color;
@@ -32,6 +34,7 @@
   color: $main_blue;
 }
 
+#group:hover,
 #vocabulary:hover,
 #savannah:hover,
 #audiocall:hover,
@@ -42,9 +45,14 @@
   box-shadow: 2px 2px 5px $main_gray_color;
 }
 
+#group {
+  top: 20px;
+}
+
 #vocabulary {
   top: 20px;
 }
+
 #savannah {
   top: 74px;
 }
