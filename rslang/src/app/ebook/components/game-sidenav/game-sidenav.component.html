@@ -1,6 +1,5 @@
 <div id="gameSidenav" class="sidenav">
-  <a *ngIf="ebook" (click)="goToVocabulary($event)" id="vocabulary"><span class="white">V</span>ocabulary</a>
-  <a *ngIf="!ebook" (click)="goToEbook($event)" id="group"><span class="white">E</span>book</a>
+  <a (click)="goToVocabulary($event)" id="vocabulary"><span class="white">V</span>ocabulary</a>
   <a (click)="goToPage($event)" id="savannah"><span class="white">S</span>avannah</a>
   <a (click)="goToPage($event)" id="audiocall"><span class="white">A</span>udiocall</a>
   <a (click)="goToPage($event)" id="sprint"><span class="white">S</span>print</a>

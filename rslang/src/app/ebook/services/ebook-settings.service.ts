@@ -12,7 +12,7 @@ import { SettingsDataService } from './settings-data.service';
 @Injectable()
 export class EbookSettingsService {
   ebookSettings: UserBookSettings;
-  isUserAuthenticated = false;
+  isUserAuthenticated = this.authService.getUserAuthenticationStatus();
   userId: string;
 
   constructor(
@@ -23,7 +23,6 @@ export class EbookSettingsService {
   ) { }
 
   load(): void {
-    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     if (this.isUserAuthenticated) {
       this.userId = this.authService.getUserId() as string;
       this.settingsService.getData(API_URL.USER_SETTINGS(this.userId));
@@ -53,18 +52,13 @@ export class EbookSettingsService {
     }
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.ebookSettings = JSON.parse(data as string) as UserBookSettings;
-    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
-    if (this.isUserAuthenticated) {
-      const name = this.authService.getUserName() as string;
-      const userId = this.authService.getUserId() as string;
-      this.ebookSettings.userName = name;
-      this.settingsActionService.upsertSettings(
-        userId,
-        {
-          wordsPerDay: 20,
-          optional: { ...this.ebookSettings },
-        },
-      );
-    }
+    const userId = this.authService.getUserId() as string;
+    this.settingsActionService.upsertSettings(
+      userId,
+      {
+        wordsPerDay: 20,
+        optional: { ...this.ebookSettings },
+      },
+    );
   }
 }

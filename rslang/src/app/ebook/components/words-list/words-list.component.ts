@@ -1,28 +1,22 @@
+import { Location } from '@angular/common';
 import {
   Component, OnDestroy, OnInit,
 } from '@angular/core';
-import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
-import { Router } from '@angular/router';
-import { WORDS_API_URL } from '../../../shared/constants/constants';
-import { ActionParams } from '../../models/action-params.model';
-import { Word } from '../../../shared/models/word.model';
-import { UsersWords } from '../../../shared/models/users-words.model';
-import { StorageChanges } from '../../../core/models/change-storage.model';
-import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
-import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
-import { OptionsChecked } from '../../models/options-checked.model';
-import { EbookSettingsService } from '../../services/ebook-settings.service';
-import { WordOptions } from '../../models/word-options.model';
-import { WordsDataService } from '../../../shared/services/words-data.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { StorageChanges } from '../../../core/models/change-storage.model';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { WORDS_API_URL } from '../../../shared/constants/constants';
+import { LocalStorageType } from '../../../shared/models/change-storage-type.model';
+import { LocalStorageKey } from '../../../shared/models/local-storage-keys.model';
+import { UserStats } from '../../../shared/models/user-stats.model';
+import { Word } from '../../../shared/models/word.model';
 import { UserWordActionService } from '../../../shared/services/user-word-action.service';
-import { CurrentStateBook } from '../../models/current-state-book.model';
-import { EbookProviderService } from '../../services/ebook-provider.service';
-import { UsersWordsDataService } from '../../services/users-words-data.service';
+import { WordsDataService } from '../../../shared/services/words-data.service';
+import { ActionParams } from '../../models/action-params.model';
 import { UserBookSettings } from '../../models/user-book-settings.model';
+import { EbookSettingsService } from '../../services/ebook-settings.service';
 
 @Component({
   selector: 'app-words-list',
@@ -34,28 +28,22 @@ export class WordsList implements OnInit, OnDestroy {
   set subscription(sb: Subscription) { this.subscriptions.push(sb); }
 
   userBookSettings: UserBookSettings;
-  optionsChecked: OptionsChecked = {};
-  state: CurrentStateBook;
-  words: WordOptions[] = [];
-  userWords: UsersWords[] = [];
-  isUserAuthenticated = false;
-  title = 'study words';
-  ebook = true;
+  words: Word[] = [];
+  userWords: UserStats[] = [];
+  isUserAuthenticated = true;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private location: Location,
     private wordsDataService: WordsDataService,
     private localStorageService: LocalStorageService,
     private authService: AuthService,
     private userWordActionService: UserWordActionService,
-    private usersWordsDataService: UsersWordsDataService,
     private ebookSettings: EbookSettingsService,
-    private providerService: EbookProviderService,
   ) {}
 
   ngOnInit(): void {
-    this.isUserAuthenticated = this.authService.getUserAuthenticationStatus();
     const data = this.localStorageService.getItem(LocalStorageKey.EbookSettings);
     this.userBookSettings = JSON.parse(data as string) as UserBookSettings;
     this.subscription = this.localStorageService.changes$
@@ -67,40 +55,14 @@ export class WordsList implements OnInit, OnDestroy {
         },
       );
 
-    this.setOptionCheckedSettings(this.userBookSettings);
+    this.subscription = this.route.params.subscribe((params): void => {
+      this.userBookSettings.currentState.group = params.id as number;
+    });
 
-    if (this.isUserAuthenticated) {
-      const userId = this.authService.getUserId();
-      this.usersWordsDataService.getAllUsersWords(userId as string);
-      this.subscription = this.usersWordsDataService.data$
-        .subscribe((words: UsersWords[]) => {
-          this.userWords = [...new Set(words)];
-          this.userWords = words || [];
-        });
-    } else if (!localStorage.hasOwnProperty(LocalStorageKey.WordsdUser)) {
-      const temp = this.localStorageService.getItem(LocalStorageKey.WordsdUser);
-      this.userWords = [...new Set(JSON.parse(temp as string) as UsersWords[])];
-    }
-    this.userWords = [];
-    this.providerService.updatedUserWords(this.userWords);
     const { currentState } = this.userBookSettings;
-    this.state = currentState;
-    if (this.isNotPageWasViewed(this.state)) {
-      this.wordsDataService.getWords(currentState);
-      this.subscription = this.wordsDataService.data$
-        .subscribe((words: WordOptions[]) => this.mapWords(words));
-    }
-  }
-
-  setOptionCheckedSettings(userBookSettings: UserBookSettings): void {
-    const { buttonOptions, wordOptions } = userBookSettings;
-    buttonOptions.forEach((element) => {
-      this.optionsChecked[element.value] = element.checked as boolean;
-    });
-    wordOptions.forEach((element) => {
-      this.optionsChecked[element.value] = element.checked as boolean;
-    });
-    this.providerService.updatedOptionSettings(this.optionsChecked);
+    this.wordsDataService.getWords(currentState);
+    this.subscription = this.wordsDataService.data$
+      .subscribe((words: Word[]) => this.mapWords(words));
   }
 
   changeSelectedGroup(groupChanged: number): void {
@@ -115,10 +77,7 @@ export class WordsList implements OnInit, OnDestroy {
     this.localStorageService
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
     const { currentState } = this.userBookSettings;
-    this.state = currentState;
-    if (this.isNotPageWasViewed(this.state)) {
-      this.wordsDataService.getWords(currentState);
-    }
+    this.wordsDataService.getWords(currentState);
   }
 
   changeSelectedPage(pageChanged: number): void {
@@ -134,18 +93,12 @@ export class WordsList implements OnInit, OnDestroy {
       .setItem(LocalStorageKey.EbookSettings, JSON.stringify(this.userBookSettings));
     this.ebookSettings.setUserSettings();
     const { currentState } = this.userBookSettings;
-    this.state = currentState;
-    if (this.isNotPageWasViewed(this.state)) {
-      this.wordsDataService.getWords(currentState);
-    }
-  }
-
-  actionRestoreWord(wordId: string):void {
-    const index = this.userWords.findIndex((element: UsersWords) => element.wordId === wordId);
-    const { optional } = this.userWords[index];
+    this.wordsDataService.getWords(currentState);
   }
 
   setActionForWord(params: ActionParams): void {
+    // const group = String(this.words[this.indexWord(this.words, 'id', params.wordId)].group);
+    // const page = String(this.words[this.indexWord(this.words, 'id', params.wordId)].page);
     const group = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].group);
     const page = String(this.words[this.words.findIndex((element: Word) => element.id === params.wordId)].page);
 
@@ -153,7 +106,7 @@ export class WordsList implements OnInit, OnDestroy {
       ? this.authService.getUserId()
       : 'unauthenticated';
 
-    const index = this.userWords.findIndex((element: UsersWords) => element.wordId === params.wordId);
+    const index = this.userWords.findIndex((element: UserStats) => element.wordId === params.wordId);
     if (index === -1) {
       this.userWords.push({
         id: userId as string,
@@ -187,14 +140,14 @@ export class WordsList implements OnInit, OnDestroy {
 
     this.localStorageService
       .setItem(LocalStorageKey.WordsdUser, JSON.stringify(this.userWords));
-    this.providerService.updatedUserWords(this.userWords);
   }
 
   // indexWord<T>(arr: T[], index: string, value: string): number {
   //   return arr.findIndex((element) => element[index] === value);
   // }
 
-  private mapWords(words: WordOptions[]): void {
+  private mapWords(words: Word[]): void {
+    this.words = [];
     words.forEach((wordData) => {
       const word = { ...wordData };
       word.image = WORDS_API_URL + word.image;
@@ -203,11 +156,6 @@ export class WordsList implements OnInit, OnDestroy {
       word.audioExample = WORDS_API_URL + word.audioExample;
       this.words.push(word);
     });
-    this.providerService.updatedDataViewsWords(this.words);
-  }
-
-  private isNotPageWasViewed(state: CurrentStateBook): boolean {
-    return !!this.words.findIndex((el: WordOptions) => el.group === state.group - 1 && el.page === state.page - 1);
   }
 
   ngOnDestroy(): void {

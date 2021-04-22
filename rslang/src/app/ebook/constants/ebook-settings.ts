@@ -11,9 +11,10 @@ export const EBOOK_SETTINGS = {
       checked: true,
     },
     {
-      value: 'isRemoted',
+      value: 'isRemote',
       label: 'Show "delete word" button',
       checked: true,
+
     },
   ],
   wordOptions: [
@@ -25,12 +26,12 @@ export const EBOOK_SETTINGS = {
     {
       value: 'examplesOfUse',
       label: 'Show examples of use',
-      checked: true,
+      checked: false,
     },
     {
       value: 'translationOfExamples',
       label: 'Show translation examples',
-      checked: false,
+      checked: true,
     },
   ],
 };

@@ -2,16 +2,13 @@
 @import '../../constants/theme-ebook.scss';
 
 .words-conteiner {
-  position: absolute;
-  top: 180px;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  margin-right: 2rem;
+  justify-content: left;
+  margin-left: 1rem;
   margin-top: 3rem;
-  overflow-x: hidden;
-
   &__item {
     display: block;
     padding: 20px 5px 20px 20px;
@@ -19,7 +16,6 @@
     max-width: 1200px;
     border: 0px solid $accent_color;
     @media (max-width: 800px) {
-      width: 85%;
       padding: 20px 5px;
     }
   }
@@ -36,8 +32,8 @@
   }
 
   &__game-nav {
-    position: fixed;
-    top: 200px;
+    position: absolute;
+    top: 0;
     right: 0;
   }
 

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSliderModule } from '@angular/material/slider';
 import { WordsDataService } from '../shared/services/words-data.service';
 import { SharedModule } from '../shared/shared.module';
 import { EbookHeader } from './components/ebook-header/ebook-header.component';
@@ -16,9 +16,6 @@ import { PaginationDirective } from './directives/pagination.directive';
 import { EbookRoutingModule } from './ebook-routing.module';
 import { FilterByActionPipe } from './pipes/filter-by-action.pipe';
 import { EbookProviderService } from './services/ebook-provider.service';
-import { UsersWordsDataService } from './services/users-words-data.service';
-import { Vocabulary } from './components/vocabulary/vocabulary.component';
-import { ShowLabelHardWordDirective } from './directives/show-label-hard-word.directive';
 import { EbookSettingsService } from './services/ebook-settings.service';
 import { SettingsActionService } from './services/settings-action.service';
 import { SettingsDataService } from './services/settings-data.service';
@@ -34,18 +31,16 @@ import { SettingsDataService } from './services/settings-data.service';
     PaginationDirective,
     FilterByActionPipe,
     GameSidenav,
-    Vocabulary,
-    ShowLabelHardWordDirective,
   ],
   imports: [
     SharedModule,
     EbookRoutingModule,
     MatInputModule,
+    MatSliderModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatInputModule,
-    MatTabsModule,
   ],
   exports: [WordsCollections],
   providers: [
@@ -54,7 +49,6 @@ import { SettingsDataService } from './services/settings-data.service';
     WordsDataService,
     SettingsActionService,
     EbookProviderService,
-    UsersWordsDataService,
   ],
 })
 export class EbookModule {}
