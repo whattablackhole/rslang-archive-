@@ -15,8 +15,8 @@ export class AuthService {
   private readonly JWT_TOKEN = 'Token';
   private readonly REFRESH_TOKEN = 'RefreshToken';
 
-  private isUserAuthenticated = false;
   private authStatus = new Subject<boolean>();
+  private jwtToken = new Subject<string>();
 
   constructor(
     private router: Router,
@@ -25,11 +25,15 @@ export class AuthService {
   ) {}
 
   getUserAuthenticationStatus(): boolean {
-    return this.isUserAuthenticated;
+    return !!this.getJwtToken();
   }
 
   getAuthStatusListener(): Observable<boolean> {
     return this.authStatus.asObservable();
+  }
+
+  updateTokenListener(): Observable<string> {
+    return this.jwtToken.asObservable();
   }
 
   loginUser(data: SigninResponse): void {
@@ -39,14 +43,31 @@ export class AuthService {
   }
 
   logoutUser(): void {
-    this.clearAuthData();
+    this.clearStorageData();
     this.changeAuthStatus(false);
     this.notification.showSuccess('You are signed out!');
   }
 
+  logoutUserWithRedirect(): void {
+    this.logoutUser();
+    this.redirectToUrl('/auth');
+    this.notification.showError('Token expired! Please enter your credentials.');
+  }
+
   changeAuthStatus(isLogin: boolean): void {
-    this.isUserAuthenticated = isLogin;
     this.authStatus.next(isLogin);
+  }
+
+  updateTokens(token: string, refreshToken: string): void {
+    this.storage.setItem(this.JWT_TOKEN, token);
+    this.storage.setItem(this.REFRESH_TOKEN, refreshToken);
+    this.jwtToken.next(token);
+  }
+
+  autoLoginUser(): void {
+    if (this.getJwtToken()) {
+      this.changeAuthStatus(true);
+    }
   }
 
   getJwtToken(): string | null {
@@ -77,10 +98,7 @@ export class AuthService {
     this.storage.setItem(this.REFRESH_TOKEN, refreshToken);
   }
 
-  private clearAuthData(): void {
-    this.storage.removeItem(this.USER_ID);
-    this.storage.removeItem(this.USER_NAME);
-    this.storage.removeItem(this.JWT_TOKEN);
-    this.storage.removeItem(this.REFRESH_TOKEN);
+  private clearStorageData(): void {
+    this.storage.clear();
   }
 }
