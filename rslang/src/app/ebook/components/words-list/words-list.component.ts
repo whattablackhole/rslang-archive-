@@ -74,11 +74,11 @@ export class WordsList implements OnInit, OnDestroy {
       this.usersWordsDataService.getAllUsersWords(userId as string);
       this.subscription = this.usersWordsDataService.data$
         .subscribe((words: UsersWords[]) => {
-          this.userWords = words;
+          this.userWords = [...new Set(words)];
         });
     } else if (!localStorage.hasOwnProperty(LocalStorageKey.WordsdUser)) {
       const temp = this.localStorageService.getItem(LocalStorageKey.WordsdUser);
-      this.userWords = JSON.parse(temp as string) as UsersWords[];
+      this.userWords = [...new Set(JSON.parse(temp as string) as UsersWords[])];
     }
     this.providerService.updatedUserWords(this.userWords);
     const { currentState } = this.userBookSettings;
@@ -88,7 +88,6 @@ export class WordsList implements OnInit, OnDestroy {
       this.subscription = this.wordsDataService.data$
         .subscribe((words: WordOptions[]) => this.mapWords(words));
     }
-
     console.log(this.userWords);
   }
 
