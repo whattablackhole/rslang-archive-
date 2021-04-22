@@ -75,11 +75,13 @@ export class WordsList implements OnInit, OnDestroy {
       this.subscription = this.usersWordsDataService.data$
         .subscribe((words: UsersWords[]) => {
           this.userWords = [...new Set(words)];
+          this.userWords = words || [];
         });
     } else if (!localStorage.hasOwnProperty(LocalStorageKey.WordsdUser)) {
       const temp = this.localStorageService.getItem(LocalStorageKey.WordsdUser);
       this.userWords = [...new Set(JSON.parse(temp as string) as UsersWords[])];
     }
+    this.userWords = [];
     this.providerService.updatedUserWords(this.userWords);
     const { currentState } = this.userBookSettings;
     this.state = currentState;
@@ -88,7 +90,6 @@ export class WordsList implements OnInit, OnDestroy {
       this.subscription = this.wordsDataService.data$
         .subscribe((words: WordOptions[]) => this.mapWords(words));
     }
-    console.log(this.userWords);
   }
 
   setOptionCheckedSettings(userBookSettings: UserBookSettings): void {
@@ -137,6 +138,11 @@ export class WordsList implements OnInit, OnDestroy {
     if (this.isNotPageWasViewed(this.state)) {
       this.wordsDataService.getWords(currentState);
     }
+  }
+
+  actionRestoreWord(wordId: string):void {
+    const index = this.userWords.findIndex((element: UsersWords) => element.wordId === wordId);
+    const { optional } = this.userWords[index];
   }
 
   setActionForWord(params: ActionParams): void {

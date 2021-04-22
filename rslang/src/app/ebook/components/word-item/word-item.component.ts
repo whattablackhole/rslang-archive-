@@ -15,7 +15,9 @@ import { WordOptions } from '../../models/word-options.model';
 export class WordItem {
   @Input() optionsChecked: OptionsChecked;
   @Input() item: WordOptions;
+  @Input() ebook: boolean;
   @Output() setAction: EventEmitter<ActionParams> = new EventEmitter<ActionParams>();
+  @Output() setRestore: EventEmitter<string> = new EventEmitter<string>();
   action: ButtonAction;
 
   turnOverItem(): string {
@@ -27,6 +29,10 @@ export class WordItem {
       this.action = 'unset';
     } else { this.action = action; }
     this.setAction.emit({ action, wordId });
+  }
+
+  changeRestore(wordId: string): void {
+    this.setRestore.emit(wordId);
   }
 
   playSound(sound: string): Promise<void> {

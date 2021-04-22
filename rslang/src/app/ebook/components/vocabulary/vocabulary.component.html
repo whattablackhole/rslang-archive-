@@ -15,13 +15,15 @@
             class="words-conteiner__item"
             [optionsChecked]="optionsChecked"
             *ngFor ="let item of words | filterByAction:userWords:'unset'"
-            [item]="item">
+            [item]="item"
+            [ebook]="ebook">
           </app-word-item>
           <app-word-item
             class="words-conteiner__item"
             [optionsChecked]="optionsChecked"
             *ngFor ="let item of words | filterByAction:userWords:'hard'"
-            [item]="item">
+            [item]="item"
+            [ebook]="ebook">
           </app-word-item>
         </ng-container>
       </div>
@@ -33,7 +35,8 @@
             class="words-conteiner__item"
             [optionsChecked]="optionsChecked"
             *ngFor ="let item of words | filterByAction:userWords:'hard'"
-            [item]="item">
+            [item]="item"
+            [ebook]="ebook">
           </app-word-item>
         </ng-container>
       </div>
@@ -45,7 +48,8 @@
             class="words-conteiner__item"
             [optionsChecked]="optionsChecked"
             *ngFor ="let item of words | filterByAction:userWords:'removed'"
-            [item]="item">
+            [item]="item"
+            [ebook]="ebook">
           </app-word-item>
         </ng-container>
       </div>

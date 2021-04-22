@@ -10,6 +10,8 @@
       [optionsChecked]="optionsChecked"
       *ngFor ="let item of words | slice:20*(state.page-1):20*state.page | filterByAction:userWords"
       [item]="item"
+      [ebook]="ebook"
+      (setRestore)=actionRestoreWord($event)
       (setAction)=setActionForWord($event)>
     </app-word-item>
   </ng-container>

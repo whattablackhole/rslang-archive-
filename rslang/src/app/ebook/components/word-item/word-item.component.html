@@ -20,7 +20,7 @@
       <i *ngIf="optionsChecked.translationOfExamples"> / {{ item.textExampleTranslate }}</i>
     </span>
   </div>
-  <div class="item__buttons">
+  <div class="item__buttons" *ngIf="ebook">
     <img
       src="../../../../assets/ebbok/speechIco.svg"
       alt="speech"
@@ -37,6 +37,19 @@
       alt="removed"
       *ngIf="optionsChecked.isRemoted"
       (click)="changeAction('removed', item.id)"
+      class="action-btn" />
+  </div>
+  <div class="item__buttons" *ngIf="!ebook">
+    <img
+      src="../../../../assets/ebbok/speechIco.svg"
+      alt="speech"
+      (click)="playSound(item.audio)"
+      class="action-btn" />
+    <img
+      src="../../../../assets/ebbok/restoreIco.svg"
+      alt="removed"
+      *ngIf="optionsChecked.isRemoted"
+      (click)="changeRestore(item.id)"
       class="action-btn" />
   </div>
 </div>
