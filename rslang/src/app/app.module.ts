@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { App } from './app.component';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
+import { AuthActionService } from './auth/services/auth-action.service';
 import { DotMenu } from './components/dot-menu/dot-menu.component';
 import { Logo } from './components/logo/logo.component';
 import { Main } from './components/main/main';
@@ -27,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthActionService,
   ],
   bootstrap: [App],
 })
