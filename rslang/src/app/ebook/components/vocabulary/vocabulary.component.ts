@@ -19,6 +19,7 @@ export class Vocabulary implements OnInit {
   userBookSettings: UserBookSettings;
   optionsChecked: OptionsChecked = {};
   title = 'vocabulary';
+  ebook = false;
 
   constructor(
     private providerService: EbookProviderService,

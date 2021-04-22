@@ -40,6 +40,7 @@ export class WordsList implements OnInit, OnDestroy {
   userWords: UsersWords[] = [];
   isUserAuthenticated = false;
   title = 'study words';
+  ebook = true;
 
   constructor(
     private router: Router,
