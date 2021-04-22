@@ -1,0 +1,18 @@
+@import "src/variables";
+:host {
+    color: $main_dark_color;
+    font-size: 1rem;
+}
+
+.common {
+  min-height: calc(100vh - 180px);
+  // height: 100%;
+}
+
+
+.spinner {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,53 @@
+<div class="game">
+  <app-screen-size-changer></app-screen-size-changer>
+  <div class="game__menu" *ngIf="!isGameStarted">
+    <div class="game__menu-img"></div>
+    <div class="game__title">Audio Call</div>
+    <div class="game__subtitle">Choose an appropriate translation while listening english word</div>
+    <app-game-start-settings class="game__settings" [groupsAmount]='groupsAmount' [pagesAmount]='pagesAmount'
+    (groupNumberChange)='onChooseGroup($event)' (pageChange)='onChoosePage($event)'>
+  </app-game-start-settings>
+  <button class="game__play-button" mat-raised-button color="primary" (click)="onPlay()">Play</button>
+  </div>
+  <div *ngIf="gameWordsState.isNoWords" class="game__no-words">not enough words.Choose another page or group.</div>
+  <mat-spinner *ngIf="isGameStarted && !sortedWords && !gameWordsState.isNoWords" class="spinner"></mat-spinner>
+  <div
+    *ngIf="sortedWords && !isGameFinished"
+    class="game__front-block"
+    [@blockPosition]="blockPosition"
+    (@blockPosition.done)="onAnswerEndEvent($event)"
+  >
+    <div class="game__sound game__sound_wrapper" (click)="onPlaySound()">
+      <div class="game__sound-icon"></div>
+    </div>
+    <div class="game__words">
+      <button
+        mat-button
+        class="unselectable game__words-item"
+        *ngFor="
+          let sortedWord of sortedWords
+            | randomize: currentIndex:currentIndex + gameWordsState.minAmout
+        "
+        (click)="onAnswer(sortedWord)"
+        [disabled]="isAnswered"
+        [ngClass]="{
+          'game__words-item_correct': sortedWord.word === correctWordName,
+          'game__words-item_incorrect': sortedWord.word === incorrectWordName,
+          'game__words-item_choosed': sortedWord.word === choosedWordName
+        }"
+      >
+        {{ sortedWord.wordTranslate }}
+      </button>
+    </div>
+    <button mat-button class="game__button" [disabled]="isAnswerButtonDisabled" (click)="onFinishAnswer()">
+      {{ answerButtonText }}
+      <mat-icon [ngClass]="{ hidden: !isAnswered }">arrow_forward</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="isGameFinished">
+    <app-finish-menu
+      [gameResultWords]="gameResultWords"
+      [correctGamePercent]="correctGamePercent"
+    ></app-finish-menu>
+  </div>
+</div>

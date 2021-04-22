@@ -1,0 +1,42 @@
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="dotMenu" aria-label="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #dotMenu="matMenu" xPosition="before">
+    <button mat-menu-item [routerLink]="['home']" routerLinkActive="active">
+      <mat-icon>home</mat-icon>
+      <span>home</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="ebook">
+      <mat-icon>book</mat-icon>
+      <span>ebook</span>
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="games">
+      <mat-icon>games</mat-icon>
+      <span>games</span>
+    </button>
+    <button mat-menu-item [routerLink]="['statistics']" routerLinkActive="active">
+      <mat-icon>graphic_eq</mat-icon>
+      <span>statistics</span>
+    </button>
+    <button mat-menu-item [routerLink]="['auth']" routerLinkActive="active" *ngIf="!this.isUserAuthenticated">
+      <mat-icon>account_circle</mat-icon>
+      <span>sign in</span>
+    </button>
+    <button mat-menu-item [routerLink]="" *ngIf="this.isUserAuthenticated" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>sign out</span>
+    </button>
+  </mat-menu>
+  <mat-menu #ebook="matMenu" xPosition="before">
+    <button mat-menu-item routerLink="ebook/group">collections</button>
+    <button mat-menu-item routerLink="ebook/vocabulary">vocabulary</button>
+    <button mat-menu-item routerLink="ebook/settings">settings</button>
+  </mat-menu>
+  <mat-menu #games="matMenu" xPosition="before">
+    <button mat-menu-item (click)="goToPage($event)" data-path="savannah">Savannah</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="audiocall">Audiocall</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="sprint">Sprint</button>
+    <button mat-menu-item (click)="goToPage($event)" data-path="match-pairs">Match Pairs</button>
+  </mat-menu>
+</div>

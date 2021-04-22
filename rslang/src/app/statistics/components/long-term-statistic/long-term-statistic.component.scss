@@ -1,0 +1,14 @@
+.chart-wrapper{
+  width: 40em;
+  height: 20em;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .chart-wrapper{
+    width: 35em;
+    height: 25em;
+    margin: 0 auto;
+  }
+}
+

@@ -1,0 +1,17 @@
+<section class="collections">
+  <ng-container>
+    <div class="collections-container">
+      <div
+        class="collections-container--item"
+        [style.background-color]="collection.color"
+        *ngFor="let collection of wordsCollections; index as i"
+        (click)="changeSelectedGroup(collection)">
+        <div id="progressBar" [style.height]="getProgress(i)"></div>
+        <h1 class="title">{{ collection.name }}</h1>
+        <span class="progress">
+          <b>{{ collection.progress }} / {{ collection.words }}</b></span>
+        <img class="picture" [src]="collection.img" alt="{{ collection.name }}" />
+      </div>
+    </div>
+  </ng-container>
+</section>

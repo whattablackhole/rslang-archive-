@@ -1,0 +1,323 @@
+.game {
+  position: relative;
+  background: linear-gradient(0deg, rgba(56,154,163,1) 0%, rgba(237,103,80,1) 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+
+  &__no-words {
+    color: red;
+  }
+  &__img {
+    max-width: 500px;
+    width: 100%;
+    max-height: 200px;
+    height: 100%;
+    background: url('/assets/games/sprint/sprint.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  &__choose-button {
+    background-color: #ed675b;
+    width: 15vw;
+    min-width: 150px;
+  }
+  
+  &__countdown {
+  background-color: #ed675b;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  font-size: 22px;
+  font-family: 'Noto Sans JP', sans-serif;
+  position: absolute;
+  right: 1vw;
+  top: -40px;
+  }
+  
+  &__menu {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+    width: 90%;
+    max-width: 600px;
+    &-finished {
+      margin-top: 50px;
+    }
+  }
+
+  &__title {
+    color:  #313237;
+    width: fit-content;
+    font-size: 3.5vw;
+  }
+
+  &__subtitle {
+    color:  #313237;
+    width: fit-content
+  }
+
+  &__content {
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    font-size: 4vw;
+    color: #ed675b;
+    position: absolute;
+    max-width: 50vw;
+    width: 100%;
+    height: fit-content;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: gameOpac 5s;
+  }
+
+  &__img-lvl {
+    position: absolute;
+    width: 60px;
+    height: 120px;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    margin: 10px 0 0 10px;
+
+    &_one {
+      background: url('/assets/games/sprint/level-one.png') rgba(0, 0, 0, 0);
+      left: -13px;
+    }
+    &_two {
+      background: url('/assets/games/sprint/level-two.png') rgba(0, 0, 0, 0);
+      left: 70px;
+    }
+
+    &_three {
+      right: 90px;
+      background: url('/assets/games/sprint/level-three.png') rgba(0, 0, 0, 0);
+    }
+
+    &_four {
+      right: -20px;
+      background: url('/assets/games/sprint/level-four.png') rgba(0, 0, 0, 0);
+    }
+  }
+
+  &__play-button {
+    width: 15vw;
+    align-self: center;
+    justify-self: center;
+    background-color: #ed675b;
+  }
+
+  &__score {
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: #369a7e;
+    height: 10vw;
+    min-height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &_lvl-one {
+      background-color: #12909E;
+    }
+
+    &_lvl-two {
+      background-color: #EB8660;
+    }
+
+    &_lvl-three {
+      background-color: #CC6745;
+    }
+
+    &_lvl-four {
+      background-color: #704698;
+    }
+
+    &-circles {
+      display: flex;
+      margin: 5px;
+    }
+
+    &-circle {
+      background-color: grey;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 5px;
+    }
+
+    &-circle_filled {
+      background: url('/assets/games/sprint/correct.webp');
+      background-color: #fd3359;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
+  &__roof {
+    height: 50px;
+    width: 100%;
+
+    &_lvl-one {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(#12909E),
+          color-stop(0.49, #12909E),
+          color-stop(0.51, white),
+          to(white));
+      -webkit-background-size: 29px 100%;
+    }
+
+    &_lvl-two {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(#EB8660),
+          color-stop(0.49, #EB8660),
+          color-stop(0.51, white),
+          to(white));
+      -webkit-background-size: 29px 100%;
+    }
+
+    &_lvl-three {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(#CC6745),
+          color-stop(0.49, #CC6745),
+          color-stop(0.51, white),
+          to(white));
+      -webkit-background-size: 29px 100%;
+    }
+
+    &_lvl-four {
+      background: -webkit-gradient(radial,
+          50% 0,
+          1,
+          50% 0,
+          40,
+          from(#704698),
+          color-stop(0.49, #704698),
+          color-stop(0.51, white),
+          to(white));
+      -webkit-background-size: 29px 100%;
+    }
+  }
+
+  &__word-name {
+    text-align: center;
+    align-self: center;
+    color: #3c4043;
+    margin-bottom: 15px;
+  }
+
+  &__word {
+    align-self: center;
+    height: 200px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__word-translate {
+    margin: 20px 0 10px 0;
+    text-align: center;
+    align-self: center;
+    color: #3c4043;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    button {
+      width: 10vw;
+      min-width: fit-content;
+      margin-bottom: 5vw;
+      background-color: #ed675b;
+      color: white;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.unhidden {
+  display: block;
+}
+
+@keyframes gameOpac {
+  0% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .game__img-lvl {
+    width: 50px;
+    &_one{left: -14px}
+    &_two{left: 25px}
+    &_three{right: 44px}
+    &_four{right: 0px}
+  }
+}
+@media screen and (min-width: 800px) {
+  .game__img-lvl {
+    width: 60px;
+    &_two{left: 50px}
+    &_three{right: 70px}
+  }
+}
+@media screen and (min-width: 1000px) {
+  .game__img-lvl {
+    width: 80px;
+    &_two{left: 66px}
+    &_three{right: 78px}
+  }
+}
+@media screen and (min-width: 1400px) {
+  .game__img-lvl {
+    width: 120px;
+    height: 140px;
+    &_two{left: 100px}
+    &_three{right: 106px}
+  }
+}

@@ -1,0 +1,86 @@
+<div class="savannah__container">
+  <app-screen-size-changer></app-screen-size-changer>
+  <div class="game__menu" *ngIf="IsNeedGameMenu">
+    <h2 class="game__title">Savannah</h2>
+    <h3 class="game__subtitle">
+      In this game you need to use your skills to choose the appropriate answer
+    </h3>
+    <div *ngIf="isShownGameSettings">
+      <app-game-start-settings
+        [groupsAmount]="groupsAmount"
+        [pagesAmount]="pagesAmount"
+        (groupNumberChange)="groupNumberChangeHandler($event)"
+        (pageChange)="pageChangeHandler($event)"
+      >
+      </app-game-start-settings>
+    </div>
+    <div *ngIf="!words">
+      <mat-spinner
+        *ngIf="isLoading"
+        style="margin: 0 auto"
+        mode="indeterminate"
+      ></mat-spinner>
+      <button
+        class="game__play-button"
+        *ngIf="!isLoading"
+        mat-stroked-button
+        (click)="getWords()"
+      >
+        get words
+      </button>
+    </div>
+    <div *ngIf="words">
+      <button
+        class="game__play-button"
+        *ngIf="words"
+        mat-stroked-button
+        (click)="startGame()"
+      >
+        play
+      </button>
+    </div>
+  </div>
+  <div class="savannah__game" *ngIf="isGameStart">
+    <div class="savannah__control-panel">
+      <div class="savannah__health">
+        <mat-icon aria-hidden="true" class="" *ngFor="let live of lives"
+          >favorite</mat-icon
+        >
+      </div>
+    </div>
+    <div class="savannah__body">
+      <div
+        [@fallingDownAnimation]="fallingDownAnimationState"
+        class="savannah__question"
+      >
+        {{ currentWord.word }}
+      </div>
+      <div
+        class="savannah__answers"
+        (window:keydown)="onKeyDownHandler($event)"
+      >
+        <button
+          mat-stroked-button
+          *ngFor="let answer of currentAnswers; index as i"
+          class="savannah__answer"
+          (click)="checkAnswer(answer)"
+        >
+          {{ i + 1 }} {{ answer.wordTranslate }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isGameStart" class="savannah__icon">
+    <img
+      class="savannah__icon__crystal"
+      src="assets/images/Icon_crystal.svg"
+      alt="crystal"
+    />
+  </div>
+  <div class="game__menu-finished" *ngIf="isGameEnd">
+    <app-finish-menu
+      [correctGamePercent]="correctGamePercent"
+      [gameResultWords]="gameResultWords"
+    ></app-finish-menu>
+  </div>
+</div>

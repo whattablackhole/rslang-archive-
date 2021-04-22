@@ -1,0 +1,138 @@
+<div class="main-wrapper">
+  <section class="main" data-aos="fade-up" data-aos-duration="1000">
+    <div class="main__wrapper">
+      <div class="main__promo">
+        <div class="main__promo__titles">
+          <h4 class="main__promo__titles__sub-title">The best choice</h4>
+          <h2 class="main__promo__titles__title">Be easy & learn English</h2>
+          <div class="main__promo__titles__description">
+            You will find easiest and most practical way to learn English here.
+          </div>
+        </div>
+        <button mat-flat-button color="primary" class="main__button">
+          Sign up
+        </button>
+      </div>
+      <div class="main__pic">
+        <img
+          src="../../../../assets/images/main_page.svg"
+          alt="learn_english"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="main__video" data-aos="fade-up" data-aos-duration="500" data-aos-offset="200">
+    <div class="main__video__wrapper">
+      <div class="main__video__wrapper__item"></div>
+      <iframe
+        class="main__video__element"
+        src="https://www.youtube.com/embed/VeDh-lBCgh0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+  </section>
+  <section class="main__team" data-aos="fade-up"  data-aos-duration="1000">
+    <mat-accordion>
+      <mat-expansion-panel
+        (opened)="panelOpenState=true"
+        (closed)="panelOpenState=false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-description>
+            <p class="main__team__panel-description">Click to show our team</p>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-team></app-team>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </section>
+
+  <div class="show__team">
+    <app-team></app-team>
+  </div>
+
+  <section class="main__games">
+    <h3 class="main__games__title">OUR GAMES</h3>
+    <div class="main__games__cards">
+      <mat-card *ngFor="let game of games" class="main__games__item" data-aos="fade-left" data-aos-duration="1000" data-aos-offset="200">
+        <h3 class="main__games__item__title">{{ game.title }}</h3>
+        <div class="main__games__item__description">
+          <p class="main__games__item__description-text">
+            {{ game.description }}
+          </p>
+        </div>
+      </mat-card>
+    </div>
+  </section>
+
+  <section class="main__advantages">
+    <h3 class="main__advantages__title">OUR ADVANTAGES</h3>
+    <div class="main__advantages__items">
+      <div class="main__advantages__item" data-aos="fade-right"  data-aos-offset="200">
+        <div class="main__advantages__item__icon">
+          <img
+            src="../../../../assets/images/personalized_program_icon.svg"
+            alt="personalized_program"
+          />
+        </div>
+        <h3 class="main__advantages__item__title">
+          Personalized learning program
+        </h3>
+        <div class="main__advantages__item__description">
+          <p class="main__advantages__item__description-text">
+            Learn with a program created by experts in linguistics
+          </p>
+        </div>
+      </div>
+
+      <div class="main__advantages__item" data-aos="fade-left" data-aos-offset="200">
+        <div class="main__advantages__item__icon">
+          <img
+            src="../../../../assets/images/statistics_icon.svg"
+            alt="statistics"
+          />
+        </div>
+        <h3 class="main__advantages__item__title">Statistics</h3>
+        <div class="main__advantages__item__description">
+          <p class="main__advantages__item__description-text">
+            Track your progress and enjoy the results
+          </p>
+        </div>
+      </div>
+
+      <div class="main__advantages__item" data-aos="fade-right" data-aos-offset="200">
+        <div class="main__advantages__item__icon">
+          <img src="../../../../assets/images/gaming_icon.svg" alt="gaming" />
+        </div>
+        <h3 class="main__advantages__item__title">Learn while playing</h3>
+        <div class="main__advantages__item__description">
+          <p class="main__advantages__item__description-text">
+            Gamification has proven to be effective for all ages
+          </p>
+        </div>
+      </div>
+
+      <div class="main__advantages__item" data-aos="fade-right" data-aos-offset="200">
+        <div class="main__advantages__item__icon">
+          <img
+            src="../../../../assets/images/different_appr_icon.svg"
+            alt="personalized_program"
+          />
+        </div>
+        <h3 class="main__advantages__item__title">
+          Different approaches to learning
+        </h3>
+        <div class="main__advantages__item__description">
+          <p class="main__advantages__item__description-text">
+            You can read or play or listen speech on the way
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer></app-footer>

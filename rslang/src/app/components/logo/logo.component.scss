@@ -1,0 +1,42 @@
+@import "src/variables";
+
+:host {
+  outline: none;
+}
+
+.logo-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.logo-container:hover {
+  cursor: pointer;
+}
+
+.logo-container:active,
+.logo-container:focus {
+  outline: none;
+}
+
+.logo-container:focus {
+  outline: 0px solid transparent
+}
+
+.logo {
+  height: 40px;
+  margin-top: 10px;
+  border: none;
+  outline: none;
+}
+
+.logo-title {
+  font-size: 32px;
+  line-height: 50px;
+  color: $main_blue;
+  margin-top: 8px;
+}

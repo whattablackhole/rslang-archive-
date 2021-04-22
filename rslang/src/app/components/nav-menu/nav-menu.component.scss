@@ -1,0 +1,64 @@
+@import "src/variables";
+.menu__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  background-color: white;
+  @include common-padding;
+}
+
+.btn{
+  background: $accent_color;
+  color: #fff;
+  box-shadow: 2px 2px 5px $main_gray_color;
+}
+
+.main-menu {
+  font-size: 20px;
+  width: fit-content;
+}
+
+.main-menu button {
+  margin-right: 5px;
+}
+
+.account-icon {
+  max-width: 25px;
+  width: 100%;
+  height: auto;
+}
+
+.logo-wrapper {
+  // width: 100%;
+  width: 200px;
+}
+
+.logo-wrapper:active,
+.logo-wrapper:focus {
+  outline: none;
+}
+
+
+.account-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 70px;
+  width: 100%;
+}
+
+@media  only screen and (max-width: 800px){
+  .main-menu  {
+    display: none;
+  }
+}
+
+@media  only screen and (max-width: 480px){
+  .account-icon {
+    display: none;
+  }
+  mat-toolbar {
+    padding: 1rem;
+  }
+}

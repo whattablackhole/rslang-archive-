@@ -1,0 +1,64 @@
+@import "src/variables";
+:host {
+  background-color: lighten(grey, 30%);
+  width: 100%;
+  height: 40px;
+}
+
+.footer__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  background: $main_blue;
+  color: #fff;
+  font-size: 0.9rem;
+  @include common-padding;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.footer__logo {
+  height: 25px;
+}
+
+.footer__team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__list-item {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+
+}
+
+.footer__list {
+  display: flex;
+  gap: 5px;
+}
+
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  width: 25px;
+  height: 25px;
+}
+
+@media screen and (max-width: 640px) {
+  .footer__year-text {
+    display: none;
+  }
+
+  .footer__team-text {
+    display: none;
+  }
+}

@@ -1,0 +1,23 @@
+<app-ebook-header
+  [title]="title"
+  (pageChanged)="changeSelectedPage($event)"
+  (groupChanged)="changeSelectedGroup($event)">
+</app-ebook-header>
+<section class="words-conteiner">
+  <ng-container *ngIf="!!words.length; else isEmptyCart" class="words-conteiner">
+    <app-word-item
+      class="words-conteiner__item"
+      [optionsChecked]="optionsChecked"
+      *ngFor ="let item of words | slice:20*(state.page-1):20*state.page | filterByAction:userWords"
+      [item]="item"
+      [ebook]="ebook"
+      (setRestore)=actionRestoreWord($event)
+      (setAction)=setActionForWord($event)>
+    </app-word-item>
+  </ng-container>
+</section>
+<app-game-sidenav class="words-conteiner__game-nav" [ebook]="ebook"></app-game-sidenav>
+<ng-template #isEmptyCart>
+  <h2>Select a page of words to study, please</h2>
+</ng-template>
+

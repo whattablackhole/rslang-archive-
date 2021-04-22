@@ -1,0 +1,10 @@
+<div class="statistic-page">
+  <h1>Statistic</h1>
+  <mat-tab-group mat-align-tabs="center" class="statistic-page__tab">
+    <mat-tab *ngFor="let statistic of statisticsList" [label]="statistic.date.toLocaleDateString()">
+      <app-short-term-statistic [statistic]="statistic"></app-short-term-statistic>
+    </mat-tab>
+  </mat-tab-group>
+  <app-long-term-statistic [statistics]="statisticsList"></app-long-term-statistic>
+</div>
+<app-footer></app-footer>

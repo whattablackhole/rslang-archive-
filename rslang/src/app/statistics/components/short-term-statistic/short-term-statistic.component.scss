@@ -1,0 +1,23 @@
+.statistic-page__short{
+  text-align: center;
+  padding: 10px;
+  width: 400px;
+}
+
+.short-table{
+  display: flex;
+  flex-direction: column;
+  &__row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    p{
+      width: 100%;
+      text-align: center;
+    }
+  }
+  &__title{
+    font-weight: bold;
+  }
+}

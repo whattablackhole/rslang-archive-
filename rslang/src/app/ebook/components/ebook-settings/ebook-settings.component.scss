@@ -1,0 +1,136 @@
+@import '../../constants/theme-ebook.scss';
+
+$ratio: 16;
+$size: $ratio + px;
+$ratio: $ratio;
+$gutter: 4px;
+$stroke-dash: 270;
+$stroke: (
+  thickness: $gutter/2,
+  style: solid,
+  color: darken($clr-5, 25%),
+);
+$mark-ischecked: (
+  stroke-dashoffset: 0
+);
+$label-ischecked: ();
+$svg-ischecked: (background: lighten($clr-5, 50%));
+
+.ebook-settings {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 120px;
+  padding: 30px 0;
+  width: 250px;
+  height: 100vh;
+
+  display: block;
+  position: relative;
+  padding-left: 15px;
+  margin-bottom: 12px;
+
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .subtitle {
+    margin-top: 12px;
+    font-weight: 500;
+    color: darken($clr-5, 25%);
+  }
+
+  .btn {
+    margin: 15px 0 0 25px;
+    padding: 6px 20px 6px 20px;
+    outline: none;
+    font-weight: 900;
+    color: darken($clr-5, 25%);
+    border-radius: 4px;
+    border: 2px solid darken($clr-5, 25%);
+    cursor: pointer;
+
+    &:hover {
+      color: $clr-white ;
+      font-weight: 900;
+      background-color: darken($clr-5, 25%);
+    }
+  }
+
+  input[type="text"] {
+    position: relative;
+    margin: 10px 0;
+    padding: 6px 20px 6px 6px;
+    height: auto;
+    width: 100px;
+    opacity: 1;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid darken($clr-5, 25%);
+    transition: border-color .2s ease-in-out;
+
+    &:focus {
+      border-color: darken($clr-5, 25%)
+    }
+  }
+
+  input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    position: absolute;
+    opacity: 0;
+
+    &:checked ~ label {
+      @each $key, $value in $label-ischecked {
+        #{$key}: #{$value};
+      }
+    }
+
+    &:focus ~ label svg,
+    &:checked ~ label svg {
+      @each $key, $value in $svg-ischecked {
+        #{$key}: #{$value};
+      }
+    }
+
+    &:checked ~ label svg path {
+      @each $key, $value in $mark-ischecked {
+        #{$key}: #{$value};
+      }
+    }
+  }
+
+  input[type="checkbox"] ~ label {
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    color: $clr-2;
+  }
+
+  input[type="checkbox"] ~ label svg {
+    width: $size;
+    height: $size;
+    border-radius: 4px;
+    border: zip(map-values($stroke)...);
+    margin-left: $gutter;
+
+    path {
+      transition: stroke-dashoffset 440ms cubic-bezier(0.69, 0.35, 0.63, 0.84);
+      fill: none;
+      stroke: $clr-1;
+      stroke-dasharray: $stroke-dash;
+      stroke-dashoffset: $stroke-dash;
+      stroke-width: $gutter;
+    }
+  }
+}
+

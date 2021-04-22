@@ -1,0 +1,55 @@
+<div class="item">
+    <div class="item__description">
+    <img [src]=[item.image] alt="{{ item.word }}" class="circle"/>
+    <span>
+      <strong *ngIf="action=='hard'" class="label-hard"  appShowLabelHardWord>?</strong>
+      <strong class="word">{{ item.word }} </strong>
+      <strong [style.font-size.px]="16" > {{ item.transcription }}</strong>
+      <strong *ngIf="optionsChecked.translationOfWord"> - {{ item.wordTranslate }}</strong>
+    </span>
+    <span *ngIf="optionsChecked.examplesOfUse" [innerHTML]="item.textMeaning">
+      <button (click)="playSound(item.audioMeaning)" mat-icon-button>
+        <mat-icon>campaign</mat-icon>
+      </button>
+      <i *ngIf="optionsChecked.translationOfExamples"> / {{ item.textMeaningTranslate }}</i>
+    </span>
+    <span *ngIf="optionsChecked.examplesOfUse" [innerHTML]="item.textExample">
+      <button (click)="playSound(item.audioExample)" mat-icon-button>
+        <mat-icon (click)="playSound(item.audioExample)">campaign</mat-icon>
+      </button>
+      <i *ngIf="optionsChecked.translationOfExamples"> / {{ item.textExampleTranslate }}</i>
+    </span>
+  </div>
+  <div class="item__buttons" *ngIf="ebook">
+    <img
+      src="../../../../assets/ebbok/speechIco.svg"
+      alt="speech"
+      (click)="playSound(item.audio)"
+      class="action-btn" />
+    <img
+      src="../../../../assets/ebbok/difficultIco.svg"
+      alt="hard"
+      *ngIf="optionsChecked.isDifficult"
+      (click)="changeAction('hard', item.id)"
+      class="action-btn" />
+    <img
+      src="../../../../assets/ebbok/deleteIco.svg"
+      alt="removed"
+      *ngIf="optionsChecked.isRemoted"
+      (click)="changeAction('removed', item.id)"
+      class="action-btn" />
+  </div>
+  <div class="item__buttons" *ngIf="!ebook">
+    <img
+      src="../../../../assets/ebbok/speechIco.svg"
+      alt="speech"
+      (click)="playSound(item.audio)"
+      class="action-btn" />
+    <img
+      src="../../../../assets/ebbok/restoreIco.svg"
+      alt="removed"
+      *ngIf="optionsChecked.isRemoted"
+      (click)="changeRestore(item.id)"
+      class="action-btn" />
+  </div>
+</div>

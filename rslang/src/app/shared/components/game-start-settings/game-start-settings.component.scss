@@ -1,0 +1,26 @@
+.game__select-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  color: #fff;
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: transparent;
+  }
+}
+
+mat-label{
+  margin-bottom: 1em;
+}
+.mat-form-field-appearance-outline{
+  width: 70px;
+}
+.mat-select-arrow, .mat-select {
+  color: #fff;
+}
+
+.mat-select-value-text{
+  color: #fff;
+}
+
